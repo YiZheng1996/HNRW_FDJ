@@ -1,0 +1,349 @@
+﻿using System;
+using Sunny.UI;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MainUI.Widget;
+using MainUI.Modules;
+using static MainUI.Modules.EventArgsModel;
+
+namespace MainUI
+{
+    public partial class frmAllData : UIForm
+    {
+        // 模拟量的集合
+        Dictionary<string, ucNum> ucParamList = new Dictionary<string, ucNum>();
+        string[] hardware = new string[]
+        {
+            "备用电源检测",
+            "泵和水箱出水关到位-20",
+            "泵和水箱出水开到位-20",
+            "泵和水箱前回水关到位-23",
+            "泵和水箱前回水开到位-23",
+            "柴油机启动",
+            "柴油机停止",
+            "柴油箱进油关到位-164",
+            "柴油箱进油开到位-164",
+            "抽高温水关到位-21",
+            "抽高温水开到位-21",
+            "抽油泵合闸检测",
+            "抽油泵热继检测",
+            "抽中冷水关到位-31",
+            "抽中冷水开到位-31",
+            "出油路1关到位-190",
+            "出油路1开到位-190",
+            "待处理机油箱补油关到位-139",
+            "待处理机油箱补油开到位-139",
+            "待处理机油箱进油关到位-116",
+            "待处理机油箱进油开到位-116",
+            "待处理机油箱通处理机关到位-139",
+            "待处理机油箱通处理机开到位-139",
+            "发动机DC24V配电",
+            "高温水关到位-3",
+            "高温水开到位-3",
+            "高温水冷却水进口电动调节阀故障-87",
+            "高温水膨胀水箱出关到位-30",
+            "高温水膨胀水箱出开到位-30",
+            "回油关到位-179",
+            "回油开到位-179",
+            "机滤器前1关到位-91",
+            "机滤器前1开到位-91",
+            "机滤器前2关到位-100",
+            "机滤器前2开到位-100",
+            "机器间电源检测",
+            "机器间配电柜体后门检测",
+            "机器间配电柜体前门检测",
+            "机油泵预供油关到位-93",
+            "机油泵预供油开到位-93",
+            "机油处理机电源检测",
+            "机油处理箱出关到位-136",
+            "机油处理箱出开到位-136",
+            "机油处理箱进关到位-135",
+            "机油处理箱进开到位-135",
+            "机油冷却器进水电动调节阀故障-89",
+            "机油箱出油关到位-111",
+            "机油箱出油开到位-111",
+            "机油箱到处理机关到位-133",
+            "机油箱到处理机开到位-133",
+            "机油箱清洁来油关到位-137",
+            "机油箱清洁来油开到位-137",
+            "机油箱油泵来油关到位-115",
+            "机油箱油泵来油开到位-115",
+            "机油预供泵启动",
+            "机油预供泵停止",
+            "紧急停止",
+            "进气风道右调节阀故障",
+            "进气风道右调节阀关",
+            "进气风道右调节阀开",
+            "进气风道右调节阀远程",
+            "进气风道左调节阀故障",
+            "进气风道左调节阀关",
+            "进气风道左调节阀开",
+            "进气风道左调节阀远程",
+            "进气加热电源检测",
+            "控制电源检测",
+            "控制间1柜前门检测",
+            "控制间2柜前门检测",
+            "控制间3柜前门检测",
+            "冷却器回油关到位-90",
+            "冷却器回油开到位-90",
+            "冷却水进水关到位-61",
+            "冷却水进水开到位-61",
+            "内循环水来水关到位-28",
+            "内循环水来水开到位-28",
+            "排气风道右调节阀故障",
+            "排气风道右调节阀关",
+            "排气风道右调节阀开",
+            "排气风道右调节阀远程",
+            "排气风道左调节阀故障",
+            "排气风道左调节阀关",
+            "排气风道左调节阀开",
+            "排气风道左调节阀远程",
+            "膨胀水箱补水进关到位-29",
+            "膨胀水箱补水进开到位-29",
+            "启动柜电源检测",
+            "燃油泵/预热水泵电源检测",
+            "燃油泵1电动调节阀故障-170",
+            "燃油泵1电动调节阀就地-170",
+            "燃油泵1电动调节阀全关-170",
+            "燃油泵1电动调节阀全开-170",
+            "燃油泵1合闸检测",
+            "燃油泵1热继检测",
+            "燃油泵2合闸检测",
+            "燃油泵2热继检测",
+            "燃油泵旁路1电动调节阀故障-194",
+            "燃油泵旁路1电动调节阀就地-194",
+            "燃油泵旁路1电动调节阀全关-194",
+            "燃油泵旁路1电动调节阀全开-194",
+            "设备间电源检测",
+            "设备间控制柜体后门检测",
+            "设备间控制柜体前门检测",
+            "水泵出口电动调节阀故障-18",
+            "水泵出口电动调节阀就地-18",
+            "水泵出口电动调节阀全关-18",
+            "水泵出口电动调节阀全开-18",
+            "水阻升降电机上升合闸检测",
+            "水阻升降电机下降合闸检测",
+            "水阻升降电机热继检测",
+            "水阻升降机电源",
+            "尾气处理装置电源检测",
+            "污油排出泵Y检测",
+            "污油排出泵电源检测",
+            "污油排出泵检测",
+            "污油排出泵热继检测",
+            "污油排出泵主接检测",
+            "油泵出油关到位-97",
+            "油泵出油开到位-97",
+            "油泵管路进油关到位-95",
+            "油泵管路进油开到位-95",
+            "油泵进油关到位-96",
+            "油泵进油开到位-96",
+            "油底壳抽油关到位-92",
+            "油底壳抽油开到位-92",
+            "油底壳加油关到位-122",
+            "油底壳加油开到位-122",
+            "预供机油泵电源检测",
+            "预供机油泵合闸检测",
+            "预供机油泵热继检测",
+            "预热水泵Y检测",
+            "预热水泵出口关到位-17",
+            "预热水泵出口开到位-17",
+            "预热水泵检测",
+            "预热水泵进口关到位-16",
+            "预热水泵进口开到位-16",
+            "预热水泵热继检测",
+            "预热水泵主接检测",
+            "预热水箱出水关到位-15",
+            "预热水箱出水开到位-15",
+            "预热水箱电源检测",
+            "预热水箱回水关到位-22",
+            "预热水箱回水关到位-24",
+            "预热水箱回水开到位-22",
+            "预热水箱回水开到位-24",
+            "预热水箱加热器控制1检测",
+            "预热水箱加热器控制2检测",
+            "预热水箱加热器控制3检测",
+            "预热水箱加热器控制4检测",
+            "预热水箱加热器控制5检测",
+            "预热水箱加热器控制6检测",
+            "预热水箱加水关到位-26",
+            "预热水箱加水关到位-27",
+            "预热水箱加水开到位-26",
+            "预热水箱加水开到位-27",
+            "中冷水冷却水进口电动调节阀故障-88",
+            "中冷水循环关到位-41",
+            "中冷水循环开到位-41",
+            "主发励磁柜电源",
+            "主发通风机1Y检测",
+            "主发通风机1检测",
+            "主发通风机1热继检测",
+            "主发通风机1主接检测",
+            "主发通风机2Y检测",
+            "主发通风机2检测",
+            "主发通风机2热继检测",
+            "主发通风机2主接检测",
+            "主发通风机电源",
+        };
+        public frmAllData()
+        {
+            InitializeComponent();
+
+            // 加载所有控件
+            LoadAllValve(this);
+            AddHardware();
+            LoadAllHardware();
+            Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange;
+            Common.AOgrp.KeyValueChange += AOgrp_KeyValueChange;
+            Common.AIgrp.KeyValueChange += AIgrp_KeyValueChange;
+            Common.engineOilGrp.KeyValueChange += EngineOilGrp_KeyValueChange;
+            Common.fuelGrp.KeyValueChange += FuelGrp_KeyValueChange;
+            Common.waterGrp.KeyValueChange += WaterGrp_KeyValueChange;
+            Common.AI2Grp.KeyValueChange += EngineParaGrp_KeyValueChange;
+
+
+            //SetAllUCNumValues();
+
+
+            //初始化数据
+            Common.AOgrp.Fresh();
+            Common.AIgrp.Fresh();
+            Common.DIgrp.Fresh();
+            Common.engineOilGrp.Fresh();
+            Common.fuelGrp.Fresh();
+            Common.waterGrp.Fresh();
+            Common.AI2Grp.Fresh();
+            Common.threePhaseElectric.Fresh();
+        }
+
+        private void DIgrp_KeyValueChange(object sender, DIValueChangedEventArgs e)
+        {
+            if (dicHardware.ContainsKey(e.Key))
+            {
+                dicHardware[e.Key].LightState = Convert.ToBoolean(e.Value);
+            }
+        }
+
+        Dictionary<string, ucHardware> dicHardware = new Dictionary<string, ucHardware>();
+        private void LoadAllHardware()
+        {
+            foreach (var item in this.flowLayoutPanel1.Controls)
+            {
+                if (item is ucHardware)
+                {
+                    ucHardware uchw = item as ucHardware;
+                    dicHardware.Add(uchw.Tag.ToString(), uchw);
+                }
+            }
+        }
+        private void AddHardware()
+        {
+            for (int i = 0; i < hardware.Length; i++)
+            {
+                ucHardware hw = new ucHardware();
+                hw.Title = hardware[i];
+                hw.Tag = hardware[i];
+                hw.Size = new Size(200, 60);
+                this.flowLayoutPanel1.Controls.Add(hw);
+
+            }
+        }
+        private void EngineParaGrp_KeyValueChange(object sender, DoubleValueChangedEventArgs e)
+        {
+            if (ucParamList.ContainsKey(e.Key))
+            {
+                ucParamList[e.Key].Value = e.Value;
+            }
+        }
+
+        private void WaterGrp_KeyValueChange(object sender, DoubleValueChangedEventArgs e)
+        {
+            if (ucParamList.ContainsKey(e.Key))
+            {
+                ucParamList[e.Key].Value = e.Value;
+            }
+        }
+
+        private void FuelGrp_KeyValueChange(object sender, DoubleValueChangedEventArgs e)
+        {
+            if (ucParamList.ContainsKey(e.Key))
+            {
+                ucParamList[e.Key].Value = e.Value;
+            }
+        }
+
+        private void EngineOilGrp_KeyValueChange(object sender, DoubleValueChangedEventArgs e)
+        {
+            if (ucParamList.ContainsKey(e.Key))
+            {
+                ucParamList[e.Key].Value = e.Value;
+            }
+        }
+
+        private void AIgrp_KeyValueChange(object sender, DoubleValueChangedEventArgs e)
+        {
+            if (ucParamList.ContainsKey(e.Key))
+            {
+                ucParamList[e.Key].Value = e.Value;
+            }
+        }
+
+        private void AOgrp_KeyValueChange(object sender, DoubleValueChangedEventArgs e)
+        {
+            if (ucParamList.ContainsKey(e.Key))
+            {
+                ucParamList[e.Key].Value = e.Value;
+            }
+
+        }
+
+        /// <summary>
+        /// 把所有点位添加到字典
+        /// </summary>
+        private void LoadAllValve(Control con)
+        {
+            try
+            {
+                foreach (Control item in con.Controls)
+                {
+                    LoadAllValve(item);
+                }
+
+                if (con is ucNum)
+                {
+                    ucNum ucNum = con as ucNum;
+                    if (ucNum.Tag != null && string.IsNullOrEmpty(ucNum.Tag.ToString()) == false)
+                    {
+                        ucParamList.Add(ucNum.Tag.ToString(), ucNum);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Var.MsgBoxWarn(this, "数据显示框添加控件错误" + ex.ToString());
+            }
+        }
+
+        private void SetAllUCNumValues()
+        {
+            Random random = new Random();
+            for (int i = 1; i <= 100; i++)
+            {
+                string controlName = "ucNum" + i;
+                Control[] foundControls = this.Controls.Find(controlName, true);
+
+                if (foundControls.Length > 0 && foundControls[0] is ucNum ucNumControl)
+                {
+                    ucNumControl.Value = Math.Round(random.NextDouble() * 100, 1);
+                }
+            }
+        }
+
+
+    }
+}

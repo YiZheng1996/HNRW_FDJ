@@ -1,0 +1,486 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>rwReport</name>
+    </assembly>
+    <members>
+        <member name="P:RW.UI.Controls.Report.frmReport.SetReportReadWrite">
+            <summary>
+            设置报表读写权限（1为可读写，0为只读）
+            </summary>
+        </member>
+        <member name="P:RW.UI.Controls.Report.frmReport.Filename">
+            <summary>
+            报表的文件地址
+            </summary>
+        </member>
+        <member name="P:RW.UI.Controls.Report.frmReport.AutoSave">
+            <summary>
+            自动保存，当关闭时，自动保存（历史记录时也会保存）
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.frmReport.Print">
+              <summary> 
+              用Excel打印。   
+              </summary> 
+        </member>
+        <member name="M:RW.UI.Controls.Report.frmReport.Write(System.String,System.Object)">
+            <summary>
+            将value写入到key中，使用第一个worksheet
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.frmReport.Write(System.Int32,System.String,System.Object)">
+            <summary>
+            将value写入到key中，使用指定的worksheet
+            </summary>
+            <param name="sheetIndex"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:RW.UI.Controls.Report.frmReport.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.frmReport.Dispose(System.Boolean)">
+            <summary>
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.frmReport.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="F:RW.UI.Controls.Report.frmTestReport.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.frmTestReport.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.frmTestReport.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:RW.UI.Controls.Report.IExcelReport">
+            <summary>
+            excel报表操作接口
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.ClearPicture">
+            <summary>
+            清空图片
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.Close">
+            <summary>
+            关闭
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.InsertPicture(System.String,System.String)">
+            <summary>
+            插入一张图片到指定位置
+            </summary>
+            <param name="RangeName">单元格名称</param>
+            <param name="PicturePath">图片路径</param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.InsertPicture(System.String,System.String,System.Single,System.Single)">
+            <summary>
+            插入一张图片到指定位置
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.Merge">
+            <summary>
+            合并所选的单元格
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.Print">
+            <summary>
+            打印当前工作表
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.Read(System.Int32,System.String)">
+            <summary>
+            读取指定工作表的单元格的值，并返回
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.Read``1(System.Int32,System.String)">
+            <summary>
+            读取指定工作表的单元格的值，并返回指定的类型
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.Save">
+            <summary>
+            保存工作簿（所有工作表和设置等）
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.ScrollHorizontal(System.Int32)">
+            <summary>
+            转到指定的宽度
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.ScrollIndex(System.Int32,System.Int32)">
+            <summary>
+            转到指定的行列
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.ScrollVertical(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            转到指定的高度
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.IExcelReport.Write(System.Int32,System.String,System.Object)">
+            <summary>
+            将值写入到指定的工作表和单元格
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.Program.Main">
+            <summary>
+            应用程序的主入口点。
+            </summary>
+        </member>
+        <member name="T:RW.UI.Controls.Report.ReportConfig">
+            <summary>
+            报表配置文件
+            </summary>
+        </member>
+        <member name="F:RW.UI.Controls.Report.ReportConfig.Instance">
+            <summary>
+            报表配置的单例
+            </summary>
+        </member>
+        <member name="P:RW.UI.Controls.Report.ReportConfig.AutoSaveSize">
+            <summary>
+            是否自动保存
+            </summary>
+        </member>
+        <member name="P:RW.UI.Controls.Report.ReportConfig.Width">
+            <summary>
+            宽度
+            </summary>
+        </member>
+        <member name="P:RW.UI.Controls.Report.ReportConfig.Height">
+            <summary>
+            高度
+            </summary>
+        </member>
+        <member name="T:RW.UI.Controls.Report.RWExcel">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWExcel.Write(System.String,System.Object)">
+            <summary>
+            将value写入到key中，使用第一个worksheet
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWExcel.Write(System.Int32,System.Int32,System.Object)">
+            <summary>
+            往第一个工作表的指定单元格的值
+            </summary>
+            <param name="charIndex">列名</param>
+            <param name="index">行数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWExcel.Write(System.Int32,System.Int32,System.Int32,System.Object)">
+            <summary>
+            往指定工作表的指定单元格的值
+            </summary>
+            <param name="sheetIndex">工作表索引，从1开始</param>
+            <param name="charIndex">列名</param>
+            <param name="index">行数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWExcel.Write(System.Int32,System.String,System.Object)">
+            <summary>
+            将value写入到key中，使用指定的worksheet
+            </summary>
+            <param name="sheetIndex">从1开始的索引</param>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWExcel.InsertPicture(System.String,System.String)">
+            <summary>  
+            将图片插入到指定的单元格位置。  
+            注意：图片必须是绝对物理路径    /// </summary>  
+            <param name="RangeName">单元格名称，例如：B4</param>  
+            <param name="PicturePath">要插入图片的绝对路径。</param> 
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWExcel.InsertPicture(System.String,System.String,System.Single,System.Single)">
+            <summary> 
+            将图片插入到指定的单元格位置，并设置图片的宽度和高度。
+            注意：图片必须是绝对物理路径    
+            </summary>   
+            <param name="RangeName">单元格名称，例如：B4</param>  
+            <param name="PicturePath">要插入图片的绝对路径。</param>  
+            <param name="PictuteWidth">插入后，图片在Excel中显示的宽度。</param>    
+            <param name="PictureHeight">插入后，图片在Excel中显示的高度。</param>    
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWExcel.ScrollIndex(System.Int32,System.Int32)">
+            <summary>
+            转到指定的行
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWExcel.Merge">
+            <summary>
+            合并单元格
+            </summary>
+        </member>
+        <member name="T:RW.UI.Controls.Report.RWReport">
+            <summary>
+            通用报表控件 v1.0
+            基于WebBrowser，需要引用office.dll、excel.dll
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.#ctor">
+            <summary>
+            默认初始化
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.#ctor(System.String)">
+            <summary>
+            指定文件名初始化
+            </summary>
+            <param name="filename"></param>
+        </member>
+        <member name="P:RW.UI.Controls.Report.RWReport.Filename">
+            <summary>
+            获取和设置Excel的文件名称，在调用Load方法之前
+            </summary>
+        </member>
+        <member name="E:RW.UI.Controls.Report.RWReport.Opened">
+            <summary>
+            报表打开时触发的事件
+            </summary>
+        </member>
+        <member name="E:RW.UI.Controls.Report.RWReport.OpenError">
+            <summary>
+            报表打开失败时触发的事件
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.SetWrite(System.Boolean)">
+            <summary>
+            设置报表是否可编辑,true表示可编辑，false表示不可编辑。
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Read(System.Int32,System.String)">
+            <summary>
+            读取指定worksheet中的名称
+            </summary>
+            <param name="sheetIndex">从1开始的索引</param>
+            <param name="key">可以是A7、或者是自定义名称</param>
+            <returns>读取到的值</returns>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Read``1(System.Int32,System.String)">
+            <summary>
+            读取指定工作表中的名称，并强制转换类型
+            </summary>
+            <param name="key">可以是A7、或者是自定义名称</param>
+            <returns>读取到的值</returns>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Read``1(System.String)">
+            <summary>
+            读取第一个工作表中的名称，并强制转换类型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Read(System.String)">
+            <summary>
+            读取第一个worksheet中的名称
+            </summary>
+            <param name="key">可以是A7、或者是自定义名称</param>
+            <returns>读取到的值</returns>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Write(System.String,System.Object)">
+            <summary>
+            将value写入到key中，使用第一个worksheet
+            </summary>
+            <param name="key">可以是A7、或者是自定义名称</param>
+            <param name="value">需要写入的值</param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Write(System.Int32,System.String,System.Object)">
+            <summary>
+            将value写入到key中，使用指定的worksheet，写入不会抛出异常
+            </summary>
+            <param name="sheetIndex">从1开始的索引</param>
+            <param name="key">可以是A7、或者是自定义名称</param>
+            <param name="value">需要写入的值</param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Write(System.Int32,System.Int32,System.Object)">
+            <summary>
+            往第一个工作表的指定单元格的值
+            </summary>
+            <param name="charIndex">列名称，注意</param>
+            <param name="index">行数</param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Write(System.Int32,System.Int32,System.Int32,System.Object)">
+            <summary>
+            往指定工作表的指定单元格的值
+            </summary>
+            <param name="sheetIndex">从1开始的工作表索引</param>
+            <param name="charIndex">列名称，注意</param>
+            <param name="index">行数</param>
+            <param name="value"></param>
+        </member>
+        <member name="P:RW.UI.Controls.Report.RWReport.AsyncInit">
+            <summary>
+            异步初始化，由于excel加载时间过长，采用异步加载可减少程序卡顿
+            </summary>
+        </member>
+        <member name="P:RW.UI.Controls.Report.RWReport.AutoInit">
+            <summary>
+            是否自动初始化（自动初始化必须先给定Filename）
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Init">
+            <summary>
+            初始化界面
+            </summary>
+        </member>
+        <member name="P:RW.UI.Controls.Report.RWReport.IsInitialized">
+            <summary>
+            是否已经初始化
+            </summary>
+        </member>
+        <member name="E:RW.UI.Controls.Report.RWReport.Initialized">
+            <summary>
+            初始化后调用的事件
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.BeginInit">
+            <summary>
+            用于组件初始化时调用
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.EndInit">
+            <summary>
+            根据AutoInit属性，决定是否是需要自动调用Init方法
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.ScrollIndex(System.Int32,System.Int32)">
+            <summary>
+            转到指定的行
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.ScrollIndex(System.Int32)">
+            <summary>
+            转到指定的行
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.ScrollVertical(System.Int32)">
+            <summary>
+            转到指定的高度
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.ScrollHorizontal(System.Int32)">
+            <summary>
+            转到指定的宽度
+            </summary>
+            <param name="width"></param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Reload">
+            <summary>
+            重新加载
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Reload(System.String)">
+            <summary>
+            重新加载指定的文件
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Save">
+            <summary>
+            保存文件，直接保存原始文件
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.SaveAS(System.String)">
+            <summary>
+            文件另存为，自动调用SaveFileDialog
+            </summary>
+            <param name="filename"></param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Close">
+            <summary>
+            关闭Excel文件，由于WebBrowser的问题，可能无法完全关闭。（Excel进程）
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Print">
+            <summary>
+            调用打印机，打印报表
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.InsertPicture(System.String,System.String)">
+            <summary>  
+            将图片插入到指定的单元格位置。  
+            注意：图片必须是绝对物理路径    /// </summary>  
+            <param name="RangeName">单元格名称，例如：B4</param>  
+            <param name="PicturePath">要插入图片的绝对路径。</param> 
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.InsertPicture(System.String,System.String,System.Single,System.Single)">
+            <summary> 
+            将图片插入到指定的单元格位置，并设置图片的宽度和高度。
+            注意：图片必须是绝对物理路径    
+            </summary>   
+            <param name="RangeName">单元格名称，例如：B4</param>  
+            <param name="PicturePath">要插入图片的绝对路径。</param>  
+            <param name="PictuteWidth">插入后，图片在Excel中显示的宽度。</param>    
+            <param name="PictureHeight">插入后，图片在Excel中显示的高度。</param>    
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.ClearPicture">
+            <summary>
+            清空所有的图片
+            </summary>
+        </member>
+        <member name="F:RW.UI.Controls.Report.RWReport.components">
+            <summary> 
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.RWReport.InitializeComponent">
+            <summary> 
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="F:RW.UI.Controls.Report.TestReport.components">
+            <summary> 
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:RW.UI.Controls.Report.TestReport.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:RW.UI.Controls.Report.TestReport.InitializeComponent">
+            <summary> 
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+    </members>
+</doc>
