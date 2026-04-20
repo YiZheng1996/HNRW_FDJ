@@ -14,7 +14,7 @@
 				"servermain.CHANNEL_WRITE_OPTIMIZATIONS_DUTY_CYCLE": 10,
 				"servermain.CHANNEL_NON_NORMALIZED_FLOATING_POINT_HANDLING": 0,
 				"simulator.CHANNEL_ITEM_PERSISTENCE": false,
-				"simulator.CHANNEL_ITEM_PERSISTENCE_DATA_FILE": "D:\\ProgramData\\Kepware\\KEPServerEX\\V6\\Simulator\\ExChangeData.dat",
+				"simulator.CHANNEL_ITEM_PERSISTENCE_DATA_FILE": "C:\\ProgramData\\Kepware\\KEPServerEX\\V6\\Simulator\\ExChangeData.dat",
 				"devices": [
 					{
 						"common.ALLTYPES_NAME": "设备 1",
@@ -2626,6 +2626,78 @@
 							{
 								"common.ALLTYPES_NAME": "DO",
 								"tags": [
+									{
+										"common.ALLTYPES_NAME": "1号右进气管阀1",
+										"common.ALLTYPES_DESCRIPTION": "1号右进气管阀1",
+										"servermain.TAG_ADDRESS": "DB143.DBX34.4",
+										"servermain.TAG_DATA_TYPE": 1,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "1号右进气管阀2",
+										"common.ALLTYPES_DESCRIPTION": "1号右进气管阀2",
+										"servermain.TAG_ADDRESS": "DB143.DBX34.5",
+										"servermain.TAG_DATA_TYPE": 1,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "1号右排气管阀1",
+										"common.ALLTYPES_DESCRIPTION": "1号右排气管阀1",
+										"servermain.TAG_ADDRESS": "DB143.DBX34.6",
+										"servermain.TAG_DATA_TYPE": 1,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "1号右排气管阀2",
+										"common.ALLTYPES_DESCRIPTION": "1号右排气管阀2",
+										"servermain.TAG_ADDRESS": "DB143.DBX34.7",
+										"servermain.TAG_DATA_TYPE": 1,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "2号左进气管阀1",
+										"common.ALLTYPES_DESCRIPTION": "2#左进气管阀1",
+										"servermain.TAG_ADDRESS": "DB143.DBX34.0",
+										"servermain.TAG_DATA_TYPE": 1,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "2号左进气管阀2",
+										"common.ALLTYPES_DESCRIPTION": "2#左进气管阀2",
+										"servermain.TAG_ADDRESS": "DB143.DBX34.1",
+										"servermain.TAG_DATA_TYPE": 1,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "2号左排气管阀1",
+										"common.ALLTYPES_DESCRIPTION": "2#左排气管阀1",
+										"servermain.TAG_ADDRESS": "DB143.DBX34.2",
+										"servermain.TAG_DATA_TYPE": 1,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "2号左排气管阀2",
+										"common.ALLTYPES_DESCRIPTION": "2#左排气管阀2",
+										"servermain.TAG_ADDRESS": "DB143.DBX34.3",
+										"servermain.TAG_DATA_TYPE": 1,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
 									{
 										"common.ALLTYPES_NAME": "Y03阀控制",
 										"common.ALLTYPES_DESCRIPTION": "高温水阀控制",
@@ -9981,7 +10053,7 @@
 				"thingworxinterface.LOG_LEVEL": 3,
 				"thingworxinterface.VERBOSE": false,
 				"thingworxinterface.STORE_AND_FORWARD_ENABLED": false,
-				"thingworxinterface.STORAGE_PATH": "D:\\ProgramData\\Kepware\\KEPServerEX\\V6",
+				"thingworxinterface.STORAGE_PATH": "C:\\ProgramData\\Kepware\\KEPServerEX\\V6",
 				"thingworxinterface.DATASTORE_MAXSIZE": 2048,
 				"thingworxinterface.FORWARD_MODE": 0,
 				"thingworxinterface.DATASTORE_ID": 4215032028

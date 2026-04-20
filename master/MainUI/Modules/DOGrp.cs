@@ -31,7 +31,7 @@ namespace MainUI.Modules
             this.Driver = Var.opcDOGroup;
         }
 
-        public const int DOCount = 59;
+        public const int DOCount = 67;
 
         private bool[] _doList = new bool[DOCount];
         public bool[] DOlist

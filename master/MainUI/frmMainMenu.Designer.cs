@@ -55,6 +55,7 @@
             this.tslblWaterNG = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblWaterSim = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblTRDP = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tslblJYBC = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblCommunication = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -69,7 +70,6 @@
             this.uiImageButtonAutoMain = new Sunny.UI.UIImageButton();
             this.btnHardwareTest = new Sunny.UI.UIImageButton();
             this.btnDuctHeating = new Sunny.UI.UIImageButton();
-            this.tslblJYBC = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRunStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
@@ -351,6 +351,15 @@
             this.tslblTRDP.Size = new System.Drawing.Size(110, 25);
             this.tslblTRDP.Text = "柴油机控制器";
             // 
+            // tslblJYBC
+            // 
+            this.tslblJYBC.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.tslblJYBC.Name = "tslblJYBC";
+            this.tslblJYBC.Size = new System.Drawing.Size(94, 25);
+            this.tslblJYBC.Text = "机油耗磅秤";
+            // 
             // tslblCommunication
             // 
             this.tslblCommunication.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
@@ -572,15 +581,6 @@
             this.btnDuctHeating.Text = "进排气系统";
             this.btnDuctHeating.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnDuctHeating.Click += new System.EventHandler(this.btnDuctHeating_Click);
-            // 
-            // tslblJYBC
-            // 
-            this.tslblJYBC.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.tslblJYBC.Name = "tslblJYBC";
-            this.tslblJYBC.Size = new System.Drawing.Size(94, 25);
-            this.tslblJYBC.Text = "机油耗磅秤";
             // 
             // frmMainMenu
             // 

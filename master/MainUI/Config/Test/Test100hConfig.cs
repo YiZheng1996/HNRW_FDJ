@@ -49,19 +49,19 @@ namespace MainUI.Config.Test
         public string TestName { get; set; }
 
         /// <summary>
-        /// 天数
+        /// 天数(备注，展示用无实际效果)
         /// </summary>
         [IniKeyName("天数")]
         public string DayNum { get; set; }
 
         /// <summary>
-        /// 采集时间间隔(min)
+        /// 采集时间间隔(min)，暂时没有用到，保留
         /// </summary>
         [DisplayName("采集时间间隔")]
         public double CollectIntervalTime { get; set; }
 
         /// <summary>
-        /// 列表循环次数（用于生成最终的列表）
+        /// 列表循环次数（用于生成最终的列表），暂时没有用到，保留
         /// </summary>
         [DisplayName("列表循环次数")]
         public int ForeachNum { get; set; } = 1;
@@ -115,13 +115,13 @@ namespace MainUI.Config.Test
         public int Index { get; set; }
 
         /// <summary>
-        /// 扭矩
+        /// 扭矩，显示用，无实际效果
         /// </summary>
         [DisplayName("发电机扭矩")]
         public double Torque { get; set; }
 
         /// <summary>
-        /// 转速
+        /// 转速，显示用，无实际效果
         /// </summary>
         [DisplayName("发动机转速")]
         public double RPM { get; set; }

@@ -56,6 +56,8 @@ namespace MainUI.TestScreen
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblJinQiZ = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
             this.lblPQZ = new System.Windows.Forms.Label();
             this.lblJQZ = new System.Windows.Forms.Label();
             this.rButton19 = new RW.UI.Controls.RButton();
@@ -97,6 +99,8 @@ namespace MainUI.TestScreen
             this.label25 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lblJinQiY = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
             this.lblJQY = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.lblPQY = new System.Windows.Forms.Label();
@@ -128,6 +132,16 @@ namespace MainUI.TestScreen
             this.label36 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.rButton4 = new RW.UI.Controls.RButton();
+            this.rButton5 = new RW.UI.Controls.RButton();
+            this.rButton6 = new RW.UI.Controls.RButton();
+            this.rButton7 = new RW.UI.Controls.RButton();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.rButton3 = new RW.UI.Controls.RButton();
+            this.rButton2 = new RW.UI.Controls.RButton();
+            this.rButton1 = new RW.UI.Controls.RButton();
+            this.rButton10 = new RW.UI.Controls.RButton();
             this.label45 = new System.Windows.Forms.Label();
             this.ucParamTemp1 = new MainUI.Widget.ucParamKeyUI();
             this.ucParamTemp2 = new MainUI.Widget.ucParamKeyUI();
@@ -137,10 +151,6 @@ namespace MainUI.TestScreen
             this.ucParamTemp5 = new MainUI.Widget.ucParamKeyUI();
             this.ucParamFrequency1 = new MainUI.Widget.ucParamKeyUI();
             this.ucParamTemp4 = new MainUI.Widget.ucParamKeyUI();
-            this.lblJinQiZ = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.lblJinQiY = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -148,6 +158,8 @@ namespace MainUI.TestScreen
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStop1
@@ -156,7 +168,7 @@ namespace MainUI.TestScreen
             this.btnStop1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnStop1.FalseColor = System.Drawing.Color.Silver;
             this.btnStop1.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnStop1.Location = new System.Drawing.Point(478, 147);
+            this.btnStop1.Location = new System.Drawing.Point(481, 147);
             this.btnStop1.Name = "btnStop1";
             this.btnStop1.OutputTagName = "一号一键停止";
             this.btnStop1.Size = new System.Drawing.Size(384, 38);
@@ -234,7 +246,7 @@ namespace MainUI.TestScreen
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 14F);
-            this.label1.Location = new System.Drawing.Point(478, 108);
+            this.label1.Location = new System.Drawing.Point(481, 108);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(162, 19);
             this.label1.TabIndex = 834;
@@ -245,7 +257,7 @@ namespace MainUI.TestScreen
             this.nudTempLumen1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.nudTempLumen1.DecimalPlaces = 0;
             this.nudTempLumen1.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nudTempLumen1.Location = new System.Drawing.Point(647, 102);
+            this.nudTempLumen1.Location = new System.Drawing.Point(650, 102);
             this.nudTempLumen1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nudTempLumen1.Maximum = 200D;
             this.nudTempLumen1.Minimum = 0D;
@@ -266,7 +278,7 @@ namespace MainUI.TestScreen
             this.btnTempLumen1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnTempLumen1.FalseColor = System.Drawing.Color.Silver;
             this.btnTempLumen1.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnTempLumen1.Location = new System.Drawing.Point(782, 101);
+            this.btnTempLumen1.Location = new System.Drawing.Point(785, 101);
             this.btnTempLumen1.Name = "btnTempLumen1";
             this.btnTempLumen1.Size = new System.Drawing.Size(81, 33);
             this.btnTempLumen1.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -546,12 +558,36 @@ namespace MainUI.TestScreen
             this.groupBox2.Controls.Add(this.nudTempLumen1);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox2.Location = new System.Drawing.Point(7, 577);
+            this.groupBox2.Location = new System.Drawing.Point(919, 567);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(878, 209);
+            this.groupBox2.Size = new System.Drawing.Size(894, 209);
             this.groupBox2.TabIndex = 865;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "控制";
+            // 
+            // lblJinQiZ
+            // 
+            this.lblJinQiZ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblJinQiZ.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblJinQiZ.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblJinQiZ.ForeColor = System.Drawing.Color.Black;
+            this.lblJinQiZ.Location = new System.Drawing.Point(222, 27);
+            this.lblJinQiZ.Name = "lblJinQiZ";
+            this.lblJinQiZ.Size = new System.Drawing.Size(103, 28);
+            this.lblJinQiZ.TabIndex = 837;
+            this.lblJinQiZ.Tag = "";
+            this.lblJinQiZ.Text = "0.0";
+            this.lblJinQiZ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("宋体", 14F);
+            this.label42.Location = new System.Drawing.Point(14, 32);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(183, 19);
+            this.label42.TabIndex = 838;
+            this.label42.Text = "实时进气流量(kg/h)";
             // 
             // lblPQZ
             // 
@@ -559,7 +595,7 @@ namespace MainUI.TestScreen
             this.lblPQZ.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblPQZ.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblPQZ.ForeColor = System.Drawing.Color.Black;
-            this.lblPQZ.Location = new System.Drawing.Point(684, 65);
+            this.lblPQZ.Location = new System.Drawing.Point(687, 65);
             this.lblPQZ.Name = "lblPQZ";
             this.lblPQZ.Size = new System.Drawing.Size(93, 28);
             this.lblPQZ.TabIndex = 697;
@@ -587,7 +623,7 @@ namespace MainUI.TestScreen
             this.rButton19.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.rButton19.FalseColor = System.Drawing.Color.Silver;
             this.rButton19.Font = new System.Drawing.Font("宋体", 14F);
-            this.rButton19.Location = new System.Drawing.Point(781, 63);
+            this.rButton19.Location = new System.Drawing.Point(784, 63);
             this.rButton19.Name = "rButton19";
             this.rButton19.Size = new System.Drawing.Size(81, 33);
             this.rButton19.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -601,7 +637,7 @@ namespace MainUI.TestScreen
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("宋体", 14F);
-            this.label38.Location = new System.Drawing.Point(478, 70);
+            this.label38.Location = new System.Drawing.Point(481, 70);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(210, 19);
             this.label38.TabIndex = 698;
@@ -1168,12 +1204,36 @@ namespace MainUI.TestScreen
             this.groupBox5.Controls.Add(this.label40);
             this.groupBox5.Controls.Add(this.label29);
             this.groupBox5.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox5.Location = new System.Drawing.Point(919, 577);
+            this.groupBox5.Location = new System.Drawing.Point(7, 567);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(894, 209);
+            this.groupBox5.Size = new System.Drawing.Size(878, 209);
             this.groupBox5.TabIndex = 868;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "控制";
+            // 
+            // lblJinQiY
+            // 
+            this.lblJinQiY.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblJinQiY.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblJinQiY.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblJinQiY.ForeColor = System.Drawing.Color.Black;
+            this.lblJinQiY.Location = new System.Drawing.Point(226, 26);
+            this.lblJinQiY.Name = "lblJinQiY";
+            this.lblJinQiY.Size = new System.Drawing.Size(103, 28);
+            this.lblJinQiY.TabIndex = 839;
+            this.lblJinQiY.Tag = "";
+            this.lblJinQiY.Text = "0.0";
+            this.lblJinQiY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("宋体", 14F);
+            this.label44.Location = new System.Drawing.Point(18, 31);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(183, 19);
+            this.label44.TabIndex = 840;
+            this.label44.Text = "实时进气流量(kg/h)";
             // 
             // lblJQY
             // 
@@ -1205,7 +1265,7 @@ namespace MainUI.TestScreen
             this.lblPQY.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblPQY.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblPQY.ForeColor = System.Drawing.Color.Black;
-            this.lblPQY.Location = new System.Drawing.Point(687, 65);
+            this.lblPQY.Location = new System.Drawing.Point(676, 65);
             this.lblPQY.Name = "lblPQY";
             this.lblPQY.Size = new System.Drawing.Size(93, 28);
             this.lblPQY.TabIndex = 694;
@@ -1261,7 +1321,7 @@ namespace MainUI.TestScreen
             this.rButton23.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.rButton23.FalseColor = System.Drawing.Color.Silver;
             this.rButton23.Font = new System.Drawing.Font("宋体", 14F);
-            this.rButton23.Location = new System.Drawing.Point(786, 63);
+            this.rButton23.Location = new System.Drawing.Point(775, 63);
             this.rButton23.Name = "rButton23";
             this.rButton23.Size = new System.Drawing.Size(81, 33);
             this.rButton23.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -1314,7 +1374,7 @@ namespace MainUI.TestScreen
             this.btnStop2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnStop2.FalseColor = System.Drawing.Color.Silver;
             this.btnStop2.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnStop2.Location = new System.Drawing.Point(480, 147);
+            this.btnStop2.Location = new System.Drawing.Point(469, 147);
             this.btnStop2.Name = "btnStop2";
             this.btnStop2.OutputTagName = "二号一键停止";
             this.btnStop2.Size = new System.Drawing.Size(387, 38);
@@ -1331,7 +1391,7 @@ namespace MainUI.TestScreen
             this.btnTempLumen2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnTempLumen2.FalseColor = System.Drawing.Color.Silver;
             this.btnTempLumen2.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnTempLumen2.Location = new System.Drawing.Point(786, 101);
+            this.btnTempLumen2.Location = new System.Drawing.Point(775, 101);
             this.btnTempLumen2.Name = "btnTempLumen2";
             this.btnTempLumen2.Size = new System.Drawing.Size(81, 33);
             this.btnTempLumen2.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -1346,7 +1406,7 @@ namespace MainUI.TestScreen
             this.nudTempLumen2.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.nudTempLumen2.DecimalPlaces = 0;
             this.nudTempLumen2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nudTempLumen2.Location = new System.Drawing.Point(651, 102);
+            this.nudTempLumen2.Location = new System.Drawing.Point(640, 102);
             this.nudTempLumen2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nudTempLumen2.Maximum = 200D;
             this.nudTempLumen2.Minimum = 0D;
@@ -1365,7 +1425,7 @@ namespace MainUI.TestScreen
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("宋体", 14F);
-            this.label40.Location = new System.Drawing.Point(480, 70);
+            this.label40.Location = new System.Drawing.Point(469, 70);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(210, 19);
             this.label40.TabIndex = 695;
@@ -1375,7 +1435,7 @@ namespace MainUI.TestScreen
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("宋体", 14F);
-            this.label29.Location = new System.Drawing.Point(480, 108);
+            this.label29.Location = new System.Drawing.Point(469, 108);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(162, 19);
             this.label29.TabIndex = 834;
@@ -1615,6 +1675,8 @@ namespace MainUI.TestScreen
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox8);
+            this.panel1.Controls.Add(this.groupBox7);
             this.panel1.Controls.Add(this.label45);
             this.panel1.Controls.Add(this.label19);
             this.panel1.Controls.Add(this.groupBox5);
@@ -1637,6 +1699,186 @@ namespace MainUI.TestScreen
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1828, 997);
             this.panel1.TabIndex = 870;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.rButton4);
+            this.groupBox8.Controls.Add(this.rButton5);
+            this.groupBox8.Controls.Add(this.rButton6);
+            this.groupBox8.Controls.Add(this.rButton7);
+            this.groupBox8.Font = new System.Drawing.Font("宋体", 14F);
+            this.groupBox8.Location = new System.Drawing.Point(919, 792);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(894, 92);
+            this.groupBox8.TabIndex = 872;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "排气阀控制";
+            // 
+            // rButton4
+            // 
+            this.rButton4.BackColor = System.Drawing.Color.Silver;
+            this.rButton4.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.rButton4.FalseColor = System.Drawing.Color.Silver;
+            this.rButton4.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rButton4.InputDriverName = "";
+            this.rButton4.InputTagName = "";
+            this.rButton4.Location = new System.Drawing.Point(683, 36);
+            this.rButton4.Name = "rButton4";
+            this.rButton4.OutputTagName = "2号左排气管阀2";
+            this.rButton4.Size = new System.Drawing.Size(184, 33);
+            this.rButton4.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.rButton4.TabIndex = 762;
+            this.rButton4.Tag = "1";
+            this.rButton4.Text = "左排气管阀2";
+            this.rButton4.TrueColor = System.Drawing.Color.Lime;
+            this.rButton4.Click += new System.EventHandler(this.rButton10_Click);
+            // 
+            // rButton5
+            // 
+            this.rButton5.BackColor = System.Drawing.Color.Silver;
+            this.rButton5.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.rButton5.FalseColor = System.Drawing.Color.Silver;
+            this.rButton5.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rButton5.InputDriverName = "";
+            this.rButton5.InputTagName = "";
+            this.rButton5.Location = new System.Drawing.Point(456, 36);
+            this.rButton5.Name = "rButton5";
+            this.rButton5.OutputTagName = "2号左排气管阀1";
+            this.rButton5.Size = new System.Drawing.Size(184, 33);
+            this.rButton5.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.rButton5.TabIndex = 761;
+            this.rButton5.Tag = "1";
+            this.rButton5.Text = "左排气管阀1";
+            this.rButton5.TrueColor = System.Drawing.Color.Lime;
+            this.rButton5.Click += new System.EventHandler(this.rButton10_Click);
+            // 
+            // rButton6
+            // 
+            this.rButton6.BackColor = System.Drawing.Color.Silver;
+            this.rButton6.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.rButton6.FalseColor = System.Drawing.Color.Silver;
+            this.rButton6.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rButton6.InputDriverName = "";
+            this.rButton6.InputTagName = "";
+            this.rButton6.Location = new System.Drawing.Point(235, 36);
+            this.rButton6.Name = "rButton6";
+            this.rButton6.OutputTagName = "2号左进气管阀2";
+            this.rButton6.Size = new System.Drawing.Size(184, 33);
+            this.rButton6.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.rButton6.TabIndex = 760;
+            this.rButton6.Tag = "1";
+            this.rButton6.Text = "左进气管阀2";
+            this.rButton6.TrueColor = System.Drawing.Color.Lime;
+            this.rButton6.Click += new System.EventHandler(this.rButton10_Click);
+            // 
+            // rButton7
+            // 
+            this.rButton7.BackColor = System.Drawing.Color.Silver;
+            this.rButton7.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.rButton7.FalseColor = System.Drawing.Color.Silver;
+            this.rButton7.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rButton7.InputDriverName = "";
+            this.rButton7.InputTagName = "";
+            this.rButton7.Location = new System.Drawing.Point(14, 36);
+            this.rButton7.Name = "rButton7";
+            this.rButton7.OutputTagName = "2号左进气管阀1";
+            this.rButton7.Size = new System.Drawing.Size(184, 33);
+            this.rButton7.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.rButton7.TabIndex = 759;
+            this.rButton7.Tag = "1";
+            this.rButton7.Text = "左进气管阀1";
+            this.rButton7.TrueColor = System.Drawing.Color.Lime;
+            this.rButton7.Click += new System.EventHandler(this.rButton10_Click);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.rButton3);
+            this.groupBox7.Controls.Add(this.rButton2);
+            this.groupBox7.Controls.Add(this.rButton1);
+            this.groupBox7.Controls.Add(this.rButton10);
+            this.groupBox7.Font = new System.Drawing.Font("宋体", 14F);
+            this.groupBox7.Location = new System.Drawing.Point(6, 792);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(879, 92);
+            this.groupBox7.TabIndex = 871;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "排气阀控制";
+            // 
+            // rButton3
+            // 
+            this.rButton3.BackColor = System.Drawing.Color.Silver;
+            this.rButton3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.rButton3.FalseColor = System.Drawing.Color.Silver;
+            this.rButton3.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rButton3.InputDriverName = "";
+            this.rButton3.InputTagName = "";
+            this.rButton3.Location = new System.Drawing.Point(677, 36);
+            this.rButton3.Name = "rButton3";
+            this.rButton3.OutputTagName = "1号右排气管阀2";
+            this.rButton3.Size = new System.Drawing.Size(184, 33);
+            this.rButton3.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.rButton3.TabIndex = 762;
+            this.rButton3.Tag = "1";
+            this.rButton3.Text = "右排气管阀2";
+            this.rButton3.TrueColor = System.Drawing.Color.Lime;
+            this.rButton3.Click += new System.EventHandler(this.rButton10_Click);
+            // 
+            // rButton2
+            // 
+            this.rButton2.BackColor = System.Drawing.Color.Silver;
+            this.rButton2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.rButton2.FalseColor = System.Drawing.Color.Silver;
+            this.rButton2.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rButton2.InputDriverName = "";
+            this.rButton2.InputTagName = "";
+            this.rButton2.Location = new System.Drawing.Point(456, 36);
+            this.rButton2.Name = "rButton2";
+            this.rButton2.OutputTagName = "1号右排气管阀1";
+            this.rButton2.Size = new System.Drawing.Size(184, 33);
+            this.rButton2.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.rButton2.TabIndex = 761;
+            this.rButton2.Tag = "1";
+            this.rButton2.Text = "右排气管阀1";
+            this.rButton2.TrueColor = System.Drawing.Color.Lime;
+            this.rButton2.Click += new System.EventHandler(this.rButton10_Click);
+            // 
+            // rButton1
+            // 
+            this.rButton1.BackColor = System.Drawing.Color.Silver;
+            this.rButton1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.rButton1.FalseColor = System.Drawing.Color.Silver;
+            this.rButton1.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rButton1.InputDriverName = "";
+            this.rButton1.InputTagName = "";
+            this.rButton1.Location = new System.Drawing.Point(235, 36);
+            this.rButton1.Name = "rButton1";
+            this.rButton1.OutputTagName = "1号右进气管阀2";
+            this.rButton1.Size = new System.Drawing.Size(184, 33);
+            this.rButton1.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.rButton1.TabIndex = 760;
+            this.rButton1.Tag = "1";
+            this.rButton1.Text = "右进气管阀2";
+            this.rButton1.TrueColor = System.Drawing.Color.Lime;
+            this.rButton1.Click += new System.EventHandler(this.rButton10_Click);
+            // 
+            // rButton10
+            // 
+            this.rButton10.BackColor = System.Drawing.Color.Silver;
+            this.rButton10.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.rButton10.FalseColor = System.Drawing.Color.Silver;
+            this.rButton10.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rButton10.InputDriverName = "";
+            this.rButton10.InputTagName = "";
+            this.rButton10.Location = new System.Drawing.Point(14, 36);
+            this.rButton10.Name = "rButton10";
+            this.rButton10.OutputTagName = "1号右进气管阀1";
+            this.rButton10.Size = new System.Drawing.Size(184, 33);
+            this.rButton10.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.rButton10.TabIndex = 759;
+            this.rButton10.Tag = "1";
+            this.rButton10.Text = "右进气管阀1";
+            this.rButton10.TrueColor = System.Drawing.Color.Lime;
+            this.rButton10.Click += new System.EventHandler(this.rButton10_Click);
             // 
             // label45
             // 
@@ -1783,54 +2025,6 @@ namespace MainUI.TestScreen
             this.ucParamTemp4.TitleHeight = 45;
             this.ucParamTemp4.Unit = "";
             // 
-            // lblJinQiZ
-            // 
-            this.lblJinQiZ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblJinQiZ.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblJinQiZ.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblJinQiZ.ForeColor = System.Drawing.Color.Black;
-            this.lblJinQiZ.Location = new System.Drawing.Point(222, 27);
-            this.lblJinQiZ.Name = "lblJinQiZ";
-            this.lblJinQiZ.Size = new System.Drawing.Size(103, 28);
-            this.lblJinQiZ.TabIndex = 837;
-            this.lblJinQiZ.Tag = "";
-            this.lblJinQiZ.Text = "0.0";
-            this.lblJinQiZ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("宋体", 14F);
-            this.label42.Location = new System.Drawing.Point(14, 32);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(183, 19);
-            this.label42.TabIndex = 838;
-            this.label42.Text = "实时进气流量(kg/h)";
-            // 
-            // lblJinQiY
-            // 
-            this.lblJinQiY.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblJinQiY.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblJinQiY.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblJinQiY.ForeColor = System.Drawing.Color.Black;
-            this.lblJinQiY.Location = new System.Drawing.Point(226, 26);
-            this.lblJinQiY.Name = "lblJinQiY";
-            this.lblJinQiY.Size = new System.Drawing.Size(103, 28);
-            this.lblJinQiY.TabIndex = 839;
-            this.lblJinQiY.Tag = "";
-            this.lblJinQiY.Text = "0.0";
-            this.lblJinQiY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("宋体", 14F);
-            this.label44.Location = new System.Drawing.Point(18, 31);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(183, 19);
-            this.label44.TabIndex = 840;
-            this.label44.Text = "实时进气流量(kg/h)";
-            // 
             // ucDuctHeating
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1853,6 +2047,8 @@ namespace MainUI.TestScreen
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1970,5 +2166,15 @@ namespace MainUI.TestScreen
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label lblJinQiY;
         private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private RW.UI.Controls.RButton rButton10;
+        private RW.UI.Controls.RButton rButton3;
+        private RW.UI.Controls.RButton rButton2;
+        private RW.UI.Controls.RButton rButton1;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private RW.UI.Controls.RButton rButton4;
+        private RW.UI.Controls.RButton rButton5;
+        private RW.UI.Controls.RButton rButton6;
+        private RW.UI.Controls.RButton rButton7;
     }
 }

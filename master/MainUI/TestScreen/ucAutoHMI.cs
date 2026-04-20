@@ -1904,6 +1904,12 @@ namespace MainUI
         /// <param name="e"></param>
         private void btnRestartGK_Click(object sender, EventArgs e)
         {
+            if (!dicBase["自动试验"].IsTesting)
+            {
+                Var.MsgBoxWarn(this, "试验未开始！");
+                return;
+            }
+
             MiddleData.instnce.CurrentStatusData.StepTimeTotal = MiddleData.instnce.CurrentStatusData.StepTimeTotal - MiddleData.instnce.CurrentStatusData.StepTime;
             MiddleData.instnce.CurrentStatusData.StepTime = 0;
             MiddleData.instnce.CurrentStatusData.Save();

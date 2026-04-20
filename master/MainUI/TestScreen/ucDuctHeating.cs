@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MainUI.Modules.EventArgsModel;
 
 namespace MainUI.TestScreen
 {
@@ -24,6 +25,9 @@ namespace MainUI.TestScreen
         // 指示灯
         Dictionary<string, UILight> ucUILightList = new Dictionary<string, UILight>();
 
+        // 排气控制
+        Dictionary<string, RButton> ucRBtnList = new Dictionary<string, RButton>();
+
         public ucDuctHeating()
         {
             InitializeComponent();
@@ -31,6 +35,7 @@ namespace MainUI.TestScreen
             Common.AirDuctGrp.FaultKeyValueChange += AirDuctGrp_FaultKeyValueChange;
             Common.AirDuctGrp.DoubleChange += AirDuctGrp_DoubleChange;
             Common.AirDuctGrp.KeyValueChange += AirDuctGrp_KeyValueChange;
+            Common.DOgrp.KeyValueChange += DOgrp_KeyValueChange;
 
             EachControl(this);
         }
@@ -111,7 +116,7 @@ namespace MainUI.TestScreen
             {
                 ucParamKeyList[e.Key].GaugeValue = e.Value;
             }
-            else 
+            else
             {
                 if (e.Key == "一号设置出口温度")
                 {
@@ -151,6 +156,20 @@ namespace MainUI.TestScreen
             }
         }
 
+        private void DOgrp_KeyValueChange(object sender, DIValueChangedEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => DOgrp_KeyValueChange(sender, e)));
+                return;
+            }
+            // 根据key更新你界面上的控件状态
+            if (ucRBtnList.ContainsKey(e.Key))
+            {
+                ucRBtnList[e.Key].Switch = e.Value;
+            }
+        }
+
         /// <summary>
         /// 添加控件到字典
         /// </summary>
@@ -178,6 +197,14 @@ namespace MainUI.TestScreen
                 if (light.Tag != null && light.Tag.ToString() != string.Empty)
                 {
                     ucUILightList.Add(light.Tag.ToString(), light);
+                }
+            }
+            else if (con is RButton)
+            {
+                RButton rBtn = con as RButton;
+                if (rBtn.OutputTagName != null && rBtn.OutputTagName.ToString() != string.Empty)
+                {
+                    ucRBtnList.Add(rBtn.OutputTagName.ToString(), rBtn);
                 }
             }
         }
@@ -356,6 +383,20 @@ namespace MainUI.TestScreen
             var dr = set.ShowDialog(this);
             if (dr == DialogResult.OK)
                 Common.AOgrp[pipePara.Tag.ToString()] = set.Value;
+        }
+
+        private void rButton10_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var btn = sender as RButton;
+                bool newValue = !Common.DOgrp[btn.OutputTagName]; // 取反实现切换
+                Common.DOgrp[btn.OutputTagName] = newValue;
+            }
+            catch (Exception ex)
+            {
+                Var.MsgBoxWarn(this, $"控制进排气阀错误：{ex.Message}");
+            }
         }
     }
 }
