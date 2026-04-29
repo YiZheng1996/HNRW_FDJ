@@ -95,7 +95,25 @@ namespace MainUI.Simulate
             {
                 Var.TRDP.trdpValue.AddOrUpdate(signalName, value, (k, o) => value);
 
-                var tag = new FullTags { DataLabel = signalName };
+                // ── 从已加载的 tags 查找完整 FullTags ──────────────────
+                FullTags tag = null;
+                if (Var.TRDP?.tags != null)
+                {
+                    // 用 for 而不是 LINQ，避免 list 遍历中的并发问题
+                    var tagList = Var.TRDP.tags;
+                    for (int i = 0; i < tagList.Count; i++)
+                    {
+                        if (tagList[i].DataLabel == signalName)
+                        {
+                            tag = tagList[i];
+                            break;
+                        }
+                    }
+                }
+
+                // 找不到则降级为空壳（兼容生命信号等特殊注入）
+                if (tag == null)
+                    tag = new FullTags { DataLabel = signalName };
 
                 Var.TRDP.RaiseKeyValueChange(tag, signalName, value);
 
@@ -104,6 +122,7 @@ namespace MainUI.Simulate
             catch (Exception ex)
             {
                 Log($"注入失败 [{signalName}={value}]: {ex.Message}", LogLevel.Fault);
+                new FrmMessageSuccess("注入错误", ex.Message);
             }
         }
 
