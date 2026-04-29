@@ -2462,6 +2462,10 @@ namespace MainUI
 
         #endregion
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new frmTRDPSimulator().Show();
+        }
     }
 
     /// <summary>

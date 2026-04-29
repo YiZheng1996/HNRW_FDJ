@@ -552,6 +552,12 @@ namespace BogieIdling.UI.TRDP
             KeyValueChange?.Invoke(this, new TRDPValueChangedEventArgs(tag, tag.DataLabel, newValue));
         }
 
+        // 模拟测试使用
+        public void RaiseKeyValueChange(FullTags tag, string signalName, decimal value)
+        {
+            KeyValueChange?.Invoke(this, new TRDPValueChangedEventArgs(tag, signalName, value));
+        }
+
         /// <summary>
         /// 添加端口
         /// </summary>

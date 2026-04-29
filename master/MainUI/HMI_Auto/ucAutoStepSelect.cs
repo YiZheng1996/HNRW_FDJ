@@ -476,11 +476,20 @@ namespace MainUI.HMI_Auto
                 Var.MsgBoxWarn(this, "转速相差过大，禁止开始试验。");
                 return;
             }
+
             if (Math.Abs(this.lblPower.Text.ToDouble() - lblCurrentPower.Text.ToDouble()) > 500)
             {
                 Var.MsgBoxWarn(this, "功率相差过大，禁止开始试验。");
                 return;
             }
+
+            // TODO:预留功能，实时功率和目标功率差值的百分比，目前不知道差值多少
+            //if (MiddleData.instnce.EnginePower <= MiddleData.instnce.EnginePower * 0.2)
+            //{
+            //    Var.MsgBoxWarn(this, "功率相差过大，禁止开始试验。");
+            //    return;
+            //}
+
             // 计算StepTimeTotal
             currentStatusConfig.StepTimeTotal = CalculateStepTimeTotal();
 

@@ -57,7 +57,8 @@ namespace MainUI.TestScreen
             this.ucWarnList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.ucWarnList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucWarnList1.FaultType = true;
-            this.ucWarnList1.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ucWarnList1.Font = new System.Drawing.Font("宋体", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ucWarnList1.IsLight = true;
             this.ucWarnList1.Location = new System.Drawing.Point(0, 0);
             this.ucWarnList1.Margin = new System.Windows.Forms.Padding(0);
             this.ucWarnList1.Name = "ucWarnList1";

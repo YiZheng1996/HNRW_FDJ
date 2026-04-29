@@ -155,6 +155,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listTestStep = new System.Windows.Forms.ListBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.ucExcitationRegulationParams1 = new MainUI.Procedure.ucExcitationRegulationParams();
             this.contextMenuStrip360h = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmPaste = new System.Windows.Forms.ToolStripMenuItem();
@@ -166,7 +167,6 @@
             this.btnGet = new Sunny.UI.UIButton();
             this.uiLabel2 = new Sunny.UI.UILabel();
             this.txtType = new Sunny.UI.UITextBox();
-            this.ucExcitationRegulationParams1 = new MainUI.Procedure.ucExcitationRegulationParams();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -305,6 +305,7 @@
             this.groupBox8.TabIndex = 429;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "发动机油底壳参数";
+            this.groupBox8.Visible = false;
             // 
             // numOilPanHeight
             // 
@@ -1919,6 +1920,17 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "100h/360h 励磁调节参数";
             // 
+            // ucExcitationRegulationParams1
+            // 
+            this.ucExcitationRegulationParams1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.ucExcitationRegulationParams1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucExcitationRegulationParams1.Location = new System.Drawing.Point(0, 0);
+            this.ucExcitationRegulationParams1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.ucExcitationRegulationParams1.Model = null;
+            this.ucExcitationRegulationParams1.Name = "ucExcitationRegulationParams1";
+            this.ucExcitationRegulationParams1.Size = new System.Drawing.Size(1616, 870);
+            this.ucExcitationRegulationParams1.TabIndex = 0;
+            // 
             // contextMenuStrip360h
             // 
             this.contextMenuStrip360h.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1991,7 +2003,6 @@
             // 
             // txtModel
             // 
-            this.txtModel.Cursor = System.Windows.Forms.Cursors.Default;
             this.txtModel.Enabled = false;
             this.txtModel.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.txtModel.Location = new System.Drawing.Point(385, 37);
@@ -2046,7 +2057,6 @@
             // 
             // txtType
             // 
-            this.txtType.Cursor = System.Windows.Forms.Cursors.Default;
             this.txtType.Enabled = false;
             this.txtType.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.txtType.Location = new System.Drawing.Point(112, 37);
@@ -2060,17 +2070,6 @@
             this.txtType.TabIndex = 391;
             this.txtType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtType.Watermark = "请选择";
-            // 
-            // ucExcitationRegulationParams1
-            // 
-            this.ucExcitationRegulationParams1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.ucExcitationRegulationParams1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucExcitationRegulationParams1.Location = new System.Drawing.Point(0, 0);
-            this.ucExcitationRegulationParams1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.ucExcitationRegulationParams1.Model = null;
-            this.ucExcitationRegulationParams1.Name = "ucExcitationRegulationParams1";
-            this.ucExcitationRegulationParams1.Size = new System.Drawing.Size(1616, 870);
-            this.ucExcitationRegulationParams1.TabIndex = 0;
             // 
             // ucTestParams
             // 

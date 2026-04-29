@@ -389,6 +389,7 @@ namespace MainUI.TestScreen
         {
             try
             {
+                // 2号加热装置中左排气管阀1和左排气管阀2与左进气管阀1和左进气管阀2，text文字取反，实际操作点位还是与点表一直
                 var btn = sender as RButton;
                 bool newValue = !Common.DOgrp[btn.OutputTagName]; // 取反实现切换
                 Common.DOgrp[btn.OutputTagName] = newValue;

@@ -2987,7 +2987,7 @@ namespace MainUI
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(95, 37);
             this.label12.TabIndex = 869;
-            this.label12.Text = "止回阀";
+            this.label12.Text = "←止回阀";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timerEngineOilConsumption
@@ -3618,26 +3618,26 @@ namespace MainUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.swpJYYGB);
-            this.Controls.Add(this.swp135);
-            this.Controls.Add(this.swp133);
-            this.Controls.Add(this.swp97);
-            this.Controls.Add(this.swp96);
-            this.Controls.Add(this.swp100);
-            this.Controls.Add(this.swp122);
-            this.Controls.Add(this.swp116);
-            this.Controls.Add(this.swp115);
-            this.Controls.Add(this.swp137);
-            this.Controls.Add(this.swp90);
-            this.Controls.Add(this.swp91);
-            this.Controls.Add(this.swp92);
-            this.Controls.Add(this.swp93);
-            this.Controls.Add(this.swp134);
-            this.Controls.Add(this.swp139);
-            this.Controls.Add(this.swp136);
-            this.Controls.Add(this.swpwypc);
-            this.Controls.Add(this.swp95);
             this.Controls.Add(this.swp111);
+            this.Controls.Add(this.swp95);
+            this.Controls.Add(this.swpwypc);
+            this.Controls.Add(this.swp136);
+            this.Controls.Add(this.swp139);
+            this.Controls.Add(this.swp134);
+            this.Controls.Add(this.swp93);
+            this.Controls.Add(this.swp92);
+            this.Controls.Add(this.swp91);
+            this.Controls.Add(this.swp90);
+            this.Controls.Add(this.swp137);
+            this.Controls.Add(this.swp115);
+            this.Controls.Add(this.swp116);
+            this.Controls.Add(this.swp122);
+            this.Controls.Add(this.swp100);
+            this.Controls.Add(this.swp96);
+            this.Controls.Add(this.swp97);
+            this.Controls.Add(this.swp133);
+            this.Controls.Add(this.swp135);
+            this.Controls.Add(this.swpJYYGB);
             this.Controls.Add(this.label43);
             this.Controls.Add(this.rButton80);
             this.Controls.Add(this.label106);

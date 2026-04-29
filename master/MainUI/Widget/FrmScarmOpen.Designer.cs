@@ -84,6 +84,7 @@ namespace MainUI.Widget
             this.btnClose.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnClose.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnClose.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnClose.LightColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.btnClose.Location = new System.Drawing.Point(20, 440);
             this.btnClose.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnClose.Name = "btnClose";
@@ -92,11 +93,10 @@ namespace MainUI.Widget
             this.btnClose.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnClose.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnClose.Size = new System.Drawing.Size(1037, 49);
-            this.btnClose.Style = Sunny.UI.UIStyle.Red;
+            this.btnClose.Style = Sunny.UI.UIStyle.Custom;
             this.btnClose.TabIndex = 733;
             this.btnClose.Text = "退出";
             this.btnClose.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnClose.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // timerFast
@@ -118,6 +118,7 @@ namespace MainUI.Widget
             this.label10.Size = new System.Drawing.Size(202, 24);
             this.label10.TabIndex = 811;
             this.label10.Text = "机油温度调节(℃)";
+            this.label10.Visible = false;
             // 
             // label11
             // 
@@ -374,13 +375,15 @@ namespace MainUI.Widget
             this.nudEoTemp.Minimum = 150D;
             this.nudEoTemp.MinimumSize = new System.Drawing.Size(100, 0);
             this.nudEoTemp.Name = "nudEoTemp";
+            this.nudEoTemp.Padding = new System.Windows.Forms.Padding(5);
             this.nudEoTemp.ShowText = false;
             this.nudEoTemp.Size = new System.Drawing.Size(105, 29);
             this.nudEoTemp.Step = 1D;
             this.nudEoTemp.TabIndex = 833;
-            this.nudEoTemp.Text = "uiDoubleUpDown2";
+            this.nudEoTemp.Text = "0";
             this.nudEoTemp.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.nudEoTemp.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.nudEoTemp.Value = 0D;
+            this.nudEoTemp.Visible = false;
             // 
             // rButton3
             // 
@@ -396,6 +399,7 @@ namespace MainUI.Widget
             this.rButton3.Tag = "";
             this.rButton3.Text = "设置";
             this.rButton3.TrueColor = System.Drawing.Color.Lime;
+            this.rButton3.Visible = false;
             this.rButton3.Click += new System.EventHandler(this.rButton3_Click);
             // 
             // label3

@@ -9353,6 +9353,7 @@
 						"tags": [
 							{
 								"common.ALLTYPES_NAME": "高温水温度PID上限值",
+								"common.ALLTYPES_DESCRIPTION": "没用到",
 								"servermain.TAG_ADDRESS": "WH400047",
 								"servermain.TAG_DATA_TYPE": 8,
 								"servermain.TAG_READ_WRITE_ACCESS": 1,
@@ -9361,6 +9362,7 @@
 							},
 							{
 								"common.ALLTYPES_NAME": "高温水温度密码",
+								"common.ALLTYPES_DESCRIPTION": "通讯协议里写值需要固定数据",
 								"servermain.TAG_ADDRESS": "WH400003",
 								"servermain.TAG_DATA_TYPE": 8,
 								"servermain.TAG_READ_WRITE_ACCESS": 1,
@@ -9369,6 +9371,7 @@
 							},
 							{
 								"common.ALLTYPES_NAME": "高温水温度设置PID",
+								"common.ALLTYPES_DESCRIPTION": "水系统：气路上方温度调节设定值",
 								"servermain.TAG_ADDRESS": "WH40009B",
 								"servermain.TAG_DATA_TYPE": 8,
 								"servermain.TAG_READ_WRITE_ACCESS": 1,
@@ -9377,6 +9380,7 @@
 							},
 							{
 								"common.ALLTYPES_NAME": "高温水温度实时PID",
+								"common.ALLTYPES_DESCRIPTION": "水系统：气路上方温度调节反馈值",
 								"servermain.TAG_ADDRESS": "H300001",
 								"servermain.TAG_DATA_TYPE": 8,
 								"servermain.TAG_READ_WRITE_ACCESS": 0,
@@ -9468,6 +9472,7 @@
 							},
 							{
 								"common.ALLTYPES_NAME": "中冷水温度设置PID",
+								"common.ALLTYPES_DESCRIPTION": "水系统：气路下方温度调节设定值",
 								"servermain.TAG_ADDRESS": "WH40009B",
 								"servermain.TAG_DATA_TYPE": 8,
 								"servermain.TAG_READ_WRITE_ACCESS": 1,
@@ -9476,6 +9481,7 @@
 							},
 							{
 								"common.ALLTYPES_NAME": "中冷水温度实时PID",
+								"common.ALLTYPES_DESCRIPTION": "水系统：气路下方温度调节反馈值",
 								"servermain.TAG_ADDRESS": "H300001",
 								"servermain.TAG_DATA_TYPE": 8,
 								"servermain.TAG_READ_WRITE_ACCESS": 0,
@@ -9897,7 +9903,7 @@
 						"tags": [
 							{
 								"common.ALLTYPES_NAME": "转速2",
-								"common.ALLTYPES_DESCRIPTION": "转速2",
+								"common.ALLTYPES_DESCRIPTION": "转速2(报警参数设置界面，发动机转速1(飞轮)-硬线信号保护设置)",
 								"servermain.TAG_ADDRESS": "H400001",
 								"servermain.TAG_DATA_TYPE": 5,
 								"servermain.TAG_READ_WRITE_ACCESS": 1,
@@ -9973,7 +9979,7 @@
 						"tags": [
 							{
 								"common.ALLTYPES_NAME": "转速3",
-								"common.ALLTYPES_DESCRIPTION": "转速3",
+								"common.ALLTYPES_DESCRIPTION": "转速3转速2(报警参数设置界面，发动机转速1(飞轮)-硬线信号保护设置)",
 								"servermain.TAG_ADDRESS": "H400001",
 								"servermain.TAG_DATA_TYPE": 5,
 								"servermain.TAG_READ_WRITE_ACCESS": 1,
