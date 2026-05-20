@@ -56,6 +56,11 @@ namespace MainUI.Equip
         }
 
         /// <summary>
+        /// 是否模拟状态
+        /// </summary>
+        private bool _isSimulation = false;
+
+        /// <summary>
         /// 剩余油量kg
         /// </summary>
         public double remainingFuel { get; set; } = 0;
@@ -142,6 +147,8 @@ namespace MainUI.Equip
         {
             try
             {
+                if (_isSimulation) return;  // 仿真时跳过5秒超时判断
+
                 TimeSpan timeSinceLastData = DateTime.Now - _lastReceivedTime;
 
                 if (timeSinceLastData.TotalSeconds > 5)
@@ -169,6 +176,19 @@ namespace MainUI.Equip
             {
                 Var.LogInfo($"ET4500连接状态检查错误：{ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// 仿真模式：跳过串口连接，直接标记为已连接，心跳定时器不会超时断线。
+        /// 之后由仿真界面直接赋值 fuelConsumption / remainingFuel / fuelPercentage。
+        /// </summary>
+        public void SimulateMode()
+        {
+            _isSimulation = true;
+            _lastReceivedTime = DateTime.Now;   // 喂初始时间，防止定时器立即判超时
+            Connnect = 1;
+            Common.opcExChangeSendGrp.SetDouble("油耗仪_NoError", 1);
+            Var.LogInfo("ET4500 进入仿真模式，串口已跳过");
         }
 
         /// <summary>

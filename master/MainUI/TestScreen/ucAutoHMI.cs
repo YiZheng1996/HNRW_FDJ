@@ -1813,6 +1813,8 @@ namespace MainUI
 
             Common.AOgrp["发动机油门调节"] = val;
             this.ucNudSpeed.Value = val;
+
+            Common.AIgrp["大气温度"] = val;
         }
 
         /// <summary>
@@ -2464,7 +2466,7 @@ namespace MainUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new frmTRDPSimulator().Show();
+            new frmFullSimulator().Show();
         }
     }
 

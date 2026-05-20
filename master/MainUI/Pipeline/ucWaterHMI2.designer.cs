@@ -237,6 +237,8 @@ namespace MainUI
             this.label46 = new System.Windows.Forms.Label();
             this.btnYRTemp = new Sunny.UI.UIButton();
             this.label41 = new System.Windows.Forms.Label();
+            this.ucPipePara24 = new MainUI.Widget.ucPipePara();
+            this.ucPipePara25 = new MainUI.Widget.ucPipePara();
             ((System.ComponentModel.ISupportInitialize)(this.swp26)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.swpYRSB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.swp29)).BeginInit();
@@ -2909,6 +2911,7 @@ namespace MainUI
             this.label2.Size = new System.Drawing.Size(66, 19);
             this.label2.TabIndex = 917;
             this.label2.Text = "高液位";
+            this.label2.Visible = false;
             // 
             // label3
             // 
@@ -2919,6 +2922,7 @@ namespace MainUI
             this.label3.Size = new System.Drawing.Size(66, 19);
             this.label3.TabIndex = 915;
             this.label3.Text = "低液位";
+            this.label3.Visible = false;
             // 
             // label5
             // 
@@ -2957,6 +2961,7 @@ namespace MainUI
             this.LightHTHight.TabIndex = 940;
             this.LightHTHight.Tag = "高温水膨胀水箱高液位";
             this.LightHTHight.Text = "uiLight1";
+            this.LightHTHight.Visible = false;
             // 
             // LightHTLow
             // 
@@ -2975,6 +2980,7 @@ namespace MainUI
             this.LightHTLow.TabIndex = 941;
             this.LightHTLow.Tag = "高温水膨胀水箱低液位";
             this.LightHTLow.Text = "uiLight1";
+            this.LightHTLow.Visible = false;
             // 
             // LightLTHight
             // 
@@ -3284,6 +3290,34 @@ namespace MainUI
             this.label41.TabIndex = 1017;
             this.label41.Text = "条件：预热水箱温度 > 60℃,预热水箱液位 > 600mm";
             // 
+            // ucPipePara24
+            // 
+            this.ucPipePara24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(136)))), ((int)(((byte)(127)))));
+            this.ucPipePara24.Location = new System.Drawing.Point(1522, 475);
+            this.ucPipePara24.Name = "ucPipePara24";
+            this.ucPipePara24.Size = new System.Drawing.Size(124, 63);
+            this.ucPipePara24.TabIndex = 1018;
+            this.ucPipePara24.Tag = "高温水膨胀水箱液位检测";
+            this.ucPipePara24.Title = "水箱液位 mm";
+            this.ucPipePara24.TitleHeight = 32;
+            this.ucPipePara24.Unit = "mm";
+            this.ucPipePara24.UnitHeight = 0;
+            this.ucPipePara24.Value = 0D;
+            // 
+            // ucPipePara25
+            // 
+            this.ucPipePara25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(136)))), ((int)(((byte)(127)))));
+            this.ucPipePara25.Location = new System.Drawing.Point(1522, 636);
+            this.ucPipePara25.Name = "ucPipePara25";
+            this.ucPipePara25.Size = new System.Drawing.Size(124, 63);
+            this.ucPipePara25.TabIndex = 1019;
+            this.ucPipePara25.Tag = "中冷水膨胀水箱液位检测";
+            this.ucPipePara25.Title = "水箱液位 mm";
+            this.ucPipePara25.TitleHeight = 32;
+            this.ucPipePara25.Unit = "mm";
+            this.ucPipePara25.UnitHeight = 0;
+            this.ucPipePara25.Value = 1D;
+            // 
             // ucWaterHMI2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3306,6 +3340,8 @@ namespace MainUI
             this.Controls.Add(this.swp15);
             this.Controls.Add(this.swp31);
             this.Controls.Add(this.swp21);
+            this.Controls.Add(this.ucPipePara25);
+            this.Controls.Add(this.ucPipePara24);
             this.Controls.Add(this.pictureBox44);
             this.Controls.Add(this.label41);
             this.Controls.Add(this.btnYRTemp);
@@ -3772,5 +3808,7 @@ namespace MainUI
         private System.Windows.Forms.Label label46;
         private Sunny.UI.UIButton btnYRTemp;
         private System.Windows.Forms.Label label41;
+        private Widget.ucPipePara ucPipePara24;
+        private Widget.ucPipePara ucPipePara25;
     }
 }

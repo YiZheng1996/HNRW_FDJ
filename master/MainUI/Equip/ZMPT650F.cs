@@ -56,6 +56,11 @@ namespace MainUI.Equip
         }
 
         /// <summary>
+        /// 仿真模拟
+        /// </summary>
+        private bool _isSimulation = false;
+
+        /// <summary>
         /// 当前电子秤重量 单位 KG
         /// </summary>
         public double Weight { get; set; } = 0;
@@ -117,6 +122,8 @@ namespace MainUI.Equip
         {
             try
             {
+                if (_isSimulation) return;
+
                 TimeSpan timeSinceLastData = DateTime.Now - _lastReceivedTime;
 
                 if (timeSinceLastData.TotalSeconds > 5)
@@ -125,6 +132,10 @@ namespace MainUI.Equip
                     if (Connnect == 1)
                     {
                         Connnect = 0;
+
+                        //TODO：模拟测试用，暂时固定1未在线状态
+                        //Connnect = 1; 
+
                         Common.opcExChangeSendGrp.SetDouble("称重仪_NoError", Connnect);
                         Var.LogInfo("ZMPT650F连接超时，设备断线");
                     }
@@ -144,6 +155,19 @@ namespace MainUI.Equip
             {
                 Var.LogInfo($"ZMPT650F连接状态检查错误：{ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// 仿真模式：跳过串口连接，直接标记为已连接，心跳定时器不会超时断线。
+        /// 之后由仿真界面直接赋值 Weight。
+        /// </summary>
+        public void SimulateMode()
+        {
+            _isSimulation = true;
+            _lastReceivedTime = DateTime.Now;
+            Connnect = 1;
+            Common.opcExChangeSendGrp.SetDouble("称重仪_NoError", 1);
+            Var.LogInfo("ZMPT650F 进入仿真模式，串口已跳过");
         }
 
         /// <summary>

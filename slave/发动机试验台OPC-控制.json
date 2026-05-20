@@ -372,6 +372,30 @@
 										"servermain.TAG_SCALING_TYPE": 0
 									},
 									{
+										"common.ALLTYPES_NAME": "高温水膨胀水箱液位检测",
+										"servermain.TAG_ADDRESS": "DB144.DBD152",
+										"servermain.TAG_DATA_TYPE": 8,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "高温水膨胀水箱液位检测零点",
+										"servermain.TAG_ADDRESS": "DB611.DBD104",
+										"servermain.TAG_DATA_TYPE": 8,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "高温水膨胀水箱液位检测增益",
+										"servermain.TAG_ADDRESS": "DB611.DBD364",
+										"servermain.TAG_DATA_TYPE": 8,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
 										"common.ALLTYPES_NAME": "后增压器进气流量计前温度",
 										"common.ALLTYPES_DESCRIPTION": "后增压器进气流量计前温度",
 										"servermain.TAG_ADDRESS": "DB144.DBD164",
@@ -690,6 +714,30 @@
 										"common.ALLTYPES_NAME": "中冷水流量测量-L8增益",
 										"common.ALLTYPES_DESCRIPTION": "中冷水流量测量-L8增益",
 										"servermain.TAG_ADDRESS": "DB611.DBD344",
+										"servermain.TAG_DATA_TYPE": 8,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "中冷水膨胀水箱液位检测",
+										"servermain.TAG_ADDRESS": "DB144.DBD156",
+										"servermain.TAG_DATA_TYPE": 8,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "中冷水膨胀水箱液位检测零点",
+										"servermain.TAG_ADDRESS": "DB611.DBD108",
+										"servermain.TAG_DATA_TYPE": 8,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "中冷水膨胀水箱液位检测增益",
+										"servermain.TAG_ADDRESS": "DB611.DBD368",
 										"servermain.TAG_DATA_TYPE": 8,
 										"servermain.TAG_READ_WRITE_ACCESS": 1,
 										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
@@ -7654,7 +7702,7 @@
 						"servermain.DEVICE_ID_DECIMAL": 0,
 						"servermain.DEVICE_ID_OCTAL": 0,
 						"servermain.DEVICE_DATA_COLLECTION": true,
-						"servermain.DEVICE_SIMULATED": false,
+						"servermain.DEVICE_SIMULATED": true,
 						"servermain.DEVICE_SCAN_MODE": 2,
 						"servermain.DEVICE_SCAN_MODE_RATE_MS": 1000,
 						"servermain.DEVICE_SCAN_MODE_PROVIDE_INITIAL_UPDATES_FROM_CACHE": false,

@@ -2266,7 +2266,7 @@ namespace MainUI.Fault
             this.label145.Name = "label145";
             this.label145.Size = new System.Drawing.Size(278, 25);
             this.label145.TabIndex = 826;
-            this.label145.Text = "发动机转速1（飞轮）-硬线信号";
+            this.label145.Text = "发动机转速2（飞轮）-硬线信号";
             // 
             // label146
             // 

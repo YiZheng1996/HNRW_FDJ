@@ -14,7 +14,7 @@ namespace MainUI.Modules
 {
     public partial class AIGrp : BaseModule
     {
-        public const int AIcount = 17;
+        public const int AIcount = 19;
         public Hardware[] hardwares = new Hardware[AIcount];
         private double[] _AiList = new double[AIcount];
         ConcurrentDictionary<string, double> DataValue = new ConcurrentDictionary<string, double>() { };
@@ -24,10 +24,10 @@ namespace MainUI.Modules
         {
             get { return _AiList; }
         }
-        public double this[int index]
-        {
-            get { return AIList[index]; }
-        }
+        //public double this[int index]
+        //{
+        //    get { return AIList[index]; }
+        //}
 
         public ConcurrentDictionary<string, double> AIListData
         {
@@ -40,6 +40,10 @@ namespace MainUI.Modules
             get
             {
                 return DataValue[key];
+            }
+            set
+            {
+                this.Write("AI." + key, value);
             }
         }
 
@@ -98,6 +102,10 @@ namespace MainUI.Modules
             lst.Add("AI.厂房进气压力检测1");
             // 17 - 19
             lst.Add("AI.厂房进气压力检测2");
+
+            //20 - 21：膨胀水箱液位检测
+            lst.Add("AI.高温水膨胀水箱液位检测");
+            lst.Add("AI.中冷水膨胀水箱液位检测");
             return lst;
         }
 

@@ -39,7 +39,7 @@ namespace MainUI.Modules
         [Description("值改变后触发")]
         public event EventHandler<DIValueChangedEventArgs> KeyValueChange;
 
-        private const int DIcnt = 178;
+        private const int DIcnt = 182;
         private bool[] _diList = new bool[DIcnt];
         public bool[] DIList
         {
@@ -99,7 +99,8 @@ namespace MainUI.Modules
         {
             var lstTag = dIModulesConfig.Tags;
             dIModulesConfig.Save();
-
+            // Init() 里加
+            System.Diagnostics.Debug.WriteLine($"Tags总数: {lstTag.Count}, DIcnt={DIcnt}");
             // 先赋一个默认值
             foreach (var item in lstTag)
             {

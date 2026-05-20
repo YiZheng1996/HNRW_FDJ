@@ -1265,6 +1265,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb2.Color = System.Drawing.Color.Red;
             this.uiLedBulb2.Location = new System.Drawing.Point(324, 38);
             this.uiLedBulb2.Name = "uiLedBulb2";
+            this.uiLedBulb2.On = false;
             this.uiLedBulb2.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb2.TabIndex = 759;
             this.uiLedBulb2.Tag = "抽油泵过流";
@@ -1314,6 +1315,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb1.Color = System.Drawing.Color.Red;
             this.uiLedBulb1.Location = new System.Drawing.Point(324, 84);
             this.uiLedBulb1.Name = "uiLedBulb1";
+            this.uiLedBulb1.On = false;
             this.uiLedBulb1.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb1.TabIndex = 759;
             this.uiLedBulb1.Tag = "主发通风机2过流";
@@ -1379,6 +1381,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb6.Color = System.Drawing.Color.Red;
             this.uiLedBulb6.Location = new System.Drawing.Point(324, 32);
             this.uiLedBulb6.Name = "uiLedBulb6";
+            this.uiLedBulb6.On = false;
             this.uiLedBulb6.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb6.TabIndex = 759;
             this.uiLedBulb6.Tag = "主发通风机1过流";
@@ -1428,6 +1431,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb3.Color = System.Drawing.Color.Red;
             this.uiLedBulb3.Location = new System.Drawing.Point(323, 214);
             this.uiLedBulb3.Name = "uiLedBulb3";
+            this.uiLedBulb3.On = false;
             this.uiLedBulb3.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb3.TabIndex = 760;
             this.uiLedBulb3.Tag = "水阻升降电机过流";
@@ -2384,14 +2388,14 @@ namespace MainUI.TestScreen
             this.ucParamEngineOutP.Font = new System.Drawing.Font("宋体", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucParamEngineOutP.GaugeValue = 0D;
             this.ucParamEngineOutP.Key = "";
-            this.ucParamEngineOutP.Location = new System.Drawing.Point(1581, 7);
+            this.ucParamEngineOutP.Location = new System.Drawing.Point(1571, 7);
             this.ucParamEngineOutP.Margin = new System.Windows.Forms.Padding(7);
             this.ucParamEngineOutP.Name = "ucParamEngineOutP";
-            this.ucParamEngineOutP.Size = new System.Drawing.Size(230, 262);
+            this.ucParamEngineOutP.Size = new System.Drawing.Size(240, 262);
             this.ucParamEngineOutP.TabIndex = 796;
             this.ucParamEngineOutP.Tag = "P20机油泵出口压力";
-            this.ucParamEngineOutP.Title = "机油出机压力(kPa)";
-            this.ucParamEngineOutP.TitleFont = new System.Drawing.Font("宋体", 18F);
+            this.ucParamEngineOutP.Title = "机油泵出口油压(kPa)";
+            this.ucParamEngineOutP.TitleFont = new System.Drawing.Font("宋体", 17F);
             this.ucParamEngineOutP.TitleHeight = 35;
             this.ucParamEngineOutP.Unit = "";
             // 
@@ -2402,7 +2406,7 @@ namespace MainUI.TestScreen
             this.ucParamFuelInletP.Font = new System.Drawing.Font("宋体", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucParamFuelInletP.GaugeValue = 0D;
             this.ucParamFuelInletP.Key = "";
-            this.ucParamFuelInletP.Location = new System.Drawing.Point(1093, 7);
+            this.ucParamFuelInletP.Location = new System.Drawing.Point(1087, 7);
             this.ucParamFuelInletP.Margin = new System.Windows.Forms.Padding(7);
             this.ucParamFuelInletP.Name = "ucParamFuelInletP";
             this.ucParamFuelInletP.Size = new System.Drawing.Size(230, 262);
@@ -2420,7 +2424,7 @@ namespace MainUI.TestScreen
             this.ucParamEngineInP.Font = new System.Drawing.Font("宋体", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucParamEngineInP.GaugeValue = 0D;
             this.ucParamEngineInP.Key = "";
-            this.ucParamEngineInP.Location = new System.Drawing.Point(1337, 7);
+            this.ucParamEngineInP.Location = new System.Drawing.Point(1329, 7);
             this.ucParamEngineInP.Margin = new System.Windows.Forms.Padding(7);
             this.ucParamEngineInP.Name = "ucParamEngineInP";
             this.ucParamEngineInP.Size = new System.Drawing.Size(230, 262);
@@ -2438,7 +2442,7 @@ namespace MainUI.TestScreen
             this.ucParamTorque.Font = new System.Drawing.Font("宋体", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucParamTorque.GaugeValue = 0D;
             this.ucParamTorque.Key = "";
-            this.ucParamTorque.Location = new System.Drawing.Point(849, 7);
+            this.ucParamTorque.Location = new System.Drawing.Point(845, 7);
             this.ucParamTorque.Margin = new System.Windows.Forms.Padding(7);
             this.ucParamTorque.Name = "ucParamTorque";
             this.ucParamTorque.Size = new System.Drawing.Size(230, 262);
@@ -2455,7 +2459,7 @@ namespace MainUI.TestScreen
             this.ucParamPower.Font = new System.Drawing.Font("宋体", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucParamPower.GaugeValue = 0D;
             this.ucParamPower.Key = "";
-            this.ucParamPower.Location = new System.Drawing.Point(605, 7);
+            this.ucParamPower.Location = new System.Drawing.Point(603, 7);
             this.ucParamPower.Margin = new System.Windows.Forms.Padding(7);
             this.ucParamPower.Name = "ucParamPower";
             this.ucParamPower.Size = new System.Drawing.Size(230, 262);

@@ -39,48 +39,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.grp1 = new Sunny.UI.UIGroupBox();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.grp2 = new Sunny.UI.UIGroupBox();
-            this.grp3 = new System.Windows.Forms.TabPage();
-            this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.uiGroupBox3 = new Sunny.UI.UIGroupBox();
-            this.panelEngine = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.uiGroupBox4 = new Sunny.UI.UIGroupBox();
-            this.panelFuel = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.uiGroupBox5 = new Sunny.UI.UIGroupBox();
-            this.panelWater = new System.Windows.Forms.Panel();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.btnClose = new Sunny.UI.UIButton();
-            this.uiGroupBox2 = new Sunny.UI.UIGroupBox();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.ucCalibration40 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration39 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration131 = new MainUI.Procedure.UCCalibration();
@@ -98,6 +56,12 @@
             this.ucCalibration11 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration1 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration6 = new MainUI.Procedure.UCCalibration();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.grp2 = new Sunny.UI.UIGroupBox();
             this.ucCalibration62 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration61 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration33 = new MainUI.Procedure.UCCalibration();
@@ -108,6 +72,9 @@
             this.ucCalibration22 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration23 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration24 = new MainUI.Procedure.UCCalibration();
+            this.grp3 = new System.Windows.Forms.TabPage();
+            this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.ucCalibration128 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration120 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration67 = new MainUI.Procedure.UCCalibration();
@@ -153,6 +120,17 @@
             this.ucCalibration14 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration27 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration13 = new MainUI.Procedure.UCCalibration();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.uiGroupBox2 = new Sunny.UI.UIGroupBox();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.ucCalibration132 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration133 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration76 = new MainUI.Procedure.UCCalibration();
@@ -179,6 +157,9 @@
             this.ucCalibration97 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration98 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration99 = new MainUI.Procedure.UCCalibration();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.uiGroupBox3 = new Sunny.UI.UIGroupBox();
+            this.panelEngine = new System.Windows.Forms.Panel();
             this.ucCalibration69 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration68 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration103 = new MainUI.Procedure.UCCalibration();
@@ -193,6 +174,13 @@
             this.ucCalibration113 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration114 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration115 = new MainUI.Procedure.UCCalibration();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.uiGroupBox4 = new Sunny.UI.UIGroupBox();
+            this.panelFuel = new System.Windows.Forms.Panel();
             this.ucCalibration72 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration73 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration75 = new MainUI.Procedure.UCCalibration();
@@ -204,16 +192,30 @@
             this.ucCalibration117 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration118 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration119 = new MainUI.Procedure.UCCalibration();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.uiGroupBox5 = new Sunny.UI.UIGroupBox();
+            this.panelWater = new System.Windows.Forms.Panel();
+            this.ucCalibration135 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration70 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration71 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration74 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration121 = new MainUI.Procedure.UCCalibration();
+            this.ucCalibration134 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration122 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration123 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration124 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration125 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration126 = new MainUI.Procedure.UCCalibration();
             this.ucCalibration127 = new MainUI.Procedure.UCCalibration();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.btnClose = new Sunny.UI.UIButton();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -228,6 +230,8 @@
             this.panel3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.uiGroupBox2.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.uiGroupBox3.SuspendLayout();
             this.panelEngine.SuspendLayout();
@@ -240,15 +244,12 @@
             this.uiGroupBox5.SuspendLayout();
             this.panelWater.SuspendLayout();
             this.panel11.SuspendLayout();
-            this.uiGroupBox2.SuspendLayout();
-            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label12
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label12.AutoSize = true;
-            this.label12.Cursor = System.Windows.Forms.Cursors.Default;
             this.label12.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label12.ForeColor = System.Drawing.Color.DarkRed;
             this.label12.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -374,589 +375,8 @@
             this.panel7.Controls.Add(this.ucCalibration6);
             this.panel7.Location = new System.Drawing.Point(6, 19);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(887, 610);
+            this.panel7.Size = new System.Drawing.Size(887, 645);
             this.panel7.TabIndex = 14;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.tabPage2.Controls.Add(this.panel1);
-            this.tabPage2.Controls.Add(this.grp2);
-            this.tabPage2.Location = new System.Drawing.Point(0, 40);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1050, 725);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "控制柜-调节阀";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel1.Location = new System.Drawing.Point(419, 3);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(276, 38);
-            this.panel1.TabIndex = 385;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(192, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 27);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "增益值";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(12, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 27);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "测定值";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(106, 5);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 27);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "零点值";
-            // 
-            // grp2
-            // 
-            this.grp2.Controls.Add(this.ucCalibration62);
-            this.grp2.Controls.Add(this.ucCalibration61);
-            this.grp2.Controls.Add(this.ucCalibration33);
-            this.grp2.Controls.Add(this.ucCalibration18);
-            this.grp2.Controls.Add(this.ucCalibration19);
-            this.grp2.Controls.Add(this.ucCalibration20);
-            this.grp2.Controls.Add(this.ucCalibration21);
-            this.grp2.Controls.Add(this.ucCalibration22);
-            this.grp2.Controls.Add(this.ucCalibration23);
-            this.grp2.Controls.Add(this.ucCalibration24);
-            this.grp2.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.grp2.Location = new System.Drawing.Point(105, 38);
-            this.grp2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grp2.MinimumSize = new System.Drawing.Size(1, 1);
-            this.grp2.Name = "grp2";
-            this.grp2.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.grp2.Size = new System.Drawing.Size(893, 632);
-            this.grp2.TabIndex = 386;
-            this.grp2.Text = null;
-            this.grp2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // grp3
-            // 
-            this.grp3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.grp3.Controls.Add(this.uiGroupBox1);
-            this.grp3.Controls.Add(this.panel3);
-            this.grp3.Location = new System.Drawing.Point(0, 40);
-            this.grp3.Name = "grp3";
-            this.grp3.Size = new System.Drawing.Size(1050, 725);
-            this.grp3.TabIndex = 2;
-            this.grp3.Text = "测量柜-温度";
-            // 
-            // uiGroupBox1
-            // 
-            this.uiGroupBox1.Controls.Add(this.panel4);
-            this.uiGroupBox1.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.uiGroupBox1.Location = new System.Drawing.Point(105, 38);
-            this.uiGroupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox1.Name = "uiGroupBox1";
-            this.uiGroupBox1.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox1.Size = new System.Drawing.Size(893, 632);
-            this.uiGroupBox1.TabIndex = 387;
-            this.uiGroupBox1.Text = null;
-            this.uiGroupBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel4
-            // 
-            this.panel4.AutoScroll = true;
-            this.panel4.Controls.Add(this.ucCalibration128);
-            this.panel4.Controls.Add(this.ucCalibration120);
-            this.panel4.Controls.Add(this.ucCalibration67);
-            this.panel4.Controls.Add(this.ucCalibration66);
-            this.panel4.Controls.Add(this.ucCalibration65);
-            this.panel4.Controls.Add(this.ucCalibration64);
-            this.panel4.Controls.Add(this.ucCalibration63);
-            this.panel4.Controls.Add(this.ucCalibration60);
-            this.panel4.Controls.Add(this.ucCalibration59);
-            this.panel4.Controls.Add(this.ucCalibration58);
-            this.panel4.Controls.Add(this.ucCalibration57);
-            this.panel4.Controls.Add(this.ucCalibration56);
-            this.panel4.Controls.Add(this.ucCalibration55);
-            this.panel4.Controls.Add(this.ucCalibration54);
-            this.panel4.Controls.Add(this.ucCalibration53);
-            this.panel4.Controls.Add(this.ucCalibration52);
-            this.panel4.Controls.Add(this.ucCalibration51);
-            this.panel4.Controls.Add(this.ucCalibration50);
-            this.panel4.Controls.Add(this.ucCalibration49);
-            this.panel4.Controls.Add(this.ucCalibration48);
-            this.panel4.Controls.Add(this.ucCalibration47);
-            this.panel4.Controls.Add(this.ucCalibration46);
-            this.panel4.Controls.Add(this.ucCalibration45);
-            this.panel4.Controls.Add(this.ucCalibration44);
-            this.panel4.Controls.Add(this.ucCalibration43);
-            this.panel4.Controls.Add(this.ucCalibration42);
-            this.panel4.Controls.Add(this.ucCalibration41);
-            this.panel4.Controls.Add(this.ucCalibration38);
-            this.panel4.Controls.Add(this.ucCalibration37);
-            this.panel4.Controls.Add(this.ucCalibration36);
-            this.panel4.Controls.Add(this.ucCalibration35);
-            this.panel4.Controls.Add(this.ucCalibration34);
-            this.panel4.Controls.Add(this.ucCalibration26);
-            this.panel4.Controls.Add(this.ucCalibration32);
-            this.panel4.Controls.Add(this.ucCalibration25);
-            this.panel4.Controls.Add(this.ucCalibration31);
-            this.panel4.Controls.Add(this.ucCalibration17);
-            this.panel4.Controls.Add(this.ucCalibration30);
-            this.panel4.Controls.Add(this.ucCalibration16);
-            this.panel4.Controls.Add(this.ucCalibration29);
-            this.panel4.Controls.Add(this.ucCalibration15);
-            this.panel4.Controls.Add(this.ucCalibration28);
-            this.panel4.Controls.Add(this.ucCalibration14);
-            this.panel4.Controls.Add(this.ucCalibration27);
-            this.panel4.Controls.Add(this.ucCalibration13);
-            this.panel4.Location = new System.Drawing.Point(3, 19);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(840, 599);
-            this.panel4.TabIndex = 22;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.label8);
-            this.panel3.Controls.Add(this.label9);
-            this.panel3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel3.Location = new System.Drawing.Point(419, 3);
-            this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(276, 34);
-            this.panel3.TabIndex = 384;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label7.Location = new System.Drawing.Point(192, 5);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 27);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "增益值";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label8.Location = new System.Drawing.Point(12, 5);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(72, 27);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "测定值";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(106, 5);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(72, 27);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "零点值";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.tabPage4.Controls.Add(this.panel6);
-            this.tabPage4.Controls.Add(this.uiGroupBox2);
-            this.tabPage4.Location = new System.Drawing.Point(0, 40);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1050, 725);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "测量柜-压力";
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.label10);
-            this.panel6.Controls.Add(this.label11);
-            this.panel6.Controls.Add(this.label13);
-            this.panel6.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel6.Location = new System.Drawing.Point(419, 3);
-            this.panel6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(276, 34);
-            this.panel6.TabIndex = 389;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label10.Location = new System.Drawing.Point(192, 5);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(72, 27);
-            this.label10.TabIndex = 7;
-            this.label10.Text = "增益值";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label11.Location = new System.Drawing.Point(12, 5);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(72, 27);
-            this.label11.TabIndex = 7;
-            this.label11.Text = "测定值";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label13.Location = new System.Drawing.Point(106, 5);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(72, 27);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "零点值";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.tabPage3.Controls.Add(this.uiGroupBox3);
-            this.tabPage3.Controls.Add(this.panel8);
-            this.tabPage3.Location = new System.Drawing.Point(0, 40);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1050, 725);
-            this.tabPage3.TabIndex = 4;
-            this.tabPage3.Text = "机油系统";
-            // 
-            // uiGroupBox3
-            // 
-            this.uiGroupBox3.Controls.Add(this.panelEngine);
-            this.uiGroupBox3.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.uiGroupBox3.Location = new System.Drawing.Point(105, 38);
-            this.uiGroupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox3.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox3.Name = "uiGroupBox3";
-            this.uiGroupBox3.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox3.Size = new System.Drawing.Size(893, 632);
-            this.uiGroupBox3.TabIndex = 391;
-            this.uiGroupBox3.Text = null;
-            this.uiGroupBox3.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panelEngine
-            // 
-            this.panelEngine.AutoScroll = true;
-            this.panelEngine.Controls.Add(this.ucCalibration69);
-            this.panelEngine.Controls.Add(this.ucCalibration68);
-            this.panelEngine.Controls.Add(this.ucCalibration103);
-            this.panelEngine.Controls.Add(this.ucCalibration105);
-            this.panelEngine.Controls.Add(this.ucCalibration106);
-            this.panelEngine.Controls.Add(this.ucCalibration107);
-            this.panelEngine.Controls.Add(this.ucCalibration108);
-            this.panelEngine.Controls.Add(this.ucCalibration109);
-            this.panelEngine.Controls.Add(this.ucCalibration110);
-            this.panelEngine.Controls.Add(this.ucCalibration111);
-            this.panelEngine.Controls.Add(this.ucCalibration112);
-            this.panelEngine.Controls.Add(this.ucCalibration113);
-            this.panelEngine.Controls.Add(this.ucCalibration114);
-            this.panelEngine.Controls.Add(this.ucCalibration115);
-            this.panelEngine.Location = new System.Drawing.Point(3, 19);
-            this.panelEngine.Name = "panelEngine";
-            this.panelEngine.Size = new System.Drawing.Size(840, 599);
-            this.panelEngine.TabIndex = 23;
-            // 
-            // panel8
-            // 
-            this.panel8.Controls.Add(this.label14);
-            this.panel8.Controls.Add(this.label15);
-            this.panel8.Controls.Add(this.label16);
-            this.panel8.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel8.Location = new System.Drawing.Point(419, 3);
-            this.panel8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(276, 34);
-            this.panel8.TabIndex = 390;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label14.Location = new System.Drawing.Point(192, 5);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(72, 27);
-            this.label14.TabIndex = 7;
-            this.label14.Text = "增益值";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label15.Location = new System.Drawing.Point(12, 5);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(72, 27);
-            this.label15.TabIndex = 7;
-            this.label15.Text = "测定值";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label16.Location = new System.Drawing.Point(106, 5);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(72, 27);
-            this.label16.TabIndex = 7;
-            this.label16.Text = "零点值";
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.tabPage5.Controls.Add(this.uiGroupBox4);
-            this.tabPage5.Controls.Add(this.panel9);
-            this.tabPage5.Location = new System.Drawing.Point(0, 40);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1050, 725);
-            this.tabPage5.TabIndex = 5;
-            this.tabPage5.Text = "燃油系统";
-            // 
-            // uiGroupBox4
-            // 
-            this.uiGroupBox4.Controls.Add(this.panelFuel);
-            this.uiGroupBox4.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.uiGroupBox4.Location = new System.Drawing.Point(105, 38);
-            this.uiGroupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox4.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox4.Size = new System.Drawing.Size(893, 632);
-            this.uiGroupBox4.TabIndex = 393;
-            this.uiGroupBox4.Text = null;
-            this.uiGroupBox4.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panelFuel
-            // 
-            this.panelFuel.AutoScroll = true;
-            this.panelFuel.Controls.Add(this.ucCalibration72);
-            this.panelFuel.Controls.Add(this.ucCalibration73);
-            this.panelFuel.Controls.Add(this.ucCalibration75);
-            this.panelFuel.Controls.Add(this.ucCalibration100);
-            this.panelFuel.Controls.Add(this.ucCalibration101);
-            this.panelFuel.Controls.Add(this.ucCalibration102);
-            this.panelFuel.Controls.Add(this.ucCalibration104);
-            this.panelFuel.Controls.Add(this.ucCalibration116);
-            this.panelFuel.Controls.Add(this.ucCalibration117);
-            this.panelFuel.Controls.Add(this.ucCalibration118);
-            this.panelFuel.Controls.Add(this.ucCalibration119);
-            this.panelFuel.Location = new System.Drawing.Point(3, 21);
-            this.panelFuel.Name = "panelFuel";
-            this.panelFuel.Size = new System.Drawing.Size(840, 599);
-            this.panelFuel.TabIndex = 391;
-            // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.label17);
-            this.panel9.Controls.Add(this.label18);
-            this.panel9.Controls.Add(this.label19);
-            this.panel9.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel9.Location = new System.Drawing.Point(419, 3);
-            this.panel9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(276, 34);
-            this.panel9.TabIndex = 392;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label17.Location = new System.Drawing.Point(192, 5);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(72, 27);
-            this.label17.TabIndex = 7;
-            this.label17.Text = "增益值";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label18.Location = new System.Drawing.Point(12, 5);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(72, 27);
-            this.label18.TabIndex = 7;
-            this.label18.Text = "测定值";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label19.Location = new System.Drawing.Point(106, 5);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(72, 27);
-            this.label19.TabIndex = 7;
-            this.label19.Text = "零点值";
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.tabPage6.Controls.Add(this.uiGroupBox5);
-            this.tabPage6.Controls.Add(this.panel11);
-            this.tabPage6.Location = new System.Drawing.Point(0, 40);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1050, 725);
-            this.tabPage6.TabIndex = 6;
-            this.tabPage6.Text = "水系统";
-            // 
-            // uiGroupBox5
-            // 
-            this.uiGroupBox5.Controls.Add(this.panelWater);
-            this.uiGroupBox5.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.uiGroupBox5.Location = new System.Drawing.Point(105, 38);
-            this.uiGroupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox5.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox5.Name = "uiGroupBox5";
-            this.uiGroupBox5.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox5.Size = new System.Drawing.Size(893, 632);
-            this.uiGroupBox5.TabIndex = 395;
-            this.uiGroupBox5.Text = null;
-            this.uiGroupBox5.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panelWater
-            // 
-            this.panelWater.AutoScroll = true;
-            this.panelWater.Controls.Add(this.ucCalibration70);
-            this.panelWater.Controls.Add(this.ucCalibration71);
-            this.panelWater.Controls.Add(this.ucCalibration74);
-            this.panelWater.Controls.Add(this.ucCalibration121);
-            this.panelWater.Controls.Add(this.ucCalibration122);
-            this.panelWater.Controls.Add(this.ucCalibration123);
-            this.panelWater.Controls.Add(this.ucCalibration124);
-            this.panelWater.Controls.Add(this.ucCalibration125);
-            this.panelWater.Controls.Add(this.ucCalibration126);
-            this.panelWater.Controls.Add(this.ucCalibration127);
-            this.panelWater.Location = new System.Drawing.Point(3, 20);
-            this.panelWater.Name = "panelWater";
-            this.panelWater.Size = new System.Drawing.Size(840, 599);
-            this.panelWater.TabIndex = 393;
-            // 
-            // panel11
-            // 
-            this.panel11.Controls.Add(this.label20);
-            this.panel11.Controls.Add(this.label21);
-            this.panel11.Controls.Add(this.label22);
-            this.panel11.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel11.Location = new System.Drawing.Point(419, 3);
-            this.panel11.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(276, 34);
-            this.panel11.TabIndex = 394;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label20.Location = new System.Drawing.Point(192, 5);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(72, 27);
-            this.label20.TabIndex = 7;
-            this.label20.Text = "增益值";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label21.Location = new System.Drawing.Point(12, 5);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(72, 27);
-            this.label21.TabIndex = 7;
-            this.label21.Text = "测定值";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label22.Location = new System.Drawing.Point(106, 5);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(72, 27);
-            this.label22.TabIndex = 7;
-            this.label22.Text = "零点值";
-            // 
-            // btnClose
-            // 
-            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClose.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.btnClose.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.btnClose.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(115)))), ((int)(((byte)(115)))));
-            this.btnClose.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnClose.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnClose.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnClose.LightColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.btnClose.Location = new System.Drawing.Point(785, 778);
-            this.btnClose.MinimumSize = new System.Drawing.Size(1, 1);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.btnClose.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(115)))), ((int)(((byte)(115)))));
-            this.btnClose.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnClose.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnClose.Size = new System.Drawing.Size(210, 40);
-            this.btnClose.Style = Sunny.UI.UIStyle.Custom;
-            this.btnClose.TabIndex = 525;
-            this.btnClose.Text = "退出";
-            this.btnClose.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // uiGroupBox2
-            // 
-            this.uiGroupBox2.Controls.Add(this.panel5);
-            this.uiGroupBox2.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.uiGroupBox2.Location = new System.Drawing.Point(105, 38);
-            this.uiGroupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox2.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox2.Size = new System.Drawing.Size(893, 632);
-            this.uiGroupBox2.TabIndex = 388;
-            this.uiGroupBox2.Text = null;
-            this.uiGroupBox2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel5
-            // 
-            this.panel5.AutoScroll = true;
-            this.panel5.Controls.Add(this.ucCalibration132);
-            this.panel5.Controls.Add(this.ucCalibration133);
-            this.panel5.Controls.Add(this.ucCalibration76);
-            this.panel5.Controls.Add(this.ucCalibration77);
-            this.panel5.Controls.Add(this.ucCalibration78);
-            this.panel5.Controls.Add(this.ucCalibration79);
-            this.panel5.Controls.Add(this.ucCalibration80);
-            this.panel5.Controls.Add(this.ucCalibration81);
-            this.panel5.Controls.Add(this.ucCalibration82);
-            this.panel5.Controls.Add(this.ucCalibration83);
-            this.panel5.Controls.Add(this.ucCalibration84);
-            this.panel5.Controls.Add(this.ucCalibration85);
-            this.panel5.Controls.Add(this.ucCalibration86);
-            this.panel5.Controls.Add(this.ucCalibration87);
-            this.panel5.Controls.Add(this.ucCalibration88);
-            this.panel5.Controls.Add(this.ucCalibration89);
-            this.panel5.Controls.Add(this.ucCalibration90);
-            this.panel5.Controls.Add(this.ucCalibration91);
-            this.panel5.Controls.Add(this.ucCalibration92);
-            this.panel5.Controls.Add(this.ucCalibration93);
-            this.panel5.Controls.Add(this.ucCalibration94);
-            this.panel5.Controls.Add(this.ucCalibration95);
-            this.panel5.Controls.Add(this.ucCalibration96);
-            this.panel5.Controls.Add(this.ucCalibration97);
-            this.panel5.Controls.Add(this.ucCalibration98);
-            this.panel5.Controls.Add(this.ucCalibration99);
-            this.panel5.Location = new System.Drawing.Point(3, 19);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(840, 599);
-            this.panel5.TabIndex = 22;
             // 
             // ucCalibration40
             // 
@@ -965,7 +385,7 @@
             this.ucCalibration40.GainValue = 0D;
             this.ucCalibration40.Index = 16;
             this.ucCalibration40.Key = "厂房进气压力检测2";
-            this.ucCalibration40.Location = new System.Drawing.Point(83, 747);
+            this.ucCalibration40.Location = new System.Drawing.Point(83, 725);
             this.ucCalibration40.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration40.Name = "ucCalibration40";
             this.ucCalibration40.Size = new System.Drawing.Size(673, 37);
@@ -1010,7 +430,7 @@
             this.ucCalibration130.GainValue = 0D;
             this.ucCalibration130.Index = 13;
             this.ucCalibration130.Key = "前增压器进气流量计前温度";
-            this.ucCalibration130.Location = new System.Drawing.Point(83, 613);
+            this.ucCalibration130.Location = new System.Drawing.Point(83, 708);
             this.ucCalibration130.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration130.Name = "ucCalibration130";
             this.ucCalibration130.Size = new System.Drawing.Size(673, 37);
@@ -1212,6 +632,82 @@
             this.ucCalibration6.Text = "燃油进油流量测量-L30(m³/h)";
             this.ucCalibration6.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_1_Submited);
             // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.tabPage2.Controls.Add(this.panel1);
+            this.tabPage2.Controls.Add(this.grp2);
+            this.tabPage2.Location = new System.Drawing.Point(0, 40);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(1050, 725);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "控制柜-调节阀";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panel1.Location = new System.Drawing.Point(419, 3);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(276, 38);
+            this.panel1.TabIndex = 385;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label1.Location = new System.Drawing.Point(192, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 27);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "增益值";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label2.Location = new System.Drawing.Point(12, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(72, 27);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "测定值";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label3.Location = new System.Drawing.Point(106, 5);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 27);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "零点值";
+            // 
+            // grp2
+            // 
+            this.grp2.Controls.Add(this.ucCalibration62);
+            this.grp2.Controls.Add(this.ucCalibration61);
+            this.grp2.Controls.Add(this.ucCalibration33);
+            this.grp2.Controls.Add(this.ucCalibration18);
+            this.grp2.Controls.Add(this.ucCalibration19);
+            this.grp2.Controls.Add(this.ucCalibration20);
+            this.grp2.Controls.Add(this.ucCalibration21);
+            this.grp2.Controls.Add(this.ucCalibration22);
+            this.grp2.Controls.Add(this.ucCalibration23);
+            this.grp2.Controls.Add(this.ucCalibration24);
+            this.grp2.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.grp2.Location = new System.Drawing.Point(105, 38);
+            this.grp2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grp2.MinimumSize = new System.Drawing.Size(1, 1);
+            this.grp2.Name = "grp2";
+            this.grp2.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.grp2.Size = new System.Drawing.Size(893, 632);
+            this.grp2.TabIndex = 386;
+            this.grp2.Text = null;
+            this.grp2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ucCalibration62
             // 
             this.ucCalibration62.CustomName = "发动机油门调节";
@@ -1360,6 +856,84 @@
             this.ucCalibration24.TabIndex = 6;
             this.ucCalibration24.Text = "燃油泵1电动调节阀控制-170(%)";
             this.ucCalibration24.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration24_Submited);
+            // 
+            // grp3
+            // 
+            this.grp3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.grp3.Controls.Add(this.uiGroupBox1);
+            this.grp3.Controls.Add(this.panel3);
+            this.grp3.Location = new System.Drawing.Point(0, 40);
+            this.grp3.Name = "grp3";
+            this.grp3.Size = new System.Drawing.Size(1050, 725);
+            this.grp3.TabIndex = 2;
+            this.grp3.Text = "测量柜-温度";
+            // 
+            // uiGroupBox1
+            // 
+            this.uiGroupBox1.Controls.Add(this.panel4);
+            this.uiGroupBox1.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.uiGroupBox1.Location = new System.Drawing.Point(105, 38);
+            this.uiGroupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox1.Name = "uiGroupBox1";
+            this.uiGroupBox1.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox1.Size = new System.Drawing.Size(893, 632);
+            this.uiGroupBox1.TabIndex = 387;
+            this.uiGroupBox1.Text = null;
+            this.uiGroupBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel4
+            // 
+            this.panel4.AutoScroll = true;
+            this.panel4.Controls.Add(this.ucCalibration128);
+            this.panel4.Controls.Add(this.ucCalibration120);
+            this.panel4.Controls.Add(this.ucCalibration67);
+            this.panel4.Controls.Add(this.ucCalibration66);
+            this.panel4.Controls.Add(this.ucCalibration65);
+            this.panel4.Controls.Add(this.ucCalibration64);
+            this.panel4.Controls.Add(this.ucCalibration63);
+            this.panel4.Controls.Add(this.ucCalibration60);
+            this.panel4.Controls.Add(this.ucCalibration59);
+            this.panel4.Controls.Add(this.ucCalibration58);
+            this.panel4.Controls.Add(this.ucCalibration57);
+            this.panel4.Controls.Add(this.ucCalibration56);
+            this.panel4.Controls.Add(this.ucCalibration55);
+            this.panel4.Controls.Add(this.ucCalibration54);
+            this.panel4.Controls.Add(this.ucCalibration53);
+            this.panel4.Controls.Add(this.ucCalibration52);
+            this.panel4.Controls.Add(this.ucCalibration51);
+            this.panel4.Controls.Add(this.ucCalibration50);
+            this.panel4.Controls.Add(this.ucCalibration49);
+            this.panel4.Controls.Add(this.ucCalibration48);
+            this.panel4.Controls.Add(this.ucCalibration47);
+            this.panel4.Controls.Add(this.ucCalibration46);
+            this.panel4.Controls.Add(this.ucCalibration45);
+            this.panel4.Controls.Add(this.ucCalibration44);
+            this.panel4.Controls.Add(this.ucCalibration43);
+            this.panel4.Controls.Add(this.ucCalibration42);
+            this.panel4.Controls.Add(this.ucCalibration41);
+            this.panel4.Controls.Add(this.ucCalibration38);
+            this.panel4.Controls.Add(this.ucCalibration37);
+            this.panel4.Controls.Add(this.ucCalibration36);
+            this.panel4.Controls.Add(this.ucCalibration35);
+            this.panel4.Controls.Add(this.ucCalibration34);
+            this.panel4.Controls.Add(this.ucCalibration26);
+            this.panel4.Controls.Add(this.ucCalibration32);
+            this.panel4.Controls.Add(this.ucCalibration25);
+            this.panel4.Controls.Add(this.ucCalibration31);
+            this.panel4.Controls.Add(this.ucCalibration17);
+            this.panel4.Controls.Add(this.ucCalibration30);
+            this.panel4.Controls.Add(this.ucCalibration16);
+            this.panel4.Controls.Add(this.ucCalibration29);
+            this.panel4.Controls.Add(this.ucCalibration15);
+            this.panel4.Controls.Add(this.ucCalibration28);
+            this.panel4.Controls.Add(this.ucCalibration14);
+            this.panel4.Controls.Add(this.ucCalibration27);
+            this.panel4.Controls.Add(this.ucCalibration13);
+            this.panel4.Location = new System.Drawing.Point(3, 19);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(840, 599);
+            this.panel4.TabIndex = 22;
             // 
             // ucCalibration128
             // 
@@ -2035,6 +1609,149 @@
             this.ucCalibration13.Text = "中冷器出口水温(℃)";
             this.ucCalibration13.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.label8);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panel3.Location = new System.Drawing.Point(419, 3);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(276, 34);
+            this.panel3.TabIndex = 384;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label7.Location = new System.Drawing.Point(192, 5);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(72, 27);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "增益值";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label8.Location = new System.Drawing.Point(12, 5);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(72, 27);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "测定值";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label9.Location = new System.Drawing.Point(106, 5);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(72, 27);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "零点值";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.tabPage4.Controls.Add(this.panel6);
+            this.tabPage4.Controls.Add(this.uiGroupBox2);
+            this.tabPage4.Location = new System.Drawing.Point(0, 40);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1050, 725);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "测量柜-压力";
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.label10);
+            this.panel6.Controls.Add(this.label11);
+            this.panel6.Controls.Add(this.label13);
+            this.panel6.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panel6.Location = new System.Drawing.Point(419, 3);
+            this.panel6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(276, 34);
+            this.panel6.TabIndex = 389;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label10.Location = new System.Drawing.Point(192, 5);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(72, 27);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "增益值";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label11.Location = new System.Drawing.Point(12, 5);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(72, 27);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "测定值";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label13.Location = new System.Drawing.Point(106, 5);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(72, 27);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "零点值";
+            // 
+            // uiGroupBox2
+            // 
+            this.uiGroupBox2.Controls.Add(this.panel5);
+            this.uiGroupBox2.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.uiGroupBox2.Location = new System.Drawing.Point(105, 38);
+            this.uiGroupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox2.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox2.Name = "uiGroupBox2";
+            this.uiGroupBox2.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox2.Size = new System.Drawing.Size(893, 632);
+            this.uiGroupBox2.TabIndex = 388;
+            this.uiGroupBox2.Text = null;
+            this.uiGroupBox2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel5
+            // 
+            this.panel5.AutoScroll = true;
+            this.panel5.Controls.Add(this.ucCalibration132);
+            this.panel5.Controls.Add(this.ucCalibration133);
+            this.panel5.Controls.Add(this.ucCalibration76);
+            this.panel5.Controls.Add(this.ucCalibration77);
+            this.panel5.Controls.Add(this.ucCalibration78);
+            this.panel5.Controls.Add(this.ucCalibration79);
+            this.panel5.Controls.Add(this.ucCalibration80);
+            this.panel5.Controls.Add(this.ucCalibration81);
+            this.panel5.Controls.Add(this.ucCalibration82);
+            this.panel5.Controls.Add(this.ucCalibration83);
+            this.panel5.Controls.Add(this.ucCalibration84);
+            this.panel5.Controls.Add(this.ucCalibration85);
+            this.panel5.Controls.Add(this.ucCalibration86);
+            this.panel5.Controls.Add(this.ucCalibration87);
+            this.panel5.Controls.Add(this.ucCalibration88);
+            this.panel5.Controls.Add(this.ucCalibration89);
+            this.panel5.Controls.Add(this.ucCalibration90);
+            this.panel5.Controls.Add(this.ucCalibration91);
+            this.panel5.Controls.Add(this.ucCalibration92);
+            this.panel5.Controls.Add(this.ucCalibration93);
+            this.panel5.Controls.Add(this.ucCalibration94);
+            this.panel5.Controls.Add(this.ucCalibration95);
+            this.panel5.Controls.Add(this.ucCalibration96);
+            this.panel5.Controls.Add(this.ucCalibration97);
+            this.panel5.Controls.Add(this.ucCalibration98);
+            this.panel5.Controls.Add(this.ucCalibration99);
+            this.panel5.Location = new System.Drawing.Point(3, 19);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(840, 599);
+            this.panel5.TabIndex = 22;
+            // 
             // ucCalibration132
             // 
             this.ucCalibration132.CustomName = "励磁电流检测";
@@ -2424,6 +2141,53 @@
             this.ucCalibration99.Text = "前增压器进气真空度(kPa)";
             this.ucCalibration99.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.tabPage3.Controls.Add(this.uiGroupBox3);
+            this.tabPage3.Controls.Add(this.panel8);
+            this.tabPage3.Location = new System.Drawing.Point(0, 40);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1050, 725);
+            this.tabPage3.TabIndex = 4;
+            this.tabPage3.Text = "机油系统";
+            // 
+            // uiGroupBox3
+            // 
+            this.uiGroupBox3.Controls.Add(this.panelEngine);
+            this.uiGroupBox3.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.uiGroupBox3.Location = new System.Drawing.Point(105, 38);
+            this.uiGroupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox3.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox3.Name = "uiGroupBox3";
+            this.uiGroupBox3.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox3.Size = new System.Drawing.Size(893, 632);
+            this.uiGroupBox3.TabIndex = 391;
+            this.uiGroupBox3.Text = null;
+            this.uiGroupBox3.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelEngine
+            // 
+            this.panelEngine.AutoScroll = true;
+            this.panelEngine.Controls.Add(this.ucCalibration69);
+            this.panelEngine.Controls.Add(this.ucCalibration68);
+            this.panelEngine.Controls.Add(this.ucCalibration103);
+            this.panelEngine.Controls.Add(this.ucCalibration105);
+            this.panelEngine.Controls.Add(this.ucCalibration106);
+            this.panelEngine.Controls.Add(this.ucCalibration107);
+            this.panelEngine.Controls.Add(this.ucCalibration108);
+            this.panelEngine.Controls.Add(this.ucCalibration109);
+            this.panelEngine.Controls.Add(this.ucCalibration110);
+            this.panelEngine.Controls.Add(this.ucCalibration111);
+            this.panelEngine.Controls.Add(this.ucCalibration112);
+            this.panelEngine.Controls.Add(this.ucCalibration113);
+            this.panelEngine.Controls.Add(this.ucCalibration114);
+            this.panelEngine.Controls.Add(this.ucCalibration115);
+            this.panelEngine.Location = new System.Drawing.Point(3, 19);
+            this.panelEngine.Name = "panelEngine";
+            this.panelEngine.Size = new System.Drawing.Size(840, 599);
+            this.panelEngine.TabIndex = 23;
+            // 
             // ucCalibration69
             // 
             this.ucCalibration69.CustomName = "待处理机油箱液位检测-L19";
@@ -2633,6 +2397,92 @@
             this.ucCalibration115.Text = "机滤器1后压力检测-P25(kPa)";
             this.ucCalibration115.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibrationEngineNoPlC_Submited);
             // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.label14);
+            this.panel8.Controls.Add(this.label15);
+            this.panel8.Controls.Add(this.label16);
+            this.panel8.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panel8.Location = new System.Drawing.Point(419, 3);
+            this.panel8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(276, 34);
+            this.panel8.TabIndex = 390;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label14.Location = new System.Drawing.Point(192, 5);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(72, 27);
+            this.label14.TabIndex = 7;
+            this.label14.Text = "增益值";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label15.Location = new System.Drawing.Point(12, 5);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(72, 27);
+            this.label15.TabIndex = 7;
+            this.label15.Text = "测定值";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label16.Location = new System.Drawing.Point(106, 5);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(72, 27);
+            this.label16.TabIndex = 7;
+            this.label16.Text = "零点值";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.tabPage5.Controls.Add(this.uiGroupBox4);
+            this.tabPage5.Controls.Add(this.panel9);
+            this.tabPage5.Location = new System.Drawing.Point(0, 40);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1050, 725);
+            this.tabPage5.TabIndex = 5;
+            this.tabPage5.Text = "燃油系统";
+            // 
+            // uiGroupBox4
+            // 
+            this.uiGroupBox4.Controls.Add(this.panelFuel);
+            this.uiGroupBox4.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.uiGroupBox4.Location = new System.Drawing.Point(105, 38);
+            this.uiGroupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox4.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox4.Name = "uiGroupBox4";
+            this.uiGroupBox4.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox4.Size = new System.Drawing.Size(893, 632);
+            this.uiGroupBox4.TabIndex = 393;
+            this.uiGroupBox4.Text = null;
+            this.uiGroupBox4.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelFuel
+            // 
+            this.panelFuel.AutoScroll = true;
+            this.panelFuel.Controls.Add(this.ucCalibration72);
+            this.panelFuel.Controls.Add(this.ucCalibration73);
+            this.panelFuel.Controls.Add(this.ucCalibration75);
+            this.panelFuel.Controls.Add(this.ucCalibration100);
+            this.panelFuel.Controls.Add(this.ucCalibration101);
+            this.panelFuel.Controls.Add(this.ucCalibration102);
+            this.panelFuel.Controls.Add(this.ucCalibration104);
+            this.panelFuel.Controls.Add(this.ucCalibration116);
+            this.panelFuel.Controls.Add(this.ucCalibration117);
+            this.panelFuel.Controls.Add(this.ucCalibration118);
+            this.panelFuel.Controls.Add(this.ucCalibration119);
+            this.panelFuel.Location = new System.Drawing.Point(3, 21);
+            this.panelFuel.Name = "panelFuel";
+            this.panelFuel.Size = new System.Drawing.Size(840, 599);
+            this.panelFuel.TabIndex = 391;
+            // 
             // ucCalibration72
             // 
             this.ucCalibration72.CustomName = "粗滤器1前压力检测-P30";
@@ -2797,6 +2647,108 @@
             this.ucCalibration119.Text = "精滤器2前压力检测-P36(kPa)";
             this.ucCalibration119.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibrationFuelNoPlC_Submited);
             // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.label17);
+            this.panel9.Controls.Add(this.label18);
+            this.panel9.Controls.Add(this.label19);
+            this.panel9.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panel9.Location = new System.Drawing.Point(419, 3);
+            this.panel9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(276, 34);
+            this.panel9.TabIndex = 392;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label17.Location = new System.Drawing.Point(192, 5);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(72, 27);
+            this.label17.TabIndex = 7;
+            this.label17.Text = "增益值";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label18.Location = new System.Drawing.Point(12, 5);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(72, 27);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "测定值";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label19.Location = new System.Drawing.Point(106, 5);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(72, 27);
+            this.label19.TabIndex = 7;
+            this.label19.Text = "零点值";
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.tabPage6.Controls.Add(this.uiGroupBox5);
+            this.tabPage6.Controls.Add(this.panel11);
+            this.tabPage6.Location = new System.Drawing.Point(0, 40);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(1050, 725);
+            this.tabPage6.TabIndex = 6;
+            this.tabPage6.Text = "水系统";
+            // 
+            // uiGroupBox5
+            // 
+            this.uiGroupBox5.Controls.Add(this.panelWater);
+            this.uiGroupBox5.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.uiGroupBox5.Location = new System.Drawing.Point(105, 38);
+            this.uiGroupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox5.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiGroupBox5.Name = "uiGroupBox5";
+            this.uiGroupBox5.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox5.Size = new System.Drawing.Size(893, 632);
+            this.uiGroupBox5.TabIndex = 395;
+            this.uiGroupBox5.Text = null;
+            this.uiGroupBox5.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelWater
+            // 
+            this.panelWater.AutoScroll = true;
+            this.panelWater.Controls.Add(this.ucCalibration135);
+            this.panelWater.Controls.Add(this.ucCalibration70);
+            this.panelWater.Controls.Add(this.ucCalibration71);
+            this.panelWater.Controls.Add(this.ucCalibration74);
+            this.panelWater.Controls.Add(this.ucCalibration121);
+            this.panelWater.Controls.Add(this.ucCalibration134);
+            this.panelWater.Controls.Add(this.ucCalibration122);
+            this.panelWater.Controls.Add(this.ucCalibration123);
+            this.panelWater.Controls.Add(this.ucCalibration124);
+            this.panelWater.Controls.Add(this.ucCalibration125);
+            this.panelWater.Controls.Add(this.ucCalibration126);
+            this.panelWater.Controls.Add(this.ucCalibration127);
+            this.panelWater.Location = new System.Drawing.Point(3, 20);
+            this.panelWater.Name = "panelWater";
+            this.panelWater.Size = new System.Drawing.Size(840, 599);
+            this.panelWater.TabIndex = 393;
+            // 
+            // ucCalibration135
+            // 
+            this.ucCalibration135.CustomName = "中冷水膨胀水箱液位检测";
+            this.ucCalibration135.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.ucCalibration135.GainValue = 0D;
+            this.ucCalibration135.Index = 19;
+            this.ucCalibration135.Key = "中冷水膨胀水箱液位检测";
+            this.ucCalibration135.Location = new System.Drawing.Point(74, 522);
+            this.ucCalibration135.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucCalibration135.Name = "ucCalibration135";
+            this.ucCalibration135.Size = new System.Drawing.Size(673, 37);
+            this.ucCalibration135.TabIndex = 20;
+            this.ucCalibration135.Text = "中冷水膨胀水箱液位检测(mm)";
+            this.ucCalibration135.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_1_Submited);
+            // 
             // ucCalibration70
             // 
             this.ucCalibration70.CustomName = "高温水温度实时PID";
@@ -2855,6 +2807,21 @@
             this.ucCalibration121.TabIndex = 14;
             this.ucCalibration121.Text = "高温水冷却器进口温度检测-T13(℃)";
             this.ucCalibration121.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibrationWaterNoPlC_Submited);
+            // 
+            // ucCalibration134
+            // 
+            this.ucCalibration134.CustomName = "高温水膨胀水箱液位检测";
+            this.ucCalibration134.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.ucCalibration134.GainValue = 0D;
+            this.ucCalibration134.Index = 18;
+            this.ucCalibration134.Key = "高温水膨胀水箱液位检测";
+            this.ucCalibration134.Location = new System.Drawing.Point(74, 475);
+            this.ucCalibration134.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucCalibration134.Name = "ucCalibration134";
+            this.ucCalibration134.Size = new System.Drawing.Size(673, 37);
+            this.ucCalibration134.TabIndex = 19;
+            this.ucCalibration134.Text = "高温水膨胀水箱液位检测(mm)";
+            this.ucCalibration134.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_1_Submited);
             // 
             // ucCalibration122
             // 
@@ -2946,6 +2913,72 @@
             this.ucCalibration127.Text = "中冷水过滤器后压力检测-P10(kPa)";
             this.ucCalibration127.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibrationWaterNoPlC_Submited);
             // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.label20);
+            this.panel11.Controls.Add(this.label21);
+            this.panel11.Controls.Add(this.label22);
+            this.panel11.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panel11.Location = new System.Drawing.Point(419, 3);
+            this.panel11.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(276, 34);
+            this.panel11.TabIndex = 394;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label20.Location = new System.Drawing.Point(192, 5);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(72, 27);
+            this.label20.TabIndex = 7;
+            this.label20.Text = "增益值";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label21.Location = new System.Drawing.Point(12, 5);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(72, 27);
+            this.label21.TabIndex = 7;
+            this.label21.Text = "测定值";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label22.Location = new System.Drawing.Point(106, 5);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(72, 27);
+            this.label22.TabIndex = 7;
+            this.label22.Text = "零点值";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClose.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.btnClose.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.btnClose.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(115)))), ((int)(((byte)(115)))));
+            this.btnClose.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnClose.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnClose.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnClose.LightColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.btnClose.Location = new System.Drawing.Point(785, 778);
+            this.btnClose.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.btnClose.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(115)))), ((int)(((byte)(115)))));
+            this.btnClose.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnClose.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnClose.Size = new System.Drawing.Size(210, 40);
+            this.btnClose.Style = Sunny.UI.UIStyle.Custom;
+            this.btnClose.TabIndex = 525;
+            this.btnClose.Text = "退出";
+            this.btnClose.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // frmHardWare
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -2986,6 +3019,9 @@
             this.tabPage4.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.uiGroupBox2.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.uiGroupBox3.ResumeLayout(false);
             this.panelEngine.ResumeLayout(false);
@@ -3004,9 +3040,6 @@
             this.panelWater.PerformLayout();
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
-            this.uiGroupBox2.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3198,5 +3231,7 @@
         private Procedure.UCCalibration ucCalibration39;
         private Procedure.UCCalibration ucCalibration132;
         private Procedure.UCCalibration ucCalibration133;
+        private Procedure.UCCalibration ucCalibration135;
+        private Procedure.UCCalibration ucCalibration134;
     }
 }

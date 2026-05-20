@@ -41,6 +41,11 @@ namespace MainUI.Modules
             {
                 return DataValue[key];
             }
+            set
+            {
+                // 写入 OPC → KEPServer 回显 → 触发 KeyValueChange（与 AIGrp 模式一致）
+                this.Write("AI." + key, value);
+            }
         }
 
         // 值改变后更新

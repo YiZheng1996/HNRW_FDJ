@@ -747,8 +747,8 @@ namespace MainUI.Services
                     try
                     {
                         // 获取当前发动机转速
-                        
-                        bool isEngineRunningNow = (CurrentData.发动机转速 > MiddleData.instnce.SelectModelConfig.MinSpeed - 10 && Common.DOgrp["发动机DC24V供电"]);
+                        // 原逻辑为：CurrentData.发动机转速 而不是 GetEngineSpeed()，以前逻辑存在BUG，这样无论 TRDP 有没有数据，只要发动机在转，门控就会放行，飞轮超速就能被正确检测到
+                        bool isEngineRunningNow = (MiddleData.instnce.GetEngineSpeed() > MiddleData.instnce.SelectModelConfig.MinSpeed - 10 && Common.DOgrp["发动机DC24V供电"]);
 
                         // ECM故障检测（仅在发动机稳定运行超过5秒后检测）
                         if (isEngineRunningNow && Var.FaultConfig?.FaultDataLists?.Count > 0)

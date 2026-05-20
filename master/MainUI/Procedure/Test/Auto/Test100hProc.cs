@@ -312,7 +312,7 @@ namespace MainUI.Procedure.Test.Performance
                     while (IsTesting)
                     {
                         // 急停或故障停机中取消试验
-                        if (Common.DIgrp["紧急停止"] == false && Var.FaultService.IsStopDoing)
+                        if (Common.DIgrp["紧急停止"] == false || Var.FaultService.IsStopDoing)
                         {
                             // 拍急停了，
                             Common.AOgrp["发动机油门调节"] = 0;
