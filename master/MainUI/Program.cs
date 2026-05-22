@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using RW.UI;
 using RW.UI.Manager.User;
 using System.IO;
+using MainUI.Fault;
 
 namespace MainUI
 {
@@ -19,6 +20,7 @@ namespace MainUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            GlobalClickLogger.Instance.Start();
             frmLogin login = new frmLogin();
             login.Icon = new System.Drawing.Icon("logo.ico");
             var files = Directory.GetFiles(Application.StartupPath, "logo.*");

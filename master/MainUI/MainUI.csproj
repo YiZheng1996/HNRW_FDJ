@@ -212,6 +212,7 @@
     <Compile Include="Fault\frmWarnParaConfig.Designer.cs">
       <DependentUpon>frmWarnParaConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Fault\GlobalClickLogger.cs" />
     <Compile Include="Fault\Model\FaultCondition.cs" />
     <Compile Include="Fault\Model\FaultState.cs" />
     <Compile Include="Fault\Model\SensorData.cs" />

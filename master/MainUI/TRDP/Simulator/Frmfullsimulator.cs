@@ -603,6 +603,7 @@ namespace MainUI
                     try
                     {
                         captured();
+                        SyncControlsToCurrentValues();
                         capturedLbl.Text = string.Format("✓ 已注入：{0}  [{1}]",
                             capturedTitle, DateTime.Now.ToString("HH:mm:ss"));
                         capturedLbl.ForeColor = Color.ForestGreen;
@@ -621,6 +622,63 @@ namespace MainUI
 
             if (col != 0) y += BTN_H + GAP;
             return y;
+        }
+
+        /// <summary>
+        /// 把当前 AIgrp/AI2Grp 的实际值同步回界面滑块和数值框
+        /// </summary>
+        private void SyncControlsToCurrentValues()
+        {
+            // ── AI（PLC1）────────────────────────────────────────────────────────
+            foreach (KeyValuePair<string, TrackBar> kv in _aiTb)
+            {
+                try
+                {
+                    double val = Common.AIgrp[kv.Key];
+                    int tbVal = (int)(val * 10);
+                    kv.Value.Value = Math.Max(kv.Value.Minimum,
+                                     Math.Min(kv.Value.Maximum, tbVal));
+                    if (_aiNud.ContainsKey(kv.Key))
+                        _aiNud[kv.Key].Value = (decimal)Math.Round(val, 1);
+                }
+                catch { }
+            }
+
+            // ── AI2（PLC2）───────────────────────────────────────────────────────
+            foreach (KeyValuePair<string, TrackBar> kv in _ai2Tb)
+            {
+                try
+                {
+                    double val = Common.AI2Grp[kv.Key];
+                    int tbVal = (int)(val * 10);
+                    kv.Value.Value = Math.Max(kv.Value.Minimum,
+                                     Math.Min(kv.Value.Maximum, tbVal));
+                    if (_ai2Nud.ContainsKey(kv.Key))
+                        _ai2Nud[kv.Key].Value = (decimal)Math.Round(val, 1);
+                }
+                catch { }
+            }
+
+            // ── TRDP 模拟量控件（_trdpAnalogControls）────────────────────────────
+            foreach (KeyValuePair<string, TrdpAnalogEntry> kv in _trdpAnalogControls)
+            {
+                try
+                {
+                    // 从 TRDP 字典读当前注入值
+                    decimal val = Var.TRDP.trdpValue.ContainsKey(kv.Key)
+                        ? Var.TRDP.trdpValue[kv.Key]
+                        : 0m;
+
+                    var entry = kv.Value;
+                    int tbVal = (int)val;
+                    entry.TrackBar.Value = Math.Max(entry.TrackBar.Minimum,
+                                           Math.Min(entry.TrackBar.Maximum, tbVal));
+                    entry.ValueLabel.Text = val.ToString("F1") + " ";   // 单位已在 label 里
+                    if (val >= entry.Nud.Minimum && val <= entry.Nud.Maximum)
+                        entry.Nud.Value = val;
+                }
+                catch { }
+            }
         }
 
         // ── 预设按钮描述（内部结构体）─────────────────────────────────────────
@@ -1470,6 +1528,27 @@ namespace MainUI
             };
             btn.FlatAppearance.BorderSize = 0;
             return btn;
+        }
+
+        // 在类的字段区加这一行
+        private static frmFullSimulator _instance;
+
+        /// <summary>
+        /// 打开仿真器（全局唯一窗口）
+        /// </summary>
+        public static void ShowInstance()
+        {
+            if (_instance == null || _instance.IsDisposed)
+            {
+                _instance = new frmFullSimulator();
+                _instance.FormClosed += delegate (object s, FormClosedEventArgs e)
+                {
+                    _instance = null;
+                };
+            }
+            _instance.Show();
+            _instance.BringToFront();
+            _instance.WindowState = FormWindowState.Normal;
         }
 
         // ── TRDP 内部数据结构 ────────────────────────────────────────────────

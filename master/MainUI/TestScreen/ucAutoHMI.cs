@@ -2464,10 +2464,14 @@ namespace MainUI
 
         #endregion
 
+        #region 模拟数据功能
         private void button1_Click(object sender, EventArgs e)
         {
-            new frmFullSimulator().Show();
+            frmFullSimulator.ShowInstance();
         }
+
+        #endregion
+
     }
 
     /// <summary>
