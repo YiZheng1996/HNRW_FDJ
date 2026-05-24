@@ -457,7 +457,10 @@ namespace MainUI
             {
                 try
                 {
-                    Common.DOgrp[sw.OutputTagName.ToString()] = Convert.ToBoolean(sw.Tag.ToInt()); //!Common.DOgrp[sw.Tag.ToString()];
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
+                    {
+                        Common.DOgrp[sw.OutputTagName.ToString()] = Convert.ToBoolean(sw.Tag.ToInt());//!Common.DOgrp[sw.Tag.ToString()];
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -660,10 +663,10 @@ namespace MainUI
             this.ucParamPressure2.GaugeValue = pressure2;
 
             // 如果突然没气了，把所有的泵关掉
-            if (pressure1 < 100 || pressure2 < 100) 
+            if (pressure1 < 100 || pressure2 < 100)
             {
                 // 水
-                if (Common.DOgrp["预热水泵合闸控制"]) 
+                if (Common.DOgrp["预热水泵合闸控制"])
                 {
                     Common.DOgrp["预热水泵合闸控制"] = false;
                 }
@@ -730,7 +733,12 @@ namespace MainUI
                 set.Value = Common.engineOilGrp[pipePara.Tag.ToString()];
                 var dr = set.ShowDialog(this);
                 if (dr == DialogResult.OK)
-                    Common.engineOilGrp.EngineOilPID = set.Value;
+                {
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, "设置机油温度PID"))
+                    {
+                        Common.engineOilGrp.EngineOilPID = set.Value;
+                    }
+                }
             }
             else
             {
@@ -739,11 +747,17 @@ namespace MainUI
                 if (dr == DialogResult.OK)
                     if (pipePara.Tag.ToString().Contains("高温水"))
                     {
-                        Common.waterGrp.HeightTempWaterPID = set.Value;
+                        using (MainUI.Fault.OperationContext.Begin(this, sender, "设置高温水温度PID"))
+                        {
+                            Common.waterGrp.HeightTempWaterPID = set.Value;
+                        }
                     }
                     else
                     {
-                        Common.waterGrp.MediumColdPID = set.Value;
+                        using (MainUI.Fault.OperationContext.Begin(this, sender, "设置中冷水温度PID"))
+                        {
+                            Common.waterGrp.MediumColdPID = set.Value;
+                        }
                     }
             }
         }
@@ -824,7 +838,13 @@ namespace MainUI
             set.Value = Common.AOgrp[pipePara.Tag.ToString()];
             var dr = set.ShowDialog(this);
             if (dr == DialogResult.OK)
-                Common.AOgrp[pipePara.Tag.ToString()] = set.Value;
+            {
+                using (MainUI.Fault.OperationContext.Begin(this, sender,
+           "流量设置-" + pipePara.Tag.ToString()))
+                {
+                    Common.AOgrp[pipePara.Tag.ToString()] = set.Value;
+                }
+            }
         }
     }
 

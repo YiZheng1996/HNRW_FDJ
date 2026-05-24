@@ -52,7 +52,7 @@ namespace MainUI.TestScreen
             timer1.Start();
 
             // 仪表盘量程
-            ucParamSpeed.SetRand(0, 1100, 1000); // 转速
+            ucParamSpeed.SetRand(0, 1100, 1120); // 转速
             ucParamPower.SetRand(0, 6000, 5000); //功率
             ucParamTorque.SetRand(0, 47750, 47000); //扭矩 需要重新调整
             ucParamFrontTurbocharger.SetRand(0, 1200, 1120); // 柴油机飞轮转速2

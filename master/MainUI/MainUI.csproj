@@ -218,6 +218,8 @@
     <Compile Include="Fault\Model\SensorData.cs" />
     <Compile Include="Fault\Model\FaultTypeEnum.cs" />
     <Compile Include="Fault\Model\WarnTypeEnum.cs" />
+    <Compile Include="Fault\OpcOperationLog.cs" />
+    <Compile Include="Fault\Operationcontext.cs" />
     <Compile Include="Fault\ucWarnList.cs">
       <SubType>UserControl</SubType>
     </Compile>

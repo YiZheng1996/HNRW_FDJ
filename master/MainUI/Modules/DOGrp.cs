@@ -58,6 +58,7 @@ namespace MainUI.Modules
             set
             {
                 this.Write("DO." + key, value);
+                try { MainUI.Fault.OpcOperationLog.LogWrite("DO." + key, value); } catch { }
             }
         }
 

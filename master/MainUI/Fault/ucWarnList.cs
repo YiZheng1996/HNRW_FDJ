@@ -335,7 +335,7 @@ namespace MainUI.Widget
 
             if (faultState.FaultType == FaultTypeEnum.ecm && _faultWarnMap.TryGetValue(faultId, out var warnControl))
             {
-                if (!warnControl.Visible) 
+                if (!warnControl.Visible)
                 {
                     this.flowLayoutPanel1.SuspendLayout();
 
@@ -514,10 +514,10 @@ namespace MainUI.Widget
             bool IsTestBedFault = false;
             var StopData = Var.FaultService.GetActiveFaultsByType(WarnTypeEnum.Stop); // 存在停机故障的
             var TestBedFaultTipsData = Var.FaultService.GetActiveFaultsByType(WarnTypeEnum.Alarm); // 存在报警故障的
-            if (StopData.Count > 0 || TestBedFaultTipsData.Count > 0) 
+            if (StopData.Count > 0 || TestBedFaultTipsData.Count > 0)
             {
                 IsTestBedFault = true;
-            } 
+            }
 
             // ECM值的故障报警或者试验台部分检测到
             var status = (IsEcmFault || IsScram || IsTestBedFault);
@@ -528,7 +528,8 @@ namespace MainUI.Widget
                     Common.DOgrp["蜂鸣器控制"] = false;
                 }
             }
-            else {
+            else
+            {
                 // 有故障
                 if (status)
                 {
@@ -537,7 +538,8 @@ namespace MainUI.Widget
                         Common.DOgrp["蜂鸣器控制"] = true;
                     }
                 }
-                else {
+                else
+                {
                     if (Common.DOgrp["蜂鸣器控制"] != false)
                     {
                         Common.DOgrp["蜂鸣器控制"] = false;
@@ -589,12 +591,15 @@ namespace MainUI.Widget
                 // plc在线时发送
                 if (Common.opcStatus.NoError)
                 {
-                    // 手动复位停机故障
-                    Common.ExChangeGrp.SetBool("上位机停机控制", false);
-                    Var.FaultService.IsStopDoing = false;
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, "故障复位-按下"))
+                    {
+                        // 手动复位停机故障
+                        Common.ExChangeGrp.SetBool("上位机停机控制", false);
 
-                    // 故障复位
-                    Common.DOgrp["故障复位"] = true;
+                        // 故障复位
+                        Common.DOgrp["故障复位"] = true;
+                    }
+                    Var.FaultService.IsStopDoing = false;
 
                     // 故障复位隐藏ECM控件
                     foreach (var warnControl in _faultWarnMap.Values)
@@ -628,13 +633,16 @@ namespace MainUI.Widget
         {
             try
             {
-                Common.DOgrp["故障复位"] = false;
+                using (MainUI.Fault.OperationContext.Begin(this, sender, "故障复位-松开"))
+                {
+                    Common.DOgrp["故障复位"] = false;
+                }
             }
             catch (Exception ex)
             {
                 Var.LogInfo($"松开故障复位出现异常:  {ex.ToString()}");
             }
-       
+
         }
     }
 }

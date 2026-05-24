@@ -43,6 +43,7 @@ namespace MainUI.Modules
             set
             {
                 this.Write("AO." + key, value);
+                try { MainUI.Fault.OpcOperationLog.LogWrite("AO." + key, value); } catch { }
             }
         }
 
@@ -64,12 +65,12 @@ namespace MainUI.Modules
             {
                 DataValue["励磁调节"] = val;
                 this.Write("AO.励磁调节", val);
+                try { MainUI.Fault.OpcOperationLog.LogWrite("AO.励磁调节", val); } catch { }
             }
             catch (Exception ex)
             {
-                Var.LogInfo($"下发励磁电流出现问题。");
+                Var.LogInfo($"下发励磁电流出现问题。" + ex.Message);
             }
-
         }
 
         public List<string> GetTag()

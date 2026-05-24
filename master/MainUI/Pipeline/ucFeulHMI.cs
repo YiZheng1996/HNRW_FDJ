@@ -257,7 +257,10 @@ namespace MainUI
             {
                 try
                 {
-                    Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, "快速关闭" + th))
+                    {
+                        Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -275,7 +278,10 @@ namespace MainUI
             {
                 try
                 {
-                    Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
+                    {
+                        Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -325,7 +331,10 @@ namespace MainUI
             {
                 try
                 {
-                    Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
+                    {
+                        Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -506,7 +515,7 @@ namespace MainUI
             var setResult = btn.Tag.ToString() == "1";
 
             // 燃油系统
-             if (setResult && btn.OutputTagName == "燃油循环")
+            if (setResult && btn.OutputTagName == "燃油循环")
             {
                 if (Convert.ToDouble(this.ucPipePara4.Value) <= 300)
                 {
@@ -516,7 +525,7 @@ namespace MainUI
             }
 
             string th = btn.OutputTagName.ToString().Replace("控制", "").Replace("合闸", "");
-            string strMessage = $"是否要{ btn.Text }{th}?";
+            string strMessage = $"是否要{btn.Text}{th}?";
             bool mesResult = Var.MsgBoxYesNo(this, strMessage);
             if (mesResult == false)
             {
@@ -526,7 +535,10 @@ namespace MainUI
             {
                 try
                 {
-                    Common.ExChangeGrp.SetBool(btn.OutputTagName, setResult);
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("一键控制-{0}{1}", btn.Text, btn.OutputTagName)))
+                    {
+                        Common.ExChangeGrp.SetBool(btn.OutputTagName, setResult);
+                    }
                 }
                 catch (Exception ex)
                 {

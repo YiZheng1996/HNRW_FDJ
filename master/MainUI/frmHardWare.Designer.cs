@@ -375,7 +375,7 @@
             this.panel7.Controls.Add(this.ucCalibration6);
             this.panel7.Location = new System.Drawing.Point(6, 19);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(887, 645);
+            this.panel7.Size = new System.Drawing.Size(887, 610);
             this.panel7.TabIndex = 14;
             // 
             // ucCalibration40
@@ -385,7 +385,7 @@
             this.ucCalibration40.GainValue = 0D;
             this.ucCalibration40.Index = 16;
             this.ucCalibration40.Key = "厂房进气压力检测2";
-            this.ucCalibration40.Location = new System.Drawing.Point(83, 725);
+            this.ucCalibration40.Location = new System.Drawing.Point(83, 698);
             this.ucCalibration40.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration40.Name = "ucCalibration40";
             this.ucCalibration40.Size = new System.Drawing.Size(673, 37);
@@ -400,7 +400,7 @@
             this.ucCalibration39.GainValue = 0D;
             this.ucCalibration39.Index = 15;
             this.ucCalibration39.Key = "厂房进气压力检测1";
-            this.ucCalibration39.Location = new System.Drawing.Point(83, 702);
+            this.ucCalibration39.Location = new System.Drawing.Point(83, 660);
             this.ucCalibration39.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration39.Name = "ucCalibration39";
             this.ucCalibration39.Size = new System.Drawing.Size(673, 37);
@@ -415,7 +415,7 @@
             this.ucCalibration131.GainValue = 0D;
             this.ucCalibration131.Index = 14;
             this.ucCalibration131.Key = "后增压器进气流量计前温度";
-            this.ucCalibration131.Location = new System.Drawing.Point(83, 657);
+            this.ucCalibration131.Location = new System.Drawing.Point(83, 615);
             this.ucCalibration131.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration131.Name = "ucCalibration131";
             this.ucCalibration131.Size = new System.Drawing.Size(673, 37);
@@ -430,7 +430,7 @@
             this.ucCalibration130.GainValue = 0D;
             this.ucCalibration130.Index = 13;
             this.ucCalibration130.Key = "前增压器进气流量计前温度";
-            this.ucCalibration130.Location = new System.Drawing.Point(83, 708);
+            this.ucCalibration130.Location = new System.Drawing.Point(83, 666);
             this.ucCalibration130.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration130.Name = "ucCalibration130";
             this.ucCalibration130.Size = new System.Drawing.Size(673, 37);

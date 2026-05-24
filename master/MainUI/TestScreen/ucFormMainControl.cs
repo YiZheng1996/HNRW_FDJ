@@ -84,9 +84,6 @@ namespace MainUI.TestScreen
 
             if (this.DesignMode) return;
 
-            // 暂时隐藏停车停车页面
-            tabControl1.TabPages.Remove(tabPage2);
-
             // 监听按下启机
             EventTriggerModel.OnStartupChanged += (bool isrecord) =>
             {
@@ -117,7 +114,6 @@ namespace MainUI.TestScreen
             // 加载控件
 
             ucStartup1.Init(); // 启机
-            ucShutDown1.Init(); // 停车
 
             timerFast.Enabled = true;
             timerFast.Start();
@@ -130,7 +126,7 @@ namespace MainUI.TestScreen
             //SendInteractionTimer.Start();
 
             // 仪表盘量程
-            ucParamSpeed.SetRand(0, 1100, 1000);
+            ucParamSpeed.SetRand(0, 1100, 1120);
             ucParamPower.SetRand(0, 6000, 5500);
             ucParamTorque.SetRand(0, 47750, 47000);
 
@@ -139,10 +135,8 @@ namespace MainUI.TestScreen
             ucParamEngineOutP.SetRand(0, 1100, 1000); //机油进口压力
 
             // 添加进字典
-            EachControl(grpZF1); // 主发通风机
-            EachControl(grpCYB); // 抽油泵
-
-            EachControl(groupBox11); // 暂时隐藏
+            EachControl(grpFJKZ); // 主发通风机
+            EachControl(grpFJKZ); // 抽油泵
 
             Common.AIgrp.KeyValueChange += AIgrp_KeyValueChange;
             Common.AOgrp.KeyValueChange += AOgrp_KeyValueChange;
@@ -150,11 +144,7 @@ namespace MainUI.TestScreen
             Common.DOgrp.KeyValueChange += DOgrp_KeyValueChange;
             Common.excitationGrp.KeyValueChange += ExcitationGrp_KeyValueChange;
 
-            // 赋默认值
-            manaulData.SetWaterResistanceValue = this.lblSZSSetValue.Text.ToDouble();
-
             // 更新UI
-            this.lblSZSSetValue.Text = Common.AIgrp["水阻箱进水调节阀开度"].ToString();
             this.ucNudLC.Value = Common.AOgrp["励磁调节"];
             this.ucNudSpeed.Value = Common.AOgrp["发动机油门调节"];
 
@@ -205,7 +195,7 @@ namespace MainUI.TestScreen
                 Var.MsgBoxWarn(this, "后台数据备份异常！");
             }
 
-            
+
         }
 
         /// <summary>
@@ -267,7 +257,10 @@ namespace MainUI.TestScreen
 
             try
             {
-                Common.AOgrp["设置发动机最低转速"] = MiddleData.instnce.SelectModelConfig.MinSpeed;
+                using (MainUI.Fault.OperationContext.Begin(this, null, string.Format("切换型号[{0}]-下发最低转速", model)))
+                {
+                    Common.AOgrp["设置发动机最低转速"] = MiddleData.instnce.SelectModelConfig.MinSpeed;
+                }
             }
             catch (Exception ex)
             {
@@ -307,8 +300,6 @@ namespace MainUI.TestScreen
             if (pub.PubParaList.Count == 0)
                 return;
             var pubInfo = pub.PubParaList[0];
-            //水阻箱进水设置值
-            this.lblSZSSetValue.Text = pubInfo.DefaultWaterResistanceTankInlet.ToString();
             //励磁电流设置
             //this.ucNudLC.Value = pubInfo.DefaultExcitationCurrent;
             this.ucNudLC.Minimum = pubInfo.MinExcitationCurrent;
@@ -339,25 +330,6 @@ namespace MainUI.TestScreen
             if (control2 is UIDoubleUpDown)
             {
                 UIDoubleUpDown dud = control2 as UIDoubleUpDown;
-                //dud.Value = pubInfo.DefaultExcitationCurrent;
-                dud.Maximum = pubInfo.MaxExcitationCurrent;
-                dud.Minimum = pubInfo.MinExcitationCurrent;
-            }
-            //正常停车控制
-            //转速
-            Control control3 = FindControl(ucShutDown1, "nudBeginInvertSpeed");
-            if (control3 is UIDoubleUpDown)
-            {
-                UIDoubleUpDown dud = control3 as UIDoubleUpDown;
-                //dud.Value = pubInfo.DefaultRotationSpeed;
-                dud.Maximum = pubInfo.MaxRotationSpeed;
-                dud.Minimum = pubInfo.MinRotationSpeed;
-            }
-            //电流
-            Control control4 = FindControl(ucShutDown1, "nudBeginCurrent");
-            if (control4 is UIDoubleUpDown)
-            {
-                UIDoubleUpDown dud = control4 as UIDoubleUpDown;
                 //dud.Value = pubInfo.DefaultExcitationCurrent;
                 dud.Maximum = pubInfo.MaxExcitationCurrent;
                 dud.Minimum = pubInfo.MinExcitationCurrent;
@@ -596,7 +568,12 @@ namespace MainUI.TestScreen
             set.Value = Common.AOgrp[pipePara.Tag.ToString()];
             var dr = set.ShowDialog(this);
             if (dr == DialogResult.OK)
-                Common.AOgrp[pipePara.Tag.ToString()] = set.Value;
+            {
+                using (MainUI.Fault.OperationContext.Begin(this, sender, "流量设置-" + pipePara.Tag.ToString()))
+                {
+                    Common.AOgrp[pipePara.Tag.ToString()] = set.Value;
+                }
+            }
         }
 
         /// <summary>
@@ -628,19 +605,7 @@ namespace MainUI.TestScreen
             {
                 this.rButton4.Switch = e.Value;
             }
-            else if (e.Key == "发动机DC24V供电")
-            {
-                if (e.Value)
-                {
-                    this.rButton10.Switch = true;
-                    this.rButton11.Switch = false;
-                }
-                else
-                {
-                    this.rButton10.Switch = false;
-                    this.rButton11.Switch = true;
-                }
-            }
+
         }
 
         /// <summary>
@@ -680,7 +645,7 @@ namespace MainUI.TestScreen
                         if (!scarmForm.IsOpen)
                             scarmForm.ShowInfo();
                     }
-                    
+
                 }
             }
             //泵类信号灯特殊处理
@@ -755,8 +720,12 @@ namespace MainUI.TestScreen
             // 实时重量
             this.WeightValue.Text = MiddleData.instnce.PTFWeight.ToString();
 
-            // 实时下发给下位机
-            Common.ExChangeGrp.SetDouble("柴油机转速", MiddleData.instnce.EngineSpeed);
+            // 过滤柴油机转速点位写入日志
+            using (MainUI.Fault.OperationContext.SuppressLog())
+            {
+                // 实时下发给下位机
+                Common.ExChangeGrp.SetDouble("柴油机转速", MiddleData.instnce.EngineSpeed);
+            }
 
             // 以下点位为kepserver转发
             //Common.ExChangeGrp.SetDouble("高温水出机温度", Common.AI2Grp["T1高温水出机温度"]);
@@ -790,8 +759,11 @@ namespace MainUI.TestScreen
                 Var.MsgBoxWarn(this, "水极板已经在上限位了");
                 return;
             }
-            Common.DOgrp["水阻下降控制"] = false;
-            Common.DOgrp["水阻上升控制"] = true;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "水极板上升-按下"))
+            {
+                Common.DOgrp["水阻下降控制"] = false;
+                Common.DOgrp["水阻上升控制"] = true;
+            }
         }
 
         /// <summary>
@@ -801,8 +773,11 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterPlateUp_MouseUp(object sender, MouseEventArgs e)
         {
-            Common.DOgrp["水阻上升控制"] = false;
-            Common.DOgrp["水阻下降控制"] = false;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "水极板上升-松开"))
+            {
+                Common.DOgrp["水阻上升控制"] = false;
+                Common.DOgrp["水阻下降控制"] = false;
+            }
         }
 
         /// <summary>
@@ -817,10 +792,12 @@ namespace MainUI.TestScreen
                 Var.MsgBoxWarn(this, "水极板已经在下限位了");
                 return;
             }
-            Common.DOgrp["水阻上升控制"] = false;
-            Common.DOgrp["水阻下降控制"] = true;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "水极板下降-按下"))
+            {
+                Common.DOgrp["水阻上升控制"] = false;
+                Common.DOgrp["水阻下降控制"] = true;
+            }
         }
-
         /// <summary>
         /// 水极板下降点动松开
         /// </summary>
@@ -828,8 +805,11 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterPlateDown_MouseUp(object sender, MouseEventArgs e)
         {
-            Common.DOgrp["水阻下降控制"] = false;
-            Common.DOgrp["水阻上升控制"] = false;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "水极板下降-松开"))
+            {
+                Common.DOgrp["水阻下降控制"] = false;
+                Common.DOgrp["水阻上升控制"] = false;
+            }
         }
 
         /// <summary>
@@ -873,7 +853,10 @@ namespace MainUI.TestScreen
             {
                 try
                 {
-                    Common.DOgrp[sw.OutputTagName.ToString()] = Convert.ToBoolean(sw.Tag.ToInt()); //!Common.DOgrp[sw.Tag.ToString()];
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
+                    {
+                        Common.DOgrp[sw.OutputTagName.ToString()] = Convert.ToBoolean(sw.Tag.ToInt());//!Common.DOgrp[sw.Tag.ToString()];
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -918,7 +901,10 @@ namespace MainUI.TestScreen
             if (!dr) return;
 
             // true和false都是脉冲了
-            Common.DOgrp[sw.OutputTagName.ToString()] = true;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, msg + th + "(脉冲)"))
+            {
+                Common.DOgrp[sw.OutputTagName.ToString()] = true;
+            }
         }
 
         /// <summary>
@@ -932,10 +918,13 @@ namespace MainUI.TestScreen
 
             if (!this.rButton50.Switch && !this.rButton1.Switch)
             {
-                Var.MsgBoxWarn(this,"请先打开主发通风机后再进行励磁电流设置。");
+                Var.MsgBoxWarn(this, "请先打开主发通风机后再进行励磁电流设置。");
                 return;
             }
-            Common.AOgrp["励磁调节"] = ucNudLC.Value;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "手动设定励磁电流"))
+            {
+                Common.AOgrp["励磁调节"] = ucNudLC.Value;
+            }
         }
 
         /// <summary>
@@ -945,8 +934,16 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnSetLCZero_Click(object sender, EventArgs e)
         {
+            bool result = Var.MsgBoxYesNo(this, "确定将励磁归0吗？");
+            if (result == false)
+            {
+                return;
+            }
             this.btnSetLCZero.Focus();
-            Common.AOgrp["励磁调节"] = 0;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁紧急归零"))
+            {
+                Common.AOgrp["励磁调节"] = 0;
+            }
             this.ucNudLC.Value = 0;
         }
 
@@ -958,13 +955,12 @@ namespace MainUI.TestScreen
         private void btnSetLCReduce_Click(object sender, EventArgs e)
         {
             this.btnSetLCReduce.Focus();
-
             var val = Common.AOgrp["励磁调节"] - 1;
-            if (val <= 0)
+            if (val <= 0) val = 0;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁电流-1"))
             {
-                val = 0;
+                Common.AOgrp["励磁调节"] = val;
             }
-            Common.AOgrp["励磁调节"] = val;
             this.ucNudLC.Value = val;
         }
 
@@ -988,7 +984,10 @@ namespace MainUI.TestScreen
             {
                 val = 500;
             }
-            Common.AOgrp["励磁调节"] = val;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁电流+1"))
+            {
+                Common.AOgrp["励磁调节"] = val;
+            }
             this.ucNudLC.Value = val;
         }
 
@@ -1000,7 +999,10 @@ namespace MainUI.TestScreen
         private void btnSetSpeed_Click(object sender, EventArgs e)
         {
             this.btnSetSpeed.Focus();
-            Common.AOgrp["发动机油门调节"] = ucNudSpeed.Value;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "手动设定发动机转速"))
+            {
+                Common.AOgrp["发动机油门调节"] = ucNudSpeed.Value;
+            }
         }
 
         /// <summary>
@@ -1013,13 +1015,12 @@ namespace MainUI.TestScreen
             this.btnSetSpeedReduce.Focus();
             var button = sender as RButton;
             var tag = button.Tag.ToInt();
-
             var val = Common.AOgrp["发动机油门调节"] - tag;
-            if (val <= 0)
+            if (val <= 0) val = 0;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("发动机转速-{0}", tag)))
             {
-                val = 0;
+                Common.AOgrp["发动机油门调节"] = val;
             }
-            Common.AOgrp["发动机油门调节"] = val;
             this.ucNudSpeed.Value = val;
         }
 
@@ -1033,14 +1034,12 @@ namespace MainUI.TestScreen
             this.btnSetSpeedAdd.Focus();
             var button = sender as RButton;
             var tag = button.Tag.ToInt();
-
             var val = Common.AOgrp["发动机油门调节"] + tag;
-            if (val >= 1100)
+            if (val >= 1100) val = 1100;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("发动机转速+{0}", tag)))
             {
-                val = 1100;
+                Common.AOgrp["发动机油门调节"] = val;
             }
-
-            Common.AOgrp["发动机油门调节"] = val;
             this.ucNudSpeed.Value = val;
         }
 
@@ -1060,129 +1059,18 @@ namespace MainUI.TestScreen
         }
 
         /// <summary>
-        /// 水阻箱进水设置
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSetWaterValueIn_Click(object sender, EventArgs e)
-        {
-            if (!Common.opcStatus.NoError)
-            {
-                Var.MsgBoxWarn(this, "控制柜 PLC 通讯异常。");
-                return;
-            }
-
-            // 先检查是否正在执行
-            if (manaulData.IsSetWaterResistance)
-            {
-                Var.MsgBoxWarn(this, "正在进行水阻值调节，请先停止当前操作。");
-                return;
-            }
-
-            var pipePara = sender as RButton;
-            RW.Components.Widgets.frmSetValue set = new RW.Components.Widgets.frmSetValue();
-            set.DecimalNumber = 1;
-            set.MaxValue = 100;
-            set.Unit = UnitEnum.percent;
-            set.Text = "流量设置";
-            set.Value = manaulData.SetWaterResistanceValue;
-
-            var dr = set.ShowDialog(this);
-            if (dr != DialogResult.OK)
-                return;  // 用户取消
-
-            // 更新UI
-            this.rButton9.Enabled = false;
-            this.rButton4.Enabled = false;
-
-            manaulData.SetWaterResistanceValue = set.Value;
-            this.lblSZSSetValue.Text = set.Value.ToString();
-
-            // 设置按钮状态
-            this.btnSetWaterValueIn.Switch = true;
-
-            // 启动调节线程
-            Thread thread = new Thread(() =>
-            {
-                try
-                {
-                    // 设置执行标志
-                    manaulData.IsSetWaterResistance = true;
-
-                    // 计算阀门操作方向
-                    bool needOpen;  // true:需要开阀 false:需要关阀
-                    if (manaulData.SetWaterResistanceValue > Common.AIgrp["水阻箱进水调节阀开度"])
-                    {
-                        Common.DOgrp["水阻箱调节阀关"] = false;
-                        Common.DOgrp["水阻箱调节阀开"] = true;
-                        needOpen = true;
-                    }
-                    else
-                    {
-                        Common.DOgrp["水阻箱调节阀开"] = false;
-                        Common.DOgrp["水阻箱调节阀关"] = true;
-                        needOpen = false;
-                    }
-
-                    // 等待达到目标值或被中断
-                    while (manaulData.IsSetWaterResistance)
-                    {
-                        double currentValue = Common.AIgrp["水阻箱进水调节阀开度"];
-
-                        // 检查是否达到目标
-                        if (needOpen)
-                        {
-                            if (currentValue >= manaulData.SetWaterResistanceValue - 1)
-                                break;
-                        }
-                        else
-                        {
-                            if (currentValue + 1 <= manaulData.SetWaterResistanceValue)
-                                break;
-                        }
-
-                        Thread.Sleep(100);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // 记录日志
-                    Var.LogInfo($"水阻箱调节异常:{ex}");
-                }
-                finally
-                {
-                    // 确保阀门停止
-                    Common.DOgrp["水阻箱调节阀开"] = false;
-                    Common.DOgrp["水阻箱调节阀关"] = false;
-
-                    // 重置状态标志
-                    manaulData.IsSetWaterResistance = false;
-
-                    // 更新UI
-                    this.Invoke(new Action(() =>
-                    {
-                        this.rButton9.Enabled = true;
-                        this.rButton4.Enabled = true;
-                        this.btnSetWaterValueIn.Switch = false;
-                    }));
-                }
-            });
-
-            thread.Name = "水阻箱进水动态调节";
-            thread.IsBackground = true;
-            thread.Start();
-        }
-
-        /// <summary>
         /// 开 按下
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnWaterOpen_MouseDown(object sender, MouseEventArgs e)
         {
-            Common.DOgrp["水阻箱调节阀关"] = false;
-            Thread.Sleep(10);
-            Common.DOgrp["水阻箱调节阀开"] = true;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "水阻箱调节阀开-按下"))
+            {
+                Common.DOgrp["水阻箱调节阀关"] = false;
+                Thread.Sleep(10);
+                Common.DOgrp["水阻箱调节阀开"] = true;
+            }
         }
 
         /// <summary>
@@ -1192,9 +1080,12 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterOpen_MouseUp(object sender, MouseEventArgs e)
         {
-            Common.DOgrp["水阻箱调节阀开"] = false;
-            Thread.Sleep(10);
-            Common.DOgrp["水阻箱调节阀关"] = false;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "水阻箱调节阀开-松开"))
+            {
+                Common.DOgrp["水阻箱调节阀开"] = false;
+                Thread.Sleep(10);
+                Common.DOgrp["水阻箱调节阀关"] = false;
+            }
         }
 
         /// <summary>
@@ -1204,9 +1095,12 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterClose_MouseDown(object sender, MouseEventArgs e)
         {
-            Common.DOgrp["水阻箱调节阀开"] = false;
-            Thread.Sleep(10);
-            Common.DOgrp["水阻箱调节阀关"] = true;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "水阻箱调节阀关-按下"))
+            {
+                Common.DOgrp["水阻箱调节阀开"] = false;
+                Thread.Sleep(10);
+                Common.DOgrp["水阻箱调节阀关"] = true;
+            }
         }
 
         /// <summary>
@@ -1216,9 +1110,12 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterClose_MouseUp(object sender, MouseEventArgs e)
         {
-            Common.DOgrp["水阻箱调节阀关"] = false;
-            Thread.Sleep(10);
-            Common.DOgrp["水阻箱调节阀开"] = false;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "水阻箱调节阀关-松开"))
+            {
+                Common.DOgrp["水阻箱调节阀关"] = false;
+                Thread.Sleep(10);
+                Common.DOgrp["水阻箱调节阀开"] = false;
+            }
         }
 
         /// <summary>
@@ -1264,7 +1161,7 @@ namespace MainUI.TestScreen
             }
             catch (Exception ex)
             {
-                Var.LogInfo($"实时发送数据给下位机失败。{ ex.ToString() }");
+                Var.LogInfo($"实时发送数据给下位机失败。{ex.ToString()}");
             }
         }
 
@@ -1404,6 +1301,108 @@ namespace MainUI.TestScreen
 
                 EventTriggerModel.TimngChanged(timer);
             }
+        }
+
+        private void btnSetLCReduce2_Click(object sender, EventArgs e)
+        {
+            this.btnSetLCReduce.Focus();
+            var val = Common.AOgrp["励磁调节"] - 2;
+            if (val <= 0) val = 0;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁电流-2"))
+            {
+                Common.AOgrp["励磁调节"] = val;
+            }
+            this.ucNudLC.Value = val;
+        }
+
+        private void btnSetLCReduce5_Click(object sender, EventArgs e)
+        {
+            this.btnSetLCReduce.Focus();
+            var val = Common.AOgrp["励磁调节"] - 5;
+            if (val <= 0) val = 0;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁电流-5"))
+            {
+                Common.AOgrp["励磁调节"] = val;
+            }
+            this.ucNudLC.Value = val;
+        }
+
+        private void btnSetLCAdd2_Click(object sender, EventArgs e)
+        {
+            this.btnSetLCAdd.Focus();
+
+            if (!this.rButton50.Switch && !this.rButton1.Switch)
+            {
+                Var.MsgBoxWarn(this, "请先打开主发通风机后再进行励磁电流设置。");
+                return;
+            }
+
+            var val = Common.AOgrp["励磁调节"] + 2;
+            if (val >= 500)
+            {
+                val = 500;
+            }
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁电流+2"))
+            {
+                Common.AOgrp["励磁调节"] = val;
+            }
+            this.ucNudLC.Value = val;
+        }
+
+        private void btnSetLCAdd5_Click(object sender, EventArgs e)
+        {
+            this.btnSetLCAdd.Focus();
+
+            if (!this.rButton50.Switch && !this.rButton1.Switch)
+            {
+                Var.MsgBoxWarn(this, "请先打开主发通风机后再进行励磁电流设置。");
+                return;
+            }
+
+            var val = Common.AOgrp["励磁调节"] + 5;
+            if (val >= 500)
+            {
+                val = 500;
+            }
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁电流+5"))
+            {
+                Common.AOgrp["励磁调节"] = val;
+            }
+            this.ucNudLC.Value = val;
+        }
+
+        private void btnSetLCReduce10_Click(object sender, EventArgs e)
+        {
+            this.btnSetLCReduce.Focus();
+            var val = Common.AOgrp["励磁调节"] - 10;
+            if (val <= 0) val = 0;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁电流-10"))
+            {
+                Common.AOgrp["励磁调节"] = val;
+            }
+            this.ucNudLC.Value = val;
+        }
+
+        private void btnSetLCAdd10_Click(object sender, EventArgs e)
+        {
+            this.btnSetLCAdd.Focus();
+
+            if (!this.rButton50.Switch && !this.rButton1.Switch)
+            {
+                Var.MsgBoxWarn(this, "请先打开主发通风机后再进行励磁电流设置。");
+                return;
+            }
+
+            var val = Common.AOgrp["励磁调节"] + 10;
+            if (val >= 500)
+            {
+                val = 500;
+            }
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁电流+10"))
+            {
+                Common.AOgrp["励磁调节"] = val;
+            }
+            this.ucNudLC.Value = val;
         }
     }
 

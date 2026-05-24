@@ -98,10 +98,10 @@ namespace MainUI.Modules
 
                         // 触发值改变事件
                         string key = match1.Value;
-                        if (key == "转速2" || key == "转速3") 
-                        {
-                            disPlayValue = disPlayValue / 180 * 60;
-                        }
+                        //if (key == "转速2" || key == "转速3") 
+                        //{
+                        //    disPlayValue = disPlayValue / 180 * 60;
+                        //}
 
                         DataValue.AddOrUpdate(key, disPlayValue, (k, oldValue) => disPlayValue);
 

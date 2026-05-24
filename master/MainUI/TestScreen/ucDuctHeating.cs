@@ -222,11 +222,17 @@ namespace MainUI.TestScreen
                 var tag = button.Tag.ToString();
                 if (tag == "1")
                 {
-                    Common.AirDuctGrp.SetDouble("一号DO.一号设置出口温度", this.nudTempExport1.Value);
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, "设置一号风道出口温度"))
+                    {
+                        Common.AirDuctGrp.SetDouble("一号DO.一号设置出口温度", this.nudTempExport1.Value);
+                    }
                 }
                 else
                 {
-                    Common.AirDuctGrp.SetDouble("二号DO.二号设置出口温度", this.nudTempExport2.Value);
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, "设置二号风道出口温度"))
+                    {
+                        Common.AirDuctGrp.SetDouble("二号DO.二号设置出口温度", this.nudTempExport2.Value);
+                    }
                 }
             }
             catch (Exception ex)
@@ -248,11 +254,17 @@ namespace MainUI.TestScreen
                 var tag = button.Tag.ToString();
                 if (tag == "1")
                 {
-                    Common.AirDuctGrp.SetDouble("一号DO.一号设置内腔温度", this.nudTempLumen1.Value);
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, "设置一号风道内腔温度"))
+                    {
+                        Common.AirDuctGrp.SetDouble("一号DO.一号设置内腔温度", this.nudTempLumen1.Value);
+                    }
                 }
                 else
                 {
-                    Common.AirDuctGrp.SetDouble("二号DO.二号设置内腔温度", this.nudTempLumen2.Value);
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, "设置二号风道内腔温度"))
+                    {
+                        Common.AirDuctGrp.SetDouble("二号DO.二号设置内腔温度", this.nudTempLumen2.Value);
+                    }
                 }
             }
             catch (Exception ex)
@@ -283,11 +295,14 @@ namespace MainUI.TestScreen
                     Common.AirDuctGrp.SetBool("二号DO.二号一键停止", false);
                 }
                 Thread.Sleep(200);
-                Common.AirDuctGrp.SetBool(key, true);
+                using (MainUI.Fault.OperationContext.Begin(this, sender, "风道加热-一键启动-" + key))
+                {
+                    Common.AirDuctGrp.SetBool(key, true);
+                }
             }
             catch (Exception ex)
             {
-                Var.MsgBoxWarn(this, "下发开始风道加热指令失败。");
+                Var.MsgBoxWarn(this, "下发开始风道加热指令失败。" + ex.Message);
             }
         }
 
@@ -313,11 +328,14 @@ namespace MainUI.TestScreen
                     Common.AirDuctGrp.SetBool("二号DO.二号一键启动", false);
                 }
                 Thread.Sleep(200);
-                Common.AirDuctGrp.SetBool(key, true);
+                using (MainUI.Fault.OperationContext.Begin(this, sender, "风道加热-一键停止-" + key))
+                {
+                    Common.AirDuctGrp.SetBool(key, true);
+                }
             }
             catch (Exception ex)
             {
-                Var.MsgBoxWarn(this, "下发停止风道加热指令失败。");
+                Var.MsgBoxWarn(this, "下发停止风道加热指令失败。" + ex.Message);
             }
         }
 
@@ -382,7 +400,12 @@ namespace MainUI.TestScreen
             set.Value = Common.AOgrp[pipePara.Tag.ToString()];
             var dr = set.ShowDialog(this);
             if (dr == DialogResult.OK)
-                Common.AOgrp[pipePara.Tag.ToString()] = set.Value;
+            {
+                using (MainUI.Fault.OperationContext.Begin(this, sender, "进气加热-流量设置-" + pipePara.Tag.ToString()))
+                {
+                    Common.AOgrp[pipePara.Tag.ToString()] = set.Value;
+                }
+            }
         }
 
         private void rButton10_Click(object sender, EventArgs e)

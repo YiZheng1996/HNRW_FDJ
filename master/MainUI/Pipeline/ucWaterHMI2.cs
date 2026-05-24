@@ -279,7 +279,10 @@ namespace MainUI
             {
                 try
                 {
-                    Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
+                    {
+                        Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -514,7 +517,10 @@ namespace MainUI
             var dr = Var.MsgBoxYesNo(this, $"确定要{msg}预热水箱加热吗？");
             if (!dr) return;
 
-            Common.ExChangeGrp.SetBool("预热水箱加热", !swYR.Switch);
+            using (MainUI.Fault.OperationContext.Begin(this, sender, msg + "预热水箱加热"))
+            {
+                Common.ExChangeGrp.SetBool("预热水箱加热", !swYR.Switch);
+            }
 
             // 改成1.0
             //Common.DOgrp[sw.OutputTagName.ToString()] = !switchT;
@@ -600,7 +606,7 @@ namespace MainUI
 
 
                 string th = btn.OutputTagName.ToString().Replace("控制", "").Replace("合闸", "");
-                string strMessage = $"是否要{ btn.Text }{th}?";
+                string strMessage = $"是否要{btn.Text}{th}?";
                 bool mesResult = Var.MsgBoxYesNo(this, strMessage);
                 if (mesResult == false)
                 {
@@ -610,7 +616,10 @@ namespace MainUI
                 {
                     try
                     {
-                        Common.ExChangeGrp.SetBool(btn.OutputTagName, setResult);
+                        using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("水系统一键-{0}{1}", btn.Text, btn.OutputTagName)))
+                        {
+                            Common.ExChangeGrp.SetBool(btn.OutputTagName, setResult);
+                        }
                     }
                     catch (Exception ex)
                     {

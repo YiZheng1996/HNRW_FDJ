@@ -1781,7 +1781,10 @@ namespace MainUI
         private void btnSetSpeed_Click(object sender, EventArgs e)
         {
             this.btnSetSpeed.Focus();
-            Common.AOgrp["发动机油门调节"] = ucNudSpeed.Value;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "手动设定发动机转速"))
+            {
+                Common.AOgrp["发动机油门调节"] = ucNudSpeed.Value;
+            }
         }
 
         private void btnSetSpeedReduce_Click(object sender, EventArgs e)
@@ -1795,7 +1798,10 @@ namespace MainUI
             {
                 val = 0;
             }
-            Common.AOgrp["发动机油门调节"] = val;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("发动机转速-{0}", tag)))
+            {
+                Common.AOgrp["发动机油门调节"] = val;
+            }
             this.ucNudSpeed.Value = val;
         }
 
@@ -1811,10 +1817,12 @@ namespace MainUI
                 val = 1100;
             }
 
-            Common.AOgrp["发动机油门调节"] = val;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("发动机转速+{0}", tag)))
+            {
+                Common.AOgrp["发动机油门调节"] = val;
+                //Common.AIgrp["大气温度"] = val;
+            }
             this.ucNudSpeed.Value = val;
-
-            Common.AIgrp["大气温度"] = val;
         }
 
         /// <summary>
@@ -1825,7 +1833,10 @@ namespace MainUI
         private void btnSetLC_Click(object sender, EventArgs e)
         {
             this.btnSetLC.Focus();
-            Common.AOgrp["励磁调节"] = ucNudLC.Value;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "手动设定励磁电流"))
+            {
+                Common.AOgrp["励磁调节"] = ucNudLC.Value;
+            }
         }
 
         /// <summary>
@@ -1836,7 +1847,10 @@ namespace MainUI
         private void btnSetLCZero_Click(object sender, EventArgs e)
         {
             this.btnSetLCZero.Focus();
-            Common.AOgrp["励磁调节"] = 0;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁紧急归零"))
+            {
+                Common.AOgrp["励磁调节"] = 0;
+            }
             this.ucNudLC.Value = 0;
         }
 
@@ -1849,7 +1863,10 @@ namespace MainUI
             {
                 val = 0;
             }
-            Common.AOgrp["励磁调节"] = val;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁电流-1"))
+            {
+                Common.AOgrp["励磁调节"] = val;
+            }
             this.ucNudLC.Value = val;
         }
 
@@ -1862,7 +1879,10 @@ namespace MainUI
             {
                 val = 500;
             }
-            Common.AOgrp["励磁调节"] = val;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "励磁电流+1"))
+            {
+                Common.AOgrp["励磁调节"] = val;
+            }
             this.ucNudLC.Value = val;
         }
 

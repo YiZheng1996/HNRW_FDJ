@@ -59,6 +59,7 @@
             this.tslblRYNG = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblRYSim = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblRYHY = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tslblJYBC = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblWaterOK = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblWaterNG = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblWaterSim = new System.Windows.Forms.ToolStripStatusLabel();
@@ -66,7 +67,6 @@
             this.tslblCommunication = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.timerPLC = new System.Windows.Forms.Timer(this.components);
-            this.tslblJYBC = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRunStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
@@ -441,6 +441,15 @@
             this.tslblRYHY.Size = new System.Drawing.Size(78, 25);
             this.tslblRYHY.Text = "燃油耗仪";
             // 
+            // tslblJYBC
+            // 
+            this.tslblJYBC.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.tslblJYBC.Name = "tslblJYBC";
+            this.tslblJYBC.Size = new System.Drawing.Size(94, 25);
+            this.tslblJYBC.Text = "机油耗磅秤";
+            // 
             // tslblWaterOK
             // 
             this.tslblWaterOK.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
@@ -499,15 +508,6 @@
             // 
             this.timerPLC.Interval = 1000;
             this.timerPLC.Tick += new System.EventHandler(this.timerPLC_Tick);
-            // 
-            // tslblJYBC
-            // 
-            this.tslblJYBC.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.tslblJYBC.Name = "tslblJYBC";
-            this.tslblJYBC.Size = new System.Drawing.Size(94, 25);
-            this.tslblJYBC.Text = "机油耗磅秤";
             // 
             // ucALLPipelineHMI
             // 

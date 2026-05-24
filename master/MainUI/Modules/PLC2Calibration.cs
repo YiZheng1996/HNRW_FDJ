@@ -214,6 +214,7 @@ namespace MainUI.Modules
         {
             string opcTag = "AI." + key + "零点";
             this.Write(opcTag, value);
+            try { MainUI.Fault.OpcOperationLog.LogWrite(opcTag, value); } catch { }
         }
 
 
@@ -226,6 +227,7 @@ namespace MainUI.Modules
         {
             string opcTag = "AI." + key + "增益";
             this.Write(opcTag, value);
+            try { MainUI.Fault.OpcOperationLog.LogWrite(opcTag, value); } catch { }
         }
 
         /// <summary>
@@ -237,6 +239,7 @@ namespace MainUI.Modules
         {
             string opcTag = "AO." + key + "零点";
             this.Write(opcTag, value);
+            try { MainUI.Fault.OpcOperationLog.LogWrite(opcTag, value); } catch { }
         }
 
         /// <summary>
@@ -248,6 +251,7 @@ namespace MainUI.Modules
         {
             string opcTag = "AO." + key + "增益";
             this.Write(opcTag, value);
+            try { MainUI.Fault.OpcOperationLog.LogWrite(opcTag, value); } catch { }
         }
     }
 }

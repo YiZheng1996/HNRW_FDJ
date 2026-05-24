@@ -94,7 +94,7 @@ namespace MainUI
 
         }
 
- 
+
 
         private void ExChangeGrp_KeyValueChange1(object sender, DIValueChangedEventArgs e)
         {
@@ -317,7 +317,7 @@ namespace MainUI
                 this.Invoke(new Action<object, DIValueChangedEventArgs>(DIgrp_KeyValueChange), sender, e);
                 return;
             }
-         
+
             if (dicBtn.ContainsKey(e.Key))
             {
                 foreach (var item in dicBtn[e.Key])
@@ -399,7 +399,7 @@ namespace MainUI
 
             dicLabel.Add("P21主油道进口油压", new List<Label> { lblEngineP });
             dicLabel.Add("机油箱温度检测-T23", new List<Label> { lblEngineT });
-            dicLabel.Add("机油箱液位检测-L18", new List<Label> { lblEngineFlow});
+            dicLabel.Add("机油箱液位检测-L18", new List<Label> { lblEngineFlow });
             dicLabel.Add("待处理机油箱温度检测-T24", new List<Label> { lblEngineDT });
             dicLabel.Add("待处理机油箱液位检测-L19", new List<Label> { lblEngineDF });
         }
@@ -471,7 +471,10 @@ namespace MainUI
             {
                 try
                 {
-                    Common.DOgrp[sw.OutputTagName.ToString()] = Convert.ToBoolean(sw.Tag.ToInt()); //!Common.DOgrp[sw.Tag.ToString()];
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
+                    {
+                        Common.DOgrp[sw.OutputTagName.ToString()] = Convert.ToBoolean(sw.Tag.ToInt()); //!Common.DOgrp[sw.Tag.ToString()];
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -499,7 +502,10 @@ namespace MainUI
                     var result = Var.MsgBoxYesNo(this, "确定要切换燃油输送泵吗？");
                     if (!result) return;
                 }
-                Common.ExChangeGrp.SetBool("燃油循环油泵选择", (btn.Tag.ToString() == "1"));
+                using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("切换燃油循环油泵-Tag{0}", btn.Tag)))
+                {
+                    Common.ExChangeGrp.SetBool("燃油循环油泵选择", (btn.Tag.ToString() == "1"));
+                }
             }
             // 油耗打开
             else if (btn.OutputTagName == "燃油耗测量油泵选择")
@@ -509,7 +515,11 @@ namespace MainUI
                     var result = Var.MsgBoxYesNo(this, "确定要切换燃油输送泵吗？");
                     if (!result) return;
                 }
-                Common.ExChangeGrp.SetBool("燃油耗测量油泵选择", (btn.Tag.ToString() == "1"));
+                using (MainUI.Fault.OperationContext.Begin(this, sender,
+        string.Format("切换燃油耗测量油泵-Tag{0}", btn.Tag)))
+                {
+                    Common.ExChangeGrp.SetBool("燃油耗测量油泵选择", (btn.Tag.ToString() == "1"));
+                }
             }
             else
             {
@@ -519,7 +529,11 @@ namespace MainUI
                     Var.MsgBoxWarn(this, "正在进行油底壳抽油，不能进行切换。");
                     return;
                 }
-                Common.ExChangeGrp.SetBool("油底壳抽油选择油箱", (btn.Tag.ToString() == "1"));
+
+                using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("切换油底壳抽油选择油箱-Tag{0}", btn.Tag)))
+                {
+                    Common.ExChangeGrp.SetBool("油底壳抽油选择油箱", (btn.Tag.ToString() == "1"));
+                }
             }
         }
 
@@ -592,7 +606,7 @@ namespace MainUI
                 {
                     errorMessages.AppendLine($"不满足开启条件{++msgIndex}.预热水箱液位>600mm。");
                 }
-                if (msgIndex > 0) 
+                if (msgIndex > 0)
                 {
                     Var.MsgBoxWarn(this, errorMessages.ToString());
                     return;
@@ -669,13 +683,13 @@ namespace MainUI
             }
 
             string th = btn.OutputTagName.ToString().Replace("控制", "").Replace("合闸", "");
-            string strMessage = $"是否要{ btn.Text }{th}?";
+            string strMessage = $"是否要{btn.Text}{th}?";
             bool mesResult = Var.MsgBoxYesNo(this, strMessage);
             if (mesResult == false)
             {
                 return;
             }
-            else 
+            else
             {
                 try
                 {
@@ -684,7 +698,10 @@ namespace MainUI
                         Common.ExChangeGrp.SetDouble("预热水箱加热温度设定", this.nudSetTemp.Value);
                     }
 
-                    Common.ExChangeGrp.SetBool(btn.OutputTagName, setResult);
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("一键循环-{0}{1}", btn.Text, btn.OutputTagName)))
+                    {
+                        Common.ExChangeGrp.SetBool(btn.OutputTagName, setResult);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -1015,6 +1032,6 @@ namespace MainUI
     }
 
 
-  
+
 
 }

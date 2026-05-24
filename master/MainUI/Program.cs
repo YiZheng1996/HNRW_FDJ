@@ -21,6 +21,7 @@ namespace MainUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             GlobalClickLogger.Instance.Start();
+            MainUI.Fault.OpcOperationLog.Start();
             frmLogin login = new frmLogin();
             login.Icon = new System.Drawing.Icon("logo.ico");
             var files = Directory.GetFiles(Application.StartupPath, "logo.*");

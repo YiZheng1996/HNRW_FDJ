@@ -27,12 +27,14 @@ namespace MainUI.Modules
         public void SetDouble(string key, double value)
         {
             this.Write(key, value);
+            try { MainUI.Fault.OpcOperationLog.LogWrite("AirDuct." + key, value); } catch { }
         }
 
         // 设置 bool 值
         public void SetBool(string key, bool value)
         {
             this.Write(key, value);
+            try { MainUI.Fault.OpcOperationLog.LogWrite("AirDuct." + key, value); } catch { }
         }
 
         // 获取 double 值

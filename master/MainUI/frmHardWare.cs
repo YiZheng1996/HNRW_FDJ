@@ -353,10 +353,11 @@ namespace MainUI
                 cuCur.GainValue = e.Gain;
                 cuCur.ZeroValue = e.Zero;
 
-                Common.plcc2.SetAIGain(e.Key, e.Gain);
-                Common.plcc2.SetAIZero(e.Key, e.Zero);
-
-
+                using (MainUI.Fault.OperationContext.Begin(this, sender, "硬件较准-PLC2-" + e.Key))
+                {
+                    Common.plcc2.SetAIGain(e.Key, e.Gain);
+                    Common.plcc2.SetAIZero(e.Key, e.Zero);
+                }
             }
             catch (Exception ex)
             {
@@ -385,9 +386,11 @@ namespace MainUI
                 cuCur.GainValue = e.Gain;
                 cuCur.ZeroValue = e.Zero;
 
-                Common.plcc.SetAIGain(e.Key, e.Gain);
-                Common.plcc.SetAIZero(e.Key, e.Zero);
-
+                using (MainUI.Fault.OperationContext.Begin(this, sender, "硬件较准-PLC1-" + e.Key))
+                {
+                    Common.plcc.SetAIGain(e.Key, e.Gain);
+                    Common.plcc.SetAIZero(e.Key, e.Zero);
+                }
             }
             catch (Exception ex)
             {

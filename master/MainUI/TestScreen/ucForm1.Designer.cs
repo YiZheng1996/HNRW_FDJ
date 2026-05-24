@@ -945,7 +945,7 @@ namespace MainUI.TestScreen
             this.ucValueFrom1Label24.Name = "ucValueFrom1Label24";
             this.ucValueFrom1Label24.Size = new System.Drawing.Size(333, 22);
             this.ucValueFrom1Label24.TabIndex = 43;
-            this.ucValueFrom1Label24.Tag = "高温水泵进口压力";
+            this.ucValueFrom1Label24.Tag = "P2高温水泵进口压力";
             this.ucValueFrom1Label24.Title = "高温水泵进口压力";
             this.ucValueFrom1Label24.TitleColor = System.Drawing.Color.Black;
             this.ucValueFrom1Label24.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);

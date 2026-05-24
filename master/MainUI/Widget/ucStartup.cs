@@ -24,6 +24,8 @@ namespace MainUI.Widget
         // 启机弹窗描述
         frmMessageWarning frmStartupMessage = new frmMessageWarning();
 
+        private Dictionary<string, ucValueLabel> _electricValueLabels = new Dictionary<string, ucValueLabel>();
+
         ManaulData manaulData = new ManaulData();
 
         public ucStartup()
@@ -36,8 +38,6 @@ namespace MainUI.Widget
         /// </summary>
         public void Init()
         {
-            this.timerFast.Enabled = true;
-            this.timerFast.Start();
             this.timerSlow.Enabled = true;
             this.timerSlow.Start();
 
@@ -48,6 +48,51 @@ namespace MainUI.Widget
             Common.gd350_1.KeyValueChange += Gd350_1_KeyValueChange;
             Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange;
             Common.DOgrp.KeyValueChange += DOgrp_KeyValueChange;
+
+            // 扫描拖入的 ucValueLabel，按 Tag 注册到字典
+            EachElectricControl(grpElectric);
+
+            // 订阅三相电事件
+            Common.threePhaseElectric.KeyValueChange += ThreePhaseElectric_KeyValueChange;
+
+            // 立刻刷新一次当前值
+            Common.threePhaseElectric.Fresh();
+        }
+
+        /// <summary>
+        /// 递归扫描容器，将 Tag 不为空的 ucValueLabel 加入字典
+        /// </summary>
+        private void EachElectricControl(Control container)
+        {
+            foreach (Control ctrl in container.Controls)
+            {
+                EachElectricControl(ctrl);
+            }
+            if (container is ucValueLabel lbl
+                && lbl.Tag != null
+                && !string.IsNullOrEmpty(lbl.Tag.ToString()))
+            {
+                string key = lbl.Tag.ToString();
+                if (!_electricValueLabels.ContainsKey(key))
+                    _electricValueLabels.Add(key, lbl);
+            }
+        }
+
+        /// <summary>
+        /// 三相电参数刷新（机组测量值）
+        /// </summary>
+        private void ThreePhaseElectric_KeyValueChange(object sender, DoubleValueChangedEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<object, DoubleValueChangedEventArgs>(
+                    ThreePhaseElectric_KeyValueChange), sender, e);
+                return;
+            }
+            if (_electricValueLabels.ContainsKey(e.Key))
+            {
+                _electricValueLabels[e.Key].Value = e.Value;
+            }
         }
 
         /// <summary>
@@ -196,22 +241,6 @@ namespace MainUI.Widget
 
 
         /// <summary>
-        /// 仪表盘较快数据的刷新（快速）
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void timerFast_Tick(object sender, EventArgs e)
-        {
-            this.LCVoltageValue.Text = Common.excitationGrp["励磁电压检测"].ToString();
-            this.LCCurrentValue.Text = Common.excitationGrp["励磁电流检测"].ToString();
-
-            // 转速
-            this.lblSpeed.Text = MiddleData.instnce.EngineSpeed.ToString();
-            this.lblPower.Text = MiddleData.instnce.EnginePower.ToString();
-            this.lblTorque.Text = MiddleData.instnce.EngineTorque.ToString();
-        }
-
-        /// <summary>
         /// 关闭开启按钮通用点击事件
         /// </summary>
         /// <param name="sender"></param>
@@ -252,16 +281,19 @@ namespace MainUI.Widget
             {
                 try
                 {
-                    if (sw.OutputTagName == "发动机DC24V供电")
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
                     {
-                        // 关闭电喷供电
-                        Common.DOgrp["发动机DC24V供电"] = Convert.ToBoolean(sw.Tag.ToInt());
-                    }
+                        if (sw.OutputTagName == "发动机DC24V供电")
+                        {
+                            // 关闭电喷供电
+                            Common.DOgrp["发动机DC24V供电"] = Convert.ToBoolean(sw.Tag.ToInt());
+                        }
 
-                    if (sw.OutputTagName == "燃油循环" || sw.OutputTagName == "预供机油循环")
-                    {
-                        // 管路相关操作
-                        Common.ExChangeGrp.SetBool(sw.OutputTagName, Convert.ToBoolean(sw.Tag.ToInt()));
+                        if (sw.OutputTagName == "燃油循环" || sw.OutputTagName == "预供机油循环")
+                        {
+                            // 管路相关操作
+                            Common.ExChangeGrp.SetBool(sw.OutputTagName, Convert.ToBoolean(sw.Tag.ToInt()));
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -296,25 +328,27 @@ namespace MainUI.Widget
         /// <summary>
         /// 启机转速设置
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnSetBeginSpeed_Click(object sender, EventArgs e)
         {
             this.btnSetBeginSpeed.Focus();
 
             var value = Math.Round((manaulData.BeginInvertSpeed * 7) / 60, 2);
-            Common.gd350_1.SetFrequency = value;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "启机-设置变频器频率"))
+            {
+                Common.gd350_1.SetFrequency = value;
+            }
         }
 
         /// <summary>
         /// 启机励磁设置
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnSetBeginLC_Click(object sender, EventArgs e)
         {
             this.btnSetBeginLC.Focus();
-            Common.AOgrp["励磁调节"] = manaulData.BeginCurrent;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "启机-设置励磁电流"))
+            {
+                Common.AOgrp["励磁调节"] = manaulData.BeginCurrent;
+            }
         }
 
         /// <summary>
@@ -484,15 +518,20 @@ namespace MainUI.Widget
 
                 manaulData.IsStartRun = true;
                 manaulData.StartRunBeginTime = DateTime.Now;
-                Common.AOgrp["励磁调节"] = manaulData.BeginCurrent;
 
-                var value = Math.Round((manaulData.BeginInvertSpeed * 7) / 60, 2);
-                Common.gd350_1.SetFrequency = value;
-                Common.gd350_1.SetRun = true;
+                using (MainUI.Fault.OperationContext.Begin(this, null, tag + "流程-按下"))
+                {
+                    Common.AOgrp["励磁调节"] = manaulData.BeginCurrent;
+
+                    var value = Math.Round((manaulData.BeginInvertSpeed * 7) / 60, 2);
+                    Common.gd350_1.SetFrequency = value;
+                    Common.gd350_1.SetRun = true;
+                }
 
                 MiddleData.instnce.isStartupRecording = true;
                 MiddleData.instnce.StartupReleaseTime = null;
                 EventTriggerModel.StartupChanged(true);
+
                 //Thread t = new Thread(xxx =>
                 //{
                 //    try
@@ -522,8 +561,11 @@ namespace MainUI.Widget
                 MiddleData.instnce.isStartupRecording = false;
                 MiddleData.instnce.StartupReleaseTime = DateTime.Now;
 
-                manaulData.IsStartRun = false;
-                Common.gd350_1.SetRun = false;
+                using (MainUI.Fault.OperationContext.Begin(this, null, tag + "流程-异常退出"))
+                {
+                    manaulData.IsStartRun = false;
+                    Common.gd350_1.SetRun = false;
+                }
 
                 Var.MsgBoxWarn(this, $"启机出现异常:{ex.Message.ToString()}");
                 Var.LogInfo($"点动-启机出现异常:{ex.ToString()}");
@@ -537,8 +579,13 @@ namespace MainUI.Widget
         /// <param name="e"></param>
         private void btnManualRun_MouseUp(object sender, MouseEventArgs e)
         {
-            // 松开励磁写0
-            Common.AOgrp["励磁调节"] = 0;
+            using (MainUI.Fault.OperationContext.Begin(this, sender, "启机流程-松开"))
+            {
+                // 松开励磁写0
+                Common.AOgrp["励磁调节"] = 0;
+                Common.gd350_1.SetRun = false;
+            }
+
             this.nudBeginCurrent.Value = 0;
 
             MiddleData.instnce.isStartupRecording = false;
@@ -549,7 +596,6 @@ namespace MainUI.Widget
 
             manaulData.IsStartRun = false;
             manaulData.StartRunBeginTime = DateTime.Now;
-            Common.gd350_1.SetRun = false;
         }
 
         /// <summary>

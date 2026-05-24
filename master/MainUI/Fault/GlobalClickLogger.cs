@@ -1,21 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
 using RW.UI;
 
 /// <summary>
-/// 全局操作日志记录器
+/// 全局操作日志记录器（焦点消息版）
 /// 在 Program.cs 的 Main() 里调用一次 GlobalClickLogger.Instance.Start() 即可
+/// 
+/// 核心思路：
+///   抛弃 .NET 包装的 Leave 事件（会被 SunnyUI 的 public new event 隐藏），
+///   改用底层 Win32 消息 WM_KILLFOCUS / WM_LBUTTONDOWN / WM_KEYDOWN，
+///   任何 WinForms 控件都逃不掉，无视 SunnyUI / RW.UI 的事件重写。
 /// </summary>
 public class GlobalClickLogger : IMessageFilter
 {
-    // ── Win32 ─────────────────────────────────────────────────────────────
+    // ── Win32 消息 ─────────────────────────────────────────────────────────
     private const int WM_LBUTTONDOWN = 0x0201;
+    private const int WM_LBUTTONUP = 0x0202;
     private const int WM_KEYDOWN = 0x0100;
+    private const int WM_KILLFOCUS = 0x0008;   // ★ 失去焦点
+    private const int WM_SETFOCUS = 0x0007;    // 获得焦点
     private const int VK_RETURN = 0x0D;
+    private const int VK_TAB = 0x09;
 
     [DllImport("user32.dll")]
     private static extern IntPtr GetParent(IntPtr hWnd);
@@ -23,15 +33,22 @@ public class GlobalClickLogger : IMessageFilter
     [DllImport("user32.dll")]
     private static extern bool GetCursorPos(out System.Drawing.Point pt);
 
-    // ── 单例 ──────────────────────────────────────────────────────────────
+    [DllImport("user32.dll")]
+    private static extern IntPtr GetFocus();
+
+    // ── 单例 ───────────────────────────────────────────────────────────────
     private static readonly Lazy<GlobalClickLogger> _inst =
         new Lazy<GlobalClickLogger>(() => new GlobalClickLogger());
     public static GlobalClickLogger Instance => _inst.Value;
 
-    // ── 日志文件 ──────────────────────────────────────────────────────────
+    // ── 日志文件 ───────────────────────────────────────────────────────────
     private readonly string _logPath;
     private readonly string _errPath;
     private readonly object _lock = new object();
+
+    // ── 状态：上次焦点的控件 + 进入时的初始值（用于判断是否真的改了值） ──
+    private Control _lastFocused;
+    private string _lastFocusedInitialValue;
 
     private GlobalClickLogger()
     {
@@ -41,12 +58,11 @@ public class GlobalClickLogger : IMessageFilter
         _errPath = Path.Combine(dir, string.Format("click_err_{0:yyyyMMdd}.log", DateTime.Now));
     }
 
-    // ── 启停 ──────────────────────────────────────────────────────────────
+    // ── 启停 ───────────────────────────────────────────────────────────────
     public void Start()
     {
         Application.AddMessageFilter(this);
         Application.Idle += OnIdle;
-        // 写入启动标记，方便确认 Logger 已生效
         WriteLogCore("System", "GlobalClickLogger", "启动", "-", "-", "-", "系统");
     }
 
@@ -58,48 +74,123 @@ public class GlobalClickLogger : IMessageFilter
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // 消息过滤：按钮点击 + Enter 确认
-    // 值类控件（TextBox / NumericUpDown 等）跳过，由各自 Leave/Changed 事件负责
+    // 消息过滤（核心）
     // ══════════════════════════════════════════════════════════════════════
     public bool PreFilterMessage(ref Message m)
     {
-        // ── 鼠标左键点击 ─────────────────────────────────────────────────
-        if (m.Msg == WM_LBUTTONDOWN)
+        try
         {
-            try
+            switch (m.Msg)
             {
-                Control ctrl = Control.FromHandle(m.HWnd);
-                if (ctrl == null) ctrl = WalkUpToManagedControl(m.HWnd);
-                if (ctrl != null) ctrl = HitTestDeepest(ctrl);
-                if (ctrl != null && !IsLayoutContainer(ctrl) && !IsValueControl(ctrl))
-                    WriteLog(ctrl, "点击");
-            }
-            catch (Exception ex) { LogError("PreFilterMessage-Click", ex); }
-        }
+                case WM_LBUTTONDOWN:
+                    HandleMouseDown(m.HWnd);
+                    break;
 
-        // ── Enter 键确认 ──────────────────────────────────────────────────
-        if (m.Msg == WM_KEYDOWN && (int)m.WParam == VK_RETURN)
-        {
-            try
-            {
-                Control ctrl = Control.FromHandle(m.HWnd);
-                if (ctrl == null) ctrl = WalkUpToManagedControl(m.HWnd);
-                if (ctrl != null && !IsLayoutContainer(ctrl))
-                    WriteLog(ctrl, "Enter确认");
-            }
-            catch (Exception ex) { LogError("PreFilterMessage-Enter", ex); }
-        }
+                case WM_KEYDOWN:
+                    if ((int)m.WParam == VK_RETURN)
+                        HandleEnter(m.HWnd);
+                    break;
 
-        return false; // 消息继续正常传递，不拦截
+                case WM_SETFOCUS:
+                    HandleFocusEnter(m.HWnd);
+                    break;
+
+                case WM_KILLFOCUS:
+                    HandleFocusLeave(m.HWnd);
+                    break;
+            }
+        }
+        catch (Exception ex) { LogError("PreFilterMessage", ex); }
+
+        return false;
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // Idle：自动扫描新出现的 Form 和控件，挂事件
+    // 鼠标点击
     // ══════════════════════════════════════════════════════════════════════
-    private readonly System.Collections.Generic.HashSet<Control> _hookedControls =
-        new System.Collections.Generic.HashSet<Control>();
-    private readonly System.Collections.Generic.HashSet<Form> _hookedForms =
-        new System.Collections.Generic.HashSet<Form>();
+    private void HandleMouseDown(IntPtr hwnd)
+    {
+        Control ctrl = Control.FromHandle(hwnd);
+        if (ctrl == null) ctrl = WalkUpToManagedControl(hwnd);
+        if (ctrl != null) ctrl = HitTestDeepest(ctrl);
+        if (ctrl == null) return;
+
+        Control outer = FindOuterValueControl(ctrl) ?? ctrl;
+
+        if (!IsLayoutContainer(outer) && !IsInputControl(outer))
+            WriteLog(outer, "点击");
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    // Enter 键
+    // ══════════════════════════════════════════════════════════════════════
+    private void HandleEnter(IntPtr hwnd)
+    {
+        Control ctrl = Control.FromHandle(hwnd);
+        if (ctrl == null) ctrl = WalkUpToManagedControl(hwnd);
+        if (ctrl == null) return;
+
+        Control outer = FindOuterValueControl(ctrl) ?? ctrl;
+        if (!IsLayoutContainer(outer))
+            WriteLog(outer, "Enter确认");
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 焦点进入：记录初始值，便于失焦时比较是否变化
+    // ══════════════════════════════════════════════════════════════════════
+    private void HandleFocusEnter(IntPtr hwnd)
+    {
+        Control ctrl = Control.FromHandle(hwnd);
+        if (ctrl == null) ctrl = WalkUpToManagedControl(hwnd);
+        if (ctrl == null) return;
+
+        Control outer = FindOuterValueControl(ctrl) ?? ctrl;
+        if (IsInputControl(outer))
+        {
+            _lastFocused = outer;
+            _lastFocusedInitialValue = SafeGetValue(outer);
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 焦点离开：值类控件统一在此记录
+    // 这是核心 ── 绕开所有 .NET 包装事件被 SunnyUI new 隐藏的问题
+    // ══════════════════════════════════════════════════════════════════════
+    private void HandleFocusLeave(IntPtr hwnd)
+    {
+        Control ctrl = Control.FromHandle(hwnd);
+        if (ctrl == null) ctrl = WalkUpToManagedControl(hwnd);
+        if (ctrl == null) return;
+
+        Control outer = FindOuterValueControl(ctrl) ?? ctrl;
+        if (!IsInputControl(outer)) return;
+
+        string current = SafeGetValue(outer);
+
+        if (_lastFocused == outer)
+        {
+            // 只在值确实变化时才记录，避免大量"未操作但失焦"的噪声
+            if (current != _lastFocusedInitialValue)
+            {
+                string trigger = IsNumericLike(outer) ? "数值提交" : "文本提交";
+                WriteLog(outer, trigger);
+            }
+            _lastFocused = null;
+            _lastFocusedInitialValue = null;
+        }
+        else
+        {
+            // 焦点跳跃兜底
+            string trigger = IsNumericLike(outer) ? "数值提交" : "文本提交";
+            WriteLog(outer, trigger);
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    // Idle：扫描窗体，挂"开窗/关窗" + 非输入框类控件事件
+    // ══════════════════════════════════════════════════════════════════════
+    private readonly HashSet<Control> _hookedControls = new HashSet<Control>();
+    private readonly HashSet<Form> _hookedForms = new HashSet<Form>();
 
     private void OnIdle(object sender, EventArgs e)
     {
@@ -107,25 +198,24 @@ public class GlobalClickLogger : IMessageFilter
         {
             foreach (Form f in Application.OpenForms)
             {
-                // ── Form 打开/关闭 ────────────────────────────────────────
                 if (!_hookedForms.Contains(f))
                 {
                     _hookedForms.Add(f);
                     f.Shown += OnFormShown;
                     f.FormClosed += OnFormClosed;
                 }
-                // ── 控件值事件 ────────────────────────────────────────────
-                AttachControlEvents(f);
+                AttachNonInputEvents(f);
             }
         }
         catch (Exception ex) { LogError("OnIdle", ex); }
     }
 
-    /// <summary>递归扫描控件树，对每种控件挂对应的值事件</summary>
-    private void AttachControlEvents(Control parent)
+    private void AttachNonInputEvents(Control parent)
     {
         foreach (Control c in parent.Controls)
         {
+            bool skipRecurse = false;
+
             if (!_hookedControls.Contains(c))
             {
                 _hookedControls.Add(c);
@@ -133,94 +223,134 @@ public class GlobalClickLogger : IMessageFilter
 
                 string typeName = c.GetType().Name;
 
-                // DataGridView ─────────────────────────────────────────────
                 if (c is DataGridView dgv)
                 {
                     dgv.CellClick += OnDgvCellClick;
                 }
-                // TextBox / UITextBox → 失焦记最终输入值 ───────────────────
-                else if (c is TextBox || typeName.Contains("TextBox"))
+                else if (IsInputControlByTypeName(typeName))
                 {
-                    c.Leave += OnTextLeave;
+                    // ★ 输入框完全跳过，由 WM_KILLFOCUS 处理
+                    skipRecurse = true;
                 }
-                // NumericUpDown / UIDoubleUpDown / UIIntegerUpDown → 失焦记值
-                else if (c is NumericUpDown
-                      || typeName.Contains("DoubleUpDown")
-                      || typeName.Contains("IntegerUpDown"))
-                {
-                    c.Leave += OnNumericLeave;
-                }
-                // ComboBox → 用户主动选择（不记程序赋值） ──────────────────
                 else if (c is ComboBox cmb)
                 {
                     cmb.SelectionChangeCommitted += OnComboSelected;
                 }
                 else if (typeName.Contains("ComboBox"))
                 {
-                    // SunnyUI UIComboBox 用 Leave 兜底
-                    c.Leave += OnComboLeave;
+                    skipRecurse = true;
+                    TryAttachEvent(c, "SelectedIndexChanged",
+                        new EventHandler(OnComboSelectedReflect));
                 }
-                // CheckBox / UICheckBox ─────────────────────────────────────
                 else if (c is CheckBox cb)
                 {
                     cb.CheckedChanged += OnCheckedChanged;
                 }
                 else if (typeName.Contains("CheckBox"))
                 {
-                    AttachEventReflection(c, "CheckedChanged",
-                        new EventHandler(OnCheckedChangedReflect));
+                    skipRecurse = true;
+                    if (!TryAttachSunnyBoolEvent(c, "ValueChanged"))
+                        TryAttachEvent(c, "CheckedChanged",
+                            new EventHandler(OnCheckedChangedReflect));
                 }
-                // RadioButton / UIRadioButton ───────────────────────────────
                 else if (c is RadioButton rb)
                 {
                     rb.CheckedChanged += OnCheckedChanged;
                 }
                 else if (typeName.Contains("RadioButton"))
                 {
-                    AttachEventReflection(c, "CheckedChanged",
-                        new EventHandler(OnCheckedChangedReflect));
+                    skipRecurse = true;
+                    if (!TryAttachSunnyBoolEvent(c, "ValueChanged"))
+                        TryAttachEvent(c, "CheckedChanged",
+                            new EventHandler(OnCheckedChangedReflect));
                 }
-                // TabControl / UITabControl → 切换 Tab ─────────────────────
                 else if (c is TabControl tc)
                 {
                     tc.SelectedIndexChanged += OnTabChanged;
                 }
                 else if (typeName.Contains("TabControl"))
                 {
-                    AttachEventReflection(c, "SelectedIndexChanged",
+                    TryAttachEvent(c, "SelectedIndexChanged",
                         new EventHandler(OnTabChangedReflect));
                 }
-                // DateTimePicker → 关闭日历时才算确认 ─────────────────────
                 else if (c is DateTimePicker dtp)
                 {
                     dtp.CloseUp += OnDateCloseUp;
                 }
-                // TrackBar → 松手时记，不记拖动过程 ───────────────────────
                 else if (c is TrackBar)
                 {
                     c.MouseUp += OnTrackMouseUp;
                 }
             }
 
-            AttachControlEvents(c); // 递归子控件
+            if (!skipRecurse)
+                AttachNonInputEvents(c);
         }
     }
 
-    /// <summary>用反射挂事件，兼容 SunnyUI 等三方控件</summary>
-    private void AttachEventReflection(Control c, string eventName, Delegate handler)
+    private bool TryAttachEvent(Control c, string eventName, Delegate handler)
+    {
+        try
+        {
+            var evt = c.GetType().GetEvent(eventName,
+                BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            if (evt == null)
+            {
+                evt = c.GetType().GetEvent(eventName,
+                    BindingFlags.Public | BindingFlags.Instance);
+            }
+            if (evt == null) return false;
+
+            if (evt.EventHandlerType.IsAssignableFrom(handler.GetType())
+             || evt.EventHandlerType == handler.GetType())
+            {
+                evt.AddEventHandler(c, handler);
+                return true;
+            }
+            return false;
+        }
+        catch (Exception ex)
+        {
+            LogError("TryAttachEvent:" + eventName, ex);
+            return false;
+        }
+    }
+
+    private bool TryAttachSunnyBoolEvent(Control c, string eventName)
     {
         try
         {
             var evt = c.GetType().GetEvent(eventName,
                 BindingFlags.Public | BindingFlags.Instance);
-            if (evt != null) evt.AddEventHandler(c, handler);
+            if (evt == null) return false;
+
+            MethodInfo mi = typeof(GlobalClickLogger).GetMethod(
+                "OnSunnyBoolValueChanged",
+                BindingFlags.Public | BindingFlags.Instance);
+
+            Delegate d = Delegate.CreateDelegate(evt.EventHandlerType, this, mi, false);
+            if (d == null) return false;
+
+            evt.AddEventHandler(c, d);
+            return true;
         }
-        catch (Exception ex) { LogError("AttachEventReflection:" + eventName, ex); }
+        catch (Exception ex)
+        {
+            LogError("TryAttachSunnyBoolEvent:" + eventName, ex);
+            return false;
+        }
+    }
+
+    public void OnSunnyBoolValueChanged(object sender, bool value)
+    {
+        try { WriteLog((Control)sender, "勾选"); }
+        catch (Exception ex) { LogError("OnSunnyBoolValueChanged", ex); }
     }
 
     private void OnControlDisposed(object sender, EventArgs e)
     {
         _hookedControls.Remove((Control)sender);
+        if (_lastFocused == sender) { _lastFocused = null; _lastFocusedInitialValue = null; }
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -248,30 +378,18 @@ public class GlobalClickLogger : IMessageFilter
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // 控件值事件处理
+    // 非输入框控件事件回调
     // ══════════════════════════════════════════════════════════════════════
-    private void OnTextLeave(object sender, EventArgs e)
-    {
-        try { WriteLog((Control)sender, "文本提交"); }
-        catch (Exception ex) { LogError("OnTextLeave", ex); }
-    }
-
-    private void OnNumericLeave(object sender, EventArgs e)
-    {
-        try { WriteLog((Control)sender, "数值提交"); }
-        catch (Exception ex) { LogError("OnNumericLeave", ex); }
-    }
-
     private void OnComboSelected(object sender, EventArgs e)
     {
         try { WriteLog((Control)sender, "下拉选择"); }
         catch (Exception ex) { LogError("OnComboSelected", ex); }
     }
 
-    private void OnComboLeave(object sender, EventArgs e)
+    private void OnComboSelectedReflect(object sender, EventArgs e)
     {
         try { WriteLog((Control)sender, "下拉选择"); }
-        catch (Exception ex) { LogError("OnComboLeave", ex); }
+        catch (Exception ex) { LogError("OnComboSelectedReflect", ex); }
     }
 
     private void OnCheckedChanged(object sender, EventArgs e)
@@ -303,27 +421,7 @@ public class GlobalClickLogger : IMessageFilter
 
     private void OnTabChangedReflect(object sender, EventArgs e)
     {
-        try
-        {
-            var c = (Control)sender;
-            string tabText = "-";
-            try
-            {
-                object selTab = c.GetType()
-                    .GetProperty("SelectedTab", BindingFlags.Public | BindingFlags.Instance)
-                    ?.GetValue(c, null);
-                if (selTab != null)
-                    tabText = selTab.GetType().GetProperty("Text")
-                        ?.GetValue(selTab, null)?.ToString() ?? "-";
-            }
-            catch { }
-
-            Form form = c.FindForm();
-            WriteLogCore(c.GetType().Name, c.Name, tabText, "-",
-                form != null ? form.Name : "-",
-                form != null ? form.Text : "-",
-                "切换Tab");
-        }
+        try { WriteLog((Control)sender, "切换Tab"); }
         catch (Exception ex) { LogError("OnTabChangedReflect", ex); }
     }
 
@@ -346,10 +444,10 @@ public class GlobalClickLogger : IMessageFilter
             var dgv = (DataGridView)sender;
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
             var cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            string col = dgv.Columns[e.ColumnIndex].HeaderText;
             Form form = dgv.FindForm();
+            string colName = dgv.Columns[e.ColumnIndex].HeaderText;
             WriteLogCore("DataGridView", dgv.Name,
-                string.Format("[行{0} {1}]", e.RowIndex, col),
+                string.Format("[行{0} {1}]", e.RowIndex, colName),
                 cell.Value != null ? cell.Value.ToString() : "(空)",
                 form != null ? form.Name : "-",
                 form != null ? form.Text : "-",
@@ -359,10 +457,8 @@ public class GlobalClickLogger : IMessageFilter
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // 判断辅助
+    // 控件类型判断
     // ══════════════════════════════════════════════════════════════════════
-
-    /// <summary>纯布局容器，Click 不记录</summary>
     private bool IsLayoutContainer(Control c)
     {
         return c is Form
@@ -371,25 +467,54 @@ public class GlobalClickLogger : IMessageFilter
             || c is SplitContainer
             || c is SplitterPanel
             || c is TabControl
+            || c is TabPage
             || c is DataGridView;
     }
 
-    /// <summary>
-    /// 值类控件：由专项 Leave/Changed 事件处理，Click 里跳过，避免重复记录
-    /// </summary>
-    private bool IsValueControl(Control c)
+    private bool IsInputControl(Control c)
     {
-        if (c is TextBox || c is NumericUpDown || c is CheckBox
-         || c is RadioButton || c is ComboBox
-         || c is TrackBar || c is DateTimePicker) return true;
+        if (c is TextBox || c is NumericUpDown) return true;
+        return IsInputControlByTypeName(c.GetType().Name);
+    }
 
+    private bool IsInputControlByTypeName(string typeName)
+    {
+        return typeName.Contains("DoubleUpDown")
+            || typeName.Contains("IntegerUpDown")
+            || typeName == "UITextBox"
+            || typeName == "UIEdit"
+            || typeName == "UIRichTextBox"
+            || (typeName.Contains("TextBox") && !typeName.Contains("Combo"))
+            || typeName == "NumericUpDown";
+    }
+
+    private bool IsNumericLike(Control c)
+    {
+        if (c is NumericUpDown) return true;
         string n = c.GetType().Name;
-        return n.Contains("TextBox")
-            || n.Contains("DoubleUpDown")
-            || n.Contains("IntegerUpDown")
-            || n.Contains("CheckBox")
-            || n.Contains("RadioButton")
-            || n.Contains("ComboBox");
+        return n.Contains("DoubleUpDown") || n.Contains("IntegerUpDown");
+    }
+
+    /// <summary>
+    /// 失焦/点击命中可能落在 SunnyUI 复合控件内部的 UIEdit，
+    /// 沿父链向上找到外层的真正业务控件（UIDoubleUpDown / UITextBox 等）
+    /// </summary>
+    private Control FindOuterValueControl(Control c)
+    {
+        Control cur = c;
+        for (int i = 0; i < 8 && cur != null; i++)
+        {
+            string n = cur.GetType().Name;
+            if (n.Contains("DoubleUpDown") || n.Contains("IntegerUpDown")
+             || n == "UITextBox" || n.Contains("UIComboBox")
+             || n == "UIRichTextBox")
+                return cur;
+            if (n == "UIEdit" || (cur is TextBox && string.IsNullOrEmpty(cur.Name)))
+                cur = cur.Parent;
+            else
+                break;
+        }
+        return null;
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -425,11 +550,16 @@ public class GlobalClickLogger : IMessageFilter
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // 读取控件值（反射兜底，覆盖 SunnyUI / RW.UI 所有控件）
+    // 读取控件值（反射兜底）
     // ══════════════════════════════════════════════════════════════════════
+    private string SafeGetValue(Control c)
+    {
+        try { return GetValue(c); }
+        catch { return c.Text ?? "-"; }
+    }
+
     private string GetValue(Control c)
     {
-        // 标准控件直接读，避免反射开销
         if (c is CheckBox cb) return cb.Checked.ToString();
         if (c is RadioButton rb) return rb.Checked.ToString();
         if (c is ComboBox cmb) return cmb.Text;
@@ -438,12 +568,9 @@ public class GlobalClickLogger : IMessageFilter
         if (c is TrackBar t) return t.Value.ToString();
         if (c is DateTimePicker d) return d.Value.ToString("yyyy-MM-dd HH:mm:ss");
 
-        // 反射兜底：
-        //   Switch  → RButton（开关状态）
-        //   Checked → UICheckBox / UIRadioButton
-        //   Value   → UIDoubleUpDown / UIIntegerUpDown
         var type = c.GetType();
-        foreach (string prop in new[] { "Switch", "Checked", "Value", "SelectedValue", "SelectedItem" })
+        foreach (string prop in new[] { "Value", "Switch", "Checked",
+                                        "SelectedValue", "SelectedItem" })
         {
             PropertyInfo pi = type.GetProperty(prop, BindingFlags.Public | BindingFlags.Instance);
             if (pi == null) continue;
@@ -458,7 +585,7 @@ public class GlobalClickLogger : IMessageFilter
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // 写日志（统一入口）
+    // 写日志
     // ══════════════════════════════════════════════════════════════════════
     private void WriteLog(Control c, string trigger)
     {
@@ -467,7 +594,7 @@ public class GlobalClickLogger : IMessageFilter
             c.GetType().Name,
             c.Name,
             c.Text,
-            GetValue(c),
+            SafeGetValue(c),
             form != null ? form.Name : "-",
             form != null ? form.Text : "-",
             trigger);
@@ -496,9 +623,6 @@ public class GlobalClickLogger : IMessageFilter
         }
     }
 
-    // ══════════════════════════════════════════════════════════════════════
-    // 错误日志（写入独立文件，不影响主流程）
-    // ══════════════════════════════════════════════════════════════════════
     private void LogError(string location, Exception ex)
     {
         try

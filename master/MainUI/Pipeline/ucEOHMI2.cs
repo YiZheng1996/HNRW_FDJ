@@ -310,7 +310,10 @@ namespace MainUI
             {
                 try
                 {
-                    Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, "快速关闭" + th))
+                    {
+                        Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -333,7 +336,10 @@ namespace MainUI
             {
                 try
                 {
-                    Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
+                    {
+                        Common.DOgrp[sw.Tag.ToString()] = !Common.DOgrp[sw.Tag.ToString()];
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -355,7 +361,12 @@ namespace MainUI
             set.Value = Common.engineOilGrp[pipePara.Tag.ToString()];
             var dr = set.ShowDialog(this);
             if (dr == DialogResult.OK)
-                Common.engineOilGrp.EngineOilPID = set.Value;
+            {
+                using (MainUI.Fault.OperationContext.Begin(this, sender, "设置机油温度PID"))
+                {
+                    Common.engineOilGrp.EngineOilPID = set.Value;
+                }
+            }
         }
 
         private void timerTube_Tick(object sender, EventArgs e)
@@ -636,7 +647,7 @@ namespace MainUI
             }
 
             string th = btn.OutputTagName.ToString().Replace("控制", "").Replace("合闸", "");
-            string strMessage = $"是否要{ btn.Text }{th}?";
+            string strMessage = $"是否要{btn.Text}{th}?";
             bool mesResult = Var.MsgBoxYesNo(this, strMessage);
             if (mesResult == false)
             {
@@ -646,7 +657,10 @@ namespace MainUI
             {
                 try
                 {
-                    Common.ExChangeGrp.SetBool(btn.OutputTagName, setResult);
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("机油系统一键-{0}{1}", btn.Text, btn.OutputTagName)))
+                    {
+                        Common.ExChangeGrp.SetBool(btn.OutputTagName, setResult);
+                    }
                 }
                 catch (Exception ex)
                 {
