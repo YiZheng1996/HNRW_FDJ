@@ -606,25 +606,27 @@ namespace MainUI
 
 
                 string th = btn.OutputTagName.ToString().Replace("控制", "").Replace("合闸", "");
-                string strMessage = $"是否要{btn.Text}{th}?";
-                bool mesResult = Var.MsgBoxYesNo(this, strMessage);
-                if (mesResult == false)
+
+                if (setResult)
                 {
-                    return;
+                    string strMessage = $"是否要{btn.Text}{th}?";
+                    bool mesResult = Var.MsgBoxYesNo(this, strMessage);
+                    if (mesResult == false)
+                    {
+                        return;
+                    }
                 }
-                else
+
+                try
                 {
-                    try
+                    using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("水系统一键-{0}{1}", btn.Text, btn.OutputTagName)))
                     {
-                        using (MainUI.Fault.OperationContext.Begin(this, sender, string.Format("水系统一键-{0}{1}", btn.Text, btn.OutputTagName)))
-                        {
-                            Common.ExChangeGrp.SetBool(btn.OutputTagName, setResult);
-                        }
+                        Common.ExChangeGrp.SetBool(btn.OutputTagName, setResult);
                     }
-                    catch (Exception ex)
-                    {
-                        Var.MsgBoxWarn(this, $"{btn.Text}+{th}失败！原因：" + ex.Message);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Var.MsgBoxWarn(this, $"{btn.Text}+{th}失败！原因：" + ex.Message);
                 }
             }
             catch (Exception ex)

@@ -268,6 +268,7 @@
             this.btnCycle.Tag = "一键循环";
             this.btnCycle.Text = "一键循环";
             this.btnCycle.TipsFont = new System.Drawing.Font("微软雅黑", 13F);
+            this.btnCycle.Visible = false;
             this.btnCycle.Click += new System.EventHandler(this.btnWater_Click);
             // 
             // btnExit

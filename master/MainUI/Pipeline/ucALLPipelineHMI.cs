@@ -98,7 +98,7 @@ namespace MainUI
                 ButtonDic.Add("机油系统", this.btnJY);
                 ButtonDic.Add("燃油系统", this.btnRY);
                 ButtonDic.Add("管路控制", this.btnContronl);
-                ButtonDic.Add("一键循环", this.btnCycle);
+                //ButtonDic.Add("一键循环", this.btnCycle); //TODO:一键循环暂时取消
                 ButtonDic.Add("发动机相关控制", this.btnMainContronl);
 
                 ucWaterHMI.Font = new Font("宋体", 9f);
@@ -110,7 +110,7 @@ namespace MainUI
                 PilpDic.Add("机油系统", ucEOHMI);
                 PilpDic.Add("燃油系统", ucFeulHMI);
                 PilpDic.Add("管路控制", ucControlHMI);
-                PilpDic.Add("一键循环", ucControlHMICycle);
+                //PilpDic.Add("一键循环", ucControlHMICycle); //TODO:一键循环暂时取消
                 PilpDic.Add("发动机相关控制", ucEngineControlHMI);
 
 
@@ -121,14 +121,14 @@ namespace MainUI
                 this.panelSystem.Controls.Add(ucEOHMI);
                 this.panelSystem.Controls.Add(ucWaterHMI);
                 this.panelSystem.Controls.Add(ucControlHMI);
-                this.panelSystem.Controls.Add(ucControlHMICycle);
+                //this.panelSystem.Controls.Add(ucControlHMICycle); //TODO:一键循环暂时取消
                 this.panelSystem.Controls.Add(ucEngineControlHMI);
 
                 ucFeulHMI.Init();
                 ucEOHMI.Init();
                 ucWaterHMI.Init();
                 ucControlHMI.Init();
-                ucControlHMICycle.Init();
+                //ucControlHMICycle.Init();  //TODO:一键循环暂时取消
                 ucEngineControlHMI.Init();
 
                 Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange;

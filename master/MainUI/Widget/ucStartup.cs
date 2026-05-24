@@ -271,36 +271,38 @@ namespace MainUI.Widget
 
             string str = sw.Text.Contains("开") ? "打开" : "关闭";
             string th = sw.OutputTagName.ToString().Replace("控制", "").Replace("合闸", "");
-            string strMessage = $"是否要{str}{th}?";
-            bool result = Var.MsgBoxYesNo(this, strMessage);
-            if (result == false)
-            {
-                return;
-            }
-            else
-            {
-                try
-                {
-                    using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
-                    {
-                        if (sw.OutputTagName == "发动机DC24V供电")
-                        {
-                            // 关闭电喷供电
-                            Common.DOgrp["发动机DC24V供电"] = Convert.ToBoolean(sw.Tag.ToInt());
-                        }
 
-                        if (sw.OutputTagName == "燃油循环" || sw.OutputTagName == "预供机油循环")
-                        {
-                            // 管路相关操作
-                            Common.ExChangeGrp.SetBool(sw.OutputTagName, Convert.ToBoolean(sw.Tag.ToInt()));
-                        }
+            if (sw.Text.Contains("开"))
+            {
+                string strMessage = $"是否要{str}{th}?";
+                bool result = Var.MsgBoxYesNo(this, strMessage);
+                if (result == false)
+                {
+                    return;
+                }
+            }
+
+            try
+            {
+                using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
+                {
+                    if (sw.OutputTagName == "发动机DC24V供电")
+                    {
+                        // 关闭电喷供电
+                        Common.DOgrp["发动机DC24V供电"] = Convert.ToBoolean(sw.Tag.ToInt());
+                    }
+
+                    if (sw.OutputTagName == "燃油循环" || sw.OutputTagName == "预供机油循环")
+                    {
+                        // 管路相关操作
+                        Common.ExChangeGrp.SetBool(sw.OutputTagName, Convert.ToBoolean(sw.Tag.ToInt()));
                     }
                 }
-                catch (Exception ex)
-                {
+            }
+            catch (Exception ex)
+            {
 
-                    throw new Exception($"{th}+{str}失败！原因：" + ex.Message);
-                }
+                throw new Exception($"{th}+{str}失败！原因：" + ex.Message);
             }
         }
 
