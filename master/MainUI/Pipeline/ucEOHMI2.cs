@@ -376,6 +376,10 @@ namespace MainUI
                 pipe.Invalidate();
             }
 
+            var ydk = Common.ExChangeGrp.GetBool("油底壳抽油选择油箱");
+            this.rButton68.Switch = !ydk; // 机油箱
+            this.rButton67.Switch = ydk;
+
             // 机油进口 流量计前后
             this.uiPInEo.Active = ucPipePara1.Value >= 0.2;  // 进机流量
             this.uiPlqqOut2.Active = ucPipePara24.Value >= 0.2; //流量计前压力

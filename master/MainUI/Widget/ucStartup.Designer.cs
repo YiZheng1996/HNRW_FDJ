@@ -1115,7 +1115,7 @@ namespace MainUI.Widget
             this.ucValueLabel1.Name = "ucValueLabel1";
             this.ucValueLabel1.Size = new System.Drawing.Size(210, 28);
             this.ucValueLabel1.TabIndex = 867;
-            this.ucValueLabel1.Tag = "单元电压";
+            this.ucValueLabel1.Tag = "电压";
             this.ucValueLabel1.Title = "单元电压";
             this.ucValueLabel1.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel1.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
@@ -1137,7 +1137,7 @@ namespace MainUI.Widget
             this.ucValueLabel2.Name = "ucValueLabel2";
             this.ucValueLabel2.Size = new System.Drawing.Size(210, 28);
             this.ucValueLabel2.TabIndex = 868;
-            this.ucValueLabel2.Tag = "单元电流";
+            this.ucValueLabel2.Tag = "电流";
             this.ucValueLabel2.Title = "单元电流";
             this.ucValueLabel2.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel2.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);

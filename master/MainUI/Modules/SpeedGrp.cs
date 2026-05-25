@@ -71,10 +71,22 @@ namespace MainUI.Modules
         public double Speed2 { get { return DataValue["转速2"].ToDouble(); } set { this.Write("Value2.转速2", value); } }
         public double Speed3 { get { return DataValue["转速3"].ToDouble(); } set { this.Write("Value3.转速3", value); } }
 
+        /// <summary>
+        /// 下发每转感应点数到三个转速通道
+        /// </summary>
+        /// <param name="count">齿数（每转感应点数）</param>
+        public void SetToothCount(int count)
+        {
+            this.Write("Value1.每转感应点数", (double)count);
+            this.Write("Value2.每转感应点数", (double)count);
+            this.Write("Value3.每转感应点数", (double)count);
+        }
+
         public override void Init()
         {
             string[] items = new string[] {
-                "Value1.转速1","Value2.转速2","Value3.转速3"
+                "Value1.转速1","Value2.转速2","Value3.转速3",
+                "Value1.每转感应点数","Value2.每转感应点数","Value3.每转感应点数"
             };
 
             for (int i = 0; i < items.Count(); i++)

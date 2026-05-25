@@ -264,7 +264,22 @@ namespace MainUI.TestScreen
             }
             catch (Exception ex)
             {
-                Var.MsgBoxWarn(this, "台位控制PLC通讯异常，下发最低工作转速失败!");
+                Var.MsgBoxWarn(this, "台位控制PLC通讯异常，下发最低工作转速失败!" + ex.Message);
+            }
+
+            // 下发齿数到转速模块三个通道
+            try
+            {
+                using (MainUI.Fault.OperationContext.Begin(this, null,
+                    string.Format("切换型号[{0}]-下发齿数", model)))
+                {
+                    Common.speedGrp.SetToothCount(
+                        MiddleData.instnce.SelectModelConfig.NumberofTeeth);
+                }
+            }
+            catch (Exception ex)
+            {
+                Var.MsgBoxWarn(this, "转速模块通讯异常，下发齿数失败！" + ex.Message);
             }
 
         }
@@ -1051,7 +1066,21 @@ namespace MainUI.TestScreen
         private void timerFast_Tick(object sender, EventArgs e)
         {
             this.ucParamSpeed.GaugeValue = MiddleData.instnce.EngineSpeed;
-            this.ucParamPower.GaugeValue = MiddleData.instnce.EnginePower;
+
+            // 优先使用扭矩/转速计算功率；无效时回退到机组测量值有功功率
+            double enginePower = MiddleData.instnce.EnginePower;
+            if (enginePower > 0)
+            {
+                this.ucParamPower.GaugeValue = enginePower;
+            }
+            else
+            {
+                // 有功功率存在 DataValue["有功功率"]，Power 属性未赋值，不能用
+                double electricPower = 0;
+                Common.threePhaseElectric.DataValue.TryGetValue("有功功率", out electricPower);
+                this.ucParamPower.GaugeValue = electricPower;
+            }
+
             this.ucParamTorque.GaugeValue = MiddleData.instnce.EngineTorque;
             this.ucParamFuelInletP.GaugeValue = Common.AI2Grp["P38燃油供油压力"];
             this.ucParamEngineInP.GaugeValue = Common.AI2Grp["P21主油道进口油压"];

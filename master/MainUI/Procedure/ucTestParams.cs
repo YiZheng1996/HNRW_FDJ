@@ -83,6 +83,7 @@ namespace MainUI.Procedure
                 this.numOilPanLong.Value = paraconfig.OilPanLong.ToDecimal();
                 this.numOilPanWide.Value = paraconfig.OilPanWide.ToDecimal();
                 this.numOilPanHeight.Value = paraconfig.OilPanHeight.ToDecimal();
+                this.numNumberofTeeth.Value = paraconfig.NumberofTeeth.ToInt();
 
                 this.TorqueChangeTimeValue.Value = paraconfig.IntervalTime;
                 this.TorqueChangeMultValue.Value = paraconfig.TorqueChangeMultiple;
@@ -149,6 +150,7 @@ namespace MainUI.Procedure
                 paraconfig.OilPanLong = this.numOilPanLong.Value.ToInt();
                 paraconfig.OilPanWide = this.numOilPanWide.Value.ToInt();
                 paraconfig.OilPanHeight = this.numOilPanHeight.Value.ToInt();
+                paraconfig.NumberofTeeth = this.numNumberofTeeth.Value.ToInt();
 
                 paraconfig.IntervalTime = this.TorqueChangeTimeValue.Value.ToInt();
                 paraconfig.TorqueChangeMultiple = this.TorqueChangeMultValue.Value.ToInt();
@@ -161,7 +163,7 @@ namespace MainUI.Procedure
                 Var.MsgBoxSuccess(this, "保存成功。");
 
                 // 型号一致时刷新
-                if (Var.SysConfig.LastModel == txtModel.Text) 
+                if (Var.SysConfig.LastModel == txtModel.Text)
                 {
                     EventTriggerModel.ParaModelChanged(txtModel.Text);
                 }

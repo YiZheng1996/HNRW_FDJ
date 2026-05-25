@@ -167,6 +167,8 @@
             this.btnGet = new Sunny.UI.UIButton();
             this.uiLabel2 = new Sunny.UI.UILabel();
             this.txtType = new Sunny.UI.UITextBox();
+            this.numNumberofTeeth = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel20 = new Sunny.UI.UILabel();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -234,6 +236,7 @@
             this.tabPage5.SuspendLayout();
             this.contextMenuStrip360h.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -299,7 +302,7 @@
             this.groupBox8.Controls.Add(this.numOilPanLong);
             this.groupBox8.Controls.Add(this.uiLabel22);
             this.groupBox8.Controls.Add(this.uiLabel23);
-            this.groupBox8.Location = new System.Drawing.Point(14, 260);
+            this.groupBox8.Location = new System.Drawing.Point(7, 313);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(348, 180);
             this.groupBox8.TabIndex = 429;
@@ -1292,6 +1295,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.numNumberofTeeth);
+            this.groupBox2.Controls.Add(this.uiLabel20);
             this.groupBox2.Controls.Add(this.numMinSpeed);
             this.groupBox2.Controls.Add(this.numRateSpeed);
             this.groupBox2.Controls.Add(this.numRateTorque);
@@ -1302,7 +1307,7 @@
             this.groupBox2.Controls.Add(this.uiLabel3);
             this.groupBox2.Location = new System.Drawing.Point(14, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(348, 235);
+            this.groupBox2.Size = new System.Drawing.Size(348, 277);
             this.groupBox2.TabIndex = 395;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "发动机基础参数";
@@ -2071,6 +2076,31 @@
             this.txtType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtType.Watermark = "请选择";
             // 
+            // numNumberofTeeth
+            // 
+            this.numNumberofTeeth.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numNumberofTeeth.Location = new System.Drawing.Point(197, 231);
+            this.numNumberofTeeth.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numNumberofTeeth.Name = "numNumberofTeeth";
+            this.numNumberofTeeth.Size = new System.Drawing.Size(120, 32);
+            this.numNumberofTeeth.TabIndex = 85;
+            // 
+            // uiLabel20
+            // 
+            this.uiLabel20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.uiLabel20.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.uiLabel20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel20.Location = new System.Drawing.Point(1, 232);
+            this.uiLabel20.Name = "uiLabel20";
+            this.uiLabel20.Size = new System.Drawing.Size(190, 26);
+            this.uiLabel20.TabIndex = 84;
+            this.uiLabel20.Text = "飞轮盘齿数(T)";
+            this.uiLabel20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // ucTestParams
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2150,6 +2180,7 @@
             this.tabPage5.ResumeLayout(false);
             this.contextMenuStrip360h.ResumeLayout(false);
             this.uiGroupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2291,5 +2322,9 @@
         private System.Windows.Forms.DataGridViewButtonColumn Column4;
         private System.Windows.Forms.TabPage tabPage5;
         private ucExcitationRegulationParams ucExcitationRegulationParams1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private Sunny.UI.UILabel uiLabel20;
+        private System.Windows.Forms.NumericUpDown numnumberofTeeth;
+        private System.Windows.Forms.NumericUpDown numNumberofTeeth;
     }
 }

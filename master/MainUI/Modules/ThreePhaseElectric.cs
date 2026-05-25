@@ -133,8 +133,8 @@ namespace MainUI.Modules
 
 
         //新增修改点位绑定
-        public const int AIcount = 7;
-        private double[] _AiList = new double[7];
+        public const int AIcount = 9;
+        private double[] _AiList = new double[AIcount];
         public ConcurrentDictionary<string, double> DataValue = new ConcurrentDictionary<string, double>() { };
         // 值改变后更新
         [Description("值改变后触发")]
@@ -168,6 +168,8 @@ namespace MainUI.Modules
             lst.Add($"{pre}Ib");
             lst.Add($"{pre}Ic");
             lst.Add($"{pre}有功功率"); 
+            lst.Add($"{pre}电压"); 
+            lst.Add($"{pre}电流");
             return lst;
         }
 

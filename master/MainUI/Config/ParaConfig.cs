@@ -49,7 +49,13 @@ namespace MainUI.Config
         /// 最小工作转速
         /// </summary>
         [IniKeyName("最小工作转速")]
-        public int MinSpeed { get; set; } = 400;
+        public int MinSpeed { get; set; } = 350;
+
+        /// <summary>
+        /// 飞轮盘齿数
+        /// </summary>
+        [IniKeyName("飞轮盘齿数")]
+        public int NumberofTeeth { get; set; } = 0;
 
         /// <summary>
         /// 油底壳长 mm
