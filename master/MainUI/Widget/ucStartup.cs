@@ -21,6 +21,10 @@ namespace MainUI.Widget
     /// </summary>
     public partial class ucStartup : UserControl
     {
+        // 超时计时器（启机/甩车共用一个，因为两者互斥）
+        private System.Windows.Forms.Timer _startupTimeoutTimer;
+        private System.Windows.Forms.Timer _shakeTimeoutTimer;
+
         // 启机弹窗描述
         frmMessageWarning frmStartupMessage = new frmMessageWarning();
 
@@ -48,6 +52,7 @@ namespace MainUI.Widget
             Common.gd350_1.KeyValueChange += Gd350_1_KeyValueChange;
             Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange;
             Common.DOgrp.KeyValueChange += DOgrp_KeyValueChange;
+            Common.AOgrp.KeyValueChange += AOgrp_KeyValueChange;
 
             // 扫描拖入的 ucValueLabel，按 Tag 注册到字典
             EachElectricControl(grpElectric);
@@ -57,6 +62,51 @@ namespace MainUI.Widget
 
             // 立刻刷新一次当前值
             Common.threePhaseElectric.Fresh();
+
+            // 绑定长按安全机制
+            BindLongPressButtons();
+        }
+
+        /// <summary>
+        /// 绑定长按安全机制（Capture、超时、联动锁定）已直接注入原有方法内部。
+        /// </summary>
+        private void BindLongPressButtons()
+        {
+            // 超时计时器 —— Tick 时调用原有松开方法
+            _startupTimeoutTimer = new System.Windows.Forms.Timer
+            {
+                Interval = Var.SysConfig.StartupHoldTimeoutMs
+            };
+            _startupTimeoutTimer.Tick += (s, e) =>
+            {
+                if (manaulData.IsStartRun)
+                {
+                    Var.LogInfo("启机/甩车超时自动释放");
+                    btnManualRun_MouseUp(null, null);
+                }
+            };
+
+            _shakeTimeoutTimer = _startupTimeoutTimer; // 启机/甩车互斥，共用同一个计时器
+
+            // 启机按钮：MouseLeave / LostFocus → 有按下状态时触发松开
+            this.btnManualStart.MouseLeave += (s, e) =>
+            {
+                if (manaulData.IsStartRun) btnManualRun_MouseUp(null, null);
+            };
+            this.btnManualStart.LostFocus += (s, e) =>
+            {
+                if (manaulData.IsStartRun) btnManualRun_MouseUp(null, null);
+            };
+
+            // 甩车按钮：MouseLeave / LostFocus → 有按下状态时触发松开
+            this.btnManualShake.MouseLeave += (s, e) =>
+            {
+                if (manaulData.IsStartRun) btnManualRun_MouseUp(null, null);
+            };
+            this.btnManualShake.LostFocus += (s, e) =>
+            {
+                if (manaulData.IsStartRun) btnManualRun_MouseUp(null, null);
+            };
         }
 
         /// <summary>
@@ -98,8 +148,6 @@ namespace MainUI.Widget
         /// <summary>
         /// DO 检测
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void DOgrp_KeyValueChange(object sender, DIValueChangedEventArgs e)
         {
             if (this.InvokeRequired)
@@ -107,23 +155,36 @@ namespace MainUI.Widget
                 this.Invoke(new Action<object, DIValueChangedEventArgs>(DOgrp_KeyValueChange), sender, e);
                 return;
             }
+        }
 
-            //if (e.Key == "水阻上升控制")
-            //{
-            //    this.btnWaterUP.Switch = e.Value;
-            //}
-            //else if (e.Key == "水阻下降控制")
-            //{
-            //    this.btnWaterDown.Switch = e.Value;
-            //}
+        /// <summary>
+        /// 励磁电流同步刷新
+        /// 当 ucFormMainControl 里的加减按钮修改了 OPC 值后，
+        /// OPC 回调触发此方法，保持 nudBeginCurrent 与 ucNudLC 同步。
+        /// </summary>
+        private void AOgrp_KeyValueChange(object sender, DoubleValueChangedEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<object, DoubleValueChangedEventArgs>(
+                    AOgrp_KeyValueChange), sender, e);
+                return;
+            }
+
+            if (e.Key == "励磁调节")
+            {
+                // 启机过程中不要覆盖 nudBeginCurrent，避免干扰正在执行的启机
+                if (manaulData.IsStartRun) return;
+
+                this.nudBeginCurrent.Value = e.Value;
+                manaulData.BeginCurrent = e.Value;   // 同步到内存，下次启机直接使用最新值
+            }
         }
 
         bool FirstReturn = false;
         /// <summary>
         /// DI值改变事件，用于切换泵的状态
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void DIgrp_KeyValueChange(object sender, DIValueChangedEventArgs e)
         {
             if (this.InvokeRequired)
@@ -146,11 +207,11 @@ namespace MainUI.Widget
                     string type = "启机";
                     if (this.uiLightShake.State == UILightState.On)
                         type = "甩车";
-                    btnManualRunDown(type);
+                    btnManualRunDown(type);  // 硬件按钮路径：复用原有完整逻辑（含新功能）
                 }
                 else
                 {
-                    btnManualRun_MouseUp(null, null);
+                    btnManualRun_MouseUp(null, null);  // 硬件松开：复用原有释放逻辑（含新功能）
                 }
             }
         }
@@ -158,13 +219,10 @@ namespace MainUI.Widget
         /// <summary>
         /// 变频器的值改变事件
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Gd350_1_KeyValueChange(object sender, DoubleValueChangedEventArgs e)
         {
             if (e.Key == "就绪")
             {
-                // 就绪
                 this.LightInvertReady.State = e.Value == 1 ? UILightState.On : UILightState.Off;
             }
             else if (e.Key == "故障代码")
@@ -179,33 +237,25 @@ namespace MainUI.Widget
         /// <summary>
         /// 指示灯的状态（慢速）
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void timerSlow_Tick(object sender, EventArgs e)
         {
-            // 转速小于10 && 盘车连锁开关闭合信号 && 闭合电喷控制器启机回路 && 水极板在上限位
             var speed = Common.speedGrp["转速1"] < 100;
             var status = Common.DIgrp["盘车连锁开关"];
             var status2 = Common.DOgrp["发动机启停预启动"] == true;
             var status3 = Common.DIgrp["水阻升降上极限检测"] == true;
-            var status4 = Common.gd350_1.Ready == 1; // 发电机就绪
-            var status5 = MiddleData.instnce.IsOpenFuelCycle() == true; // Common.ExChangeGrp.GetBool("燃油循环") == true;
-            var lcStatus = Common.AOgrp["励磁调节"] > 0;// && Common.AIgrp2["励磁电流检测"] > 0;
+            var status4 = Common.gd350_1.Ready == 1;
+            var status5 = MiddleData.instnce.IsOpenFuelCycle() == true;
+            var lcStatus = Common.AOgrp["励磁调节"] > 0;
             var speedStatus = manaulData.BeginInvertSpeed > 0;
-
-            //var status6 = Common.ExChangeGrp.GetBool("高温水预热循环") == true;
-            //var status7 = Common.ExChangeGrp.GetBool("高温水膨胀水箱加水") == true;
-            var status8 = MiddleData.instnce.IsOpenEngineCycle() == true; //Common.ExChangeGrp.GetBool("预供机油循环") == true;
+            var status8 = MiddleData.instnce.IsOpenEngineCycle() == true;
             var status9 = Common.DOgrp["发动机DC24V供电"] == true;
-            this.uiLightStart.State = (speed && status && status2 && status3 && status4 && status5 && status8 && status9 && lcStatus && speedStatus) ? UILightState.On : UILightState.Off;
+            var status10 = Common.gd350_1.RunningStatus == false;
+
+            this.uiLightStart.State = (speed && status && status2 && status3 && status4 && status5 && status8 && status9 && lcStatus && speedStatus && status10) ? UILightState.On : UILightState.Off;
             this.uiLightShake.State = (speed && status && status2 && status3 && status4 && !status5 && status8 && !status9 && lcStatus && speedStatus) ? UILightState.On : UILightState.Off;
 
-            //暂定 刷新状态灯
             this.uiLightWaterUP.State = status3 ? UILightState.On : UILightState.Off;
-            //this.uiLightUP.State = Common.DIgrp["水阻升降上极限检测"] == true ? UILightState.On : UILightState.Off;
-            //this.uiLightDown.State = Common.DIgrp["水阻升降下极限检测"] == true ? UILightState.On : UILightState.Off;
 
-            // 燃油循环
             this.uiLightFuelCycle.State = status5 ? UILightState.On : UILightState.Off;
             this.uiLightFuelCycleClose.State = !status5 ? UILightState.On : UILightState.Off;
             this.btnFuelCycleOpen.Switch = status5;
@@ -216,11 +266,9 @@ namespace MainUI.Widget
             this.uiLightPC.State = status ? UILightState.On : UILightState.Off;
             this.LightInvertReady.State = status4 ? UILightState.On : UILightState.Off;
 
-            // DC24V
             this.uiLightDV24Open.State = status9 ? UILightState.On : UILightState.Off;
             this.uiLightDV24Close.State = !status9 ? UILightState.On : UILightState.Off;
 
-            // 发电机运行中
             this.LightInvertRunning.State = (Common.gd350_1.RunStatusAI == 1 || Common.gd350_1.RunStatusAI == 2) ? UILightState.On : UILightState.Off;
             this.lblInverterVoltage.Text = Common.gd350_1.OutputVoltage.ToString();
             this.lblInverterCurrent.Text = Common.gd350_1.OutputCurrent.ToString();
@@ -236,15 +284,12 @@ namespace MainUI.Widget
                 this.btnDC24VOpen.Switch = false;
                 this.btnDC24VClose.Switch = true;
             }
-
         }
 
 
         /// <summary>
         /// 关闭开启按钮通用点击事件
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void sw_Valve_Click(object sender, EventArgs e)
         {
             RButton sw = sender as RButton;
@@ -263,7 +308,6 @@ namespace MainUI.Widget
                 Var.MsgBoxWarn(this, "程序异常，未绑定OutputTagName值。");
                 return;
             }
-            // 如果已经打开/关闭 则过滤
             if (sw.Switch == true)
             {
                 return;
@@ -274,6 +318,18 @@ namespace MainUI.Widget
 
             if (sw.Text.Contains("开"))
             {
+                // 先做气压检测（仅燃油循环和预供机油循环）
+                if (sw.OutputTagName == "燃油循环" || sw.OutputTagName == "预供机油循环")
+                {
+                    var Pressure1 = Common.AIgrp["厂房进气压力检测1"];
+                    var Pressure2 = Common.AIgrp["厂房进气压力检测2"];
+                    if (Pressure1 < 200 && Pressure2 < 200)
+                    {
+                        Var.MsgBoxWarn(this, "厂房压力低，不能进行一键操作。");
+                        return;
+                    }
+                }
+
                 string strMessage = $"是否要{str}{th}?";
                 bool result = Var.MsgBoxYesNo(this, strMessage);
                 if (result == false)
@@ -288,20 +344,17 @@ namespace MainUI.Widget
                 {
                     if (sw.OutputTagName == "发动机DC24V供电")
                     {
-                        // 关闭电喷供电
                         Common.DOgrp["发动机DC24V供电"] = Convert.ToBoolean(sw.Tag.ToInt());
                     }
 
                     if (sw.OutputTagName == "燃油循环" || sw.OutputTagName == "预供机油循环")
                     {
-                        // 管路相关操作
                         Common.ExChangeGrp.SetBool(sw.OutputTagName, Convert.ToBoolean(sw.Tag.ToInt()));
                     }
                 }
             }
             catch (Exception ex)
             {
-
                 throw new Exception($"{th}+{str}失败！原因：" + ex.Message);
             }
         }
@@ -310,8 +363,6 @@ namespace MainUI.Widget
         /// <summary>
         /// 设置转速更改
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="value"></param>
         private void nudBeginInvertSpeed_ValueChanged(object sender, double value)
         {
             manaulData.BeginInvertSpeed = value;
@@ -320,8 +371,6 @@ namespace MainUI.Widget
         /// <summary>
         /// 励磁电流值改变
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="value"></param>
         private void nudBeginCurrent_ValueChanged(object sender, double value)
         {
             manaulData.BeginCurrent = value;
@@ -347,6 +396,11 @@ namespace MainUI.Widget
         private void btnSetBeginLC_Click(object sender, EventArgs e)
         {
             this.btnSetBeginLC.Focus();
+            if (!Common.DIgrp["主发通风机1主接检测"] && !Common.DIgrp["主发通风机2主接检测"])
+            {
+                Var.MsgBoxWarn(this, "请先打开主发通风机后再进行励磁电流设置。");
+                return;
+            }
             using (MainUI.Fault.OperationContext.Begin(this, sender, "启机-设置励磁电流"))
             {
                 Common.AOgrp["励磁调节"] = manaulData.BeginCurrent;
@@ -354,10 +408,8 @@ namespace MainUI.Widget
         }
 
         /// <summary>
-        /// 启机按下(流程)
+        /// 启机按下
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnManualRun_MouseDown(object sender, MouseEventArgs e)
         {
             var button = sender as RButton;
@@ -366,9 +418,8 @@ namespace MainUI.Widget
         }
 
         /// <summary>
-        /// 按钮按下（包括硬件按钮）
+        /// 按钮按下
         /// </summary>
-        /// <param name="key"></param>
         private void btnManualRunDown(string tag)
         {
             try
@@ -415,13 +466,19 @@ namespace MainUI.Widget
                     errorMessages.AppendLine($"{++msgIndex}. 发电机正处于故障中,请先故障复位。");
                 }
 
+                // 启动柜运行中，无法再次启动
+                if (Common.gd350_1.RunningStatus)
+                {
+                    errorMessages.AppendLine($"{++msgIndex}. 启动柜运行中,无法再次启动。");
+                }
+
                 // 预供机油循环
                 if (MiddleData.instnce.IsOpenEngineCycle() == false)
                 {
                     errorMessages.AppendLine($"{++msgIndex}. 请先开始预供机油循环。");
                 }
 
-                if (Common.AOgrp["励磁调节"] == 0) //|| Common.AIgrp2["励磁电流检测"] == 0
+                if (Common.AOgrp["励磁调节"] == 0)
                 {
                     errorMessages.AppendLine($"{++msgIndex}. 励磁电流不能为 0 A。");
                 }
@@ -433,12 +490,10 @@ namespace MainUI.Widget
 
                 if (tag == "启机")
                 {
-                    // 燃油循环
                     if (MiddleData.instnce.IsOpenFuelCycle() == false)
                     {
                         errorMessages.AppendLine($"{++msgIndex}. 请先开始燃油循环。");
                     }
-                    // DC24V
                     if (uiLightDV24Open.State == UILightState.Off)
                     {
                         errorMessages.AppendLine($"{++msgIndex}. 请先打开发动机控制盒电源 DC24V。");
@@ -446,39 +501,15 @@ namespace MainUI.Widget
                 }
                 else
                 {
-                    // 燃油循环
                     if (MiddleData.instnce.IsOpenFuelCycle() == true)
                     {
                         errorMessages.AppendLine($"{++msgIndex}. 请先关闭燃油循环。");
                     }
-                    // DV24V
                     if (uiLightDV24Open.State == UILightState.On)
                     {
                         errorMessages.AppendLine($"{++msgIndex}. 请先关闭发动机控制盒电源 DC24V。");
                     }
                 }
-
-
-                //// 高温水预热循环
-                //if (Common.ExChangeGrp.GetBool("高温水预热循环") == false)
-                //{
-                //    errorMessages.AppendLine($"{++msgIndex}. 请先开始高温水预热循环。");
-                //}
-
-                //// 高温水膨胀水箱加水
-                //if (Common.ExChangeGrp.GetBool("高温水膨胀水箱加水") == false)
-                //{
-                //    errorMessages.AppendLine($"{++msgIndex}. 请先开始高温水膨胀水箱加水。");
-                //}
-
-
-
-                //// 检查启机间隔时间
-                //TimeSpan timeDiff = DateTime.Now - manaulData.StartRunBeginTime;
-                //if (timeDiff.TotalSeconds < 5)
-                //{
-                //    errorMessages.AppendLine($"{++msgIndex}. 请不要频繁启机，请等待{5 - (int)timeDiff.TotalSeconds}秒后再试。");
-                //}
 
                 // 如果有错误信息，统一显示
                 if (errorMessages.Length > 0)
@@ -487,12 +518,10 @@ namespace MainUI.Widget
 
                     if (frmStartupMessage != null && !frmStartupMessage.IsDisposed && frmStartupMessage.Visible)
                     {
-                        // 窗体已显示，只更新消息
                         frmStartupMessage.Msg = message;
                     }
                     else
                     {
-                        // 创建新窗体或重用
                         if (frmStartupMessage != null && !frmStartupMessage.IsDisposed)
                         {
                             frmStartupMessage.Close();
@@ -505,7 +534,6 @@ namespace MainUI.Widget
                         };
                         frmStartupMessage.ShowDialog();
                     }
-                    //Var.MsgBoxWarn(this, "不满足启机条件：\n\n" + errorMessages.ToString());
                     return;
                 }
 
@@ -534,29 +562,27 @@ namespace MainUI.Widget
                 MiddleData.instnce.StartupReleaseTime = null;
                 EventTriggerModel.StartupChanged(true);
 
-                //Thread t = new Thread(xxx =>
-                //{
-                //    try
-                //    {
-                //        manaulData.IsStartRun = true;
-                //        manaulData.StartRunBeginTime = DateTime.Now;
+                // 主动释放系统自动设置的鼠标捕获，让 MouseLeave 能正常触发
+                try
+                {
+                    if (tag == "启机")
+                        this.btnManualStart.Capture = false;
+                    else
+                        this.btnManualShake.Capture = false;
+                }
+                catch { }
 
-                //        Common.AOgrp["励磁调节"] = manaulData.BeginCurrent;
-                //        Thread.Sleep(50);
-                //        Common.gd350_1.SetFrequency = Math.Round((manaulData.BeginInvertSpeed * 7) / 60, 1);
-                //        Thread.Sleep(50);
-                //        Common.gd350_1.SetRun = true;
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        System.Diagnostics.Debug.WriteLine($"故障检测异常: {ex.Message}");
-                //    }
-                //    Thread.Sleep(300);
+                // 启动超时计时器（每次按下重新读取配置，支持热更新）
+                try
+                {
+                    _startupTimeoutTimer.Stop();
+                    _startupTimeoutTimer.Interval = Var.SysConfig.StartupHoldTimeoutMs;
+                    _startupTimeoutTimer.Start();
+                }
+                catch { }
 
-                //});
-                //t.IsBackground = true;
-                //t.Name = "实时检测故障列表线程";
-                //t.Start();
+                // 联动锁定（禁用 ucFormMainControl 里的励磁/转速调节按钮）
+                try { SetStartupAdjustLock(false); } catch { }
             }
             catch (Exception ex)
             {
@@ -577,8 +603,6 @@ namespace MainUI.Widget
         /// <summary>
         /// 启机松开
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnManualRun_MouseUp(object sender, MouseEventArgs e)
         {
             using (MainUI.Fault.OperationContext.Begin(this, sender, "启机流程-松开"))
@@ -598,6 +622,16 @@ namespace MainUI.Widget
 
             manaulData.IsStartRun = false;
             manaulData.StartRunBeginTime = DateTime.Now;
+
+            // 停止超时计时器
+            try { _startupTimeoutTimer.Stop(); } catch { }
+
+            // 释放 Capture
+            try { this.btnManualStart.Capture = false; } catch { }
+            try { this.btnManualShake.Capture = false; } catch { }
+
+            // 解除联动锁定（恢复励磁/转速调节按钮）
+            try { SetStartupAdjustLock(true); } catch { }
         }
 
         /// <summary>
@@ -605,27 +639,49 @@ namespace MainUI.Widget
         /// </summary>
         public class ManaulData
         {
-            /// <summary>
-            /// 发动机设置转速设置
-            /// </summary>
             public double BeginInvertSpeed { get; set; }
-
-            /// <summary>
-            /// 发动机启机电流设置
-            /// </summary>
             public double BeginCurrent { get; set; }
-
-            /// <summary>
-            /// 发动机启机是否在运行中
-            /// </summary>
             public bool IsStartRun { get; set; }
-
-            /// <summary>
-            /// 发动机启机的时间
-            /// </summary>
             public DateTime StartRunBeginTime { get; set; }
-
         }
+
+
+        #region ====== 联动锁定（通知 ucFormMainControl）======
+
+        /// <summary>
+        /// 启机/甩车长按期间，锁定 ucFormMainControl 内的励磁/转速调节按钮。
+        /// enabled=false → 禁用；enabled=true → 恢复。
+        /// </summary>
+        private void SetStartupAdjustLock(bool enabled)
+        {
+            try
+            {
+                var mainCtrl = FindControlOfType<ucFormMainControl>(this.FindForm());
+                mainCtrl?.SetAdjustButtonsEnabled(enabled);
+            }
+            catch (Exception ex)
+            {
+                try { Var.LogInfo("SetStartupAdjustLock 异常: " + ex.Message); } catch { }
+            }
+        }
+
+        /// <summary>
+        /// 递归查找指定类型控件
+        /// </summary>
+        private T FindControlOfType<T>(Control parent) where T : Control
+        {
+            if (parent == null) return null;
+            foreach (Control ctrl in parent.Controls)
+            {
+                T match = ctrl as T;
+                if (match != null) return match;
+                T child = FindControlOfType<T>(ctrl);
+                if (child != null) return child;
+            }
+            return null;
+        }
+
+        #endregion
 
     }
 }

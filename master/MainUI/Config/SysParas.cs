@@ -11,7 +11,7 @@ namespace MainUI.Config
     /// <summary>
     /// 系统参数
     /// </summary>
-   public class SysParas : IniConfig
+    public class SysParas : IniConfig
     {
         public SysParas()
             : base(Application.StartupPath + "\\config\\SysParas.ini")
@@ -93,7 +93,7 @@ namespace MainUI.Config
         [IniKeyName("360小时流程")]
         public List<string> TestStep360 { get; set; } = new List<string>
         {
-            "A", "A1","B", "C", "D", "E", "F", "G", "H", "I", 
+            "A", "A1","B", "C", "D", "E", "F", "G", "H", "I",
             "L", "M", "N", "O", "P", "Q", "R", "S", "T"
         };
 
@@ -125,6 +125,12 @@ namespace MainUI.Config
         /// </summary>
         [IniKeyName("功率小数点位数")]
         public string DotStrPowr { get; set; } = "f2";
+
+        /// <summary>
+        ///启机甩车长按超时ms
+        /// </summary>
+        [IniKeyName("启机甩车长按超时")]
+        public int StartupHoldTimeoutMs { get; set; } = 5000;
 
     }
 

@@ -1,25 +1,19 @@
-﻿using MainUI.FSql;
+﻿using MainUI.Config;
+using MainUI.FSql;
 using MainUI.Global;
-using MainUI.Modules;
 using MainUI.Widget;
 using RW;
 using RW.UI.Controls;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MainUI.Config;
-using static MainUI.Config.PubConfig;
 using System.Diagnostics;
-using static MainUI.Modules.EventArgsModel;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
+using static MainUI.Modules.EventArgsModel;
 
 namespace MainUI.TestScreen
 {
@@ -195,7 +189,7 @@ namespace MainUI.TestScreen
                 Var.MsgBoxWarn(this, "后台数据备份异常！");
             }
 
-
+            BindWaterLongPressButtons();
         }
 
         /// <summary>
@@ -350,6 +344,8 @@ namespace MainUI.TestScreen
                 dud.Minimum = pubInfo.MinExcitationCurrent;
             }
 
+            // 设置甩机启机运行超时时间
+            Common.gd350_1.TimeOutPeriod = Var.SysConfig.StartupHoldTimeoutMs;
         }
 
 
@@ -606,19 +602,19 @@ namespace MainUI.TestScreen
 
             if (e.Key == "水阻上升控制")
             {
-                this.btnSJBS.Switch = e.Value;
+                this.btnWaterPlateUp.Switch = e.Value;
             }
             else if (e.Key == "水阻下降控制")
             {
-                this.btnSJBJ.Switch = e.Value;
+                this.btnWaterPlateDown.Switch = e.Value;
             }
             else if (e.Key == "水阻箱调节阀开")
             {
-                this.rButton9.Switch = e.Value;
+                this.btnWaterOpen.Switch = e.Value;
             }
             else if (e.Key == "水阻箱调节阀关")
             {
-                this.rButton4.Switch = e.Value;
+                this.btnWaterClose.Switch = e.Value;
             }
 
         }
@@ -774,11 +770,13 @@ namespace MainUI.TestScreen
                 Var.MsgBoxWarn(this, "水极板已经在上限位了");
                 return;
             }
+            _isWPUpPressing = true;
             using (MainUI.Fault.OperationContext.Begin(this, sender, "水极板上升-按下"))
             {
                 Common.DOgrp["水阻下降控制"] = false;
                 Common.DOgrp["水阻上升控制"] = true;
             }
+            try { this.btnWaterPlateUp.Capture = false; } catch { }
         }
 
         /// <summary>
@@ -788,11 +786,13 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterPlateUp_MouseUp(object sender, MouseEventArgs e)
         {
+            _isWPUpPressing = false;
             using (MainUI.Fault.OperationContext.Begin(this, sender, "水极板上升-松开"))
             {
                 Common.DOgrp["水阻上升控制"] = false;
                 Common.DOgrp["水阻下降控制"] = false;
             }
+            try { this.btnWaterPlateUp.Capture = true; } catch { }
         }
 
         /// <summary>
@@ -807,11 +807,13 @@ namespace MainUI.TestScreen
                 Var.MsgBoxWarn(this, "水极板已经在下限位了");
                 return;
             }
+            _isWPDownPressing = true;
             using (MainUI.Fault.OperationContext.Begin(this, sender, "水极板下降-按下"))
             {
                 Common.DOgrp["水阻上升控制"] = false;
                 Common.DOgrp["水阻下降控制"] = true;
             }
+            try { this.btnWaterPlateDown.Capture = false; } catch { }
         }
         /// <summary>
         /// 水极板下降点动松开
@@ -820,6 +822,8 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterPlateDown_MouseUp(object sender, MouseEventArgs e)
         {
+            _isWPDownPressing = false;
+            try { this.btnWaterPlateDown.Capture = false; } catch { }
             using (MainUI.Fault.OperationContext.Begin(this, sender, "水极板下降-松开"))
             {
                 Common.DOgrp["水阻下降控制"] = false;
@@ -931,6 +935,13 @@ namespace MainUI.TestScreen
         {
             this.btnSetLC.Focus();
 
+            // 检查启动柜运行状态
+            if (Common.gd350_1.RunningStatus)
+            {
+                Var.MsgBoxWarn(this, "启动柜运行中，禁止加载。");
+                return;
+            }
+
             if (!this.rButton50.Switch && !this.rButton1.Switch)
             {
                 Var.MsgBoxWarn(this, "请先打开主发通风机后再进行励磁电流设置。");
@@ -987,6 +998,12 @@ namespace MainUI.TestScreen
         private void btnSetLCAdd_Click(object sender, EventArgs e)
         {
             this.btnSetLCAdd.Focus();
+            // 检查启动柜运行状态
+            if (Common.gd350_1.RunningStatus)
+            {
+                Var.MsgBoxWarn(this, "启动柜运行中，禁止加载。");
+                return;
+            }
 
             if (!this.rButton50.Switch && !this.rButton1.Switch)
             {
@@ -1014,6 +1031,12 @@ namespace MainUI.TestScreen
         private void btnSetSpeed_Click(object sender, EventArgs e)
         {
             this.btnSetSpeed.Focus();
+            // 检查启动柜运行状态
+            if (Common.gd350_1.RunningStatus)
+            {
+                Var.MsgBoxWarn(this, "启动柜运行中，禁止加载。");
+                return;
+            }
             using (MainUI.Fault.OperationContext.Begin(this, sender, "手动设定发动机转速"))
             {
                 Common.AOgrp["发动机油门调节"] = ucNudSpeed.Value;
@@ -1047,6 +1070,14 @@ namespace MainUI.TestScreen
         private void btnSetSpeedAdd_Click(object sender, EventArgs e)
         {
             this.btnSetSpeedAdd.Focus();
+
+            // 检查启动柜运行状态
+            if (Common.gd350_1.RunningStatus)
+            {
+                Var.MsgBoxWarn(this, "启动柜运行中，禁止加载。");
+                return;
+            }
+
             var button = sender as RButton;
             var tag = button.Tag.ToInt();
             var val = Common.AOgrp["发动机油门调节"] + tag;
@@ -1094,12 +1125,14 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterOpen_MouseDown(object sender, MouseEventArgs e)
         {
+            _isWVOpenPressing = true;
             using (MainUI.Fault.OperationContext.Begin(this, sender, "水阻箱调节阀开-按下"))
             {
                 Common.DOgrp["水阻箱调节阀关"] = false;
                 Thread.Sleep(10);
                 Common.DOgrp["水阻箱调节阀开"] = true;
             }
+            try { this.btnWaterOpen.Capture = false; } catch { }
         }
 
         /// <summary>
@@ -1109,6 +1142,8 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterOpen_MouseUp(object sender, MouseEventArgs e)
         {
+            _isWVOpenPressing = false;
+            try { this.btnWaterOpen.Capture = false; } catch { }
             using (MainUI.Fault.OperationContext.Begin(this, sender, "水阻箱调节阀开-松开"))
             {
                 Common.DOgrp["水阻箱调节阀开"] = false;
@@ -1124,12 +1159,14 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterClose_MouseDown(object sender, MouseEventArgs e)
         {
+            _isWVClosePressing = true;
             using (MainUI.Fault.OperationContext.Begin(this, sender, "水阻箱调节阀关-按下"))
             {
                 Common.DOgrp["水阻箱调节阀开"] = false;
                 Thread.Sleep(10);
                 Common.DOgrp["水阻箱调节阀关"] = true;
             }
+            try { this.btnWaterClose.Capture = false; } catch { }
         }
 
         /// <summary>
@@ -1139,6 +1176,8 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void btnWaterClose_MouseUp(object sender, MouseEventArgs e)
         {
+            _isWVClosePressing = false;
+            try { this.btnWaterClose.Capture = false; } catch { }
             using (MainUI.Fault.OperationContext.Begin(this, sender, "水阻箱调节阀关-松开"))
             {
                 Common.DOgrp["水阻箱调节阀关"] = false;
@@ -1433,6 +1472,196 @@ namespace MainUI.TestScreen
             }
             this.ucNudLC.Value = val;
         }
+
+        #region 长按按钮安全机制
+
+        #region ====== 水极板/进水阀 长按安全机制 - 字段 ======
+
+        // 释放互斥锁（每个按钮独立，幂等保护）
+        private readonly object _wpUpReleaseLock = new object();
+        private readonly object _wpDownReleaseLock = new object();
+        private readonly object _wvOpenReleaseLock = new object();
+        private readonly object _wvCloseReleaseLock = new object();
+
+        // 按下状态标志
+        private volatile bool _isWPUpPressing = false;
+        private volatile bool _isWPDownPressing = false;
+        private volatile bool _isWVOpenPressing = false;
+        private volatile bool _isWVClosePressing = false;
+
+        #endregion
+        /// <summary>
+        /// 绑定水极板/进水阀 4个按钮的安全释放机制。
+        /// </summary>
+        private void BindWaterLongPressButtons()
+        {
+            // 水极板上升
+            this.btnWaterPlateUp.MouseLeave += (s, e) => ReleaseWaterPlateUp("MouseLeave");
+            this.btnWaterPlateUp.LostFocus += (s, e) => ReleaseWaterPlateUp("LostFocus");
+
+            // 水极板下降
+            this.btnWaterPlateDown.MouseLeave += (s, e) => ReleaseWaterPlateDown("MouseLeave");
+            this.btnWaterPlateDown.LostFocus += (s, e) => ReleaseWaterPlateDown("LostFocus");
+
+            // 进水阀开
+            this.btnWaterOpen.MouseLeave += (s, e) => ReleaseWaterValveOpen("MouseLeave");
+            this.btnWaterOpen.LostFocus += (s, e) => ReleaseWaterValveOpen("LostFocus");
+
+            // 进水阀关
+            this.btnWaterClose.MouseLeave += (s, e) => ReleaseWaterValveClose("MouseLeave");
+            this.btnWaterClose.LostFocus += (s, e) => ReleaseWaterValveClose("LostFocus");
+        }
+
+        #endregion
+
+        #region ====== 水极板上升 ======
+
+        private void ReleaseWaterPlateUp(string reason)
+        {
+            lock (_wpUpReleaseLock)
+            {
+                if (!_isWPUpPressing) return;
+                _isWPUpPressing = false;
+
+                // 写两次保险，防止 OPC 偶发丢包
+                for (int i = 0; i < 2; i++)
+                {
+                    try { Common.DOgrp["水阻上升控制"] = false; } catch { }
+                }
+                try { Common.DOgrp["水阻下降控制"] = false; } catch { }
+
+                try { this.btnWaterPlateUp.Capture = false; } catch { }
+
+                try { Var.LogInfo("水极板上升-释放，原因=" + reason); } catch { }
+            }
+        }
+
+        #endregion
+
+
+        #region ====== 水极板下降 ======
+
+        private void ReleaseWaterPlateDown(string reason)
+        {
+            lock (_wpDownReleaseLock)
+            {
+                if (!_isWPDownPressing) return;
+                _isWPDownPressing = false;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    try { Common.DOgrp["水阻下降控制"] = false; } catch { }
+                }
+                try { Common.DOgrp["水阻上升控制"] = false; } catch { }
+
+                try { this.btnWaterPlateDown.Capture = false; } catch { }
+
+                try { Var.LogInfo("水极板下降-释放，原因=" + reason); } catch { }
+            }
+        }
+
+        #endregion
+
+
+        #region ====== 进水阀开 ======
+
+        private void ReleaseWaterValveOpen(string reason)
+        {
+            lock (_wvOpenReleaseLock)
+            {
+                if (!_isWVOpenPressing) return;
+                _isWVOpenPressing = false;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    try { Common.DOgrp["水阻箱调节阀开"] = false; } catch { }
+                }
+                try { Common.DOgrp["水阻箱调节阀关"] = false; } catch { }
+
+                try { this.btnWaterOpen.Capture = false; } catch { }
+
+                try { Var.LogInfo("进水阀开-释放，原因=" + reason); } catch { }
+            }
+        }
+
+        #endregion
+
+
+        #region ====== 进水阀关 ======
+
+        private void ReleaseWaterValveClose(string reason)
+        {
+            lock (_wvCloseReleaseLock)
+            {
+                if (!_isWVClosePressing) return;
+                _isWVClosePressing = false;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    try { Common.DOgrp["水阻箱调节阀关"] = false; } catch { }
+                }
+                try { Common.DOgrp["水阻箱调节阀开"] = false; } catch { }
+
+                try { this.btnWaterClose.Capture = false; } catch { }
+
+                try { Var.LogInfo("进水阀关-释放，原因=" + reason); } catch { }
+            }
+        }
+
+        #endregion
+
+        // 控件禁用
+        public void SetAdjustButtonsEnabled(bool enabled)
+        {
+            try
+            {
+                // 励磁调节组（不含归零）
+                SafeSetEnabled(btnSetLC, enabled);
+                SafeSetEnabled(btnSetLCAdd, enabled);
+                SafeSetEnabled(btnSetLCAdd2, enabled);
+                SafeSetEnabled(btnSetLCAdd5, enabled);
+                SafeSetEnabled(btnSetLCAdd10, enabled);
+                SafeSetEnabled(btnSetLCReduce, enabled);
+                SafeSetEnabled(btnSetLCReduce2, enabled);
+                SafeSetEnabled(btnSetLCReduce5, enabled);
+                SafeSetEnabled(btnSetLCReduce10, enabled);
+
+                // 转速调节组
+                SafeSetEnabled(btnSetSpeed, enabled);
+                SafeSetEnabled(btnSetSpeedAdd, enabled);
+                SafeSetEnabled(btnSetSpeedReduce, enabled);
+                SafeSetEnabled(btnSetSpeedReduce20, enabled);
+                SafeSetEnabled(btnSetSpeedAdd20, enabled);
+
+                // 水极板/进水阀（启机/甩车期间同样禁用）
+                SafeSetEnabled(btnWaterPlateUp, enabled);
+                SafeSetEnabled(btnWaterPlateDown, enabled);
+                SafeSetEnabled(btnWaterOpen, enabled);
+                SafeSetEnabled(btnWaterClose, enabled);
+
+                // btnSetLCZero（励磁紧急归零）始终可用，不加入此列表
+            }
+            catch (Exception ex)
+            {
+                try { Var.LogInfo("SetAdjustButtonsEnabled 异常: " + ex.Message); } catch { }
+            }
+        }
+
+
+        private void SafeSetEnabled(Control ctrl, bool enabled)
+        {
+            if (ctrl == null) return;
+            try
+            {
+                if (ctrl.IsDisposed) return;
+                if (ctrl.InvokeRequired)
+                    ctrl.BeginInvoke((Action)(delegate { try { ctrl.Enabled = enabled; } catch { } }));
+                else
+                    ctrl.Enabled = enabled;
+            }
+            catch { }
+        }
+
     }
 
 
@@ -1472,4 +1701,5 @@ namespace MainUI.TestScreen
         public DateTime StartRunBeginTime { get; set; }
 
     }
+
 }

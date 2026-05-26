@@ -336,7 +336,6 @@ namespace MainUI
             this.uiLedBulb3.TabIndex = 755;
             this.uiLedBulb3.Tag = "22阀故障";
             this.uiLedBulb3.Text = "uiLedBulb3";
-            this.uiLedBulb3.Visible = false;
             // 
             // rButton3
             // 
@@ -1099,7 +1098,6 @@ namespace MainUI
             this.uiLedBulb45.Color = System.Drawing.Color.Red;
             this.uiLedBulb45.Location = new System.Drawing.Point(176, 48);
             this.uiLedBulb45.Name = "uiLedBulb45";
-            this.uiLedBulb45.On = false;
             this.uiLedBulb45.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb45.TabIndex = 756;
             this.uiLedBulb45.Tag = "61阀故障";
@@ -1282,7 +1280,6 @@ namespace MainUI
             this.uiLedBulb37.Color = System.Drawing.Color.Red;
             this.uiLedBulb37.Location = new System.Drawing.Point(437, 718);
             this.uiLedBulb37.Name = "uiLedBulb37";
-            this.uiLedBulb37.On = false;
             this.uiLedBulb37.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb37.TabIndex = 755;
             this.uiLedBulb37.Tag = "污油排出泵过流";
@@ -1368,6 +1365,7 @@ namespace MainUI
             this.uiLedBulb36.Color = System.Drawing.Color.Red;
             this.uiLedBulb36.Location = new System.Drawing.Point(175, 718);
             this.uiLedBulb36.Name = "uiLedBulb36";
+            this.uiLedBulb36.On = false;
             this.uiLedBulb36.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb36.TabIndex = 755;
             this.uiLedBulb36.Tag = "预供机油泵过流";
@@ -1427,7 +1425,6 @@ namespace MainUI
             this.uiLedBulb35.Color = System.Drawing.Color.Red;
             this.uiLedBulb35.Location = new System.Drawing.Point(437, 642);
             this.uiLedBulb35.Name = "uiLedBulb35";
-            this.uiLedBulb35.On = false;
             this.uiLedBulb35.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb35.TabIndex = 755;
             this.uiLedBulb35.Tag = "135阀故障";
@@ -1487,7 +1484,6 @@ namespace MainUI
             this.uiLedBulb34.Color = System.Drawing.Color.Red;
             this.uiLedBulb34.Location = new System.Drawing.Point(175, 642);
             this.uiLedBulb34.Name = "uiLedBulb34";
-            this.uiLedBulb34.On = false;
             this.uiLedBulb34.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb34.TabIndex = 755;
             this.uiLedBulb34.Tag = "134阀故障";
@@ -1547,7 +1543,6 @@ namespace MainUI
             this.uiLedBulb33.Color = System.Drawing.Color.Red;
             this.uiLedBulb33.Location = new System.Drawing.Point(437, 566);
             this.uiLedBulb33.Name = "uiLedBulb33";
-            this.uiLedBulb33.On = false;
             this.uiLedBulb33.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb33.TabIndex = 755;
             this.uiLedBulb33.Tag = "133阀故障";
@@ -1607,6 +1602,7 @@ namespace MainUI
             this.uiLedBulb32.Color = System.Drawing.Color.Red;
             this.uiLedBulb32.Location = new System.Drawing.Point(175, 566);
             this.uiLedBulb32.Name = "uiLedBulb32";
+            this.uiLedBulb32.On = false;
             this.uiLedBulb32.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb32.TabIndex = 755;
             this.uiLedBulb32.Tag = "139阀故障";
@@ -1666,6 +1662,7 @@ namespace MainUI
             this.uiLedBulb31.Color = System.Drawing.Color.Red;
             this.uiLedBulb31.Location = new System.Drawing.Point(437, 491);
             this.uiLedBulb31.Name = "uiLedBulb31";
+            this.uiLedBulb31.On = false;
             this.uiLedBulb31.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb31.TabIndex = 755;
             this.uiLedBulb31.Tag = "136阀故障";
@@ -1725,7 +1722,6 @@ namespace MainUI
             this.uiLedBulb30.Color = System.Drawing.Color.Red;
             this.uiLedBulb30.Location = new System.Drawing.Point(175, 491);
             this.uiLedBulb30.Name = "uiLedBulb30";
-            this.uiLedBulb30.On = false;
             this.uiLedBulb30.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb30.TabIndex = 755;
             this.uiLedBulb30.Tag = "137阀故障";
@@ -1785,6 +1781,7 @@ namespace MainUI
             this.uiLedBulb29.Color = System.Drawing.Color.Red;
             this.uiLedBulb29.Location = new System.Drawing.Point(437, 416);
             this.uiLedBulb29.Name = "uiLedBulb29";
+            this.uiLedBulb29.On = false;
             this.uiLedBulb29.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb29.TabIndex = 755;
             this.uiLedBulb29.Tag = "122阀故障";
@@ -1844,7 +1841,6 @@ namespace MainUI
             this.uiLedBulb28.Color = System.Drawing.Color.Red;
             this.uiLedBulb28.Location = new System.Drawing.Point(175, 416);
             this.uiLedBulb28.Name = "uiLedBulb28";
-            this.uiLedBulb28.On = false;
             this.uiLedBulb28.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb28.TabIndex = 755;
             this.uiLedBulb28.Tag = "116阀故障";
@@ -1904,7 +1900,6 @@ namespace MainUI
             this.uiLedBulb27.Color = System.Drawing.Color.Red;
             this.uiLedBulb27.Location = new System.Drawing.Point(437, 339);
             this.uiLedBulb27.Name = "uiLedBulb27";
-            this.uiLedBulb27.On = false;
             this.uiLedBulb27.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb27.TabIndex = 755;
             this.uiLedBulb27.Tag = "115阀故障";
@@ -1964,6 +1959,7 @@ namespace MainUI
             this.uiLedBulb26.Color = System.Drawing.Color.Red;
             this.uiLedBulb26.Location = new System.Drawing.Point(175, 339);
             this.uiLedBulb26.Name = "uiLedBulb26";
+            this.uiLedBulb26.On = false;
             this.uiLedBulb26.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb26.TabIndex = 755;
             this.uiLedBulb26.Tag = "111阀故障";
@@ -2023,7 +2019,6 @@ namespace MainUI
             this.uiLedBulb25.Color = System.Drawing.Color.Red;
             this.uiLedBulb25.Location = new System.Drawing.Point(437, 267);
             this.uiLedBulb25.Name = "uiLedBulb25";
-            this.uiLedBulb25.On = false;
             this.uiLedBulb25.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb25.TabIndex = 755;
             this.uiLedBulb25.Tag = "100阀故障";
@@ -2083,6 +2078,7 @@ namespace MainUI
             this.uiLedBulb24.Color = System.Drawing.Color.Red;
             this.uiLedBulb24.Location = new System.Drawing.Point(175, 267);
             this.uiLedBulb24.Name = "uiLedBulb24";
+            this.uiLedBulb24.On = false;
             this.uiLedBulb24.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb24.TabIndex = 755;
             this.uiLedBulb24.Tag = "97阀故障";
@@ -2178,6 +2174,7 @@ namespace MainUI
             this.uiLedBulb23.Color = System.Drawing.Color.Red;
             this.uiLedBulb23.Location = new System.Drawing.Point(437, 194);
             this.uiLedBulb23.Name = "uiLedBulb23";
+            this.uiLedBulb23.On = false;
             this.uiLedBulb23.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb23.TabIndex = 755;
             this.uiLedBulb23.Tag = "96阀故障";
@@ -2237,7 +2234,6 @@ namespace MainUI
             this.uiLedBulb22.Color = System.Drawing.Color.Red;
             this.uiLedBulb22.Location = new System.Drawing.Point(175, 194);
             this.uiLedBulb22.Name = "uiLedBulb22";
-            this.uiLedBulb22.On = false;
             this.uiLedBulb22.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb22.TabIndex = 755;
             this.uiLedBulb22.Tag = "95阀故障";
@@ -2315,6 +2311,7 @@ namespace MainUI
             this.uiLedBulb21.Color = System.Drawing.Color.Red;
             this.uiLedBulb21.Location = new System.Drawing.Point(437, 123);
             this.uiLedBulb21.Name = "uiLedBulb21";
+            this.uiLedBulb21.On = false;
             this.uiLedBulb21.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb21.TabIndex = 755;
             this.uiLedBulb21.Tag = "93阀故障";
@@ -2392,6 +2389,7 @@ namespace MainUI
             this.uiLedBulb20.Color = System.Drawing.Color.Red;
             this.uiLedBulb20.Location = new System.Drawing.Point(175, 123);
             this.uiLedBulb20.Name = "uiLedBulb20";
+            this.uiLedBulb20.On = false;
             this.uiLedBulb20.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb20.TabIndex = 755;
             this.uiLedBulb20.Tag = "92阀故障";
@@ -2451,7 +2449,6 @@ namespace MainUI
             this.uiLedBulb19.Color = System.Drawing.Color.Red;
             this.uiLedBulb19.Location = new System.Drawing.Point(437, 47);
             this.uiLedBulb19.Name = "uiLedBulb19";
-            this.uiLedBulb19.On = false;
             this.uiLedBulb19.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb19.TabIndex = 755;
             this.uiLedBulb19.Tag = "91阀故障";
@@ -2511,6 +2508,7 @@ namespace MainUI
             this.uiLedBulb18.Color = System.Drawing.Color.Red;
             this.uiLedBulb18.Location = new System.Drawing.Point(175, 49);
             this.uiLedBulb18.Name = "uiLedBulb18";
+            this.uiLedBulb18.On = false;
             this.uiLedBulb18.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb18.TabIndex = 755;
             this.uiLedBulb18.Tag = "90阀故障";
@@ -2715,6 +2713,7 @@ namespace MainUI
             this.uiLedBulb17.Color = System.Drawing.Color.Red;
             this.uiLedBulb17.Location = new System.Drawing.Point(177, 642);
             this.uiLedBulb17.Name = "uiLedBulb17";
+            this.uiLedBulb17.On = false;
             this.uiLedBulb17.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb17.TabIndex = 755;
             this.uiLedBulb17.Tag = "预热水泵过流";
@@ -2768,6 +2767,7 @@ namespace MainUI
             this.uiLedBulb16.Color = System.Drawing.Color.Red;
             this.uiLedBulb16.Location = new System.Drawing.Point(429, 566);
             this.uiLedBulb16.Name = "uiLedBulb16";
+            this.uiLedBulb16.On = false;
             this.uiLedBulb16.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb16.TabIndex = 755;
             this.uiLedBulb16.Tag = "31阀故障";
@@ -2866,6 +2866,7 @@ namespace MainUI
             this.uiLedBulb15.Color = System.Drawing.Color.Red;
             this.uiLedBulb15.Location = new System.Drawing.Point(177, 566);
             this.uiLedBulb15.Name = "uiLedBulb15";
+            this.uiLedBulb15.On = false;
             this.uiLedBulb15.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb15.TabIndex = 755;
             this.uiLedBulb15.Tag = "41阀故障";
@@ -2929,7 +2930,6 @@ namespace MainUI
             this.uiLedBulb14.Color = System.Drawing.Color.Red;
             this.uiLedBulb14.Location = new System.Drawing.Point(429, 491);
             this.uiLedBulb14.Name = "uiLedBulb14";
-            this.uiLedBulb14.On = false;
             this.uiLedBulb14.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb14.TabIndex = 755;
             this.uiLedBulb14.Tag = "30阀故障";
@@ -2980,7 +2980,6 @@ namespace MainUI
             this.uiLedBulb13.Color = System.Drawing.Color.Red;
             this.uiLedBulb13.Location = new System.Drawing.Point(177, 491);
             this.uiLedBulb13.Name = "uiLedBulb13";
-            this.uiLedBulb13.On = false;
             this.uiLedBulb13.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb13.TabIndex = 755;
             this.uiLedBulb13.Tag = "29阀故障";
@@ -3124,6 +3123,7 @@ namespace MainUI
             this.uiLedBulb12.Color = System.Drawing.Color.Red;
             this.uiLedBulb12.Location = new System.Drawing.Point(429, 416);
             this.uiLedBulb12.Name = "uiLedBulb12";
+            this.uiLedBulb12.On = false;
             this.uiLedBulb12.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb12.TabIndex = 755;
             this.uiLedBulb12.Tag = "28阀故障";
@@ -3164,6 +3164,7 @@ namespace MainUI
             this.uiLedBulb11.Color = System.Drawing.Color.Red;
             this.uiLedBulb11.Location = new System.Drawing.Point(177, 416);
             this.uiLedBulb11.Name = "uiLedBulb11";
+            this.uiLedBulb11.On = false;
             this.uiLedBulb11.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb11.TabIndex = 755;
             this.uiLedBulb11.Tag = "27阀故障";
@@ -3205,6 +3206,7 @@ namespace MainUI
             this.uiLedBulb10.Color = System.Drawing.Color.Red;
             this.uiLedBulb10.Location = new System.Drawing.Point(429, 339);
             this.uiLedBulb10.Name = "uiLedBulb10";
+            this.uiLedBulb10.On = false;
             this.uiLedBulb10.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb10.TabIndex = 755;
             this.uiLedBulb10.Tag = "26阀故障";
@@ -3235,6 +3237,7 @@ namespace MainUI
             this.uiLedBulb9.Color = System.Drawing.Color.Red;
             this.uiLedBulb9.Location = new System.Drawing.Point(177, 339);
             this.uiLedBulb9.Name = "uiLedBulb9";
+            this.uiLedBulb9.On = false;
             this.uiLedBulb9.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb9.TabIndex = 755;
             this.uiLedBulb9.Tag = "24阀故障";
@@ -3727,7 +3730,6 @@ namespace MainUI
             this.uiLedBulb1.TabIndex = 755;
             this.uiLedBulb1.Tag = "03阀故障";
             this.uiLedBulb1.Text = "uiLedBulb1";
-            this.uiLedBulb1.Visible = false;
             // 
             // label39
             // 

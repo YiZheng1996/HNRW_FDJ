@@ -129,6 +129,7 @@ namespace MainUI
             Common.waterGrp.KeyValueChange += WaterGrp_KeyValueChange;
             Common.engineOilGrp.KeyValueChange += EngineOilGrp_KeyValueChange;
             Common.PipelineFaultGrp.KeyValueChange += PipelineFaultGrp_KeyValueChange;
+            Common.DOgrp.KeyValueChange += DOgrp_KeyValueChange;
 
             // 绑定仪表盘
             this.ucParamPressure1.SetRand(0, 800, 700);
@@ -162,6 +163,27 @@ namespace MainUI
                 foreach (var item in list)
                 {
                     item.Visible = e.Value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// DO 输出状态回刷（按钮 Switch 同步 OPC 实际状态）
+        /// </summary>
+        private void DOgrp_KeyValueChange(object sender, DIValueChangedEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<object, DIValueChangedEventArgs>(
+                    DOgrp_KeyValueChange), sender, e);
+                return;
+            }
+
+            if (dicBtn.ContainsKey(e.Key))
+            {
+                foreach (var item in dicBtn[e.Key])
+                {
+                    item.Switch = e.Value;
                 }
             }
         }
@@ -459,7 +481,7 @@ namespace MainUI
                 {
                     using (MainUI.Fault.OperationContext.Begin(this, sender, str + th))
                     {
-                        Common.DOgrp[sw.OutputTagName.ToString()] = Convert.ToBoolean(sw.Tag.ToInt());//!Common.DOgrp[sw.Tag.ToString()];
+                        Common.DOgrp[sw.OutputTagName.ToString()] = Convert.ToBoolean(sw.Tag.ToInt());//!Common.DOgrp[sw.Tag.ToString()];  04   41 电磁阀为常开点
                     }
                 }
                 catch (Exception ex)

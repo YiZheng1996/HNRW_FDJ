@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiTabControl1 = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -112,6 +112,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.numNumberofTeeth = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel20 = new Sunny.UI.UILabel();
             this.numMinSpeed = new System.Windows.Forms.NumericUpDown();
             this.numRateSpeed = new System.Windows.Forms.NumericUpDown();
             this.numRateTorque = new System.Windows.Forms.NumericUpDown();
@@ -167,8 +169,6 @@
             this.btnGet = new Sunny.UI.UIButton();
             this.uiLabel2 = new Sunny.UI.UILabel();
             this.txtType = new Sunny.UI.UITextBox();
-            this.numNumberofTeeth = new System.Windows.Forms.NumericUpDown();
-            this.uiLabel20 = new Sunny.UI.UILabel();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -220,6 +220,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeMultValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeTimeValue)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateTorque)).BeginInit();
@@ -236,7 +237,6 @@
             this.tabPage5.SuspendLayout();
             this.contextMenuStrip360h.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -302,9 +302,9 @@
             this.groupBox8.Controls.Add(this.numOilPanLong);
             this.groupBox8.Controls.Add(this.uiLabel22);
             this.groupBox8.Controls.Add(this.uiLabel23);
-            this.groupBox8.Location = new System.Drawing.Point(7, 313);
+            this.groupBox8.Location = new System.Drawing.Point(7, 454);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(348, 180);
+            this.groupBox8.Size = new System.Drawing.Size(348, 39);
             this.groupBox8.TabIndex = 429;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "发动机油底壳参数";
@@ -1312,6 +1312,31 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "发动机基础参数";
             // 
+            // numNumberofTeeth
+            // 
+            this.numNumberofTeeth.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numNumberofTeeth.Location = new System.Drawing.Point(197, 231);
+            this.numNumberofTeeth.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numNumberofTeeth.Name = "numNumberofTeeth";
+            this.numNumberofTeeth.Size = new System.Drawing.Size(120, 32);
+            this.numNumberofTeeth.TabIndex = 85;
+            // 
+            // uiLabel20
+            // 
+            this.uiLabel20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.uiLabel20.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.uiLabel20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel20.Location = new System.Drawing.Point(1, 232);
+            this.uiLabel20.Name = "uiLabel20";
+            this.uiLabel20.Size = new System.Drawing.Size(190, 26);
+            this.uiLabel20.TabIndex = 84;
+            this.uiLabel20.Text = "飞轮盘齿数(T)";
+            this.uiLabel20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // numMinSpeed
             // 
             this.numMinSpeed.Font = new System.Drawing.Font("微软雅黑", 14F);
@@ -1789,15 +1814,15 @@
             this.dgvNode.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvNode.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvNode.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(4);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvNode.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(4);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvNode.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvNode.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNode.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NodeIndex,
@@ -1806,14 +1831,14 @@
             this.NodeSpeed,
             this.NodeTime,
             this.Column4});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNode.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvNode.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvNode.EnableHeadersVisualStyles = false;
             this.dgvNode.Location = new System.Drawing.Point(128, 16);
             this.dgvNode.Name = "dgvNode";
@@ -2076,31 +2101,6 @@
             this.txtType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtType.Watermark = "请选择";
             // 
-            // numNumberofTeeth
-            // 
-            this.numNumberofTeeth.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numNumberofTeeth.Location = new System.Drawing.Point(197, 231);
-            this.numNumberofTeeth.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.numNumberofTeeth.Name = "numNumberofTeeth";
-            this.numNumberofTeeth.Size = new System.Drawing.Size(120, 32);
-            this.numNumberofTeeth.TabIndex = 85;
-            // 
-            // uiLabel20
-            // 
-            this.uiLabel20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.uiLabel20.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.uiLabel20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel20.Location = new System.Drawing.Point(1, 232);
-            this.uiLabel20.Name = "uiLabel20";
-            this.uiLabel20.Size = new System.Drawing.Size(190, 26);
-            this.uiLabel20.TabIndex = 84;
-            this.uiLabel20.Text = "飞轮盘齿数(T)";
-            this.uiLabel20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // ucTestParams
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2162,6 +2162,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeMultValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeTimeValue)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateTorque)).EndInit();
@@ -2180,7 +2181,6 @@
             this.tabPage5.ResumeLayout(false);
             this.contextMenuStrip360h.ResumeLayout(false);
             this.uiGroupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth)).EndInit();
             this.ResumeLayout(false);
 
         }

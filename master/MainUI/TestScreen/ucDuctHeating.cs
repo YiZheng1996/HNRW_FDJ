@@ -237,7 +237,7 @@ namespace MainUI.TestScreen
             }
             catch (Exception ex)
             {
-                Var.MsgBoxWarn(this, "设置出口温度失败。");
+                Var.MsgBoxWarn(this, "设置出口温度失败。" + ex.Message);
             }
         }
 

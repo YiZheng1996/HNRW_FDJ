@@ -130,29 +130,43 @@ namespace MainUI.Modules
 
         public int FaultCode { get { return DataValue["故障代码"].ToInt(); } set { this.Write("故障代码", value); } }
 
+        /// <summary>
+        /// 启动柜运行时间
+        /// </summary>
+        public int TimeOutPeriod { get { return DataValue["运行超时时间"].ToInt(); } set { this.Write("运行超时时间", value); } }
 
+        /// <summary>
+        /// 启动柜运行状态
+        /// </summary>
+        public bool RunningStatus { get { return DataValue["启动柜运行状态"] == 1; } }
         public List<string> GetTag()
         {
-            List<string> lst = new List<string>();
-            //0 - 10
-            lst.Add("运行状态");
-            lst.Add("就绪");
-            lst.Add("母线电压检测");
-            lst.Add("输出电压检测");
-            lst.Add("输出电流检测");
-            lst.Add("输出功率检测");
-            lst.Add("运行频率");
-
-            lst.Add("启动_停止");
-            lst.Add("启动柜频率设定");
-            lst.Add("故障代码");
+            List<string> lst = new List<string>
+            {
+                //0 - 10
+                "运行状态",
+                "就绪",
+                "母线电压检测",
+                "输出电压检测",
+                "输出电流检测",
+                "输出功率检测",
+                "运行频率",
+                "启动_停止",
+                "启动柜频率设定",
+                "故障代码",
+                "运行超时时间",
+            };
             return lst;
         }
 
         public List<string> GetDOTag()
         {
-            List<string> lst = new List<string>();
-            lst.Add("启动柜启动");
+            List<string> lst = new List<string>
+            {
+                "启动柜启动",
+                "启动柜运行状态"
+            };
+
             return lst;
         }
 
@@ -179,6 +193,7 @@ namespace MainUI.Modules
                 DataValue.AddOrUpdate(key, 0, (k, oldValue) => 0);
             }
             DataValue.AddOrUpdate("启动柜启动", 0, (k, oldValue) => 0);
+            DataValue.AddOrUpdate("启动柜运行状态", 0, (k, oldValue) => 0);
 
             for (int i = 0; i < lstTag.Count; i++)
             {

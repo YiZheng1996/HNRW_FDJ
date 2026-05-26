@@ -47,8 +47,8 @@ namespace MainUI.TestScreen
             this.btnSetLCAdd2 = new RW.UI.Controls.RButton();
             this.WeightValue = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.rButton6 = new RW.UI.Controls.RButton();
-            this.rButton7 = new RW.UI.Controls.RButton();
+            this.btnSetSpeedReduce20 = new RW.UI.Controls.RButton();
+            this.btnSetSpeedAdd20 = new RW.UI.Controls.RButton();
             this.ucNudSpeed = new Sunny.UI.UIDoubleUpDown();
             this.btnSetSpeed = new RW.UI.Controls.RButton();
             this.label47 = new System.Windows.Forms.Label();
@@ -73,10 +73,10 @@ namespace MainUI.TestScreen
             this.uiLedBulb3 = new Sunny.UI.UILedBulb();
             this.label77 = new System.Windows.Forms.Label();
             this.uiLightDown = new Sunny.UI.UILight();
-            this.btnSJBJ = new RW.UI.Controls.RButton();
+            this.btnWaterPlateDown = new RW.UI.Controls.RButton();
             this.label80 = new System.Windows.Forms.Label();
             this.uiLightUP = new Sunny.UI.UILight();
-            this.btnSJBS = new RW.UI.Controls.RButton();
+            this.btnWaterPlateUp = new RW.UI.Controls.RButton();
             this.label16 = new System.Windows.Forms.Label();
             this.lblSZSRealValue = new System.Windows.Forms.Label();
             this.grpFJKZ = new System.Windows.Forms.GroupBox();
@@ -84,8 +84,8 @@ namespace MainUI.TestScreen
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.timerFast = new System.Windows.Forms.Timer(this.components);
-            this.rButton4 = new RW.UI.Controls.RButton();
-            this.rButton9 = new RW.UI.Controls.RButton();
+            this.btnWaterClose = new RW.UI.Controls.RButton();
+            this.btnWaterOpen = new RW.UI.Controls.RButton();
             this.SendInteractionTimer = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -210,8 +210,8 @@ namespace MainUI.TestScreen
             this.groupBox12.Controls.Add(this.btnSetLCAdd2);
             this.groupBox12.Controls.Add(this.WeightValue);
             this.groupBox12.Controls.Add(this.label11);
-            this.groupBox12.Controls.Add(this.rButton6);
-            this.groupBox12.Controls.Add(this.rButton7);
+            this.groupBox12.Controls.Add(this.btnSetSpeedReduce20);
+            this.groupBox12.Controls.Add(this.btnSetSpeedAdd20);
             this.groupBox12.Controls.Add(this.label12);
             this.groupBox12.Controls.Add(this.ucNudSpeed);
             this.groupBox12.Controls.Add(this.LCCurrentValue);
@@ -379,37 +379,37 @@ namespace MainUI.TestScreen
             this.label11.TabIndex = 703;
             this.label11.Text = "制动力(kg)";
             // 
-            // rButton6
+            // btnSetSpeedReduce20
             // 
-            this.rButton6.BackColor = System.Drawing.Color.Silver;
-            this.rButton6.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.rButton6.FalseColor = System.Drawing.Color.Silver;
-            this.rButton6.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rButton6.Location = new System.Drawing.Point(21, 520);
-            this.rButton6.Name = "rButton6";
-            this.rButton6.Size = new System.Drawing.Size(157, 33);
-            this.rButton6.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
-            this.rButton6.TabIndex = 700;
-            this.rButton6.Tag = "20";
-            this.rButton6.Text = "转速-20";
-            this.rButton6.TrueColor = System.Drawing.Color.Lime;
-            this.rButton6.Click += new System.EventHandler(this.btnSetSpeedReduce_Click);
+            this.btnSetSpeedReduce20.BackColor = System.Drawing.Color.Silver;
+            this.btnSetSpeedReduce20.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnSetSpeedReduce20.FalseColor = System.Drawing.Color.Silver;
+            this.btnSetSpeedReduce20.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSetSpeedReduce20.Location = new System.Drawing.Point(21, 520);
+            this.btnSetSpeedReduce20.Name = "btnSetSpeedReduce20";
+            this.btnSetSpeedReduce20.Size = new System.Drawing.Size(157, 33);
+            this.btnSetSpeedReduce20.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.btnSetSpeedReduce20.TabIndex = 700;
+            this.btnSetSpeedReduce20.Tag = "20";
+            this.btnSetSpeedReduce20.Text = "转速-20";
+            this.btnSetSpeedReduce20.TrueColor = System.Drawing.Color.Lime;
+            this.btnSetSpeedReduce20.Click += new System.EventHandler(this.btnSetSpeedReduce_Click);
             // 
-            // rButton7
+            // btnSetSpeedAdd20
             // 
-            this.rButton7.BackColor = System.Drawing.Color.Silver;
-            this.rButton7.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.rButton7.FalseColor = System.Drawing.Color.Silver;
-            this.rButton7.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rButton7.Location = new System.Drawing.Point(194, 520);
-            this.rButton7.Name = "rButton7";
-            this.rButton7.Size = new System.Drawing.Size(157, 33);
-            this.rButton7.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
-            this.rButton7.TabIndex = 701;
-            this.rButton7.Tag = "20";
-            this.rButton7.Text = "转速+20";
-            this.rButton7.TrueColor = System.Drawing.Color.Lime;
-            this.rButton7.Click += new System.EventHandler(this.btnSetSpeedAdd_Click);
+            this.btnSetSpeedAdd20.BackColor = System.Drawing.Color.Silver;
+            this.btnSetSpeedAdd20.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnSetSpeedAdd20.FalseColor = System.Drawing.Color.Silver;
+            this.btnSetSpeedAdd20.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSetSpeedAdd20.Location = new System.Drawing.Point(194, 520);
+            this.btnSetSpeedAdd20.Name = "btnSetSpeedAdd20";
+            this.btnSetSpeedAdd20.Size = new System.Drawing.Size(157, 33);
+            this.btnSetSpeedAdd20.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.btnSetSpeedAdd20.TabIndex = 701;
+            this.btnSetSpeedAdd20.Tag = "20";
+            this.btnSetSpeedAdd20.Text = "转速+20";
+            this.btnSetSpeedAdd20.TrueColor = System.Drawing.Color.Lime;
+            this.btnSetSpeedAdd20.Click += new System.EventHandler(this.btnSetSpeedAdd_Click);
             // 
             // ucNudSpeed
             // 
@@ -594,6 +594,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb2.Color = System.Drawing.Color.Red;
             this.uiLedBulb2.Location = new System.Drawing.Point(323, 165);
             this.uiLedBulb2.Name = "uiLedBulb2";
+            this.uiLedBulb2.On = false;
             this.uiLedBulb2.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb2.TabIndex = 759;
             this.uiLedBulb2.Tag = "抽油泵过流";
@@ -643,6 +644,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb1.Color = System.Drawing.Color.Red;
             this.uiLedBulb1.Location = new System.Drawing.Point(359, 116);
             this.uiLedBulb1.Name = "uiLedBulb1";
+            this.uiLedBulb1.On = false;
             this.uiLedBulb1.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb1.TabIndex = 759;
             this.uiLedBulb1.Tag = "主发通风机2过流";
@@ -692,7 +694,6 @@ namespace MainUI.TestScreen
             this.uiLedBulb6.Color = System.Drawing.Color.Red;
             this.uiLedBulb6.Location = new System.Drawing.Point(359, 64);
             this.uiLedBulb6.Name = "uiLedBulb6";
-            this.uiLedBulb6.On = false;
             this.uiLedBulb6.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb6.TabIndex = 759;
             this.uiLedBulb6.Tag = "主发通风机1过流";
@@ -742,6 +743,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb3.Color = System.Drawing.Color.Red;
             this.uiLedBulb3.Location = new System.Drawing.Point(360, 105);
             this.uiLedBulb3.Name = "uiLedBulb3";
+            this.uiLedBulb3.On = false;
             this.uiLedBulb3.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb3.TabIndex = 760;
             this.uiLedBulb3.Tag = "水阻升降电机过流";
@@ -777,22 +779,22 @@ namespace MainUI.TestScreen
             this.uiLightDown.Tag = "水阻升降下极限检测";
             this.uiLightDown.Text = "uiLight3";
             // 
-            // btnSJBJ
+            // btnWaterPlateDown
             // 
-            this.btnSJBJ.BackColor = System.Drawing.Color.Silver;
-            this.btnSJBJ.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnSJBJ.FalseColor = System.Drawing.Color.Silver;
-            this.btnSJBJ.Font = new System.Drawing.Font("宋体", 14F);
-            this.btnSJBJ.Location = new System.Drawing.Point(207, 95);
-            this.btnSJBJ.Name = "btnSJBJ";
-            this.btnSJBJ.Size = new System.Drawing.Size(175, 43);
-            this.btnSJBJ.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
-            this.btnSJBJ.TabIndex = 661;
-            this.btnSJBJ.Tag = "水阻下降控制";
-            this.btnSJBJ.Text = "按下-水极板降";
-            this.btnSJBJ.TrueColor = System.Drawing.Color.Lime;
-            this.btnSJBJ.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnWaterPlateDown_MouseDown);
-            this.btnSJBJ.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnWaterPlateDown_MouseUp);
+            this.btnWaterPlateDown.BackColor = System.Drawing.Color.Silver;
+            this.btnWaterPlateDown.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnWaterPlateDown.FalseColor = System.Drawing.Color.Silver;
+            this.btnWaterPlateDown.Font = new System.Drawing.Font("宋体", 14F);
+            this.btnWaterPlateDown.Location = new System.Drawing.Point(207, 95);
+            this.btnWaterPlateDown.Name = "btnWaterPlateDown";
+            this.btnWaterPlateDown.Size = new System.Drawing.Size(175, 43);
+            this.btnWaterPlateDown.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.btnWaterPlateDown.TabIndex = 661;
+            this.btnWaterPlateDown.Tag = "水阻下降控制";
+            this.btnWaterPlateDown.Text = "按下-水极板降";
+            this.btnWaterPlateDown.TrueColor = System.Drawing.Color.Lime;
+            this.btnWaterPlateDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnWaterPlateDown_MouseDown);
+            this.btnWaterPlateDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnWaterPlateDown_MouseUp);
             // 
             // label80
             // 
@@ -823,22 +825,22 @@ namespace MainUI.TestScreen
             this.uiLightUP.Tag = "水阻升降上极限检测";
             this.uiLightUP.Text = "uiLight3";
             // 
-            // btnSJBS
+            // btnWaterPlateUp
             // 
-            this.btnSJBS.BackColor = System.Drawing.Color.Silver;
-            this.btnSJBS.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnSJBS.FalseColor = System.Drawing.Color.Silver;
-            this.btnSJBS.Font = new System.Drawing.Font("宋体", 14F);
-            this.btnSJBS.Location = new System.Drawing.Point(21, 95);
-            this.btnSJBS.Name = "btnSJBS";
-            this.btnSJBS.Size = new System.Drawing.Size(175, 43);
-            this.btnSJBS.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
-            this.btnSJBS.TabIndex = 657;
-            this.btnSJBS.Tag = "水阻上升控制";
-            this.btnSJBS.Text = "按下-水极板升";
-            this.btnSJBS.TrueColor = System.Drawing.Color.Lime;
-            this.btnSJBS.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnWaterPlateUp_MouseDown);
-            this.btnSJBS.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnWaterPlateUp_MouseUp);
+            this.btnWaterPlateUp.BackColor = System.Drawing.Color.Silver;
+            this.btnWaterPlateUp.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnWaterPlateUp.FalseColor = System.Drawing.Color.Silver;
+            this.btnWaterPlateUp.Font = new System.Drawing.Font("宋体", 14F);
+            this.btnWaterPlateUp.Location = new System.Drawing.Point(21, 95);
+            this.btnWaterPlateUp.Name = "btnWaterPlateUp";
+            this.btnWaterPlateUp.Size = new System.Drawing.Size(175, 43);
+            this.btnWaterPlateUp.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.btnWaterPlateUp.TabIndex = 657;
+            this.btnWaterPlateUp.Tag = "水阻上升控制";
+            this.btnWaterPlateUp.Text = "按下-水极板升";
+            this.btnWaterPlateUp.TrueColor = System.Drawing.Color.Lime;
+            this.btnWaterPlateUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnWaterPlateUp_MouseDown);
+            this.btnWaterPlateUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnWaterPlateUp_MouseUp);
             // 
             // label16
             // 
@@ -921,39 +923,39 @@ namespace MainUI.TestScreen
             this.timerFast.Interval = 300;
             this.timerFast.Tick += new System.EventHandler(this.timerFast_Tick);
             // 
-            // rButton4
+            // btnWaterClose
             // 
-            this.rButton4.BackColor = System.Drawing.Color.Silver;
-            this.rButton4.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.rButton4.FalseColor = System.Drawing.Color.Silver;
-            this.rButton4.Font = new System.Drawing.Font("宋体", 14F);
-            this.rButton4.Location = new System.Drawing.Point(207, 149);
-            this.rButton4.Name = "rButton4";
-            this.rButton4.Size = new System.Drawing.Size(175, 43);
-            this.rButton4.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
-            this.rButton4.TabIndex = 782;
-            this.rButton4.Tag = "";
-            this.rButton4.Text = "按下-进水阀关";
-            this.rButton4.TrueColor = System.Drawing.Color.Lime;
-            this.rButton4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnWaterClose_MouseDown);
-            this.rButton4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnWaterClose_MouseUp);
+            this.btnWaterClose.BackColor = System.Drawing.Color.Silver;
+            this.btnWaterClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnWaterClose.FalseColor = System.Drawing.Color.Silver;
+            this.btnWaterClose.Font = new System.Drawing.Font("宋体", 14F);
+            this.btnWaterClose.Location = new System.Drawing.Point(207, 149);
+            this.btnWaterClose.Name = "btnWaterClose";
+            this.btnWaterClose.Size = new System.Drawing.Size(175, 43);
+            this.btnWaterClose.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.btnWaterClose.TabIndex = 782;
+            this.btnWaterClose.Tag = "";
+            this.btnWaterClose.Text = "按下-进水阀关";
+            this.btnWaterClose.TrueColor = System.Drawing.Color.Lime;
+            this.btnWaterClose.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnWaterClose_MouseDown);
+            this.btnWaterClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnWaterClose_MouseUp);
             // 
-            // rButton9
+            // btnWaterOpen
             // 
-            this.rButton9.BackColor = System.Drawing.Color.Silver;
-            this.rButton9.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.rButton9.FalseColor = System.Drawing.Color.Silver;
-            this.rButton9.Font = new System.Drawing.Font("宋体", 14F);
-            this.rButton9.Location = new System.Drawing.Point(21, 149);
-            this.rButton9.Name = "rButton9";
-            this.rButton9.Size = new System.Drawing.Size(175, 43);
-            this.rButton9.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
-            this.rButton9.TabIndex = 781;
-            this.rButton9.Tag = "";
-            this.rButton9.Text = "按下-进水阀开";
-            this.rButton9.TrueColor = System.Drawing.Color.Lime;
-            this.rButton9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnWaterOpen_MouseDown);
-            this.rButton9.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnWaterOpen_MouseUp);
+            this.btnWaterOpen.BackColor = System.Drawing.Color.Silver;
+            this.btnWaterOpen.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnWaterOpen.FalseColor = System.Drawing.Color.Silver;
+            this.btnWaterOpen.Font = new System.Drawing.Font("宋体", 14F);
+            this.btnWaterOpen.Location = new System.Drawing.Point(21, 149);
+            this.btnWaterOpen.Name = "btnWaterOpen";
+            this.btnWaterOpen.Size = new System.Drawing.Size(175, 43);
+            this.btnWaterOpen.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.btnWaterOpen.TabIndex = 781;
+            this.btnWaterOpen.Tag = "";
+            this.btnWaterOpen.Text = "按下-进水阀开";
+            this.btnWaterOpen.TrueColor = System.Drawing.Color.Lime;
+            this.btnWaterOpen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnWaterOpen_MouseDown);
+            this.btnWaterOpen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnWaterOpen_MouseUp);
             // 
             // SendInteractionTimer
             // 
@@ -1189,7 +1191,7 @@ namespace MainUI.TestScreen
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnSJBJ);
+            this.groupBox1.Controls.Add(this.btnWaterPlateDown);
             this.groupBox1.Controls.Add(this.uiLightDown);
             this.groupBox1.Controls.Add(this.uiLightUP);
             this.groupBox1.Controls.Add(this.label77);
@@ -1198,10 +1200,10 @@ namespace MainUI.TestScreen
             this.groupBox1.Controls.Add(this.lblSZTemp);
             this.groupBox1.Controls.Add(this.label80);
             this.groupBox1.Controls.Add(this.label16);
-            this.groupBox1.Controls.Add(this.btnSJBS);
-            this.groupBox1.Controls.Add(this.rButton4);
+            this.groupBox1.Controls.Add(this.btnWaterPlateUp);
+            this.groupBox1.Controls.Add(this.btnWaterClose);
             this.groupBox1.Controls.Add(this.lblSZSRealValue);
-            this.groupBox1.Controls.Add(this.rButton9);
+            this.groupBox1.Controls.Add(this.btnWaterOpen);
             this.groupBox1.Font = new System.Drawing.Font("宋体", 14F);
             this.groupBox1.Location = new System.Drawing.Point(7, 491);
             this.groupBox1.Name = "groupBox1";
@@ -1753,10 +1755,10 @@ namespace MainUI.TestScreen
         private Sunny.UI.UILedBulb uiLedBulb3;
         private System.Windows.Forms.Label label77;
         private Sunny.UI.UILight uiLightDown;
-        private RW.UI.Controls.RButton btnSJBJ;
+        private RW.UI.Controls.RButton btnWaterPlateDown;
         private System.Windows.Forms.Label label80;
         private Sunny.UI.UILight uiLightUP;
-        private RW.UI.Controls.RButton btnSJBS;
+        private RW.UI.Controls.RButton btnWaterPlateUp;
         private Widget.ucParamKeyUI ucParamTorque;
         private Widget.ucParamKeyUI ucParamFuelInletP;
         private Widget.ucParamKeyUI ucParamEngineInP;
@@ -1768,8 +1770,8 @@ namespace MainUI.TestScreen
         private System.Windows.Forms.Timer timerFast;
         private System.Windows.Forms.Label lblSZSRealValue;
         private System.Windows.Forms.Label label16;
-        private RW.UI.Controls.RButton rButton4;
-        private RW.UI.Controls.RButton rButton9;
+        private RW.UI.Controls.RButton btnWaterClose;
+        private RW.UI.Controls.RButton btnWaterOpen;
         private System.Windows.Forms.Timer SendInteractionTimer;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -1835,5 +1837,7 @@ namespace MainUI.TestScreen
         private RW.UI.Controls.RButton btnSetLCAdd;
         private RW.UI.Controls.RButton btnSetLCReduce10;
         private RW.UI.Controls.RButton btnSetLCAdd10;
+        private RW.UI.Controls.RButton btnSetSpeedReduce20;
+        private RW.UI.Controls.RButton btnSetSpeedAdd20;
     }
 }
