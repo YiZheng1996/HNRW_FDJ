@@ -51,8 +51,9 @@ namespace MainUI
 
             LoadAllValve(this);
 
+            ValveStateService.Instance.ValveStateChanged += ValveState_Changed;
             Common.DOgrp.KeyValueChange += DOgrp_KeyValueChange;
-            Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange;
+            //Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange; // 触发 Common.DOgrp.KeyValueChange，不在触发DI值改变事件
             Common.AOgrp.KeyValueChange += AOgrp_KeyValueChange;
             Common.AIgrp.KeyValueChange += AIgrp_KeyValueChange;
             Common.fuelGrp.KeyValueChange += FuelGrp_KeyValueChange;
@@ -126,6 +127,32 @@ namespace MainUI
             }
         }
 
+        private void ValveState_Changed(object sender, ValveStateChangedEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<object, ValveStateChangedEventArgs>(ValveState_Changed), sender, e);
+                return;
+            }
+
+            if (!dicValve.TryGetValue(e.ControlPoint, out SwitchPictureBox spb)) return;
+
+            switch (e.State)
+            {
+                case ValveDisplayState.Opened:
+                    spb.BackColor = Color.Transparent;
+                    spb.Switch = true;
+                    break;
+                case ValveDisplayState.Closed:
+                    spb.BackColor = Color.Transparent;
+                    spb.Switch = false;
+                    break;
+                case ValveDisplayState.Fault:
+                    spb.BackColor = Color.Red;
+                    break;
+            }
+        }
+
         /// <summary>
         /// 阀状态变更
         /// </summary>
@@ -133,10 +160,13 @@ namespace MainUI
         /// <param name="e"></param>
         private void DOgrp_KeyValueChange(object sender, DIValueChangedEventArgs e)
         {
-            if (dicValve.ContainsKey(e.Key))
-            {
-                dicValve[e.Key].Switch = e.Value;
-            }
+            if (!dicValve.ContainsKey(e.Key)) return;
+
+            // 有反馈配置的 由 ValveStateService 接管，本方法不处理
+            if (ValveStateService.Instance.HasFeedback(e.Key)) return;
+
+            // 无反馈阀兜底：DO 状态 = 显示状态
+            dicValve[e.Key].Switch = e.Value;
         }
 
         /// <summary>

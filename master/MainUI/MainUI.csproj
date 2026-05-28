@@ -169,6 +169,7 @@
     <Compile Include="Config\ConfigManager.cs" />
     <Compile Include="Config\ExcitationRegulationConfig.cs" />
     <Compile Include="Config\GKConfig.cs" />
+    <Compile Include="Config\Modules\ValveConfig.cs" />
     <Compile Include="Config\Test\Test360hConfig.cs" />
     <Compile Include="Config\ETHConfig.cs" />
     <Compile Include="Config\GraphConfig.cs" />
@@ -233,6 +234,7 @@
       <DependentUpon>ucWarn.cs</DependentUpon>
     </Compile>
     <Compile Include="Fault\UnifiedFaultDetectionService.cs" />
+    <Compile Include="Fault\ValveFaultLogger.cs" />
     <Compile Include="frmControl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -316,6 +318,7 @@
     <Compile Include="Modules\OpcExChangeSend.Designer.cs">
       <DependentUpon>OpcExChangeSend.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\ValveStateService.cs" />
     <Compile Include="Pipeline\ucFeulHMI.cs">
       <SubType>UserControl</SubType>
     </Compile>

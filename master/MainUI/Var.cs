@@ -25,6 +25,7 @@ using MainUI.Driver;
 using System.Threading;
 using MainUI.FSql;
 using MainUI.Fault;
+using MainUI.Config.Modules;
 
 namespace MainUI
 {
@@ -131,6 +132,11 @@ namespace MainUI
         /// 程序配置文件
         /// </summary>
         public static SysParas SysConfig = new SysParas();
+
+        /// <summary>
+        /// 所有阀门/泵输出，刷新点数据集合
+        /// </summary>
+        public static ValveConfig ValveConfig = new ValveConfig();
 
         /// <summary>
         /// 报警的配置文件

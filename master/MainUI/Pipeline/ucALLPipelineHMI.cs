@@ -1,33 +1,18 @@
-﻿using System;
+﻿using MainUI.Config;
+using MainUI.Equip;
+using MainUI.Helper;
+using MainUI.Modules;
+using MainUI.Procedure;
+using MainUI.Properties;
+using RW.UI;
+using RW.UI.Controls;
+using Sunny.UI;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
-using MainUI.Model;
-using MainUI.Modules;
-using MainUI.Config;
-using RW.UI.Controls;
-using MainUI.Procedure;
-using System.Threading;
-
-using System.Diagnostics;
-using RW.Fonts;
-using Sunny.UI;
-using RW.UI;
-using RW;
-using MainUI.Equip;
-
-using System.Linq;
-using MainUI.BLL;
-using System.Text;
-using System.Data;
 using System.Runtime.InteropServices;
-using System.Net.NetworkInformation;
-using System.Management;
-
-using System.Linq;
-using MainUI.Properties;
+using System.Windows.Forms;
 using static MainUI.Modules.EventArgsModel;
-using MainUI.Helper;
 
 namespace MainUI
 {
@@ -117,6 +102,11 @@ namespace MainUI
                 int scrollBarWidth = 20; // 设置新的滚动条宽度为20像素
                 SystemParametersInfo(SPI_SETSCROLLBARS, 0, ref scrollBarWidth, SPIF_UPDATEINIFILE);
 
+                // 启动宽限期，该时段内只刷新 UI，不写日志
+                ValveStateService.Instance.StartupGraceMs = 10000;
+                // 阀门状态服务初始化
+                ValveStateService.Instance.Init(Var.ValveConfig);
+
                 this.panelSystem.Controls.Add(ucFeulHMI);
                 this.panelSystem.Controls.Add(ucEOHMI);
                 this.panelSystem.Controls.Add(ucWaterHMI);
@@ -130,6 +120,9 @@ namespace MainUI
                 ucControlHMI.Init();
                 //ucControlHMICycle.Init();  //TODO:一键循环暂时取消
                 ucEngineControlHMI.Init();
+
+                // 子界面订阅完成后广播一次当前状态，刷新初始 UI
+                ValveStateService.Instance.BroadcastAll();
 
                 Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange;
                 //Common.DIgrp.Fresh();

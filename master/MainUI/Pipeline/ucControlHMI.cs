@@ -1,23 +1,13 @@
-﻿using MainUI.Modules;
-using MainUI.Widget;
+﻿using MainUI.Config;
+using MainUI.Global;
+using MainUI.Modules;
 using RW;
 using RW.UI.Controls;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MainUI.Config.Modules;
-using System.IO;
-using System.Threading;
-using MainUI.Config;
-using RW.Modules;
-using MainUI.Global;
 using static MainUI.Modules.EventArgsModel;
 
 namespace MainUI
@@ -33,6 +23,10 @@ namespace MainUI
         /// 开/关到位，泵控制 字典
         /// </summary>
         Dictionary<string, List<RButton>> dicBtn = new Dictionary<string, List<RButton>>();
+        /// <summary>
+        /// 按 OutputTagName(DO控制点位)索引的按钮组，用于 ValveStateService 推故障态时定位
+        /// </summary>
+        private Dictionary<string, List<RButton>> dicBtnByOutCtrl = new Dictionary<string, List<RButton>>();
         /// <summary>
         /// 故障灯状态
         /// </summary>
@@ -382,6 +376,19 @@ namespace MainUI
                     }
 
                 }
+
+                // 【新增】按 OutputTagName 索引，用于故障态颜色定位
+                if (btn.OutputTagName != null && !string.IsNullOrEmpty(btn.OutputTagName.ToString()))
+                {
+                    string outTag = btn.OutputTagName.ToString();
+                    List<RButton> outList;
+                    if (!dicBtnByOutCtrl.TryGetValue(outTag, out outList))
+                    {
+                        outList = new List<RButton>();
+                        dicBtnByOutCtrl[outTag] = outList;
+                    }
+                    outList.Add(btn);
+                }
             }
         }
 
@@ -669,6 +676,40 @@ namespace MainUI
             });
             _deviceCommandMap.Add("中冷水回抽", false);
             #endregion
+
+            ValveStateService.Instance.ValveStateChanged += ValveState_Changed;
+        }
+
+        /// <summary>
+        /// 阀门状态变更（故障视觉）
+        /// 现有 Switch 状态由 DIgrp_KeyValueChange 接管，本方法只负责故障颜色叠加
+        /// </summary>
+        private void ValveState_Changed(object sender, ValveStateChangedEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<object, ValveStateChangedEventArgs>(ValveState_Changed), sender, e);
+                return;
+            }
+
+            List<RButton> btns;
+            if (!dicBtnByOutCtrl.TryGetValue(e.ControlPoint, out btns)) return;
+
+            foreach (var btn in btns)
+            {
+                if (e.State == ValveDisplayState.Fault)
+                {
+                    // 故障：两个按钮都变红
+                    btn.TrueColor = Color.Red;
+                    btn.FalseColor = Color.Red;
+                }
+                else
+                {
+                    // 恢复正常：按钮按 Switch 自然显示 Lime/Silver
+                    btn.TrueColor = Color.Lime;
+                    btn.FalseColor = Color.Silver;
+                }
+            }
         }
 
         /// <summary>

@@ -396,11 +396,16 @@ namespace MainUI.Widget
         private void btnSetBeginLC_Click(object sender, EventArgs e)
         {
             this.btnSetBeginLC.Focus();
-            if (!Common.DIgrp["主发通风机1主接检测"] && !Common.DIgrp["主发通风机2主接检测"])
+
+            if (MiddleData.instnce.EngineSpeed >= 350)
             {
-                Var.MsgBoxWarn(this, "请先打开主发通风机后再进行励磁电流设置。");
-                return;
+                if (!Common.DIgrp["主发通风机1主接检测"] && !Common.DIgrp["主发通风机2主接检测"])
+                {
+                    Var.MsgBoxWarn(this, "请先打开主发通风机后再进行励磁电流设置。");
+                    return;
+                }
             }
+
             using (MainUI.Fault.OperationContext.Begin(this, sender, "启机-设置励磁电流"))
             {
                 Common.AOgrp["励磁调节"] = manaulData.BeginCurrent;

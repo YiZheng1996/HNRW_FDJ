@@ -942,10 +942,13 @@ namespace MainUI.TestScreen
                 return;
             }
 
-            if (!this.rButton50.Switch && !this.rButton1.Switch)
+            if (MiddleData.instnce.EngineSpeed >= 350)
             {
-                Var.MsgBoxWarn(this, "请先打开主发通风机后再进行励磁电流设置。");
-                return;
+                if (!this.rButton50.Switch && !this.rButton1.Switch)
+                {
+                    Var.MsgBoxWarn(this, "请先打开主发通风机后再进行励磁电流设置。");
+                    return;
+                }
             }
             using (MainUI.Fault.OperationContext.Begin(this, sender, "手动设定励磁电流"))
             {
