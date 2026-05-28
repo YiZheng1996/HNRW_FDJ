@@ -1986,6 +1986,15 @@
 										"servermain.TAG_SCALING_TYPE": 0
 									},
 									{
+										"common.ALLTYPES_NAME": "燃油加油开始",
+										"common.ALLTYPES_DESCRIPTION": "燃油加油开始",
+										"servermain.TAG_ADDRESS": "DB142.DBX60.0",
+										"servermain.TAG_DATA_TYPE": 1,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
 										"common.ALLTYPES_NAME": "设备间电源检测",
 										"common.ALLTYPES_DESCRIPTION": "设备间电源检测",
 										"servermain.TAG_ADDRESS": "DB142.DBX18.6",
@@ -4199,6 +4208,15 @@
 										"servermain.TAG_SCALING_TYPE": 0
 									},
 									{
+										"common.ALLTYPES_NAME": "启动柜运行状态",
+										"common.ALLTYPES_DESCRIPTION": "启动柜运行中，禁止加载",
+										"servermain.TAG_ADDRESS": "DB305.DBX35.1",
+										"servermain.TAG_DATA_TYPE": 1,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
 										"common.ALLTYPES_NAME": "输出电流检测",
 										"common.ALLTYPES_DESCRIPTION": "反馈给上位机",
 										"servermain.TAG_ADDRESS": "DB3.DBW34",
@@ -4221,6 +4239,15 @@
 										"common.ALLTYPES_DESCRIPTION": "反馈给上位机",
 										"servermain.TAG_ADDRESS": "DB3.DBW36",
 										"servermain.TAG_DATA_TYPE": 5,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
+										"common.ALLTYPES_NAME": "运行超时时间",
+										"common.ALLTYPES_DESCRIPTION": "甩车/启机超时时间",
+										"servermain.TAG_ADDRESS": "DB701.DBD42",
+										"servermain.TAG_DATA_TYPE": 7,
 										"servermain.TAG_READ_WRITE_ACCESS": 1,
 										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
 										"servermain.TAG_SCALING_TYPE": 0
@@ -9874,6 +9901,15 @@
 						"redundancy.DEVICE_TRIGGER_TIMEOUT": 10000,
 						"tags": [
 							{
+								"common.ALLTYPES_NAME": "每转感应点数",
+								"common.ALLTYPES_DESCRIPTION": "每转感应点数",
+								"servermain.TAG_ADDRESS": "H400067",
+								"servermain.TAG_DATA_TYPE": 5,
+								"servermain.TAG_READ_WRITE_ACCESS": 1,
+								"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+								"servermain.TAG_SCALING_TYPE": 0
+							},
+							{
 								"common.ALLTYPES_NAME": "转速1",
 								"common.ALLTYPES_DESCRIPTION": "转速1",
 								"servermain.TAG_ADDRESS": "H400001",
@@ -9950,6 +9986,15 @@
 						"redundancy.DEVICE_TRIGGER_TIMEOUT": 10000,
 						"tags": [
 							{
+								"common.ALLTYPES_NAME": "每转感应点数",
+								"common.ALLTYPES_DESCRIPTION": "每转感应点数",
+								"servermain.TAG_ADDRESS": "H400067",
+								"servermain.TAG_DATA_TYPE": 5,
+								"servermain.TAG_READ_WRITE_ACCESS": 1,
+								"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+								"servermain.TAG_SCALING_TYPE": 0
+							},
+							{
 								"common.ALLTYPES_NAME": "转速2",
 								"common.ALLTYPES_DESCRIPTION": "转速2(报警参数设置界面，发动机转速1(飞轮)-硬线信号保护设置)",
 								"servermain.TAG_ADDRESS": "H400001",
@@ -10025,6 +10070,15 @@
 						"redundancy.DEVICE_TRIGGER_VALUE": "",
 						"redundancy.DEVICE_TRIGGER_TIMEOUT": 10000,
 						"tags": [
+							{
+								"common.ALLTYPES_NAME": "每转感应点数",
+								"common.ALLTYPES_DESCRIPTION": "每转感应点数",
+								"servermain.TAG_ADDRESS": "H400067",
+								"servermain.TAG_DATA_TYPE": 5,
+								"servermain.TAG_READ_WRITE_ACCESS": 1,
+								"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+								"servermain.TAG_SCALING_TYPE": 0
+							},
 							{
 								"common.ALLTYPES_NAME": "转速3",
 								"common.ALLTYPES_DESCRIPTION": "转速3转速2(报警参数设置界面，发动机转速1(飞轮)-硬线信号保护设置)",

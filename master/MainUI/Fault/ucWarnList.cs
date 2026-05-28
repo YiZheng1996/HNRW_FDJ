@@ -77,6 +77,9 @@ namespace MainUI.Widget
 
             // 订阅故障检测事件
             Var.FaultService.FaultDetected += OnFaultDetected;
+
+            // 初始化加油状态专用显示标签
+            InitFuelingLevelLabel();
         }
 
         private void btnFaultLog_Click(object sender, EventArgs e)
@@ -577,6 +580,8 @@ namespace MainUI.Widget
                     }
                 }
             }
+
+            CheckFuelLevelDuringRefueling();
         }
 
         /// <summary>
@@ -644,5 +649,105 @@ namespace MainUI.Widget
             }
 
         }
+
+        #region 燃油自动加油，液位检测功能
+
+        // ===== 燃油液位检测 =====
+        private Label _lblFuelingStatus;
+        private bool _fuelingActive = false;
+        private double _lastFuelLevel = double.NaN;
+        private DateTime _lastLevelChangeTime = DateTime.MinValue;
+        private bool _fuelingNoChangeAlarm = false;
+
+        /// <summary>液位变化判定阈值 mm（小于此值视为未变化）</summary>
+        private const double FUEL_LEVEL_THRESHOLD = 5.0;
+        /// <summary>无液位变化持续多少秒后触发报警</summary>
+        private const int FUEL_NO_CHANGE_WARN_SEC = 60;
+
+        /// <summary>
+        /// 初始化加油状态专用显示标签
+        /// </summary>
+        private void InitFuelingLevelLabel()
+        {
+            _lblFuelingStatus = new Label
+            {
+                Text = "",
+                Font = new Font("宋体", 15f, FontStyle.Bold),
+                BorderStyle = BorderStyle.FixedSingle,
+                AutoSize = true,
+                Margin = new Padding(0, 0, 10, 0),
+                Visible = false
+            };
+            this.flowLayoutPanel2.Controls.Add(_lblFuelingStatus);
+        }
+
+        /// <summary>
+        /// 加油期间液位监控
+        /// </summary>
+        private void CheckFuelLevelDuringRefueling()
+        {
+            // 读 DI"燃油加油开始"
+            Common.DIgrp.DataValue.TryGetValue("燃油加油开始", out bool fuelingDI);
+
+            if (fuelingDI && !_fuelingActive)
+            {
+                // 加油刚开始
+                _fuelingActive = true;
+                _fuelingNoChangeAlarm = false;
+                _lastFuelLevel = Common.fuelGrp["柴油箱液位检测-L29"];
+                _lastLevelChangeTime = DateTime.Now;
+                SetFuelingLabel("检测到燃油箱液位 ≤ 300mm，自动加油中...", Color.DodgerBlue);
+            }
+            else if (!fuelingDI && _fuelingActive)
+            {
+                // 加油结束，停止一切检测
+                _fuelingActive = false;
+                _fuelingNoChangeAlarm = false;
+                SetFuelingLabel("", Color.Transparent, visible: false);
+                return;
+            }
+
+            if (!_fuelingActive) return;
+
+            // 实时液位变化检测
+            double currentLevel = Common.fuelGrp["柴油箱液位检测-L29"];
+            if (!double.IsNaN(_lastFuelLevel)
+                && Math.Abs(currentLevel - _lastFuelLevel) >= FUEL_LEVEL_THRESHOLD)
+            {
+                _lastFuelLevel = currentLevel;
+                _lastLevelChangeTime = DateTime.Now;
+                if (_fuelingNoChangeAlarm)
+                {
+                    // 液位恢复变化，撤销报警
+                    _fuelingNoChangeAlarm = false;
+                    SetFuelingLabel("检测到燃油箱液位 ≤ 300mm，自动加油中...", Color.DodgerBlue);
+                }
+            }
+
+            // 超时无变化 → 报警
+            if (!_fuelingNoChangeAlarm
+                && (DateTime.Now - _lastLevelChangeTime).TotalSeconds >= FUEL_NO_CHANGE_WARN_SEC)
+            {
+                _fuelingNoChangeAlarm = true;
+                SetFuelingLabel(
+                    "加油中燃油箱液位无变化！请检查手阀是否开启、Y164阀是否损坏",
+                    Color.OrangeRed);
+            }
+        }
+
+        private void SetFuelingLabel(string text, Color backColor, bool visible = true)
+        {
+            if (_lblFuelingStatus == null) return;
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => SetFuelingLabel(text, backColor, visible)));
+                return;
+            }
+            _lblFuelingStatus.Text = text;
+            _lblFuelingStatus.BackColor = backColor;
+            _lblFuelingStatus.Visible = visible;
+        }
+
+        #endregion
     }
 }

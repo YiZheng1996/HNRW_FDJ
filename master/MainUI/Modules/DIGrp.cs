@@ -39,7 +39,7 @@ namespace MainUI.Modules
         [Description("值改变后触发")]
         public event EventHandler<DIValueChangedEventArgs> KeyValueChange;
 
-        private const int DIcnt = 182;
+        private const int DIcnt = 183;
         private bool[] _diList = new bool[DIcnt];
         public bool[] DIList
         {
