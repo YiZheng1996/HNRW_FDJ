@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using MainUI.Equip;
 using MainUI.Global;
 using MainUI.Simulate;
@@ -332,6 +333,14 @@ namespace MainUI
                 Common.opcExChangeSendGrp.SetDouble("重量", p.PTFWeight);
                 Common.opcExChangeSendGrp.SetDouble("称重仪_NoError", 1);
 
+                // ── 补充：涡轮进出口废气温度 & 废气压力 ─────────────────────────────
+                Common.AI2Grp["前涡轮进口废气温度"] = p.CylExhaust * 1.15;  // 约比缸温高15%
+                Common.AI2Grp["后涡轮进口废气温度"] = p.CylExhaust * 1.15;
+                Common.AI2Grp["前涡轮出口废气温度"] = p.CylExhaust * 0.72;  // 涡后温度约降30%
+                Common.AI2Grp["后涡轮出口废气温度"] = p.CylExhaust * 0.72;
+                Common.AI2Grp["前涡轮进口废气压力"] = 108.5;                 // 略高于大气压
+                Common.AI2Grp["后涡轮进口废气压力"] = 108.5;
+
                 Var.LogInfo(string.Format("[SimulatePreset] 已注入工况：{0}  RPM={1}  PTFWeight={2}kg  油耗={3}kg/h",
                     p.Name, p.RPM, p.PTFWeight, p.FuelKgH));
             }
@@ -364,5 +373,102 @@ namespace MainUI
             public double AirTempFront { get; set; }
             public double AirTempAfter { get; set; }
         }
+
+        #region 模拟仿真随机数
+
+        // SimulatePresetService.cs 新增
+
+        private Thread _keepAliveThread;
+        private bool _keepAliveRunning;
+        private Action _currentPreset;     // 当前选中的工况注入方法
+        private Random _rand = new Random();
+
+        /// <summary>
+        /// 启动后台持续注入（每5秒刷新一次，保证心跳和数据不断线）
+        /// </summary>
+        public void StartKeepAlive(Action presetAction)
+        {
+            _currentPreset = presetAction;
+            _keepAliveRunning = true;
+
+            _keepAliveThread = new Thread(delegate ()
+            {
+                while (_keepAliveRunning)
+                {
+                    try
+                    {
+                        // 重新注入当前工况值
+                        _currentPreset();
+
+                        // 在注入值基础上叠加微小波动（模拟真实传感器抖动）
+                        ApplyJitter();
+                    }
+                    catch { }
+
+                    Thread.Sleep(5000); // 每5秒刷新一次
+                }
+            });
+            _keepAliveThread.IsBackground = true;
+            _keepAliveThread.Name = "SimKeepAlive";
+            _keepAliveThread.Start();
+        }
+
+        public void StopKeepAlive()
+        {
+            _keepAliveRunning = false;
+            _keepAliveThread = null;
+        }
+
+        public bool IsKeepAliveRunning => _keepAliveRunning;
+
+        /// <summary>
+        /// 微小随机波动，让记录数据看起来真实（±1~2%）
+        /// </summary>
+        private void ApplyJitter()
+        {
+            double jitter = 1.0 + (_rand.NextDouble() - 0.5) * 0.02; // ±1%
+
+            // 缸温略微波动
+            string[] cyls = {
+             "A1缸排气温度","A2缸排气温度","A3缸排气温度","A4缸排气温度",
+             "A5缸排气温度","A6缸排气温度","A7缸排气温度","A8缸排气温度",
+             "B1缸排气温度","B2缸排气温度","B3缸排气温度","B4缸排气温度",
+             "B5缸排气温度","B6缸排气温度","B7缸排气温度","B8缸排气温度",
+             };
+            foreach (string cyl in cyls)
+            {
+                try
+                {
+                    double cur = Common.AI2Grp[cyl];
+                    Common.AI2Grp[cyl] = Math.Round(cur * jitter, 1);
+                }
+                catch { }
+            }
+
+            // 转速微小波动
+            try
+            {
+                double rpm = MiddleData.instnce.EngineSpeed;
+                if (rpm > 0)
+                {
+                    double newRpm = rpm + (_rand.NextDouble() - 0.5) * 4; // ±2rpm
+                    TRDPSimulatorService.Instance.InjectValue("柴油机转速", (decimal)newRpm);
+                    TRDPSimulatorService.Instance.InjectValue("电喷转速1#", (decimal)newRpm);
+                    TRDPSimulatorService.Instance.InjectValue("电喷转速2#", (decimal)newRpm);
+                    TRDPSimulatorService.Instance.InjectValue("转速传感器1#", (decimal)newRpm);
+                    TRDPSimulatorService.Instance.InjectValue("转速传感器2#", (decimal)newRpm);
+                }
+            }
+            catch { }
+
+            // 刷新串口设备心跳时间戳（防5秒超时）
+            ET4500.Instance.SimulateMode();
+            ZMPT650F.Instance.SimulateMode();
+
+            // 刷新 TRDP 连接时间戳（ForceConnected 内部已做）
+        }
+
+        #endregion
+
     }
 }

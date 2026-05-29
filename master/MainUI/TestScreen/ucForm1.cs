@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MainUI.Graph;
 using static MainUI.Modules.EventArgsModel;
+using System.IO;
 
 namespace MainUI.TestScreen
 {
@@ -143,9 +144,22 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void OpcExChangeReceiveGrp_KeyValueChangeStr(object sender, StringValueChangedEventArgs e)
         {
-            if (e.Key == "当前型号")
+            if (e.Key == "当前型号" && !string.IsNullOrEmpty(e.Value))
             {
+                if (Var.SysConfig.LastModel == e.Value) return;   // 没变就不重复加载
+                Var.SysConfig.LastModel = e.Value;
+                Var.SysConfig.Save();
 
+                // 本地加载该型号的 TRDP 配置（刷新 Var.TRDP.tags）
+                string path = $"{Application.StartupPath}\\TRDPConfig\\{e.Value}.xlsx";
+                if (File.Exists(path))
+                {
+                    var msg = Var.TRDP.InitExcel(path);
+                    // TODO:失败处理…
+                }
+
+                // 广播，驱动界面重建 + 故障判据重建
+                EventTriggerModel.RaiseOnModelNameChanged(e.Value);
             }
         }
 

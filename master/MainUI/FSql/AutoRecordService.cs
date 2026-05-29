@@ -92,7 +92,7 @@ namespace MainUI.FSql
                     HWaterTempOut = Common.waterGrp["高温水温度实时PID"],  // 10 高温水出机温度
 
 
-                    EngineWaterTempIn = 0,//Common.engineOilGrp[""], // 11 机油热交换器进口水温 未找到点
+                    EngineWaterTempIn = 0,//Common.engineOilGrp[""], // 11 机油热交换器进口水温（） 未找到点
                     EngineWaterTempOut = 0,//Common.engineOilGrp[""],// 12 机油热交换器出口水温 未找到点
 
 

@@ -461,6 +461,15 @@ namespace MainUI
             pnl.Controls.Add(lblStatus);
             y += 32;
 
+            var btnStop = MakeBtn("■ 停止持续注入", new Point(0, y), Color.FromArgb(160, 50, 50), 160);
+            btnStop.Click += delegate (object s, EventArgs e)
+            {
+                SimulatePresetService.Instance.StopKeepAlive();
+                lblStatus.Text = "持续注入已停止";
+                lblStatus.ForeColor = Color.Gray;
+            };
+            pnl.Controls.Add(btnStop);
+
             // ── 预设按钮组 ───────────────────────────────────────────────────
             y = AddPresetGroup(pnl, y, lblStatus, "100h 性能试验", new[]
             {
@@ -602,9 +611,19 @@ namespace MainUI
                 {
                     try
                     {
+                        // 先停掉上一个
+                        SimulatePresetService.Instance.StopKeepAlive();
+
+                        // 立即注入一次
                         captured();
                         SyncControlsToCurrentValues();
-                        capturedLbl.Text = string.Format("✓ 已注入：{0}  [{1}]",
+
+                        // 启动后台持续注入
+                        Action capturedAction = captured;
+                        SimulatePresetService.Instance.StartKeepAlive(capturedAction);
+
+                        capturedLbl.Text = string.Format(
+                            "✓ 持续注入中：{0}  [{1}]  后台每5秒刷新",
                             capturedTitle, DateTime.Now.ToString("HH:mm:ss"));
                         capturedLbl.ForeColor = Color.ForestGreen;
                     }

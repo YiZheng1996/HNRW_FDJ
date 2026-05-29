@@ -282,6 +282,7 @@ namespace MainUI
             this.tslblRYNG = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblRYSim = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblRYHY = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tslblJYBC = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblWaterOK = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblWaterNG = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblWaterSim = new System.Windows.Forms.ToolStripStatusLabel();
@@ -289,7 +290,6 @@ namespace MainUI
             this.tslblCommunication = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.timerPLC = new System.Windows.Forms.Timer(this.components);
-            this.tslblJYBC = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRunStatus)).BeginInit();
@@ -1541,6 +1541,7 @@ namespace MainUI
             this.btnPipeline.TabIndex = 525;
             this.btnPipeline.Text = "管路数据";
             this.btnPipeline.TipsFont = new System.Drawing.Font("微软雅黑", 13F);
+            this.btnPipeline.Visible = false;
             this.btnPipeline.Click += new System.EventHandler(this.btnSelectPage_Click);
             // 
             // panelTRDP
@@ -3096,9 +3097,9 @@ namespace MainUI
             this.panelPipeline.Controls.Add(this.ucValueLabel20);
             this.panelPipeline.Controls.Add(this.ucValueLabel67);
             this.panelPipeline.Controls.Add(this.ucValueLabel64);
-            this.panelPipeline.Location = new System.Drawing.Point(2, 6);
+            this.panelPipeline.Location = new System.Drawing.Point(16, 246);
             this.panelPipeline.Name = "panelPipeline";
-            this.panelPipeline.Size = new System.Drawing.Size(1249, 1003);
+            this.panelPipeline.Size = new System.Drawing.Size(41, 190);
             this.panelPipeline.TabIndex = 526;
             // 
             // ucValueLabel111
@@ -4676,6 +4677,7 @@ namespace MainUI
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.panelPipeline);
             this.splitContainer1.Panel1.Controls.Add(this.btnPipeline);
             this.splitContainer1.Panel1.Controls.Add(this.btnExit);
             this.splitContainer1.Panel1.Controls.Add(this.btnECM);
@@ -4683,7 +4685,6 @@ namespace MainUI
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.panelPipeline);
             this.splitContainer1.Panel2.Controls.Add(this.panelTRDP);
             this.splitContainer1.Size = new System.Drawing.Size(1920, 1039);
             this.splitContainer1.SplitterDistance = 91;
@@ -4861,6 +4862,15 @@ namespace MainUI
             this.tslblRYHY.Size = new System.Drawing.Size(78, 25);
             this.tslblRYHY.Text = "燃油耗仪";
             // 
+            // tslblJYBC
+            // 
+            this.tslblJYBC.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.tslblJYBC.Name = "tslblJYBC";
+            this.tslblJYBC.Size = new System.Drawing.Size(94, 25);
+            this.tslblJYBC.Text = "机油耗磅秤";
+            // 
             // tslblWaterOK
             // 
             this.tslblWaterOK.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
@@ -4919,15 +4929,6 @@ namespace MainUI
             // 
             this.timerPLC.Interval = 1000;
             this.timerPLC.Tick += new System.EventHandler(this.timerPLC_Tick);
-            // 
-            // tslblJYBC
-            // 
-            this.tslblJYBC.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.tslblJYBC.Name = "tslblJYBC";
-            this.tslblJYBC.Size = new System.Drawing.Size(94, 25);
-            this.tslblJYBC.Text = "机油耗磅秤";
             // 
             // ucForm2
             // 
