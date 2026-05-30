@@ -13,6 +13,7 @@ using MainUI.Global;
 using MainUI.Helper;
 using MainUI.Properties;
 using MainUI.Widget;
+using MetorSignalSimulator.UI.Model;
 using RW.Components.User;
 using Sunny.UI;
 using static MainUI.Modules.EventArgsModel;
@@ -96,6 +97,8 @@ namespace MainUI
 
             this.timerPLC.Enabled = true;
             this.timerPLC.Start();
+
+            InitDynamicTRDP();
         }
 
 
@@ -299,7 +302,7 @@ namespace MainUI
                 {
                     // 检测
                     IszcNg = _statusProcessor.FreshCommStatus(tslblCommunication, "台位主从通讯", Common.opcExChangeReceiveGrp.Simulated, Common.opcExChangeReceiveGrp.NoError);
-                    lsRYNg = _statusProcessor.FreshCommStatus(tslblRYHY, "燃油耗仪", false,  Common.opcExChangeReceiveGrp.GetDouble("油耗仪_NoError") == 1);
+                    lsRYNg = _statusProcessor.FreshCommStatus(tslblRYHY, "燃油耗仪", false, Common.opcExChangeReceiveGrp.GetDouble("油耗仪_NoError") == 1);
                     lsWeightNg = _statusProcessor.FreshCommStatus(tslblWeight, "称重仪", false, Common.opcExChangeReceiveGrp.GetDouble("称重仪_NoError") == 1);
                     IsBC = _statusProcessor.FreshCommStatus(tslblJYBC, "机油耗磅秤", false, Common.opcExChangeReceiveGrp.GetDouble("磅秤_NoError") == 1);
                 }
@@ -403,5 +406,258 @@ namespace MainUI
                 Application.Exit();
             }
         }
+
+        #region ECM数据自动生成
+
+        // ── 总开关：默认 false，保持现有功能不变 ────────────────────────────
+        /// <summary>
+        /// 是否启用 TRDP 动态界面生成。默认 false（沿用静态界面）。
+        /// 置 true 后，panelTRDP 内容将由 Var.TRDP.tags 自动生成。
+        /// </summary>
+        public bool EnableDynamicTRDP { get; set; } = true;
+
+        // ── 标记是否已订阅型号事件，避免重复订阅 ──────────────────────────
+        private bool _dynTRDPSubscribed = false;
+
+        // ── 布局常量（可按实际界面微调） ───────────────────────────────────
+        private const int DYN_PAD_X = 12;   // 左右内边距
+        private const int DYN_PAD_TOP = 12;  // 顶部内边距
+        private const int DYN_COL_W = 360;  // 每个数值条/灯行宽度
+        private const int DYN_ROW_H = 40;   // 行高（含间距）
+        private const int DYN_COL_GAP = 16;  // 列间距
+
+        /// <summary>
+        /// 启用并首次构建动态 TRDP 界面。
+        /// 在 ucForm2.Init() 末尾调用：若 EnableDynamicTRDP 为 true 则生效。
+        /// </summary>
+        public void InitDynamicTRDP()
+        {
+            if (!EnableDynamicTRDP) return;
+
+            // 订阅型号切换（只订阅一次）
+            if (!_dynTRDPSubscribed)
+            {
+                EventTriggerModel.OnModelNameChanged += OnDynTRDPModelChanged;
+                this.Disposed += (s, e) =>
+                {
+                    EventTriggerModel.OnModelNameChanged -= OnDynTRDPModelChanged;
+                };
+                _dynTRDPSubscribed = true;
+            }
+
+            // 首次构建（若已加载过型号 Excel，则立即铺满）
+            RebuildDynamicTRDP();
+        }
+
+        // ── 型号切换回调 ───────────────────────────────────────────────────
+        private void OnDynTRDPModelChanged(string modelName)
+        {
+            if (!EnableDynamicTRDP) return;
+            if (this.IsDisposed || !this.IsHandleCreated) return;
+            try
+            {
+                if (this.InvokeRequired)
+                    this.Invoke(new Action(RebuildDynamicTRDP));
+                else
+                    RebuildDynamicTRDP();
+            }
+            catch { /* 窗体已关闭，忽略 */ }
+        }
+
+        // ── 核心：重建 panelTRDP 内容 ──────────────────────────────────────
+        /// <summary>
+        /// 从 Var.TRDP.tags 读取当前型号信号，重建 panelTRDP 内的数值条/状态灯，
+        /// 并重建 dicValueLabel / dicLight 字典。必须在 UI 线程调用。
+        /// </summary>
+        private void RebuildDynamicTRDP()
+        {
+            if (panelTRDP == null) return;
+
+            panelTRDP.SuspendLayout();
+            try
+            {
+                // 1. 仅清空 panelTRDP 内的动态控件（管路 panel 不动）
+                ClearDynamicTRDPControls();
+
+                // 2. 从 dicValueLabel / dicLight 中移除属于 TRDP 的键，避免残留旧型号控件
+                //    （只移除由本方法生成、Tag 形式的键；管路键存在 dicPipeLabel，本就不在这两个字典里）
+                dicValueLabel.Clear();
+                dicLight.Clear();
+
+                // 3. 读取当前信号
+                var tags = GetDynamicTRDPTags();
+                if (tags.Count == 0)
+                {
+                    var tip = MakeDynTipLabel("当前未加载任何 ECM 信号，请先在主界面选择型号。");
+                    panelTRDP.Controls.Add(tip);
+                    return;
+                }
+
+                // 4. 分类：模拟量(数值条) / 数字量B1(状态灯)
+                var analogTags = tags.Where(t => IsDynAnalogType(t.DataType)).ToList();
+                var digitalTags = tags.Where(t => t.DataType == "B1").ToList();
+
+                // 5. 自动多列网格布局
+                int areaWidth = panelTRDP.ClientSize.Width > 0
+                    ? panelTRDP.ClientSize.Width
+                    : panelTRDP.Width;
+                int cols = Math.Max(1, (areaWidth - DYN_PAD_X) / (DYN_COL_W + DYN_COL_GAP));
+
+                int idx = 0;
+
+                // 5a. 模拟量数值条
+                foreach (var tag in analogTags)
+                {
+                    var ctrl = BuildDynValueLabel(tag);
+                    PlaceDynControl(ctrl, idx, cols);
+                    panelTRDP.Controls.Add(ctrl);
+
+                    // 注册到刷新字典（键 = 信号名 = DataLabel）
+                    if (!string.IsNullOrEmpty(tag.DataLabel) &&
+                        !dicValueLabel.ContainsKey(tag.DataLabel))
+                    {
+                        dicValueLabel.Add(tag.DataLabel, ctrl);
+                    }
+                    idx++;
+                }
+
+                // 5b. 数字量状态灯
+                foreach (var tag in digitalTags)
+                {
+                    var lightRow = BuildDynLightRow(tag, out UILight light);
+                    PlaceDynControl(lightRow, idx, cols);
+                    panelTRDP.Controls.Add(lightRow);
+
+                    if (!string.IsNullOrEmpty(tag.DataLabel) &&
+                        !dicLight.ContainsKey(tag.DataLabel))
+                    {
+                        dicLight.Add(tag.DataLabel, light);
+                    }
+                    idx++;
+                }
+            }
+            finally
+            {
+                panelTRDP.ResumeLayout();
+            }
+        }
+
+        // ── 清空 panelTRDP 内由本类生成的控件 ──────────────────────────────
+        private void ClearDynamicTRDPControls()
+        {
+            // 拷贝一份再移除，避免遍历时修改集合
+            var toRemove = new List<Control>();
+            foreach (Control c in panelTRDP.Controls)
+            {
+                toRemove.Add(c);
+            }
+            foreach (var c in toRemove)
+            {
+                panelTRDP.Controls.Remove(c);
+                c.Dispose();
+            }
+        }
+
+        // ── 生成一个模拟量数值条 ───────────────────────────────────────────
+        private ucValueLabel BuildDynValueLabel(FullTags tag)
+        {
+            var vl = new ucValueLabel
+            {
+                Width = DYN_COL_W,
+                Height = 34,
+                Tag = tag.DataLabel,          // ★ Tag = 信号名，供 TRDP_KeyValueChange 匹配
+                Title = tag.DataLabel,        // 标题显示信号名
+                Unit = string.IsNullOrEmpty(tag.DataUnit) ? "" : tag.DataUnit,
+                Value = 0
+            };
+            return vl;
+        }
+
+        // ── 生成一行“信号名 + 状态灯” ─────────────────────────────────────
+        private Panel BuildDynLightRow(FullTags tag, out UILight light)
+        {
+            var row = new Panel
+            {
+                Width = DYN_COL_W,
+                Height = 30,
+                BackColor = Color.Transparent
+            };
+
+            var lbl = new UILabel
+            {
+                Text = tag.DataLabel,
+                AutoSize = false,
+                Width = DYN_COL_W - 60,
+                Height = 28,
+                Location = new Point(0, 1),
+                TextAlign = ContentAlignment.MiddleLeft,
+                Font = new Font("宋体", 11F)
+            };
+
+            light = new UILight
+            {
+                Tag = tag.DataLabel,          // Tag = 信号名
+                Width = 24,
+                Height = 24,
+                Location = new Point(DYN_COL_W - 32, 3),
+                State = UILightState.Off
+            };
+
+            row.Controls.Add(lbl);
+            row.Controls.Add(light);
+            return row;
+        }
+
+        // ── 网格定位 ───────────────────────────────────────────────────────
+        private void PlaceDynControl(Control ctrl, int index, int cols)
+        {
+            int r = index / cols;
+            int c = index % cols;
+            int x = DYN_PAD_X + c * (DYN_COL_W + DYN_COL_GAP);
+            int y = DYN_PAD_TOP + r * DYN_ROW_H;
+            ctrl.Location = new Point(x, y);
+        }
+
+        // ── 提示标签 ───────────────────────────────────────────────────────
+        private Label MakeDynTipLabel(string text)
+        {
+            return new Label
+            {
+                Text = text,
+                AutoSize = true,
+                ForeColor = Color.Gray,
+                Font = new Font("宋体", 11F),
+                Location = new Point(DYN_PAD_X, DYN_PAD_TOP)
+            };
+        }
+
+        // ── 工具：取当前信号列表 ───────────────────────────────────────────
+        private static List<FullTags> GetDynamicTRDPTags()
+        {
+            try
+            {
+                if (Var.TRDP == null || Var.TRDP.tags == null)
+                    return new List<FullTags>();
+                return Var.TRDP.tags
+                    .Where(t => t != null && !string.IsNullOrEmpty(t.DataLabel))
+                    .ToList();
+            }
+            catch
+            {
+                return new List<FullTags>();
+            }
+        }
+
+        // ── 工具：判断是否模拟量类型 ───────────────────────────────────────
+        private static bool IsDynAnalogType(string dataType)
+        {
+            return dataType == "U16" || dataType == "I16"
+                || dataType == "U32" || dataType == "I32"
+                || dataType == "F32" || dataType == "U8"
+                || dataType == "I8";
+        }
+
+
+        #endregion
     }
 }
