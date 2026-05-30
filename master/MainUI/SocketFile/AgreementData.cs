@@ -70,6 +70,18 @@ namespace MetorSignalSimulator.UI.SocketFile
         public string carNo { get; set; }
 
         /// <summary>
+        /// 单位（仅用于显示，不入库）
+        /// </summary>
+        [Column(IsIgnore = true)]
+        public string dataUnit { get; set; } = "";
+
+        /// <summary>
+        /// 是否布尔报警量（仅显示用，不入库）
+        /// </summary>
+        [Column(IsIgnore = true)]
+        public string isBool { get; set; } = "";
+
+        /// <summary>
         /// 适用智能工装字段的扩展，端口号
         /// </summary>
         public string yuLiu2 { get; set; } = "";

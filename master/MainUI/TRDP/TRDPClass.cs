@@ -183,6 +183,7 @@ namespace BogieIdling.UI.TRDP
                 ft.DataLabel = item.signalName;
                 ft.DataType = item.dataType;
                 ft.DataRange = item.vhecileNo;
+                ft.DataUnit = item.dataUnit;
                 ft.Description = item.carNo;
                 ft.guzhangfenlei = item.yuLiu10;
                 ft.Identity = item.signalName.Contains("生命信号");
@@ -195,6 +196,10 @@ namespace BogieIdling.UI.TRDP
                 ft.COMMData = cd;
                 if (item.yuLiu5.Contains("以太网"))
                     newTags.Add(ft);
+
+                string boolFlag = (item.isBool ?? "").Trim();
+                ft.IsBoolAlarm = boolFlag == "1" || boolFlag == "是"
+                              || string.Equals(boolFlag, "true", StringComparison.OrdinalIgnoreCase);
 
                 AddPorts(item);
             }
@@ -225,7 +230,7 @@ namespace BogieIdling.UI.TRDP
                 List<ExcelModel> lstXLSmodel = new List<ExcelModel>();
 
                 //根据Excel文件列名，检索列名，判断文件是否正确 ？
-                var requiredColumns = new List<string> { "SignalName", "DataType", "ByteOffset", "BitOffset", "Scale", "RawHight", "RawLow", "ScaledHight", "ScaledLow" };
+                var requiredColumns = new List<string> { "SignalName", "DataType", "ByteOffset", "BitOffset", "Scale", "RawHight", "RawLow", "ScaledHight", "ScaledLow", "Unit" };
                 var actualColumnNames = MiniExcelLibs.MiniExcel.GetColumns(xlsFile, true).ToList();
                 // 检查是否包含所有必需列
                 bool allRequiredExists = requiredColumns.All(required => actualColumnNames.Contains(required));
@@ -252,6 +257,8 @@ namespace BogieIdling.UI.TRDP
                     ad.RawHight = model.RawHight;
                     ad.ScaledLow = model.ScaledLow;
                     ad.ScaledHight = model.ScaledHight;
+                    ad.dataUnit = model.Unit;
+                    ad.isBool = model.IsBool;
 
                     ad.yuLiu2 = Var.tRDPConfig.ReceiveCOMID.ToString();
                     ad.yuLiu5 = model.yuLiu5;

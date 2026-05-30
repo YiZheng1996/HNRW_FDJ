@@ -40,6 +40,11 @@ namespace MetorSignalSimulator.UI.Model
         /// </summary>
         public int ScaledLow { get; set; }
 
+        /// <summary>
+        /// UINT 但取值0/1的报警量，界面按状态灯显示（解析仍按原 DataType）
+        /// </summary>
+        public bool IsBoolAlarm { get; set; }
+
         public string DataRange { get; set; }
         public string DataUnit { get; set; }
         public string Description { get; set; }

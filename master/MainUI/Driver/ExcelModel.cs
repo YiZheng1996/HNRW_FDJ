@@ -46,8 +46,16 @@ namespace MetorSignalSimulator.UI.Model
         public int ScaledLow { get; set; }
 
         public bool IsLife { get; set; }
-        
-     
+
+        /// <summary>
+        /// 单位（rpm/℃/kPa 等）
+        /// </summary>
+        public string Unit { get; set; } = "";
+
+        /// <summary>
+        /// 是否布尔报警量：1=是(用灯显示)，空/0=否(模拟量数值条)。可选列
+        /// </summary>
+        public string IsBool { get; set; } = "";
 
         public string yuLiu4 { get; set; } = "1000";//通讯周期
 

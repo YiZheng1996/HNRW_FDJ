@@ -154,7 +154,7 @@ namespace MainUI.TestScreen
                 string path = $"{Application.StartupPath}\\TRDPConfig\\{e.Value}.xlsx";
                 if (File.Exists(path))
                 {
-                    var msg = Var.TRDP.InitExcel(path);
+                    //var msg = Var.TRDP.InitExcel(path);
                     // TODO:失败处理…
                 }
 
