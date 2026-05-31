@@ -424,7 +424,8 @@ namespace MainUI
         private const int DYN_PAD_TOP = 12;  // 顶部内边距
         private const int DYN_COL_W = 430;  // 每个数值条/灯行宽度
         private const int DYN_ROW_H = 40;   // 行高（含间距）
-        private const int DYN_COL_GAP = 16;  // 列间距
+        private const int DYN_COL_GAP = 50;  // 列间距
+        private const int DYN_DIGITAL_GAP = 24;  // 数字量列间距/起始间距，独立可调
 
         private static readonly Font DYN_TITLE_FONT = new Font("宋体", 13F, FontStyle.Bold);
         private const int DYN_VALUE_W = 110;
@@ -469,7 +470,6 @@ namespace MainUI
             catch { /* 窗体已关闭，忽略 */ }
         }
 
-        // ── 核心：重建 panelTRDP 内容 ──────────────────────────────────────
         /// <summary>
         /// 从 Var.TRDP.tags 读取当前型号信号，重建 panelTRDP 内的数值条/状态灯，
         /// 并重建 dicValueLabel / dicLight 字典。必须在 UI 线程调用。
@@ -493,7 +493,7 @@ namespace MainUI
                     return;
                 }
 
-                // 4. 分类
+                // 分类
                 // 数字量灯：B1 + Excel 标了 IsBool 的整型报警量
                 var digitalTags = tags.Where(t => t.DataType == "B1" || IsDynBooleanAlarm(t)).ToList();
                 // 模拟量数值条：真模拟量，排除 0/1 报警量
@@ -503,50 +503,69 @@ namespace MainUI
                     ? panelTRDP.ClientSize.Width : panelTRDP.Width;
 
                 const int analogCols = 3;   // 左：模拟量 3 列
-                const int digitalCols = 2;   // 右：数字量 2 列
+                const int digitalCols = 2;  // 右：数字量 2 列
 
-                // 左侧模拟量整块宽度 + 数字量区起始 X
-                int analogBlockW = analogCols * (DYN_COL_W + DYN_COL_GAP);
-                int digitalStartX = DYN_PAD_X + analogBlockW + DYN_COL_GAP * 2;
-
-                // 数字量每列宽度：自动平分右侧剩余宽度（避免越界，也填满红框区）
-                int digitalAreaW = areaWidth - digitalStartX - DYN_PAD_X;
-                int digitalColW = Math.Max(180, digitalAreaW / digitalCols);
-
-                // ── 模拟量：左侧 3 列，列优先（排序不变）──
-                int titleW = ComputeAnalogTitleWidth(analogTags);
+                // ── 模拟量：列优先分列，每列独立算标题宽度，逐列紧凑排布 ──
                 int analogRows = Math.Max(1, (analogTags.Count + analogCols - 1) / analogCols);
+
+                // 先按"列优先"把信号分到各列
+                var analogByCol = new List<List<FullTags>>();
+                for (int c = 0; c < analogCols; c++) analogByCol.Add(new List<FullTags>());
                 for (int i = 0; i < analogTags.Count; i++)
+                    analogByCol[Math.Min(analogCols - 1, i / analogRows)].Add(analogTags[i]);
+
+                // 累加式列起点：每列宽度按自身最长名称决定 → 名称与值贴紧
+                int colX = DYN_PAD_X;
+                for (int c = 0; c < analogCols; c++)
                 {
-                    var tag = analogTags[i];
-                    var ctrl = BuildDynValueLabel(tag, titleW);
+                    var colTags = analogByCol[c];
+                    if (colTags.Count == 0) continue;
 
-                    int col = i / analogRows;
-                    int row = i % analogRows;
-                    ctrl.Location = new Point(
-                        DYN_PAD_X + col * (DYN_COL_W + DYN_COL_GAP),
-                        DYN_PAD_TOP + row * DYN_ROW_H);
-                    panelTRDP.Controls.Add(ctrl);
+                    int colTitleW = ComputeAnalogTitleWidth(colTags);   // 每列独立
+                    int colCtrlW = colTitleW + DYN_VALUE_W + DYN_UNIT_W + DYN_GAP;
 
-                    if (!string.IsNullOrEmpty(tag.DataLabel) &&
-                        !dicValueLabel.ContainsKey(tag.DataLabel))
-                        dicValueLabel.Add(tag.DataLabel, ctrl);
+                    for (int r = 0; r < colTags.Count; r++)
+                    {
+                        var tag = colTags[r];
+                        var ctrl = BuildDynValueLabel(tag, colTitleW);
+                        ctrl.Location = new Point(colX, DYN_PAD_TOP + r * DYN_ROW_H);
+                        panelTRDP.Controls.Add(ctrl);
+
+                        if (!string.IsNullOrEmpty(tag.DataLabel) &&
+                            !dicValueLabel.ContainsKey(tag.DataLabel))
+                            dicValueLabel.Add(tag.DataLabel, ctrl);
+                    }
+
+                    colX += colCtrlW + DYN_COL_GAP;   // 下一列紧跟（DYN_COL_GAP 控制列间距）
                 }
 
-                // ── 数字量：右侧 2 列，列优先（从上往下排满一列，再下一列）──
+                // ── 数字量：紧跟模拟量右侧，列宽按最长名称定宽（不再平分剩余宽度）──
                 if (digitalTags.Count > 0)
                 {
-                    int digitalTop = DYN_PAD_TOP + DYN_ROW_H;   // 标题下一行开始
+                    // 数字量行宽 = 灯+间隙(30) + 最长名称 + 余量(16)
+                    int digTitleW = 0;
+                    using (var f = new Font("宋体", 11F))
+                    {
+                        foreach (var t in digitalTags)
+                        {
+                            int w = TextRenderer.MeasureText(t.DataLabel ?? "", f).Width;
+                            if (w > digTitleW) digTitleW = w;
+                        }
+                    }
+                    int digitalColW = 50 + digTitleW + 30;     // 单列实际宽度
+
+                    int digitalStartX = colX + DYN_DIGITAL_GAP;   // 与模拟量整体留点距离
+                    int digitalTop = DYN_PAD_TOP;
                     int digitalRows = Math.Max(1, (digitalTags.Count + digitalCols - 1) / digitalCols);
                     for (int i = 0; i < digitalTags.Count; i++)
                     {
                         var tag = digitalTags[i];
-                        var lightRow = BuildDynLightRow(tag, digitalColW - DYN_COL_GAP, out UILight light);
+                        var lightRow = BuildDynLightRow(tag, digitalColW, out UILight light);
 
                         int col = i / digitalRows;   // 列优先
                         int row = i % digitalRows;
                         lightRow.Location = new Point(
-                            digitalStartX + col * digitalColW,
+                            digitalStartX + col * (digitalColW + DYN_DIGITAL_GAP),  // 列间距独立
                             digitalTop + row * DYN_ROW_H);
                         panelTRDP.Controls.Add(lightRow);
 
@@ -575,13 +594,13 @@ namespace MainUI
             return Math.Min(titleW, maxTitleAllowed);
         }
 
-        // 只看 Excel 标记，不再靠 ScaledHight/备注猜
+        // 查看 Excel 标记
         private static bool IsDynBooleanAlarm(FullTags t)
         {
-            return t != null && t.IsBoolAlarm;   
+            return t != null && t.IsBoolAlarm;
         }
 
-        // ── 清空 panelTRDP 内由本类生成的控件 ──────────────────────────────
+        // 清空 panelTRDP 内由本类生成的控件
         private void ClearDynamicTRDPControls()
         {
             // 拷贝一份再移除，避免遍历时修改集合
@@ -607,7 +626,7 @@ namespace MainUI
                 Tag = tag.DataLabel,
                 Title = tag.DataLabel,
                 TitleFont = DYN_TITLE_FONT,
-                TitleWidth = titleW,            // ★ 所有控件相同 → value 框对齐
+                TitleWidth = titleW,            // 所有控件相同 value 框对齐
                 TitleColor = Color.Black,
                 ValueWidth = DYN_VALUE_W,
                 ValueColor = Color.Black,
@@ -620,7 +639,7 @@ namespace MainUI
         }
 
 
-        // ── 生成一行“信号名 + 状态灯” ─────────────────────────────────────
+        // 生成一行“信号名 + 状态灯” 
         private Panel BuildDynLightRow(FullTags tag, int rowWidth, out UILight light)
         {
             var row = new Panel
@@ -633,9 +652,9 @@ namespace MainUI
             light = new UILight
             {
                 Tag = tag.DataLabel,
-                Width = 22,
-                Height = 22,
-                Location = new Point(2, (row.Height - 22) / 2),
+                Width = 30,
+                Height = 30,
+                Location = new Point(2, (row.Height - 30) / 2),
                 State = UILightState.Off
             };
 
@@ -647,7 +666,7 @@ namespace MainUI
                 Height = row.Height,
                 Location = new Point(30, 0),
                 TextAlign = ContentAlignment.MiddleLeft,
-                Font = new Font("宋体", 11F),
+                Font = DYN_TITLE_FONT,
                 ForeColor = Color.Black
             };
 
@@ -656,17 +675,7 @@ namespace MainUI
             return row;
         }
 
-        // ── 网格定位 ───────────────────────────────────────────────────────
-        private void PlaceDynControl(Control ctrl, int index, int cols)
-        {
-            int r = index / cols;
-            int c = index % cols;
-            int x = DYN_PAD_X + c * (DYN_COL_W + DYN_COL_GAP);
-            int y = DYN_PAD_TOP + r * DYN_ROW_H;
-            ctrl.Location = new Point(x, y);
-        }
-
-        // ── 提示标签 ───────────────────────────────────────────────────────
+        //  提示标签
         private Label MakeDynTipLabel(string text)
         {
             return new Label
@@ -674,12 +683,12 @@ namespace MainUI
                 Text = text,
                 AutoSize = true,
                 ForeColor = Color.Gray,
-                Font = new Font("宋体", 11F),
+                Font = new Font("宋体", 13F),
                 Location = new Point(DYN_PAD_X, DYN_PAD_TOP)
             };
         }
 
-        // ── 工具：取当前信号列表 ───────────────────────────────────────────
+        // 取当前信号列表
         private static List<FullTags> GetDynamicTRDPTags()
         {
             try
@@ -696,7 +705,7 @@ namespace MainUI
             }
         }
 
-        // ── 工具：判断是否模拟量类型 ───────────────────────────────────────
+        // 判断是否模拟量类型
         private static bool IsDynAnalogType(string dataType)
         {
             return dataType == "U16" || dataType == "I16"
