@@ -68,7 +68,6 @@ namespace MainUI.TestScreen
             ucParamEngineOutP.SetRand(0, 1000, 900); // 机油出口压力 
 
             // 加载所有控件
-            LoadAllValve();
             EachControl(this);
             //LoadLabelValue();
 
@@ -82,9 +81,6 @@ namespace MainUI.TestScreen
             Common.threePhaseElectric.KeyValueChange += ThreePhaseElectric_KeyValueChange;
             Common.speedGrp.KeyValueChange += SpeedGrp_KeyValueChange;
             //Var.TRDP.KeyValueChange += TRDP_KeyValueChange;
-
-            // 监听型号更新
-            EventTriggerModel.OnModelNameChanged += OnMyModelNameChanged;
 
             // 接收型号
             Common.opcExChangeReceiveGrp.KeyValueChangeStr += OpcExChangeReceiveGrp_KeyValueChangeStr;
@@ -154,8 +150,9 @@ namespace MainUI.TestScreen
                 string path = $"{Application.StartupPath}\\TRDPConfig\\{e.Value}.xlsx";
                 if (File.Exists(path))
                 {
-                    //var msg = Var.TRDP.InitExcel(path);
-                    // TODO:失败处理…
+                    var msg = Var.TRDP.InitExcel(path);
+                    if (msg != "初始化成功")
+                        Var.LogInfo($"加载TRDP配置失败: {msg}");
                 }
 
                 // 广播，驱动界面重建 + 故障判据重建
@@ -226,39 +223,7 @@ namespace MainUI.TestScreen
                     targetScreen.Bounds.Top + (targetScreen.Bounds.Height - form.Height) / 2
                 );
             }
-        }
-
-        /// <summary>
-        /// 型号更新时刷新数据
-        /// </summary>
-        /// <param name="obj"></param>
-        private void OnMyModelNameChanged(string model)
-        {
-            //flowLayoutPanel1.Controls.Clear();
-            // S100 为kep的默认地址
-            if (model == "S100") return;
-            Var.SysConfig.LastModel = model;
-            Var.SysConfig.Save();
-
-            // 通过配置文件更新
-            DashboardConfig dashboard = new DashboardConfig(model);
-            foreach (var item in dashboard.dashboardDatas)
-            {
-                ucParamKeyUI ucParamKeyUI = new ucParamKeyUI();
-                ucParamKeyUI.Key = item.Point;
-                ucParamKeyUI.Title = item.Name;
-                ucParamKeyUI.Unit = item.Unit;
-                ucParamKeyUI.Size = new Size(290, 322);
-                // 设置控件自身的 Margin（上下左右间距）
-                ucParamKeyUI.Margin = new Padding(15, 15, 15, 15); // 上下 5px 间距
-                ucParamKeyUI.Font = new Font("宋体", 18F, FontStyle.Regular);
-                ucParamKeyUI.SetRand(item.MinVal, item.MaxVal, item.ScarmVal);
-
-                //flowLayoutPanel1.Controls.Add(ucParamKeyUI);
-            }
-
-            LoadAllValve();
-        }
+        }   
 
         /// <summary>
         /// 测量plc
@@ -379,33 +344,6 @@ namespace MainUI.TestScreen
             }
         }
 
-        /// <summary>
-        /// 把所有点位添加到字典
-        /// </summary>
-        private void LoadAllValve()
-        {
-            try
-            {
-                //ucParamKeyList.Clear();
-
-                //foreach (var item in this.flowLayoutPanel1.Controls)
-                //{
-
-                //    if (item is ucParamKeyUI)
-                //    {
-                //        ucParamKeyUI upp = item as ucParamKeyUI;
-                //        if (upp.Tag != null && string.IsNullOrEmpty(upp.Tag.ToString()) == false)
-                //        {
-                //            ucParamList.Add(upp.Tag.ToString(), upp);
-                //        }
-                //    }
-                //}
-            }
-            catch (Exception ex)
-            {
-                Var.MsgBoxWarn(this, "仪表盘添加控件错误" + ex.ToString());
-            }
-        }
 
         /// <summary>
         /// 添加控件到字典

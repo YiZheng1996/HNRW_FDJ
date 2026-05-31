@@ -189,9 +189,14 @@ namespace MainUI
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(() => TRDP_KeyValueChange(sender, e)));
+                // 异步投递，不阻塞后台 TRDP 推送线程；窗体已关闭则忽略
+                try { this.BeginInvoke(new Action(() => TRDP_KeyValueChange(sender, e))); }
+                catch { /* 窗体已销毁，忽略 */ }
                 return;
             }
+
+            // 重建期间字典处于清空/重填中间态，本帧跳过，重建完下一帧自然补上
+            if (_rebuildingTRDP) return;
 
             if (dicValueLabel.ContainsKey(e.Key))
             {
@@ -199,12 +204,23 @@ namespace MainUI
             }
             if (dicLight.ContainsKey(e.Key))
             {
-                dicLight[e.Key].State = e.Value == 0 ? UILightState.Off : UILightState.On;
+                // 普通报警位：值≠0→报警亮；反极性位(同步状态)：值==0→异常亮
+                bool on = IsActiveLowSignal(e.Key) ? (e.Value == 0) : (e.Value != 0);
+                dicLight[e.Key].State = on ? UILightState.On : UILightState.Off;
             }
-            if (e.Key == "同步状态")
+            if (e.Key == "同步状态" && lblConState != null && !lblConState.IsDisposed)
             {
-                this.lblConState.Text = e.Value == 0 ? "未同步" : "已同步";
+                lblConState.Text = e.Value == 0 ? "未同步" : "已同步";
             }
+        }
+
+        /// <summary>
+        /// 反极性信号：1=正常、0=异常（与普通报警位 0=正常、1=报警 相反）。
+        /// 目前仅"同步状态"。如有其它同类状态位，在此追加关键字即可。
+        /// </summary>
+        private static bool IsActiveLowSignal(string key)
+        {
+            return !string.IsNullOrEmpty(key) && key.Contains("同步状态");
         }
 
         /// <summary>
@@ -409,17 +425,21 @@ namespace MainUI
 
         #region ECM数据自动生成
 
-        // ── 总开关：默认 false，保持现有功能不变 ────────────────────────────
+        // 总开关：默认 false，保持现有功能不变
         /// <summary>
         /// 是否启用 TRDP 动态界面生成。默认 false（沿用静态界面）。
         /// 置 true 后，panelTRDP 内容将由 Var.TRDP.tags 自动生成。
         /// </summary>
         public bool EnableDynamicTRDP { get; set; } = true;
 
-        // ── 标记是否已订阅型号事件，避免重复订阅 ──────────────────────────
+        // 标记是否已订阅型号事件，避免重复订阅
         private bool _dynTRDPSubscribed = false;
 
-        // ── 布局常量（可按实际界面微调） ───────────────────────────────────
+        // 重建期间置 true，刷新回调据此跳帧，避免读到中间态字典。volatile 保证跨线程可见
+        private volatile bool _rebuildingTRDP = false;
+
+
+        // 布局常量（可按实际界面微调）
         private const int DYN_PAD_X = 12;   // 左右内边距
         private const int DYN_PAD_TOP = 12;  // 顶部内边距
         private const int DYN_COL_W = 430;  // 每个数值条/灯行宽度
@@ -455,7 +475,7 @@ namespace MainUI
             RebuildDynamicTRDP();
         }
 
-        // ── 型号切换回调 ───────────────────────────────────────────────────
+        // ── 型号切换回调
         private void OnDynTRDPModelChanged(string modelName)
         {
             if (!EnableDynamicTRDP) return;
@@ -463,7 +483,7 @@ namespace MainUI
             try
             {
                 if (this.InvokeRequired)
-                    this.Invoke(new Action(RebuildDynamicTRDP));
+                    this.BeginInvoke(new Action(RebuildDynamicTRDP));
                 else
                     RebuildDynamicTRDP();
             }
@@ -478,12 +498,14 @@ namespace MainUI
         {
             if (panelTRDP == null) return;
 
+            _rebuildingTRDP = true;
             panelTRDP.SuspendLayout();
             try
             {
-                ClearDynamicTRDPControls();
+                // 先断开字典引用，再销毁控件
                 dicValueLabel.Clear();
                 dicLight.Clear();
+                ClearDynamicTRDPControls();
 
                 var tags = GetDynamicTRDPTags();
                 if (tags.Count == 0)
@@ -578,6 +600,7 @@ namespace MainUI
             finally
             {
                 panelTRDP.ResumeLayout();
+                _rebuildingTRDP = false;
             }
         }
 
@@ -607,6 +630,9 @@ namespace MainUI
             var toRemove = new List<Control>();
             foreach (Control c in panelTRDP.Controls)
             {
+                // 仅保护同步状态固定控件，其余照旧全清
+                if (ReferenceEquals(c, lblConState)) continue;
+                if (ReferenceEquals(c, label3)) continue;   // "同步状态："前缀，可选
                 toRemove.Add(c);
             }
             foreach (var c in toRemove)
@@ -655,6 +681,10 @@ namespace MainUI
                 Width = 30,
                 Height = 30,
                 Location = new Point(2, (row.Height - 30) / 2),
+                OffColor = SystemColors.ControlText,
+                OffCenterColor = Color.Silver,
+                OnColor = Color.Red,
+                OnCenterColor = Color.FromArgb(255, 188, 128),
                 State = UILightState.Off
             };
 
@@ -716,5 +746,22 @@ namespace MainUI
 
 
         #endregion
+
+        private void uiButton1_Click(object sender, EventArgs e)
+        {
+            frmFullSimulator.ShowInstance();
+        }
+
+        private void uiButton2_Click(object sender, EventArgs e)
+        {
+            Var.TRDP.InitExcel($"{Application.StartupPath}\\TRDPConfig\\12V240.xlsx");
+            EventTriggerModel.RaiseOnModelNameChanged("12V240");
+        }
+
+        private void uiButton3_Click(object sender, EventArgs e)
+        {
+            Var.TRDP.InitExcel($"{Application.StartupPath}\\TRDPConfig\\12V280.xlsx");
+            EventTriggerModel.RaiseOnModelNameChanged("12V280");
+        }
     }
 }

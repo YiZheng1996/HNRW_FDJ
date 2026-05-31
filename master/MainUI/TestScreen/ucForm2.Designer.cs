@@ -267,6 +267,7 @@ namespace MainUI
             this.ucValueLabel64 = new MainUI.Widget.ucValueLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.uiButton1 = new Sunny.UI.UIButton();
             this.btnExit = new Sunny.UI.UIImageButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tslblUser = new System.Windows.Forms.ToolStripStatusLabel();
@@ -290,6 +291,8 @@ namespace MainUI
             this.tslblCommunication = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.timerPLC = new System.Windows.Forms.Timer(this.components);
+            this.uiButton2 = new Sunny.UI.UIButton();
+            this.uiButton3 = new Sunny.UI.UIButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRunStatus)).BeginInit();
@@ -4677,6 +4680,9 @@ namespace MainUI
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.uiButton3);
+            this.splitContainer1.Panel1.Controls.Add(this.uiButton2);
+            this.splitContainer1.Panel1.Controls.Add(this.uiButton1);
             this.splitContainer1.Panel1.Controls.Add(this.panelPipeline);
             this.splitContainer1.Panel1.Controls.Add(this.btnPipeline);
             this.splitContainer1.Panel1.Controls.Add(this.btnExit);
@@ -4690,6 +4696,21 @@ namespace MainUI
             this.splitContainer1.SplitterDistance = 91;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 700;
+            // 
+            // uiButton1
+            // 
+            this.uiButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton1.Font = new System.Drawing.Font("微软雅黑", 13F);
+            this.uiButton1.Location = new System.Drawing.Point(7, 473);
+            this.uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton1.Name = "uiButton1";
+            this.uiButton1.Size = new System.Drawing.Size(76, 93);
+            this.uiButton1.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton1.StyleCustomMode = true;
+            this.uiButton1.TabIndex = 527;
+            this.uiButton1.Text = "ECM数据模拟测试";
+            this.uiButton1.TipsFont = new System.Drawing.Font("微软雅黑", 13F);
+            this.uiButton1.Click += new System.EventHandler(this.uiButton1_Click);
             // 
             // btnExit
             // 
@@ -4929,6 +4950,36 @@ namespace MainUI
             // 
             this.timerPLC.Interval = 1000;
             this.timerPLC.Tick += new System.EventHandler(this.timerPLC_Tick);
+            // 
+            // uiButton2
+            // 
+            this.uiButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton2.Font = new System.Drawing.Font("微软雅黑", 13F);
+            this.uiButton2.Location = new System.Drawing.Point(7, 577);
+            this.uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton2.Name = "uiButton2";
+            this.uiButton2.Size = new System.Drawing.Size(76, 93);
+            this.uiButton2.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton2.StyleCustomMode = true;
+            this.uiButton2.TabIndex = 528;
+            this.uiButton2.Text = "12V240";
+            this.uiButton2.TipsFont = new System.Drawing.Font("微软雅黑", 13F);
+            this.uiButton2.Click += new System.EventHandler(this.uiButton2_Click);
+            // 
+            // uiButton3
+            // 
+            this.uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton3.Font = new System.Drawing.Font("微软雅黑", 13F);
+            this.uiButton3.Location = new System.Drawing.Point(7, 683);
+            this.uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton3.Name = "uiButton3";
+            this.uiButton3.Size = new System.Drawing.Size(76, 93);
+            this.uiButton3.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton3.StyleCustomMode = true;
+            this.uiButton3.TabIndex = 529;
+            this.uiButton3.Text = "12V280";
+            this.uiButton3.TipsFont = new System.Drawing.Font("微软雅黑", 13F);
+            this.uiButton3.Click += new System.EventHandler(this.uiButton3_Click);
             // 
             // ucForm2
             // 
@@ -5221,5 +5272,8 @@ namespace MainUI
         private System.Windows.Forms.ToolStripStatusLabel tslblVersion;
         private System.Windows.Forms.ToolStripStatusLabel tslblWeight;
         private System.Windows.Forms.ToolStripStatusLabel tslblJYBC;
+        private Sunny.UI.UIButton uiButton1;
+        private Sunny.UI.UIButton uiButton3;
+        private Sunny.UI.UIButton uiButton2;
     }
 }
