@@ -1,5 +1,4 @@
-﻿// UnifiedFaultDetectionService.cs
-using MainUI.Config;
+﻿using MainUI.Config;
 using MainUI.Fault;
 using MainUI.Fault.Model;
 using MainUI.Global;
@@ -198,7 +197,11 @@ namespace MainUI.Services
             CurrentData.B1B6缸排气温度 = new double[6];
             CurrentData._1_7档轴温 = new double[7];
 
-            _ecmFaultConditions = CreateECMFaultConditions();
+            // 加载 FaultProfiles/{model}.faults.json。不存在或解析失败返回 false（调用方回退老逻辑）
+            if (_ecmEngine.LoadProfile(Var.SysConfig.LastModel))
+                _ecmFaultConditions = _ecmEngine.BuildConditions();
+            else
+                _ecmFaultConditions = CreateECMFaultConditions();
 
             // 初始化所有故障
             InitializeAllFaults();
@@ -793,7 +796,7 @@ namespace MainUI.Services
             t.Start();
         }
 
-   
+
         /// <summary>
         /// 开始检测试验台检测停机故障线程
         /// </summary>
@@ -862,7 +865,7 @@ namespace MainUI.Services
 
             //            if (CurrentData.发动机转速 > 300) 
             //            {
-                            
+
             //            }
             //        }
             //        catch (Exception ex)
@@ -897,6 +900,9 @@ namespace MainUI.Services
         /// </summary>
         private void DetectECMFaults()
         {
+            // 刷新引擎快照
+            if (_ecmEngine.HasProfile) _ecmEngine.RefreshSnapshot();
+
             foreach (var fault in _ecmFaultConditions)
             {
                 var faultId = fault.Key;
@@ -921,11 +927,11 @@ namespace MainUI.Services
                 {
                     FaultStatusChange(FaultTypeEnum.communication, item.Value ? WarnTypeEnum.Alarm : WarnTypeEnum.None, item.Key);
                 }
-                else if (item.Key.Contains("过流") || item.Key.Contains("阀故障")) 
+                else if (item.Key.Contains("过流") || item.Key.Contains("阀故障"))
                 {
                     FaultStatusChange(FaultTypeEnum.opcDetection, item.Value ? WarnTypeEnum.Tip : WarnTypeEnum.None, item.Key);
                 }
-                else if(item.Key.Contains("已停止") || item.Key.Contains("不下降"))
+                else if (item.Key.Contains("已停止") || item.Key.Contains("不下降"))
                 {
                     FaultStatusChange(FaultTypeEnum.opcDetection, item.Value ? WarnTypeEnum.Alarm : WarnTypeEnum.None, item.Key);
                 }
@@ -1061,6 +1067,27 @@ namespace MainUI.Services
             {
                 state.AlarmConditionMet = false;
             }
+            // 仅记录(只提示不报警/不蜂鸣)——优先级最低，仅当判据提供 CheckTip 时检测
+            // 老型号(240) CheckTip 恒为 null，此分支对其零影响
+            if (detectedType == WarnTypeEnum.None && condition.CheckTip != null && condition.CheckTip(CurrentData))
+            {
+                lock (_lock)
+                {
+                    if (!state.TipConditionMet)
+                    {
+                        state.TipConditionMet = true;
+                        state.TipStartTime = now;
+                    }
+                    if ((now - state.TipStartTime).TotalSeconds >= condition.TipDuration)
+                    {
+                        detectedType = WarnTypeEnum.Tip;
+                    }
+                }
+            }
+            else
+            {
+                state.TipConditionMet = false;
+            }
 
             // 只有故障更新后才更新故障状态
             if (detectedType != WarnTypeEnum.None && state.CurrentActiveFault != detectedType)
@@ -1190,7 +1217,7 @@ namespace MainUI.Services
         /// </summary>
         private void RecordFaultToDatabase(string faultCode, FaultState state, WarnTypeEnum warnType)
         {
-            try 
+            try
             {
                 string id = Guid.NewGuid().ToString("N");
                 FaultEvent faultEventRecord = new FaultEvent()
@@ -1533,15 +1560,68 @@ namespace MainUI.Services
             try
             {
                 Var.FaultConfig = new FaultConfig(model);
-                // 重新初始化ECM故障条件
-                _ecmFaultConditions = CreateECMFaultConditions();
+                if (_ecmEngine.LoadProfile(model))
+                    _ecmFaultConditions = _ecmEngine.BuildConditions();
+                else
+                    _ecmFaultConditions = CreateECMFaultConditions(); // 重新初始化ECM故障条件
+
+                // 判据键变了，重建状态字典（原代码这里没调，280必须加）
+                InitializeAllFaults();
             }
             catch (Exception ex)
             {
                 // 创建默认配置
                 Var.FaultConfig = new FaultConfig();
             }
-          
+
         }
+
+        #region 当前型号是否由数据驱动引擎接管
+
+        /// <summary>
+        /// 数据驱动 ECM 故障引擎（有 {型号}.faults.json 才接管）
+        /// </summary>
+        private readonly MainUI.Fault.Engine.EcmFaultEngine _ecmEngine = new MainUI.Fault.Engine.EcmFaultEngine();
+
+        /// <summary>
+        /// 当前型号是否由数据驱动引擎接管
+        /// </summary>
+        public bool EcmEngineActive => _ecmEngine.HasProfile;
+
+        /// <summary>
+        /// 参数编辑器保存后，即时重载当前型号的 ECM 判据并重建状态。
+        /// 仅当前型号有 JSON 时才接管；无 JSON 不动（240 等老型号走原逻辑）。
+        /// </summary>
+        public void ReloadEcmProfileIfActive()
+        {
+            string model = Var.SysConfig.LastModel;
+            if (!_ecmEngine.LoadProfile(model)) return;   // 无JSON → 不接管
+
+            _ecmFaultConditions = _ecmEngine.BuildConditions();
+
+            // 仅重建 ECM 这一组的状态，其它类型(通讯/OPC/计算)不动
+            if (_faultGroups.TryGetValue(FaultTypeEnum.ecm, out var oldEcm) && oldEcm != null)
+            {
+                foreach (var name in oldEcm)
+                {
+                    FaultState dummy;
+                    _faultStates.TryRemove(name, out dummy);
+                }
+            }
+            var ecmFaults = new List<string>();
+            foreach (var faultId in _ecmFaultConditions.Keys)
+            {
+                _faultStates[faultId] = new FaultState()
+                {
+                    Name = faultId,
+                    Desc = faultId,
+                    FaultType = FaultTypeEnum.ecm
+                };
+                ecmFaults.Add(faultId);
+            }
+            _faultGroups[FaultTypeEnum.ecm] = ecmFaults;
+        }
+
+        #endregion
     }
 }

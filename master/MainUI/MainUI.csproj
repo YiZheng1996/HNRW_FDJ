@@ -195,6 +195,10 @@
     <Compile Include="Driver\UDPBaseSend.cs" />
     <Compile Include="Equip\ET4500.cs" />
     <Compile Include="ETH\VarHelperETH.cs" />
+    <Compile Include="Fault\Engine\EcmFaultEngine.cs" />
+    <Compile Include="Fault\Engine\Ecmfaultmodels.cs" />
+    <Compile Include="Fault\Engine\EcmProfileStore.cs" />
+    <Compile Include="Fault\Engine\Ecmsignalprovider.cs" />
     <Compile Include="Fault\frmCurrentWarn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,6 +216,12 @@
     </Compile>
     <Compile Include="Fault\frmWarnParaConfig.Designer.cs">
       <DependentUpon>frmWarnParaConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fault\frmWarnParaDynamic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fault\frmWarnParaDynamic.Designer.cs">
+      <DependentUpon>frmWarnParaDynamic.cs</DependentUpon>
     </Compile>
     <Compile Include="Fault\GlobalClickLogger.cs" />
     <Compile Include="Fault\Model\FaultCondition.cs" />
@@ -906,6 +916,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Fault\frmWarnParaConfig.resx">
       <DependentUpon>frmWarnParaConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fault\frmWarnParaDynamic.resx">
+      <DependentUpon>frmWarnParaDynamic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fault\ucWarnList.resx">
       <DependentUpon>ucWarnList.cs</DependentUpon>

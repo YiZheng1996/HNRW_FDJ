@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
-using MainUI.Model;
-using RW.UI.Controls;
-using RW.EventLog;
-using RW.UI;
-using MainUI.Services;
-using MainUI.Fault;
-using System.Threading;
+﻿using MainUI.Fault;
+using MainUI.Fault.Engine;
 using MainUI.Fault.Model;
 using MainUI.Global;
+using RW.UI;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace MainUI.Widget
 {
+    /// <summary>
+    /// 动态报警墙扩展。
+    /// 目的：当前型号若由数据驱动引擎接管(存在 {型号}.faults.json)，
+    /// 按 JSON 的规则名补建设计期不存在的 ucWarn 控件，使 280 等新型号的
+    /// 故障也能在报警列表里点亮，且不改动任何现有(240)控件与逻辑。
+    /// 240 无 JSON 时该方法直接返回，零影响。
+    /// </summary>
     public partial class ucWarnList : UserControl
     {
         /// <summary>
@@ -148,6 +149,7 @@ namespace MainUI.Widget
             }
             this.flowLayoutPanel1.ResumeLayout();
 
+            BuildDynamicEcmWarns();
         }
 
         /// <summary>
@@ -450,17 +452,26 @@ namespace MainUI.Widget
         /// <param name="e"></param>
         private void btnPara_Click(object sender, EventArgs e)
         {
-            // 根据型号加载 frmFalutEdit 
             if (RWUser.Current.Permission == "工艺员" || RWUser.Current.Permission == "管理员")
             {
-                frmWarnParaConfig frmWarn = new frmWarnParaConfig();
-                frmWarn.ShowDialog();
+                string model = Var.SysConfig.LastModel;
+                if (EcmProfileStore.Exists(model))
+                {
+                    // 280等有JSON的型号 → 动态图形编辑器
+                    var f = new MainUI.Fault.frmWarnParaDynamic(model);
+                    f.ShowDialog();
+                }
+                else
+                {
+                    // 240等老型号 → 原参数页，完全不变
+                    frmWarnParaConfig frmWarn = new frmWarnParaConfig();
+                    frmWarn.ShowDialog();
+                }
             }
             else
             {
                 Var.MsgBoxInfo(this, "当前用户权限不足。");
             }
-
         }
 
         /// <summary>
@@ -746,6 +757,95 @@ namespace MainUI.Widget
             _lblFuelingStatus.Text = text;
             _lblFuelingStatus.BackColor = backColor;
             _lblFuelingStatus.Visible = visible;
+        }
+
+        #endregion
+
+        #region 动态报警墙扩展
+
+        /// <summary>已动态补建的控件（便于型号切换时清理），与现有 _faultWarnMap 并存。</summary>
+        private readonly List<ucWarn> _dynamicEcmWarns = new List<ucWarn>();
+
+        /// <summary>
+        /// 按当前型号的引擎判据补建缺失的 ucWarn。
+        /// 仅补“现有 _faultWarnMap 里没有的 Key”，已有的固定控件原样复用。
+        /// </summary>
+        public void BuildDynamicEcmWarns()
+        {
+            try
+            {
+                if (this.DesignMode) return;
+
+                string model = Var.SysConfig != null ? Var.SysConfig.LastModel : null;
+                if (!EcmProfileStore.Exists(model)) return;   // 无JSON(如240) → 不动
+
+                var profile = EcmProfileStore.Load(model);
+                if (profile == null || profile.Rules == null) return;
+
+                this.flowLayoutPanel1.SuspendLayout();
+
+                foreach (var rule in profile.Rules)
+                {
+                    string key = rule.Name;
+                    if (string.IsNullOrEmpty(key)) continue;
+                    if (_faultWarnMap.ContainsKey(key)) continue;   // 已有固定控件，复用
+
+                    var w = NewEcmWarn(key);
+                    this.flowLayoutPanel1.Controls.Add(w);
+                    _faultWarnMap.Add(key, w);
+                    _dynamicEcmWarns.Add(w);
+                }
+
+                this.flowLayoutPanel1.ResumeLayout();
+            }
+            catch (Exception ex)
+            {
+                try { Var.LogInfo("BuildDynamicEcmWarns 失败: " + ex.Message); } catch { }
+            }
+        }
+
+        /// <summary>
+        /// 型号切换时调用：清掉上一型号动态补建的控件，再按新型号重建。
+        /// 固定控件(_faultWarnMap 里设计期那批)不动。
+        /// </summary>
+        public void RebuildDynamicEcmWarns()
+        {
+            try
+            {
+                if (this.DesignMode) return;
+                this.flowLayoutPanel1.SuspendLayout();
+                foreach (var w in _dynamicEcmWarns)
+                {
+                    string k = w.Key;
+                    if (_faultWarnMap.ContainsKey(k)) _faultWarnMap.Remove(k);
+                    this.flowLayoutPanel1.Controls.Remove(w);
+                    w.Dispose();
+                }
+                _dynamicEcmWarns.Clear();
+                this.flowLayoutPanel1.ResumeLayout();
+
+                BuildDynamicEcmWarns();
+            }
+            catch (Exception ex)
+            {
+                try { Var.LogInfo("RebuildDynamicEcmWarns 失败: " + ex.Message); } catch { }
+            }
+        }
+
+        /// <summary>按现有固定 ucWarn 的样式新建一个，保证视觉一致。</summary>
+        private ucWarn NewEcmWarn(string key)
+        {
+            var w = new ucWarn
+            {
+                Key = key,
+                Title = key,
+                Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(134))),
+                Margin = new Padding(5),
+                Size = new Size(561, 37),
+                ShowStopButton = false,
+                Visible = false
+            };
+            return w;
         }
 
         #endregion

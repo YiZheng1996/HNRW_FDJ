@@ -33,6 +33,16 @@ namespace MainUI.Fault.Model
         /// </summary>
         public Func<SensorData, bool> CheckStop { get; set; }
         public double StopDuration { get; set; } = 0;
+
+        /// <summary>
+        /// 仅记录(不报警/不蜂鸣)判据，数据驱动引擎用；老型号不设置=null
+        /// </summary>
+        public Func<SensorData, bool> CheckTip { get; set; }
+
+        /// <summary>
+        /// 仅记录判据的持续时间(秒)
+        /// </summary>
+        public int TipDuration { get; set; }
     }
 
 }

@@ -747,21 +747,5 @@ namespace MainUI
 
         #endregion
 
-        private void uiButton1_Click(object sender, EventArgs e)
-        {
-            frmFullSimulator.ShowInstance();
-        }
-
-        private void uiButton2_Click(object sender, EventArgs e)
-        {
-            Var.TRDP.InitExcel($"{Application.StartupPath}\\TRDPConfig\\12V240.xlsx");
-            EventTriggerModel.RaiseOnModelNameChanged("12V240");
-        }
-
-        private void uiButton3_Click(object sender, EventArgs e)
-        {
-            Var.TRDP.InitExcel($"{Application.StartupPath}\\TRDPConfig\\12V280.xlsx");
-            EventTriggerModel.RaiseOnModelNameChanged("12V280");
-        }
     }
 }

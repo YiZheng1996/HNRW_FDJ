@@ -1,4 +1,5 @@
-﻿using MainUI.Fault.Model;
+﻿using MainUI.Fault.Engine;
+using MainUI.Fault.Model;
 using MainUI.Services;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,12 @@ using System.Windows.Forms;
 
 namespace MainUI.Fault
 {
+    /// <summary>
+    /// 动态报警墙扩展
+    /// 当前型号若由引擎接管(存在 JSON)，按规则名补建缺失的 ucWarn，
+    /// 加入 gpWarn1 并注册进 _faultWarnMap，使 另外型号 故障也能在“实时报警”窗亮灯。
+    /// 240 无 JSON 时不动。
+    /// </summary>
     public partial class frmCurrentWarn : Form
     {
         /// <summary>
@@ -51,6 +58,8 @@ namespace MainUI.Fault
             }
             // 订阅故障检测事件
             Var.FaultService.FaultDetected += OnFaultDetected;
+
+            BuildDynamicEcmWarns();
         }
 
         /// <summary>
@@ -84,5 +93,67 @@ namespace MainUI.Fault
         {
             this.Close();
         }
+
+        #region 动态报警墙扩展
+
+        private readonly List<ucWarn> _dynamicEcmWarns = new List<ucWarn>();
+
+        /// <summary>gpWarn1 绝对定位：动态控件按列堆叠的起始位置与行距。</summary>
+        private int _dynStartX = 11;
+        private int _dynStartY = 700;   // 放在固定控件下方；如有重叠按实际界面调此值
+        private const int DYN_ROW_H = 42;
+
+        public void BuildDynamicEcmWarns()
+        {
+            try
+            {
+                if (this.DesignMode) return;
+
+                string model = Var.SysConfig?.LastModel;
+                if (!EcmProfileStore.Exists(model)) return;
+
+                var profile = EcmProfileStore.Load(model);
+                if (profile == null || profile.Rules == null) return;
+
+                this.gpWarn1.SuspendLayout();
+
+                int idx = 0;
+                foreach (var rule in profile.Rules)
+                {
+                    string key = rule.Name;
+                    if (string.IsNullOrEmpty(key)) continue;
+                    if (_faultWarnMap.ContainsKey(key)) continue;
+
+                    var w = NewEcmWarn(key, _dynStartX, _dynStartY + idx * DYN_ROW_H);
+                    this.gpWarn1.Controls.Add(w);
+                    _faultWarnMap.Add(key, w);
+                    _dynamicEcmWarns.Add(w);
+                    idx++;
+                }
+
+                this.gpWarn1.ResumeLayout();
+            }
+            catch (Exception ex)
+            {
+                try { Var.LogInfo("frmCurrentWarn.BuildDynamicEcmWarns 失败: " + ex.Message); } catch { }
+            }
+        }
+
+        private ucWarn NewEcmWarn(string key, int x, int y)
+        {
+            var w = new ucWarn
+            {
+                Key = key,
+                Title = key,
+                Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(134))),
+                Margin = new Padding(5),
+                Size = new Size(561, 37),
+                Location = new Point(x, y),
+                ShowStopButton = false
+            };
+            return w;
+        }
+
+        #endregion
     }
 }
