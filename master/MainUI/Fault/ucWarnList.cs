@@ -6,6 +6,7 @@ using RW.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -455,17 +456,15 @@ namespace MainUI.Widget
             if (RWUser.Current.Permission == "工艺员" || RWUser.Current.Permission == "管理员")
             {
                 string model = Var.SysConfig.LastModel;
+                string jsonPath = EcmProfileStore.PathOf(model);
                 if (EcmProfileStore.Exists(model))
                 {
-                    // 280等有JSON的型号 → 动态图形编辑器
-                    var f = new MainUI.Fault.frmWarnParaDynamic(model);
-                    f.ShowDialog();
+                    var profile = EcmProfileStore.Load(model);   // 强类型，不是 JObject
+                    new frmWarnParaDynamic(jsonPath).ShowDialog(); // 保存在窗体内部走 EcmProfileStore.Save(profile)
                 }
                 else
                 {
-                    // 240等老型号 → 原参数页，完全不变
-                    frmWarnParaConfig frmWarn = new frmWarnParaConfig();
-                    frmWarn.ShowDialog();
+                    new frmWarnParaConfig().ShowDialog();          // 240：原窗体不动
                 }
             }
             else

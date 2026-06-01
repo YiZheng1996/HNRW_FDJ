@@ -83,12 +83,6 @@ namespace MainUI.Fault
             }
         }
 
-        private void ucFaultList_Load(object sender, EventArgs e)
-        {
-            // 可以在这里开始模拟数据变化来测试
-
-        }
-
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
