@@ -87,7 +87,7 @@ namespace MainUI.Fault
                 Padding = new Padding(0, 12, 16, 12),
                 BackColor = Color.FromArgb(243, 249, 255)
             };
-
+             
             var btnExit = new UIButton
             {
                 Text = "退出",
