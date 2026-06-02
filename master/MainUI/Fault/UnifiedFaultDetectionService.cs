@@ -753,8 +753,13 @@ namespace MainUI.Services
                         // 原逻辑为：CurrentData.发动机转速 而不是 GetEngineSpeed()，以前逻辑存在BUG，这样无论 TRDP 有没有数据，只要发动机在转，门控就会放行，飞轮超速就能被正确检测到
                         bool isEngineRunningNow = (MiddleData.instnce.GetEngineSpeed() > MiddleData.instnce.SelectModelConfig.MinSpeed - 10 && Common.DOgrp["发动机DC24V供电"]);
 
-                        // ECM故障检测（仅在发动机稳定运行超过5秒后检测）
-                        if (isEngineRunningNow && Var.FaultConfig?.FaultDataLists?.Count > 0)
+                        // ECM故障检测
+                        //if (isEngineRunningNow && Var.FaultConfig?.FaultDataLists?.Count > 0)
+
+                        // ECM故障检测（仅在发动机稳定运行超过5秒后检测） 
+                        // 门控由“240的INI执行阶段列表是否非空”改为“当前型号是否有ECM判据”，
+                        // 使 280型号 等 JSON 型号不再依赖与其无关的 FaultDataLists。240型号 行为不变（其 _ecmFaultConditions 同样非空）。
+                        if (isEngineRunningNow && _ecmFaultConditions != null && _ecmFaultConditions.Count > 0)
                         {
                             // 如果发动机刚达到运行条件，开始计时
                             if (!wasEngineRunning)
@@ -816,7 +821,13 @@ namespace MainUI.Services
                         bool isEngineRunningNow = (CurrentData.发动机转速 > MiddleData.instnce.SelectModelConfig.MinSpeed - 10 && Common.DOgrp["发动机DC24V供电"]);
 
                         // 停机故障检测
-                        if (Var.FaultConfig?.FaultDataLists?.Count > 0 && stopList.Count > 0 && isEngineRunningNow)
+                        //if (Var.FaultConfig?.FaultDataLists?.Count > 0 && stopList.Count > 0 && isEngineRunningNow)
+
+
+                        // 停机故障检测：门控由“240 的 FaultDataLists 非空”改为“故障判据已就绪”，
+                        // 与 StartFaultDetectionThread 保持同一判据，避免“检测在跑、停机不发”的割裂
+                        if (_ecmFaultConditions != null && _ecmFaultConditions.Count > 0
+                            && stopList.Count > 0 && isEngineRunningNow)
                         {
                             // 如果满足停机条件，则下发停机指令
                             if (!IsStopDoing)
@@ -836,9 +847,11 @@ namespace MainUI.Services
 
                     Thread.Sleep(500);
                 }
-            });
-            t.IsBackground = true;
-            t.Name = "检测需要停机线程";
+            })
+            {
+                IsBackground = true,
+                Name = "检测需要停机线程"
+            };
             t.Start();
 
 

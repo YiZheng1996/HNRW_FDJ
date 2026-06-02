@@ -54,8 +54,33 @@ namespace MainUI.Fault
                 try { Var.FaultService.FaultDetected -= OnFaultDetected; } catch { }
             };
 
-            // 一开窗即反映当前型号当前故障态（幂等、无副作用）
-            try { Var.FaultService.FaultCheckResend(); } catch { }
+            // Shown 后做（句柄已建、已绘制）
+            this.Shown += (s, e) => SyncActiveFaults();
+        }
+
+        /// <summary>窗体显示后，直接从故障服务拉当前活跃故障并点亮，不依赖事件重放时机。幂等、无副作用。</summary>
+        private void SyncActiveFaults()
+        {
+            try
+            {
+                var active = Var.FaultService.GetActiveFaults();   // Dictionary<string,FaultState>，key=故障名
+                foreach (var kv in _map)
+                {
+                    ucWarn w = kv.Value;
+                    w.RestartSwitch();                              // 先全灭
+                    if (active.TryGetValue(kv.Key, out var st)
+                        && st != null
+                        && st.FaultType == FaultTypeEnum.ecm
+                        && st.CurrentActiveFault != WarnTypeEnum.None)
+                    {
+                        w.CurrentFault = st.CurrentActiveFault;     // 对应级别点亮
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                try { Var.LogInfo("frmCurrentWarnDynamic.SyncActiveFaults 失败: " + ex.Message); } catch { }
+            }
         }
 
         // ── 外壳：标题 / 冻结表头 / 行容器 / 返回 ──
