@@ -150,6 +150,10 @@ namespace MainUI.Widget
             }
             this.flowLayoutPanel1.ResumeLayout();
 
+            // 此刻 map 里只有设计期 ucWarn，拍一份快照
+            _fixedWarns.Clear();
+            _fixedWarns.AddRange(_faultWarnMap.Values);
+
             // 首次构建动态报警灯，并在此安装型号切换钩子（缺这一句切型号不会刷新）
             BuildDynamicEcmWarns();
         }
@@ -420,7 +424,11 @@ namespace MainUI.Widget
 
         private void btnFaultMore_Click(object sender, EventArgs e)
         {
-            frmCurrent.ShowDialog();
+            string model = Var.SysConfig != null ? Var.SysConfig.LastModel : null;
+            if (EcmProfileStore.Exists(model))
+                new frmCurrentWarnDynamic(model).ShowDialog();   // 有 JSON(280…) → 生成式
+            else
+                frmCurrent.ShowDialog();                         // 240 → 原弹窗，原样不动
         }
 
         /// <summary>
@@ -763,6 +771,9 @@ namespace MainUI.Widget
 
         #region 动态报警墙扩展（型号驱动）
 
+        /// <summary>设计期固定控件快照（init 时拍一次）。型号切换时按 Key 只隐不显，绝不 Dispose。</summary>
+        private readonly List<ucWarn> _fixedWarns = new List<ucWarn>();
+
         /// <summary>本类补建的动态控件（型号切换时定点清理），与固定的 _faultWarnMap 并存。</summary>
         private readonly List<ucWarn> _dynamicEcmWarns = new List<ucWarn>();
 
@@ -782,6 +793,8 @@ namespace MainUI.Widget
             try
             {
                 if (this.DesignMode) return;
+
+                ApplyFixedWarnVisibility(); // 每次构建都先校正固定控件显隐
 
                 string model = Var.SysConfig?.LastModel;
                 if (!EcmProfileStore.Exists(model)) return;   // 无 JSON(如240) → 不动
@@ -908,6 +921,39 @@ namespace MainUI.Widget
             // 让报警墙立刻反映新型号的当前故障态（新型号刚初始化通常全为正常）。
             // FaultCheckResend 只对当前活跃故障重发 FaultDetected，幂等、无副作用。
             try { Var.FaultService?.FaultCheckResend(); } catch { }
+        }
+
+        /// <summary>
+        /// 切到带 JSON 的型号时，熄灭当前型号未引用到的固定灯（型号专属/不适用的灯）。
+        /// 命中 keep 的固定灯不碰，由 OnFaultDetected/FaultCheckResend 按故障态自行决定显隐。
+        /// 无 JSON(240) → keep 为 null → 本方法不做任何事，固定灯显隐保持原故障驱动逻辑。
+        /// </summary>
+        private void ApplyFixedWarnVisibility()
+        {
+            string model = Var.SysConfig?.LastModel;
+            if (!EcmProfileStore.Exists(model)) return;   // 240：不动
+
+            var profile = EcmProfileStore.Load(model);
+            var keep = new HashSet<string>(StringComparer.Ordinal);
+            if (profile?.Rules != null)
+                foreach (var r in profile.Rules)
+                    if (!string.IsNullOrEmpty(r.Name)) keep.Add(r.Name);
+
+            this.flowLayoutPanel1.SuspendLayout();
+            try
+            {
+                foreach (var w in _fixedWarns)
+                {
+                    if (w == null || w.IsDisposed) continue;
+                    if (!keep.Contains(w.Key))   // 当前型号用不到 → 熄灭
+                        w.Visible = false;
+                    // 命中 keep 的固定灯不动，交回故障态驱动
+                }
+            }
+            finally
+            {
+                this.flowLayoutPanel1.ResumeLayout();
+            }
         }
 
         #endregion

@@ -205,6 +205,12 @@
     <Compile Include="Fault\frmCurrentWarn.Designer.cs">
       <DependentUpon>frmCurrentWarn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Fault\frmCurrentWarnDynamic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fault\frmCurrentWarnDynamic.Designer.cs">
+      <DependentUpon>frmCurrentWarnDynamic.cs</DependentUpon>
+    </Compile>
     <Compile Include="Fault\frmFaultManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -905,6 +911,9 @@
     </Compile>
     <EmbeddedResource Include="Fault\frmCurrentWarn.resx">
       <DependentUpon>frmCurrentWarn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fault\frmCurrentWarnDynamic.resx">
+      <DependentUpon>frmCurrentWarnDynamic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fault\frmFaultManager.resx">
       <DependentUpon>frmFaultManager.cs</DependentUpon>
