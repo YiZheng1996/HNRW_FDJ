@@ -124,6 +124,7 @@ namespace MainUI
             tab.TabPages.Add(BuildDITab());
             tab.TabPages.Add(BuildSerialTab());
             tab.TabPages.Add(BuildPresetTab());
+            tab.TabPages.Add(BuildModelFaultTriggerTab());
             tab.TabPages.Add(BuildTRDPEmbeddedTab());
 
             var status = new StatusStrip();
@@ -1577,5 +1578,195 @@ namespace MainUI
             public Label ValueLabel { get; set; }
             public NumericUpDown Nud { get; set; }
         }
+
+
+        #region 按型号故障触发”Tab（纯加法扩展）
+
+        private readonly TrdpModelFaultPreset _mftEngine = new TrdpModelFaultPreset();
+        private FlowLayoutPanel _mftFlow;
+        private readonly ToolTip _mftTip = new ToolTip();
+
+        /// <summary>构建“故障触发(按型号)”Tab。供构造函数 tab.TabPages.Add(...) 调用。</summary>
+        private TabPage BuildModelFaultTriggerTab()
+        {
+            var tp = new TabPage("故障触发(按型号)") { Padding = new Padding(0) };
+
+            var host = new Panel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,
+                Padding = new Padding(12, 10, 12, 10)
+            };
+
+            host.Controls.Add(new Label
+            {
+                Dock = DockStyle.Top,
+                Height = 40,
+                Font = new Font("微软雅黑", 8.5f),
+                ForeColor = Color.DimGray,
+                Text = "按当前型号 faults.json 的判据自动反推 TRDP 注入值，一键触发对应故障。\r\n" +
+                       "橙色按钮含非 TRDP 前置(如功率/飞轮转速)，需在对应 Tab 或主控同时满足才会真正报警。"
+            });
+
+            _mftFlow = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = true,
+                AutoScroll = true
+            };
+            host.Controls.Add(_mftFlow);
+            // 控件添加顺序：Fill 先加、Top 后加（WinForms Dock 规则）
+            host.Controls.SetChildIndex(_mftFlow, 0);
+
+            tp.Controls.Add(host);
+
+            // 型号切换 → 重建按钮（自带订阅与反订阅，互不影响现有 TRDP 重建）
+            MainUI.Global.EventTriggerModel.OnModelNameChanged += MftOnModelChanged;
+            FormClosed += delegate (object s, FormClosedEventArgs e)
+            {
+                MainUI.Global.EventTriggerModel.OnModelNameChanged -= MftOnModelChanged;
+            };
+
+            MftRebuild();
+            return tp;
+        }
+
+        private void MftOnModelChanged(string modelName)
+        {
+            if (IsDisposed || !IsHandleCreated) return;
+            try { Invoke(new Action(MftRebuild)); } catch { }
+        }
+
+        private void MftRebuild()
+        {
+            if (_mftFlow == null) return;
+
+            _mftFlow.SuspendLayout();
+            _mftFlow.Controls.Clear();
+
+            string model = Var.SysConfig?.LastModel;
+
+            if (string.IsNullOrEmpty(model) || !_mftEngine.HasProfileFor(model))
+            {
+                _mftFlow.Controls.Add(MftHint(
+                    "当前型号（" + (model ?? "未选择") + "）无 faults.json，无可触发的故障判据。"));
+                _mftFlow.ResumeLayout();
+                return;
+            }
+
+            // 工具按钮
+            _mftFlow.Controls.Add(MftMakeButton("清除全部故障", Color.FromArgb(40, 110, 60), () =>
+            {
+                int n = _mftEngine.ClearAllFaultFlagsForModel(model);
+                TrdpAppendLog("[故障触发] 已清除 " + n + " 个故障位（" + model + "）。",
+                    TRDPSimulatorService.LogLevel.OK);
+            }));
+            _mftFlow.Controls.Add(MftMakeButton("复位上次注入", Color.FromArgb(90, 90, 90), () =>
+            {
+                int n = _mftEngine.RestoreLastTrigger();
+                TrdpAppendLog("[故障触发] 已复位 " + n + " 个本轮注入信号。",
+                    TRDPSimulatorService.LogLevel.Info);
+            }));
+            _mftFlow.Controls.Add(new Label { Width = 12, Height = 34, Margin = new Padding(4) });
+
+            // 规则按钮
+            var rules = _mftEngine.GetTriggerableRules(model);
+            if (rules.Count == 0)
+            {
+                _mftFlow.Controls.Add(MftHint("faults.json 未定义任何规则。"));
+            }
+            else
+            {
+                foreach (var info in rules)
+                {
+                    Color c = info.HasNonTrdpDependency
+                        ? Color.FromArgb(186, 117, 23)   // 橙：含非 TRDP 前置
+                        : Color.FromArgb(40, 90, 150);    // 蓝：纯 TRDP
+
+                    string ruleName = info.Name;
+                    var btn = MftMakeButton("触发: " + info.Name, c, () => MftDoTrigger(model, ruleName));
+
+                    string tip = info.Note ?? "";
+                    if (info.HasNonTrdpDependency)
+                        tip += "（含非 TRDP 前置条件，需在对应 Tab/主控同时满足才会真正报警）";
+                    _mftTip.SetToolTip(btn, tip);
+
+                    _mftFlow.Controls.Add(btn);
+                }
+            }
+
+            _mftFlow.ResumeLayout();
+        }
+
+        private void MftDoTrigger(string model, string ruleName)
+        {
+            var r = _mftEngine.ForceTriggerRule(model, ruleName);
+
+            var sb = new System.Text.StringBuilder();
+            sb.Append("[故障触发] " + ruleName + " ");
+            if (r.Injected.Count > 0)
+                sb.Append("注入: " + string.Join(", ", r.Injected) + "。 ");
+            if (r.SkippedNonTrdp.Count > 0)
+                sb.Append("非 TRDP 未驱动: " + string.Join("; ", r.SkippedNonTrdp) + "。 ");
+            if (r.Notes.Count > 0)
+                sb.Append(string.Join(" ", r.Notes));
+
+            var lvl = (r.Injected.Count == 0 && r.SkippedNonTrdp.Count > 0)
+                ? TRDPSimulatorService.LogLevel.Warn
+                : TRDPSimulatorService.LogLevel.OK;
+            TrdpAppendLog(sb.ToString(), lvl);
+
+            if (r.Injected.Count == 0 && r.SkippedNonTrdp.Count > 0)
+                MessageBox.Show(
+                    "该规则的判定信号全部来自非 TRDP 数据源，TRDP 模拟器无法驱动：\r\n\r\n" +
+                    string.Join("\r\n", r.SkippedNonTrdp),
+                    "无法仅靠 TRDP 触发", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // ── 小控件工厂 ─────────────────────────────────────────────────────
+
+        private Button MftMakeButton(string text, Color back, Action onClick)
+        {
+            var b = new Button
+            {
+                Text = text,
+                AutoSize = false,
+                Width = 172,
+                Height = 34,
+                Margin = new Padding(4),
+                FlatStyle = FlatStyle.Flat,
+                ForeColor = Color.White,
+                BackColor = back,
+                Font = new Font("微软雅黑", 9f),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Cursor = Cursors.Hand,
+                UseVisualStyleBackColor = false
+            };
+            b.FlatAppearance.BorderSize = 0;
+            b.Click += delegate (object s, EventArgs e)
+            {
+                try { onClick(); }
+                catch (Exception ex)
+                {
+                    TrdpAppendLog("[故障触发] 操作异常：" + ex.Message, TRDPSimulatorService.LogLevel.Fault);
+                }
+            };
+            return b;
+        }
+
+        private Label MftHint(string text)
+        {
+            return new Label
+            {
+                Text = text,
+                AutoSize = true,
+                ForeColor = Color.Gray,
+                Margin = new Padding(4, 8, 4, 4),
+                Font = new Font("微软雅黑", 9f)
+            };
+        }
+
+        #endregion
     }
 }

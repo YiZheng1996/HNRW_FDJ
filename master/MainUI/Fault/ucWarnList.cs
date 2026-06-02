@@ -150,6 +150,7 @@ namespace MainUI.Widget
             }
             this.flowLayoutPanel1.ResumeLayout();
 
+            // 首次构建动态报警灯，并在此安装型号切换钩子（缺这一句切型号不会刷新）
             BuildDynamicEcmWarns();
         }
 
@@ -760,10 +761,13 @@ namespace MainUI.Widget
 
         #endregion
 
-        #region 动态报警墙扩展
+        #region 动态报警墙扩展（型号驱动）
 
-        /// <summary>已动态补建的控件（便于型号切换时清理），与现有 _faultWarnMap 并存。</summary>
+        /// <summary>本类补建的动态控件（型号切换时定点清理），与固定的 _faultWarnMap 并存。</summary>
         private readonly List<ucWarn> _dynamicEcmWarns = new List<ucWarn>();
+
+        /// <summary>型号切换事件钩子是否已安装（惰性安装，确保只订阅一次）。</summary>
+        private bool _ecmModelHookInstalled;
 
         /// <summary>
         /// 按当前型号的引擎判据补建缺失的 ucWarn。
@@ -771,31 +775,39 @@ namespace MainUI.Widget
         /// </summary>
         public void BuildDynamicEcmWarns()
         {
+            // 钩子必须无条件先装好：即使当前是 240(无JSON)，
+            // 也要能在切到 280 时收到通知并刷新。
+            EnsureEcmModelHook();
+
             try
             {
                 if (this.DesignMode) return;
 
-                string model = Var.SysConfig != null ? Var.SysConfig.LastModel : null;
-                if (!EcmProfileStore.Exists(model)) return;   // 无JSON(如240) → 不动
+                string model = Var.SysConfig?.LastModel;
+                if (!EcmProfileStore.Exists(model)) return;   // 无 JSON(如240) → 不动
 
                 var profile = EcmProfileStore.Load(model);
                 if (profile == null || profile.Rules == null) return;
 
                 this.flowLayoutPanel1.SuspendLayout();
-
-                foreach (var rule in profile.Rules)
+                try
                 {
-                    string key = rule.Name;
-                    if (string.IsNullOrEmpty(key)) continue;
-                    if (_faultWarnMap.ContainsKey(key)) continue;   // 已有固定控件，复用
+                    foreach (var rule in profile.Rules)
+                    {
+                        string key = rule.Name;
+                        if (string.IsNullOrEmpty(key)) continue;
+                        if (_faultWarnMap.ContainsKey(key)) continue;   // 已有固定控件 → 复用
 
-                    var w = NewEcmWarn(key);
-                    this.flowLayoutPanel1.Controls.Add(w);
-                    _faultWarnMap.Add(key, w);
-                    _dynamicEcmWarns.Add(w);
+                        var w = NewEcmWarn(key);
+                        this.flowLayoutPanel1.Controls.Add(w);
+                        _faultWarnMap.Add(key, w);
+                        _dynamicEcmWarns.Add(w);
+                    }
                 }
-
-                this.flowLayoutPanel1.ResumeLayout();
+                finally
+                {
+                    this.flowLayoutPanel1.ResumeLayout();
+                }
             }
             catch (Exception ex)
             {
@@ -804,24 +816,33 @@ namespace MainUI.Widget
         }
 
         /// <summary>
-        /// 型号切换时调用：清掉上一型号动态补建的控件，再按新型号重建。
-        /// 固定控件(_faultWarnMap 里设计期那批)不动。
+        /// 型号切换时调用：先清掉上一型号补建的控件，再按新型号重建。
+        /// 设计期固定控件(_faultWarnMap 里那批)不动。
         /// </summary>
         public void RebuildDynamicEcmWarns()
         {
             try
             {
                 if (this.DesignMode) return;
+
                 this.flowLayoutPanel1.SuspendLayout();
-                foreach (var w in _dynamicEcmWarns)
+                try
                 {
-                    string k = w.Key;
-                    if (_faultWarnMap.ContainsKey(k)) _faultWarnMap.Remove(k);
-                    this.flowLayoutPanel1.Controls.Remove(w);
-                    w.Dispose();
+                    foreach (var w in _dynamicEcmWarns)
+                    {
+                        if (w == null) continue;
+                        string k = w.Key;
+                        if (!string.IsNullOrEmpty(k) && _faultWarnMap.ContainsKey(k))
+                            _faultWarnMap.Remove(k);
+                        this.flowLayoutPanel1.Controls.Remove(w);
+                        w.Dispose();
+                    }
+                    _dynamicEcmWarns.Clear();
                 }
-                _dynamicEcmWarns.Clear();
-                this.flowLayoutPanel1.ResumeLayout();
+                finally
+                {
+                    this.flowLayoutPanel1.ResumeLayout();
+                }
 
                 BuildDynamicEcmWarns();
             }
@@ -834,7 +855,7 @@ namespace MainUI.Widget
         /// <summary>按现有固定 ucWarn 的样式新建一个，保证视觉一致。</summary>
         private ucWarn NewEcmWarn(string key)
         {
-            var w = new ucWarn
+            return new ucWarn
             {
                 Key = key,
                 Title = key,
@@ -844,7 +865,49 @@ namespace MainUI.Widget
                 ShowStopButton = false,
                 Visible = false
             };
-            return w;
+        }
+
+        // 型号切换即时刷新
+        /// <summary>
+        /// 惰性安装型号切换钩子（只装一次）。订阅 EventTriggerModel.OnModelNameChanged，
+        /// 并在控件销毁时反订阅，避免静态事件持有已释放控件造成泄漏/跨线程异常。
+        /// </summary>
+        private void EnsureEcmModelHook()
+        {
+            if (_ecmModelHookInstalled) return;
+            _ecmModelHookInstalled = true;
+
+            EventTriggerModel.OnModelNameChanged += OnEcmModelChanged;
+            this.Disposed += (s, e) =>
+            {
+                EventTriggerModel.OnModelNameChanged -= OnEcmModelChanged;
+            };
+        }
+
+        /// <summary>
+        /// 型号切换回调。可能在后台线程触发，统一切到 UI 线程后再重建控件。
+        /// </summary>
+        private void OnEcmModelChanged(string modelName)
+        {
+            if (this.IsDisposed || !this.IsHandleCreated) return;
+            try
+            {
+                if (this.InvokeRequired)
+                    this.BeginInvoke(new Action(RefreshAfterModelChanged));
+                else
+                    RefreshAfterModelChanged();
+            }
+            catch { /* 控件已销毁，忽略 */ }
+        }
+
+        /// <summary>UI 线程：重建动态控件，并立即按新型号当前故障状态重绘报警墙。</summary>
+        private void RefreshAfterModelChanged()
+        {
+            RebuildDynamicEcmWarns();
+
+            // 让报警墙立刻反映新型号的当前故障态（新型号刚初始化通常全为正常）。
+            // FaultCheckResend 只对当前活跃故障重发 FaultDetected，幂等、无副作用。
+            try { Var.FaultService?.FaultCheckResend(); } catch { }
         }
 
         #endregion

@@ -774,13 +774,8 @@
     <Compile Include="TRDP\Simulator\Frmfullsimulator.Designer.cs">
       <DependentUpon>Frmfullsimulator.cs</DependentUpon>
     </Compile>
-    <Compile Include="TRDP\Simulator\frmTRDPSimulator.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TRDP\Simulator\frmTRDPSimulator.Designer.cs">
-      <DependentUpon>frmTRDPSimulator.cs</DependentUpon>
-    </Compile>
     <Compile Include="TRDP\Simulator\SimulatePresetService.cs" />
+    <Compile Include="TRDP\Simulator\TrdpModelFaultPreset.cs" />
     <Compile Include="TRDP\Simulator\Trdpsimulatorservice.cs" />
     <Compile Include="TRDP\TRDPClass.cs" />
     <Compile Include="TestScreen\ucForm2.cs">
@@ -1121,9 +1116,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TRDP\Simulator\Frmfullsimulator.resx">
       <DependentUpon>Frmfullsimulator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TRDP\Simulator\frmTRDPSimulator.resx">
-      <DependentUpon>frmTRDPSimulator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ucParaManger.resx">
       <DependentUpon>ucParaManger.cs</DependentUpon>
