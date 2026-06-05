@@ -978,10 +978,16 @@ namespace MainUI
         private void TrdpAddAnalogRow(Panel parent, ref int y, FullTags tag, string unit)
         {
             string sigName = tag.DataLabel;
+
             decimal scale = tag.dataFormat <= 0m ? 1m : tag.dataFormat;
             int decPlaces = scale >= 1m ? 0 : (scale >= 0.1m ? 1 : 2);
             decimal engMax = TrdpGetPhysicalMax(sigName, unit, scale);
             decimal engMin = 0m;
+
+            // 小量程信号即便系数≥1也要给小数位（如曲轴箱压力 0~1，阈值 0.6）
+            if (engMax <= 2m) decPlaces = Math.Max(decPlaces, 2);
+            else if (engMax <= 20m) decPlaces = Math.Max(decPlaces, 1);
+
             int tbMax = (int)engMax; if (tbMax < 1) tbMax = 1;
 
             var lblName = TrdpMakeLabel(
@@ -1014,7 +1020,7 @@ namespace MainUI
                 Minimum = engMin,
                 Maximum = engMax,
                 DecimalPlaces = decPlaces,
-                Increment = scale < 1m ? scale : 1m,
+                Increment = DecimalStep(decPlaces),   // ← 改这里
                 Value = engMin,
                 Font = new Font("Consolas", 9f)
             };
@@ -1054,6 +1060,14 @@ namespace MainUI
             _trdpAnalogControls[sigName] = new TrdpAnalogEntry
             { TrackBar = tb, ValueLabel = lblVal, Nud = nud };
             y += 34;
+        }
+
+        /// <summary>按小数位返回最小步进：0→1, 1→0.1, 2→0.01。</summary>
+        private static decimal DecimalStep(int decPlaces)
+        {
+            decimal s = 1m;
+            for (int i = 0; i < decPlaces; i++) s /= 10m;
+            return s;
         }
 
         // ── 数字量 Tab ───────────────────────────────────────────────────────

@@ -152,8 +152,7 @@ namespace MainUI.Modules
                 this.Register<bool>(tag, delegate (bool value)
                 {
                     _listFault1[idx] = value;
-                    if (FaultgrpChanged1 != null)
-                        FaultgrpChanged1(this, idx, value);
+                    FaultgrpChanged1?.Invoke(this, idx, value);
                 });
             }
 

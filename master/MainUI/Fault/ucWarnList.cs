@@ -154,6 +154,12 @@ namespace MainUI.Widget
             _fixedWarns.Clear();
             _fixedWarns.AddRange(_faultWarnMap.Values);
 
+            // 记录固定控件设计期按钮显隐，供型号切换时还原
+            _fixedOrigBtn.Clear();
+            foreach (var w in _fixedWarns)
+                if (w != null)
+                    _fixedOrigBtn[w] = new BtnVis { Alarm = w.ShowAlarmButton, Shed = w.ShowSheddingButton, Stop = w.ShowStopButton };
+
             // 首次构建动态报警灯，并在此安装型号切换钩子（缺这一句切型号不会刷新）
             BuildDynamicEcmWarns();
         }
@@ -770,6 +776,9 @@ namespace MainUI.Widget
         #endregion
 
         #region 动态报警墙扩展（型号驱动）
+        private struct BtnVis { public bool Alarm, Shed, Stop; }
+        /// <summary>固定控件设计期按钮显隐原值快照（用于 280→240 切回还原）。</summary>
+        private readonly Dictionary<ucWarn, BtnVis> _fixedOrigBtn = new Dictionary<ucWarn, BtnVis>();
 
         /// <summary>设计期固定控件快照（init 时拍一次）。型号切换时按 Key 只隐不显，绝不 Dispose。</summary>
         private readonly List<ucWarn> _fixedWarns = new List<ucWarn>();
@@ -811,7 +820,7 @@ namespace MainUI.Widget
                         if (string.IsNullOrEmpty(key)) continue;
                         if (_faultWarnMap.ContainsKey(key)) continue;   // 已有固定控件 → 复用
 
-                        var w = NewEcmWarn(key);
+                        var w = NewEcmWarn(rule);
                         this.flowLayoutPanel1.Controls.Add(w);
                         _faultWarnMap.Add(key, w);
                         _dynamicEcmWarns.Add(w);
@@ -865,9 +874,32 @@ namespace MainUI.Widget
             }
         }
 
-        /// <summary>按现有固定 ucWarn 的样式新建一个，保证视觉一致。</summary>
-        private ucWarn NewEcmWarn(string key)
+
+        /// <summary>按现有固定 ucWarn 的样式新建一个，按规则涉及的级别决定三个灯显隐（与 frmCurrentWarnDynamic 一致）。</summary>
+        private ucWarn NewEcmWarn(RuleDef rule)
         {
+            string key = rule?.Name ?? "";
+
+            bool hasAlarm = false, hasShed = false, hasStop = false;
+
+            if (rule?.Checks != null)
+                foreach (var c in rule.Checks)
+                {
+                    if (c == null || string.IsNullOrEmpty(c.Level)) continue;
+                    if (string.Equals(c.Level, "Alarm", StringComparison.OrdinalIgnoreCase)) hasAlarm = true;
+                    else if (string.Equals(c.Level, "Shedding", StringComparison.OrdinalIgnoreCase)) hasShed = true;
+                    else if (string.Equals(c.Level, "Stop", StringComparison.OrdinalIgnoreCase)) hasStop = true;
+                    // Record/Tip 不开灯
+                }
+
+            // 表决规则（规范 11.1/11.2：增压器进油压、曲轴箱压力）按 Vote.Level 决定灯
+            if (rule?.Vote != null && !string.IsNullOrEmpty(rule.Vote.Level))
+            {
+                if (string.Equals(rule.Vote.Level, "Alarm", StringComparison.OrdinalIgnoreCase)) hasAlarm = true;
+                else if (string.Equals(rule.Vote.Level, "Shedding", StringComparison.OrdinalIgnoreCase)) hasShed = true;
+                else if (string.Equals(rule.Vote.Level, "Stop", StringComparison.OrdinalIgnoreCase)) hasStop = true;
+            }
+
             return new ucWarn
             {
                 Key = key,
@@ -875,7 +907,9 @@ namespace MainUI.Widget
                 Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(134))),
                 Margin = new Padding(5),
                 Size = new Size(561, 37),
-                ShowStopButton = false,
+                ShowAlarmButton = hasAlarm,
+                ShowSheddingButton = hasShed,
+                ShowStopButton = hasStop,
                 Visible = false
             };
         }
@@ -931,13 +965,27 @@ namespace MainUI.Widget
         private void ApplyFixedWarnVisibility()
         {
             string model = Var.SysConfig?.LastModel;
-            if (!EcmProfileStore.Exists(model)) return;   // 240：不动
+            bool hasJson = EcmProfileStore.Exists(model);
+
+            // 先把所有固定控件按钮显隐还原到设计期原值（保证 280→240 切回不残留）
+            foreach (var w in _fixedWarns)
+            {
+                if (w == null || w.IsDisposed) continue;
+                if (_fixedOrigBtn.TryGetValue(w, out var o))
+                {
+                    w.ShowAlarmButton = o.Alarm;
+                    w.ShowSheddingButton = o.Shed;
+                    w.ShowStopButton = o.Stop;
+                }
+            }
+
+            if (!hasJson) return;   // 240：还原后不做型号联动，原逻辑零影响
 
             var profile = EcmProfileStore.Load(model);
-            var keep = new HashSet<string>(StringComparer.Ordinal);
+            var ruleByName = new Dictionary<string, RuleDef>(StringComparer.Ordinal);
             if (profile?.Rules != null)
                 foreach (var r in profile.Rules)
-                    if (!string.IsNullOrEmpty(r.Name)) keep.Add(r.Name);
+                    if (!string.IsNullOrEmpty(r.Name)) ruleByName[r.Name] = r;
 
             this.flowLayoutPanel1.SuspendLayout();
             try
@@ -945,14 +993,49 @@ namespace MainUI.Widget
                 foreach (var w in _fixedWarns)
                 {
                     if (w == null || w.IsDisposed) continue;
-                    if (!keep.Contains(w.Key))   // 当前型号用不到 → 熄灭
-                        w.Visible = false;
-                    // 命中 keep 的固定灯不动，交回故障态驱动
+
+                    if (ruleByName.TryGetValue(w.Key, out var rule))
+                    {
+                        // 当前型号用得到 → 按规则级别校正三个灯（如 280 的 主油道进口油压 需要降载灯）
+                        LevelsOf(rule, out bool a, out bool s, out bool st);
+                        w.ShowAlarmButton = a;
+                        w.ShowSheddingButton = s;
+                        w.ShowStopButton = st;
+                        // Visible 不动，交回 OnFaultDetected/FaultCheckResend 按故障态决定
+                    }
+                    else
+                    {
+                        w.Visible = false;   // 当前型号用不到 → 熄灭
+                    }
                 }
             }
             finally
             {
                 this.flowLayoutPanel1.ResumeLayout();
+            }
+        }
+
+        /// <summary>按规则涉及的级别算三个灯（Checks 各级 + Vote.Level），与 frmCurrentWarnDynamic/NewEcmWarn 一致。</summary>
+        private static void LevelsOf(RuleDef rule, out bool hasAlarm, out bool hasShed, out bool hasStop)
+        {
+            hasAlarm = hasShed = hasStop = false;
+            if (rule == null) return;
+
+            if (rule.Checks != null)
+                foreach (var c in rule.Checks)
+                {
+                    if (c == null || string.IsNullOrEmpty(c.Level)) continue;
+                    if (string.Equals(c.Level, "Alarm", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(c.Level, "Record", StringComparison.OrdinalIgnoreCase)) hasAlarm = true;
+                    else if (string.Equals(c.Level, "Shedding", StringComparison.OrdinalIgnoreCase)) hasShed = true;
+                    else if (string.Equals(c.Level, "Stop", StringComparison.OrdinalIgnoreCase)) hasStop = true;
+                }
+
+            if (rule.Vote != null && !string.IsNullOrEmpty(rule.Vote.Level))
+            {
+                if (string.Equals(rule.Vote.Level, "Alarm", StringComparison.OrdinalIgnoreCase)) hasAlarm = true;
+                else if (string.Equals(rule.Vote.Level, "Shedding", StringComparison.OrdinalIgnoreCase)) hasShed = true;
+                else if (string.Equals(rule.Vote.Level, "Stop", StringComparison.OrdinalIgnoreCase)) hasStop = true;
             }
         }
 

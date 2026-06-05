@@ -381,8 +381,10 @@ namespace MainUI.Fault
                 return new Range { Min = min.Value, Max = max.Value, Decimals = dec ?? DecimalsFor(max.Value), Step = max.Value <= 2 ? 0.1 : 1, Display = string.Format("{0}–{1} {2}", min.Value, max.Value, UnitOf(signalName)) };
 
             // 关键字兜底
-            if (signalName.Contains("转速")) return new Range { Min = 0, Max = 1200, Step = 10, Decimals = 0, Display = "0–1200 rpm" };
-            if (signalName.Contains("增压") && signalName.Contains("转速")) return new Range { Min = 0, Max = 60000, Step = 100, Decimals = 0, Display = "0–60000 rpm" };
+            if (signalName.Contains("增压") && signalName.Contains("转速"))
+                return new Range { Min = 0, Max = 60000, Step = 100, Decimals = 0, Display = "0–60000 rpm" };
+            if (signalName.Contains("转速"))
+                return new Range { Min = 0, Max = 1200, Step = 10, Decimals = 0, Display = "0–1200 rpm" };
             if (signalName.Contains("排气") || signalName.Contains("涡前")) return new Range { Min = 0, Max = 800, Step = 1, Decimals = 0, Display = "0–800 ℃" };
             if (signalName.Contains("温度") || signalName.Contains("油温") || signalName.Contains("轴温")) return new Range { Min = 0, Max = 150, Step = 1, Decimals = 0, Display = "0–150 ℃" };
             if (signalName.Contains("曲轴箱")) return new Range { Min = 0, Max = 1, Step = 0.1, Decimals = 2, Display = "0–1 kPa" };

@@ -591,7 +591,7 @@ namespace MainUI.Services
                     FaultType = FaultTypeEnum.ecm
                 };
                 _faultStates[faultId] = faultState;
-                ecmFaults.Add(faultId);
+                ecmFaults.Add(faultId); 
             }
 
             _faultGroups[FaultTypeEnum.ecm] = ecmFaults;

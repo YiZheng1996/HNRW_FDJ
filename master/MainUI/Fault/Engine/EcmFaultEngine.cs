@@ -363,7 +363,7 @@ namespace MainUI.Fault.Engine
                 case "shedding": return "Shedding";
                 case "alarm": return "Alarm";
                 case "record":
-                case "tip": return "Record";
+                case "tip": return "Alarm";
                 default: return level.Trim();
             }
         }

@@ -149,7 +149,7 @@ namespace MainUI.Fault
                 var checks = rule["Checks"] as JArray ?? new JArray();
                 var vote = rule["Vote"] as JObject;
 
-                bool hasAlarm = checks.OfType<JObject>().Any(c => (string)c["Level"] == "Alarm");
+                bool hasAlarm = checks.OfType<JObject>().Any(c => (string)c["Level"] == "Alarm" || (string)c["Level"] == "Record");
                 bool hasShed = checks.OfType<JObject>().Any(c => (string)c["Level"] == "Shedding");
                 bool hasStop = checks.OfType<JObject>().Any(c => (string)c["Level"] == "Stop")
                                || (vote != null && (string)vote["Level"] == "Stop");

@@ -948,6 +948,9 @@
     <EmbeddedResource Include="Manager\AutoPara\ucExcitationRegulationParams.resx">
       <DependentUpon>ucExcitationRegulationParams.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\OpcStatusGrp.resx">
+      <DependentUpon>OpcStatusGrp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pipeline\ucFeulHMI.resx">
       <DependentUpon>ucFeulHMI.cs</DependentUpon>
     </EmbeddedResource>

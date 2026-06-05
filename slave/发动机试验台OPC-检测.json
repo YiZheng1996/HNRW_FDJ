@@ -1878,7 +1878,7 @@
 									{
 										"common.ALLTYPES_NAME": "燃油加油开始",
 										"common.ALLTYPES_DESCRIPTION": "燃油加油开始",
-										"servermain.TAG_ADDRESS": "DB142.DBX60.0",
+										"servermain.TAG_ADDRESS": "DB701.DBX18.0",
 										"servermain.TAG_DATA_TYPE": 1,
 										"servermain.TAG_READ_WRITE_ACCESS": 1,
 										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
