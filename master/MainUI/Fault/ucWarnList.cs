@@ -474,8 +474,14 @@ namespace MainUI.Widget
                 string jsonPath = EcmProfileStore.PathOf(model);
                 if (EcmProfileStore.Exists(model))
                 {
-                    var profile = EcmProfileStore.Load(model);   // 强类型，不是 JObject
-                    new frmWarnParaDynamic(jsonPath).ShowDialog(); // 保存在窗体内部走 EcmProfileStore.Save(profile)
+                    var frm = new frmWarnParaDynamic(jsonPath);
+                    // 保存成功后让引擎热重载该型号判据，无需重启
+                    frm.ProfileSaved += m =>
+                    {
+                        try { Var.FaultService.ReloadEcmProfileIfActive(); }
+                        catch (Exception ex) { Var.LogInfo("保存后热重载失败: " + ex.Message); }
+                    };
+                    frm.ShowDialog();
                 }
                 else
                 {
