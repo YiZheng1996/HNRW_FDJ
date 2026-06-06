@@ -1237,13 +1237,17 @@ namespace MainUI.Services
             try
             {
                 string id = Guid.NewGuid().ToString("N");
+                string Description = (state.FaultType == FaultTypeEnum.ecm && _ecmEngine.HasProfile)
+                                    ? _ecmEngine.BuildTriggerDesc(faultCode, warnType)
+                                    : (state.Desc ?? state.Name);
+
                 FaultEvent faultEventRecord = new FaultEvent()
                 {
                     Id = id,
                     FaultCode = faultCode,
                     OccurTime = DateTime.Now,
                     Status = 0,
-                    Description = state.Desc ?? state.Name,
+                    Description = Description,
                     Severity = GetFaultSeverity(warnType),
                     FaultType = GetFaultType(state.FaultType)
                 };

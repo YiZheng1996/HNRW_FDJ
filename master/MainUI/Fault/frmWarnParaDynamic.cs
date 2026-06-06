@@ -18,7 +18,6 @@ namespace MainUI.Fault
     ///   3. 直接绑 JObject 节点，不依赖任何 POCO 类——对任意型号的 JSON 都通用，未知字段原样保留；
     ///   4. 加法、不阻断：240 等无 JSON 的型号根本不会进这个窗体（由调用方判断），原 frmWarnParaConfig 不动。
     ///
-    /// 列归属：Alarm/Record→报警列(Record 标"仅记录")，Shedding→降载列，Stop 与 Vote→停机列。
     /// </summary>
     public partial class frmWarnParaDynamic : Form
     {
@@ -87,7 +86,7 @@ namespace MainUI.Fault
                 Padding = new Padding(0, 12, 16, 12),
                 BackColor = Color.FromArgb(243, 249, 255)
             };
-             
+
             var btnExit = new UIButton
             {
                 Text = "退出",
@@ -142,7 +141,7 @@ namespace MainUI.Fault
                 if (!string.IsNullOrEmpty(s) && s != scan) { headerCount++; scan = s; }
             }
 
-            _body = MakeColumnedTlp(rowCount: rules.Count + headerCount);   // ← 行数 += 标题数
+            _body = MakeColumnedTlp(rowCount: rules.Count + headerCount);   // 行数 += 标题数
             _body.AutoSize = true;
             _body.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
@@ -197,7 +196,8 @@ namespace MainUI.Fault
             var name = (string)rule["Name"] ?? "(未命名)";
             p.Controls.Add(new Label { Text = name, Font = FontName, AutoSize = true, Margin = new Padding(3, 4, 3, 0) });
 
-            var range = ResolveRange(FirstSignalOf(rule));
+            // 优先用规则名（如"A列各缸温差"），匹配不到再 fallback 到第一个信号
+            var range = ResolveRange(name) ?? ResolveRange(FirstSignalOf(rule));
             if (range != null)
                 p.Controls.Add(new Label
                 {
@@ -274,7 +274,7 @@ namespace MainUI.Fault
             }
         }
 
-        /// <summary>Check 级的附加数值： 持续s / 持续后卸载s。</summary>
+        /// <summary>Check 级的附加数值 持续s / 持续后卸载s。</summary>
         private void AddMetaLines(FlowLayoutPanel block, JObject check)
         {
             if (check["Duration"] != null && (double)check["Duration"] > 0) block.Controls.Add(TermLine("持续", check, "Duration", Range.Seconds, "s"));
@@ -386,6 +386,7 @@ namespace MainUI.Fault
                 return new Range { Min = 0, Max = 1200, Step = 10, Decimals = 0, Display = "0–1200 rpm" };
             if (signalName.Contains("排气") || signalName.Contains("涡前")) return new Range { Min = 0, Max = 800, Step = 1, Decimals = 0, Display = "0–800 ℃" };
             if (signalName.Contains("温度") || signalName.Contains("油温") || signalName.Contains("轴温")) return new Range { Min = 0, Max = 150, Step = 1, Decimals = 0, Display = "0–150 ℃" };
+            if (signalName.Contains("温差")) return new Range { Min = 0, Max = 200, Step = 1, Decimals = 0, Display = "0–200 ℃" };
             if (signalName.Contains("曲轴箱")) return new Range { Min = 0, Max = 1, Step = 0.1, Decimals = 2, Display = "0–1 kPa" };
             if (signalName.Contains("油压") || signalName.Contains("压力")) return new Range { Min = 0, Max = 1000, Step = 5, Decimals = 0, Display = "0–1000 kPa" };
             if (signalName.Contains("功率")) return new Range { Min = 0, Max = 5000, Step = 10, Decimals = 0, Display = "0–5000 kW" };

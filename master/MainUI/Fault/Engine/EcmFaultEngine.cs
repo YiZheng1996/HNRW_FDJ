@@ -129,6 +129,35 @@ namespace MainUI.Fault.Engine
             return new Dictionary<string, double>(_snap);
         }
 
+        /// <summary>
+        /// 故障入库描述：规则名 + 级别 + 触发时实测值。
+        /// </summary>
+        public string BuildTriggerDesc(string ruleName, WarnTypeEnum warnType)
+        {
+            try
+            {
+                if (_profile == null) return ruleName;
+                var rule = _profile.Rules?.FirstOrDefault(r => r.Name == ruleName);
+                if (rule == null) return ruleName;
+
+                string level = warnType == WarnTypeEnum.Alarm ? "报警"
+                             : warnType == WarnTypeEnum.Shedding ? "降载"
+                             : warnType == WarnTypeEnum.Stop ? "停机" : "提示";
+
+                // 取触发级别第一个 Term 的左值作为"当前值"
+                var check = rule.Checks?.FirstOrDefault(c => Lvl(c.Level) == Lvl(warnType.ToString()));
+                var term = check?.Terms?.FirstOrDefault();
+                if (term == null) return $"{ruleName} [{level}]";
+
+                double val = ResolveOperand(term.Left ?? "", _snap);
+                return $"{ruleName} [{level}]，实测值：{val:F1}";
+            }
+            catch
+            {
+                return ruleName;
+            }
+        }
+
         /// <summary>取某条规则的降载元数据（执行降载时读取百分比/卸载延时）。无则返回 null。</summary>
         public DerateMeta GetDerate(string ruleName)
         {
