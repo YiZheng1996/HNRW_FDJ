@@ -187,8 +187,13 @@ namespace MainUI
             opcPipelineFaultGroup.Prefix = "PLC.S71500.";
             opcExChangeGroup.ServerName = kepServerName;
             opcExChangeGroup.Prefix = "PLC.S71500.";
+
+            // 由于之前励磁电压电流使用传感器测试不准，改为通讯获取
+            //opcExcitationModbus.ServerName = kepServerName;
+            //opcExcitationModbus.Prefix = "PLC2.S71500.AI.";
             opcExcitationModbus.ServerName = kepServerName;
-            opcExcitationModbus.Prefix = "PLC2.S71500.AI.";
+            opcExcitationModbus.Prefix = "励磁信息.Value.";
+
             opcExChangeSend.ServerName = kepServerName;
             opcExChangeSend.Prefix = "ExChangeData.设备 1.";
             opcExChangeReceive.ServerName = kepServerName;
@@ -492,7 +497,7 @@ namespace MainUI
 
                         Common.excitationGrp.Init();
                     });
-                    
+
                     _loading.AddInitInvoke("电参数仪器", () =>
                     {
                         opcThreePhaseElectric.Connect();
@@ -500,7 +505,7 @@ namespace MainUI
                         Common.threePhaseElectric.Init();
                     });
 
-                    if (Var.SysConfig.ExeType == 1) 
+                    if (Var.SysConfig.ExeType == 1)
                     {
                         _loading.AddInitInvoke("燃油耗仪", () =>
                         {
@@ -541,7 +546,7 @@ namespace MainUI
                     });
 
                     // 控制部分才需要连接
-                    if (Var.SysConfig.ExeType == 1) 
+                    if (Var.SysConfig.ExeType == 1)
                     {
                         _loading.AddInitInvoke("称重仪", () =>
                         {
@@ -553,7 +558,7 @@ namespace MainUI
                             }
                         });
                     }
-     
+
                     _loading.AddInitInvoke("零点增益模块", () =>
                     {
                         // 初始化零点增益界面

@@ -21,6 +21,7 @@ namespace MainUI.Fault.Engine
                 string src = (sig.Source ?? "").Trim().ToUpperInvariant();
                 switch (src)
                 {
+                    // ECM 电喷控制盒
                     case "TRDP":
                         return Var.TRDP.GetDicValue(sig.Label);
 
@@ -31,6 +32,7 @@ namespace MainUI.Fault.Engine
                     case "AI":
                         return SafeGroup(() => Common.AIgrp[sig.Label]);
 
+                        // 飞轮盘转速
                     case "SPEED":
                         return SafeGroup(() => Common.speedGrp[sig.Label]);
 
@@ -41,6 +43,7 @@ namespace MainUI.Fault.Engine
                     case "DO":
                         return SafeBool(() => Common.DOgrp[sig.Label]);
 
+                        // 有功功率
                     case "POWER":
                         return MiddleData.instnce != null ? MiddleData.instnce.EnginePower : 0;
 

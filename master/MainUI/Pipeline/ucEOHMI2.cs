@@ -50,6 +50,10 @@ namespace MainUI
             //Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange; // 触发 Common.DOgrp.KeyValueChange，不在触发DI值改变事件
             Common.engineOilGrp.KeyValueChange += EngineOilGrp_KeyValueChange;
             Common.AI2Grp.KeyValueChange += EngineParaGrp_KeyValueChange;
+
+            // 默认机油温度
+            if (Common.engineOilGrp.EngineOilPID == 0)
+                Common.engineOilGrp.EngineOilPID = 65;
         }
 
         private void ValveState_Changed(object sender, ValveStateChangedEventArgs e)

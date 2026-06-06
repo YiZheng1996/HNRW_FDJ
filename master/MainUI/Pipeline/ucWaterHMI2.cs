@@ -45,6 +45,13 @@ namespace MainUI
             timerTube.Start();
             timerSwitch.Enabled = true;
             timerSwitch.Start();
+
+            // 温度默认值
+            if (Common.waterGrp.HeightTempWaterPID == 0)
+                Common.waterGrp.HeightTempWaterPID = 68;
+
+            if (Common.waterGrp.MediumColdPID == 0)
+                Common.waterGrp.MediumColdPID = 50;
         }
 
         private void ValveState_Changed(object sender, ValveStateChangedEventArgs e)

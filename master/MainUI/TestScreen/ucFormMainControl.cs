@@ -190,6 +190,12 @@ namespace MainUI.TestScreen
             }
 
             BindWaterLongPressButtons();
+
+            // 通风机开度需要开机默认全部打开100%
+            Common.AOgrp["进气风道右调节阀控制"] = 100;
+            Common.AOgrp["排气风道右调节阀控制"] = 100;
+            Common.AOgrp["进气风道左调节阀控制"] = 100;
+            Common.AOgrp["排气风道左调节阀控制"] = 100;
         }
 
         /// <summary>

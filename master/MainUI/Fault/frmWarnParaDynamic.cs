@@ -274,10 +274,9 @@ namespace MainUI.Fault
             }
         }
 
-        /// <summary>Check 级的附加数值：降载% / 持续s / 持续后卸载s。</summary>
+        /// <summary>Check 级的附加数值： 持续s / 持续后卸载s。</summary>
         private void AddMetaLines(FlowLayoutPanel block, JObject check)
         {
-            if (check["DeratePercent"] != null) block.Controls.Add(TermLine("降载", check, "DeratePercent", Range.Percent, "%"));
             if (check["Duration"] != null && (double)check["Duration"] > 0) block.Controls.Add(TermLine("持续", check, "Duration", Range.Seconds, "s"));
             if (check["UnloadAfterSec"] != null) block.Controls.Add(TermLine("持续后卸载", check, "UnloadAfterSec", Range.Seconds, "s"));
         }

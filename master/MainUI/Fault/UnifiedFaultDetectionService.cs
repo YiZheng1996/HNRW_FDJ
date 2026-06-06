@@ -591,7 +591,7 @@ namespace MainUI.Services
                     FaultType = FaultTypeEnum.ecm
                 };
                 _faultStates[faultId] = faultState;
-                ecmFaults.Add(faultId); 
+                ecmFaults.Add(faultId);
             }
 
             _faultGroups[FaultTypeEnum.ecm] = ecmFaults;
@@ -1021,18 +1021,19 @@ namespace MainUI.Services
             DateTime now = DateTime.Now;
 
             // 按照优先级检测：停机 -> 降载 -> 报警
+            // 停机报警 
             if (condition.CheckStop != null && condition.CheckStop(CurrentData))
             {
                 lock (_lock)
                 {
+                    if (!state.StopConditionMet)          // 第一次满足：记录起始时间
+                    {
+                        state.StopConditionMet = true;
+                        state.StopStartTime = now;
+                    }
                     if ((now - state.StopStartTime).TotalSeconds >= condition.StopDuration)
                     {
                         detectedType = WarnTypeEnum.Stop;
-                        if (!state.StopConditionMet)
-                        {
-                            state.StopConditionMet = true;
-                            state.StopStartTime = now;
-                        }
                     }
                 }
             }
@@ -1041,19 +1042,20 @@ namespace MainUI.Services
                 state.StopConditionMet = false;
             }
 
+            // 降载报警
             if (detectedType == WarnTypeEnum.None && condition.CheckShedding != null && condition.CheckShedding(CurrentData))
             {
                 lock (_lock)
                 {
+                    if (!state.SheddingConditionMet)
+                    {
+                        state.SheddingConditionMet = true;
+                        state.SheddingStartTime = now;
+                    }
                     if ((now - state.SheddingStartTime).TotalSeconds >= condition.SheddingDuration)
                     {
                         detectedType = WarnTypeEnum.Shedding;
-                        if (!state.SheddingConditionMet)
-                        {
-                            state.SheddingConditionMet = true;
-                        }
                     }
-
                 }
             }
             else
@@ -1061,18 +1063,19 @@ namespace MainUI.Services
                 state.SheddingConditionMet = false;
             }
 
+            // 报警
             if (detectedType == WarnTypeEnum.None && condition.CheckAlarm != null && condition.CheckAlarm(CurrentData))
             {
                 lock (_lock)
                 {
+                    if (!state.AlarmConditionMet)
+                    {
+                        state.AlarmConditionMet = true;
+                        state.AlarmStartTime = now;
+                    }
                     if ((now - state.AlarmStartTime).TotalSeconds >= condition.AlarmDuration)
                     {
                         detectedType = WarnTypeEnum.Alarm;
-                        if (!state.AlarmConditionMet)
-                        {
-                            state.AlarmConditionMet = true;
-                            state.AlarmStartTime = now;
-                        }
                     }
                 }
             }
@@ -1080,6 +1083,7 @@ namespace MainUI.Services
             {
                 state.AlarmConditionMet = false;
             }
+
             // 仅记录(只提示不报警/不蜂鸣)——优先级最低，仅当判据提供 CheckTip 时检测
             // 老型号(240) CheckTip 恒为 null，此分支对其零影响
             if (detectedType == WarnTypeEnum.None && condition.CheckTip != null && condition.CheckTip(CurrentData))
