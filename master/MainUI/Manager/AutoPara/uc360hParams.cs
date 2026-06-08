@@ -1,23 +1,11 @@
-﻿using System;
+﻿using MainUI.Config;
+using MainUI.Fault;
+using Sunny.UI;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RW.UI.Manager;
-using MainUI.Model;
-using MainUI.BLL;
-using MainUI.Config;
-using MainUI.Properties;
-using MainUI.Config.Test;
-using MainUI.Procedure.Test;
-using MainUI.Global;
-using Sunny.UI;
-using MainUI.Helper;
-using static MainUI.Config.PubConfig;
 
 namespace MainUI.Procedure
 {
@@ -27,6 +15,7 @@ namespace MainUI.Procedure
         private const double MAX_TORQUE = 110.0; // 最大扭矩
         private const double MAX_RPM = 110.0; // 最大转速
         private const double MAX_RUN_TIME = 9999.0; //最长时间
+        private string _cellEditOldValue = "";
 
         // 360小时流程配置参数
         Test360hConfig durabilityTestConfig = new Test360hConfig();
@@ -199,6 +188,12 @@ namespace MainUI.Procedure
                     codeColumn.DataSource = testStep360List;
                 }
             }
+
+            try
+            {
+                _cellEditOldValue = dgvMHDur.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() ?? "";
+            }
+            catch { _cellEditOldValue = ""; }
         }
 
         /// <summary>
@@ -237,6 +232,7 @@ namespace MainUI.Procedure
 
                 // 重新排序并保存
                 SaveDurabilityData();
+                OpcOperationLog.LogConfig("360h流程-删除行", $"型号={Model} 行={rowIndex + 1}");
 
                 // 如果删除后还有行，自动选中上一行或第一行
                 if (dgvMHDur.Rows.Count > 0)
@@ -272,6 +268,14 @@ namespace MainUI.Procedure
 
                     // 自动保存数据
                     SaveDurabilityData();
+                    string _newVal = dgvMHDur.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() ?? "";
+                    if (_cellEditOldValue != _newVal)
+                    {
+                        OpcOperationLog.LogConfig("360h流程-编辑行",
+                            $"型号={Model} 行={e.RowIndex + 1} " +
+                            $"列={dgvMHDur.Columns[e.ColumnIndex].HeaderText} " +
+                            $"旧值={_cellEditOldValue} 新值={_newVal}");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -334,6 +338,7 @@ namespace MainUI.Procedure
 
                     durabilityTestConfig.DurabilityDatas.Add(newStep);
                     durabilityTestConfig.Save();
+                    OpcOperationLog.LogConfigObject("360h流程-新增行", newStep);
                 }
                 // 刷新显示
                 LoadGridView();
@@ -536,6 +541,7 @@ namespace MainUI.Procedure
                     };
 
                     durabilityTestConfig.DurabilityDatas.Add(newData);
+                    OpcOperationLog.LogConfigObject("360h流程-粘贴行", newData);
                 }
 
                 // 保存配置

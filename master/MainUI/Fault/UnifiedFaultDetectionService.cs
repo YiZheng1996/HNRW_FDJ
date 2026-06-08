@@ -1005,11 +1005,11 @@ namespace MainUI.Services
             var pressure1 = Common.AIgrp["厂房进气压力检测1"];
             var pressure2 = Common.AIgrp["厂房进气压力检测2"];
             bool Isfault5 = false;
-            if (pressure1 < 400 || pressure2 < 400)
+            if (pressure1 < 400 || pressure2 < 400) 
             {
                 Isfault5 = true;
             }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault5 ? WarnTypeEnum.Stop : WarnTypeEnum.None, "厂房总气压不足");
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault5 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "厂房总气压不足");
         }
 
         /// <summary>

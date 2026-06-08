@@ -18,6 +18,7 @@ using MainUI.Global;
 using Sunny.UI;
 using MainUI.Helper;
 using static MainUI.Config.PubConfig;
+using MainUI.Fault;
 
 namespace MainUI.Procedure
 {
@@ -28,6 +29,7 @@ namespace MainUI.Procedure
         private const double MAX_TORQUE = 110.0; // 最大扭矩
         private const double MAX_RPM = 110.0; // 最大转速
         private const double MAX_RUN_TIME = 9999.0; //最长时间
+        private string _cellEditOldValue = "";
 
         // 试验基础参数
         ParaConfig paraconfig = new ParaConfig();
@@ -260,6 +262,7 @@ namespace MainUI.Procedure
                 config.Save();
 
                 LoadGridViewNode();
+                OpcOperationLog.LogConfigObject("360循环代码-新增行", newPara);
                 Var.MsgBoxSuccess(this, "添加成功！");
 
                 // 清空输入框
@@ -315,7 +318,9 @@ namespace MainUI.Procedure
 
                 config.Save();
                 LoadGridViewNode();
-
+                OpcOperationLog.LogConfig("360循环代码-编辑行",
+                    $"型号={txtModel.Text} 循环={nodeName} 序号={index} " +
+                    $"转速={editPara.RPM} 扭矩={editPara.Torque} 运行时间={editPara.RunTime}");
                 Var.MsgBoxSuccess(this, "编辑成功！");
             }
             catch (Exception ex)
@@ -368,7 +373,7 @@ namespace MainUI.Procedure
 
                     config.Save();
                     LoadGridViewNode();
-
+                    OpcOperationLog.LogConfig("360循环代码-删除行", $"型号={txtModel.Text} 循环={nodeName} 序号={index}");
                     Var.MsgBoxSuccess(this, "删除成功！");
                 }
             }
@@ -872,6 +877,7 @@ namespace MainUI.Procedure
                     pubParaNew.MaxWaterResistanceTankInlet = MaxWaterResistanceTankInlet.Value.ToInt();
                     pubPara.Add(pubParaNew);
                     pubConfig.Save();
+                    OpcOperationLog.LogConfigObject("基础参数-新建试验配方", pubParaNew);
                 }
                 pubPara[0].DefaultExcitationCurrent = DefaultExcitationCurrent.Value.ToInt();
                 pubPara[0].MinExcitationCurrent = MinExcitationCurrent.Value.ToInt();
@@ -925,6 +931,9 @@ namespace MainUI.Procedure
                 pubPara[0].MinWaterResistanceTankInlet = MinWaterResistanceTankInlet.Value.ToInt();
                 pubPara[0].MaxWaterResistanceTankInlet = MaxWaterResistanceTankInlet.Value.ToInt();
                 pubConfig.Save();
+
+                // 记录手动日志
+                OpcOperationLog.LogConfigObject("基础参数-保存试验参数配方", pubPara[0]);
             }
             catch (Exception ex)
             {
@@ -1021,6 +1030,7 @@ namespace MainUI.Procedure
 
                     durStepConfig.testBasePara.Add(newStep);
                     durStepConfig.Save();
+                    OpcOperationLog.LogConfigObject("360循环代码-新增行", newStep);
                 }
                 // 刷新显示
                 LoadGridViewNode();
@@ -1045,6 +1055,11 @@ namespace MainUI.Procedure
 
             // 允许编辑，清空输入法状态（防止中文输入）
             this.ImeMode = ImeMode.Disable;
+            try
+            {
+                _cellEditOldValue = dgvNode.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() ?? "";
+            }
+            catch { _cellEditOldValue = ""; }
         }
 
         /// <summary>
@@ -1100,6 +1115,7 @@ namespace MainUI.Procedure
                     durStepConfig.testBasePara[i].Index = i + 1;
                 }
                 durStepConfig.Save();
+                OpcOperationLog.LogConfig("360循环代码-删除行", $"型号={txtModel.Text} 循环={listTestStep.Text} 行={rowIndex + 1}");
 
                 // 重新加载360循环代码表格
                 LoadGridViewNode();
@@ -1202,6 +1218,13 @@ namespace MainUI.Procedure
                         detailData.GKNo = gkNo;
 
                         durStepConfig.Save();
+                        if (_cellEditOldValue != inputValue)
+                        {
+                            OpcOperationLog.LogConfig("360循环代码-编辑行",
+                                $"型号={txtModel.Text} 循环={listTestStep.Text} " +
+                                $"行={e.RowIndex + 1} 列={dgvNode.Columns[e.ColumnIndex].HeaderText} " +
+                                $"旧值={_cellEditOldValue} 新值={inputValue}");
+                        }
                     }
                 }
                 catch (FormatException)

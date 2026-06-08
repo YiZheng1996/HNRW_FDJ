@@ -1,24 +1,11 @@
-﻿using System;
+﻿using MainUI.Config.Test;
+using MainUI.Fault;
+using Sunny.UI;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RW.UI.Manager;
-using MainUI.Model;
-using MainUI.BLL;
-using MainUI.Config;
-using MainUI.Properties;
-using MainUI.Config.Test;
-using MainUI.Procedure.Test;
-using MainUI.Global;
-using Sunny.UI;
-using MainUI.Helper;
-using static MainUI.Config.PubConfig;
-using System.IO;
 
 namespace MainUI.Procedure
 {
@@ -28,6 +15,7 @@ namespace MainUI.Procedure
         private const double MAX_TORQUE = 110.0; // 最大扭矩
         private const double MAX_RPM = 110.0; // 最大转速
         private const double MAX_RUN_TIME = 9999.0; //最长时间
+        private string _cellEditOldValue = ""; // 暂存单元格编辑前旧值（主流程表 + 详细步骤表共用）
 
         public string Model { get; set; }
 
@@ -125,6 +113,7 @@ namespace MainUI.Procedure
                     para1.DayNum = "1";
                     testConfig.testStepLists.Add(para1);
                     testConfig.Save();
+                    OpcOperationLog.LogConfigObject("100h流程-新增阶段", para1);
                 }
                 // 刷新显示
                 LoadGridView();
@@ -193,6 +182,13 @@ namespace MainUI.Procedure
                     codeColumn.DataSource = testStep100List;
                 }
             }
+
+            // 暂存编辑前旧值
+            try
+            {
+                _cellEditOldValue = dgvMH.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() ?? "";
+            }
+            catch { _cellEditOldValue = ""; }
         }
 
         /// <summary>
@@ -233,6 +229,7 @@ namespace MainUI.Procedure
 
                 // 重新排序并保存
                 SaveDurabilityData();
+                OpcOperationLog.LogConfig("100h流程-删除阶段", $"型号={Model} 行={rowIndex + 1}");
 
                 // 如果删除后还有行，自动选中上一行或第一行
                 if (dgvMH.Rows.Count > 0)
@@ -352,6 +349,14 @@ namespace MainUI.Procedure
 
                     // 自动保存数据
                     SaveDurabilityData();
+                    string _newVal = dgvMH.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() ?? "";
+                    if (_cellEditOldValue != _newVal)
+                    {
+                        OpcOperationLog.LogConfig("100h流程-编辑阶段",
+                            $"型号={Model} 行={e.RowIndex + 1} " +
+                            $"列={dgvMH.Columns[e.ColumnIndex].HeaderText} " +
+                            $"旧值={_cellEditOldValue} 新值={_newVal}");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -437,6 +442,13 @@ namespace MainUI.Procedure
 
             // 允许编辑，清空输入法状态（防止中文输入）
             this.ImeMode = ImeMode.Disable;
+
+            // 暂存编辑前旧值
+            try
+            {
+                _cellEditOldValue = dgv100hMH.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() ?? "";
+            }
+            catch { _cellEditOldValue = ""; }
         }
 
         /// <summary>
@@ -519,6 +531,15 @@ namespace MainUI.Procedure
                             detailData.RunTime = runTime;
                             detailData.GKNo = gkNo;
                             testConfig.Save();
+
+                            string _newVal = detailRow.Cells[e.ColumnIndex].Value?.ToString() ?? "";
+                            if (_cellEditOldValue != _newVal)
+                            {
+                                OpcOperationLog.LogConfig("100h流程-编辑步骤",
+                                    $"型号={Model} 阶段={lbl100hStepName.Text} 步骤={detailIndex} " +
+                                    $"列={dgv100hMH.Columns[e.ColumnIndex].HeaderText} " +
+                                    $"旧值={_cellEditOldValue} 新值={_newVal}");
+                            }
                         }
                     }
                 }
@@ -688,6 +709,7 @@ namespace MainUI.Procedure
                     };
 
                     stepData.testBasePara.Add(newStep);
+                    OpcOperationLog.LogConfigObject("100h流程-新增步骤", newStep);
                 }
 
                 // 保存配置
@@ -750,6 +772,7 @@ namespace MainUI.Procedure
                     stepData.testBasePara[i].Index = i + 1;
                 }
                 testConfig.Save();
+                OpcOperationLog.LogConfig("100h流程-删除步骤", $"型号={Model} 阶段={lbl100hStepName.Text} 步骤序号={detailIndex}");
 
                 // 重新加载表格
                 Load100hStepDetails();
@@ -938,6 +961,7 @@ namespace MainUI.Procedure
                     };
 
                     stepData.testBasePara.Add(newStep);
+                    OpcOperationLog.LogConfigObject("100h流程-粘贴步骤", newStep);
                 }
 
                 // 保存配置
@@ -1021,6 +1045,7 @@ namespace MainUI.Procedure
 
                 // 保存配置
                 testConfig.Save();
+                OpcOperationLog.LogConfig("100h流程-批量删除步骤", $"型号={Model} 阶段={lbl100hStepName.Text} 删除数量={deletedCount}");
 
                 // 重新加载表格
                 Load100hStepDetails();

@@ -51,9 +51,11 @@ namespace MainUI.Fault
             }
             catch { /* 目录失败就降级，写入时再尝试 */ }
 
-            _writer = new Thread(WriterLoop);
-            _writer.IsBackground = true;
-            _writer.Name = "OpcOperationLog-Writer";
+            _writer = new Thread(WriterLoop)
+            {
+                IsBackground = true,
+                Name = "OpcOperationLog-Writer"
+            };
             _writer.Start();
 
             // 写一条启动标记，方便确认生效
@@ -127,6 +129,55 @@ namespace MainUI.Fault
             {
                 /* 日志任何异常都不准上抛 */
             }
+        }
+
+
+        /// <summary>
+        /// 非OPC配置变更日志，detail 由调用方自己拼。
+        /// </summary>
+        public static void LogConfig(string operation, string detail)
+        {
+            if (!Enabled) return;
+            try
+            {
+                var ctx = OperationContext.Current;
+                string line = BuildLine(
+                    TryGetUser(),
+                    ctx != null ? ctx.FormTitle : "-",
+                    ctx != null ? ctx.FormName : "-",
+                    "config/-",
+                    operation,
+                    "-",
+                    Safe(detail),
+                    "config");
+                Enqueue(line);
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// 用反射把任意对象的所有公共属性拼成 "Key=Value Key=Value" 字符串，
+        /// 再交给 LogConfig 写入日志，省去手动列举字段。
+        /// </summary>
+        public static void LogConfigObject(string operation, object obj)
+        {
+            if (!Enabled || obj == null) return;
+            try
+            {
+                var sb = new StringBuilder();
+                foreach (var prop in obj.GetType().GetProperties(
+                    System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+                {
+                    try
+                    {
+                        var val = prop.GetValue(obj, null);
+                        sb.Append(prop.Name).Append('=').Append(val).Append(' ');
+                    }
+                    catch { }
+                }
+                LogConfig(operation, sb.ToString().TrimEnd());
+            }
+            catch { }
         }
 
         /// <summary>
@@ -256,7 +307,7 @@ namespace MainUI.Fault
                 }
 
                 string path = Path.Combine(_logDir,
-                    string.Format("opc_{0:yyyyMMdd}.log", DateTime.Now));
+                    string.Format("手动日志_{0:yyyyMMdd}.log", DateTime.Now));
 
                 lock (_fileLock)
                 {

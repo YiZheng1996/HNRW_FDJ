@@ -19,6 +19,7 @@ using Sunny.UI;
 using MainUI.Helper;
 using static MainUI.Config.PubConfig;
 using System.IO;
+using MainUI.Fault;
 
 namespace MainUI.Procedure
 {
@@ -173,6 +174,7 @@ namespace MainUI.Procedure
             excitationRegulation.Phase3Rise2 = this.nudPhase3Rise2.Value.ToDouble();
             excitationRegulation.Phase3Rise3 = this.nudPhase3Rise3.Value.ToDouble();
             excitationRegulation.Save();
+            OpcOperationLog.LogConfigObject("励磁调节参数-保存", excitationRegulation);
         }
 
         /// <summary>
@@ -205,6 +207,8 @@ namespace MainUI.Procedure
             excitationRegulation.Phase3Rise1 = 20;
             excitationRegulation.Phase3Rise2 = 30;
             excitationRegulation.Phase3Rise3 = 30;
+
+            OpcOperationLog.LogConfig("励磁调节参数-恢复默认", $"型号={Model}");
         }
     }
 }

@@ -352,49 +352,19 @@ namespace MainUI.Widget
 
             if (faultState.FaultType == FaultTypeEnum.ecm && _faultWarnMap.TryGetValue(faultId, out var warnControl))
             {
-                if (!warnControl.Visible)
+                flowLayoutPanel1.SuspendLayout();
+
+                // warnType == None 时不做任何事，保持控件可见，等待手动复位
+                if (warnType != WarnTypeEnum.None)
                 {
-                    this.flowLayoutPanel1.SuspendLayout();
-
+                    // 故障出现/升级：刷新颜色
+                    warnControl.RestartSwitch();
                     warnControl.CurrentFault = warnType;
-
-                    // 根据故障类型直接控制可见性
-                    warnControl.Visible = (warnType != WarnTypeEnum.None);
-
-                    this.flowLayoutPanel1.ResumeLayout();
+                    warnControl.Visible = true;
                 }
+
+                flowLayoutPanel1.ResumeLayout();
             }
-
-            //if (faultState.FaultType == FaultTypeEnum.ecm)
-            //{
-            //    //ECM故障
-            //    if (_faultWarnMap.TryGetValue(faultId, out var warnControl))
-            //    {
-            //        warnControl.CurrentFault = warnType;
-            //        if (warnType == WarnTypeEnum.None)
-            //        {
-            //            warnControl.Visible = false;
-            //            return;
-            //        }
-
-            //        warnControl.Visible = true;
-            //        if (warnControl.CurrentFault == WarnTypeEnum.Alarm || warnControl.CurrentFault == WarnTypeEnum.Shedding)
-            //        {
-            //            // todo 暂时屏蔽 只报警
-            //            //Common.DOgrp["声光报警"] = true;
-            //        }
-            //        else
-            //        {
-            //            //Common.DOgrp["发动机启停预启动"] = false;
-            //        }
-
-            //    }
-            //}
-            //else
-            //{
-            //    // 试验台的检测故障
-            //}
-
         }
 
 

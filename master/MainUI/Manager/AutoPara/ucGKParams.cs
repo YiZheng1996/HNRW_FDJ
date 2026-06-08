@@ -1,19 +1,9 @@
-﻿using System;
+﻿using MainUI.Config;
+using MainUI.Fault;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MainUI.BLL;
-using RW.UI.Manager;
-using MainUI.Config;
-using Sunny.UI;
-using MainUI.Global;
-using static MainUI.Config.PubConfig;
-using RW.UI.Controls;
 
 namespace MainUI.Procedure
 {
@@ -22,6 +12,7 @@ namespace MainUI.Procedure
         // 全局常量定义
         private const double MAX_TORQUE = 60000; // 最大扭矩
         private const double MAX_RPM = 1100; // 最大转速
+        private string _cellEditOldValue = "";
 
         // 工况配置参数
         GKConfig gkConfig { get; set; }
@@ -200,6 +191,9 @@ namespace MainUI.Procedure
                 e.Cancel = true;
                 return;
             }
+
+            try { _cellEditOldValue = dgvMH.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() ?? ""; }
+            catch { _cellEditOldValue = ""; }
         }
 
         /// <summary>
@@ -238,6 +232,7 @@ namespace MainUI.Procedure
 
                 // 重新排序并保存
                 SaveGKData();
+                OpcOperationLog.LogConfig("工况表-删除行", $"Key={Key} 行={rowIndex + 1}");
 
                 // 如果删除后还有行，自动选中上一行或第一行
                 if (dgvMH.Rows.Count > 0)
@@ -273,6 +268,14 @@ namespace MainUI.Procedure
 
                     // 自动保存数据
                     SaveGKData();
+                    string _newVal = dgvMH.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() ?? "";
+                    if (_cellEditOldValue != _newVal)
+                    {
+                        OpcOperationLog.LogConfig("工况表-编辑行",
+                            $"Key={Key} 行={e.RowIndex + 1} " +
+                            $"列={dgvMH.Columns[e.ColumnIndex].HeaderText} " +
+                            $"旧值={_cellEditOldValue} 新值={_newVal}");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -390,6 +393,7 @@ namespace MainUI.Procedure
 
                     gkConfig.DurabilityDatas.Add(newStep);
                     gkConfig.Save();
+                    OpcOperationLog.LogConfigObject("工况表-新增行", newStep);
                 }
                 // 刷新显示
                 LoadGridView();

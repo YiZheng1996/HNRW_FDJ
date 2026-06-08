@@ -54,8 +54,8 @@ public class GlobalClickLogger : IMessageFilter
     {
         string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
         Directory.CreateDirectory(dir);
-        _logPath = Path.Combine(dir, string.Format("click_{0:yyyyMMdd}.log", DateTime.Now));
-        _errPath = Path.Combine(dir, string.Format("click_err_{0:yyyyMMdd}.log", DateTime.Now));
+        _logPath = Path.Combine(dir, string.Format("控件点击_{0:yyyyMMdd}.log", DateTime.Now));
+        _errPath = Path.Combine(dir, string.Format("控件点击_err_{0:yyyyMMdd}.log", DateTime.Now));
     }
 
     // ── 启停 ───────────────────────────────────────────────────────────────
