@@ -14,6 +14,11 @@ namespace MainUI.Procedure
         private const double MAX_RPM = 1100; // 最大转速
         private string _cellEditOldValue = "";
 
+        /// <summary>
+        /// 当前型号
+        /// </summary>
+        public string Model { get; set; }
+
         // 工况配置参数
         GKConfig gkConfig { get; set; }
 
@@ -43,7 +48,7 @@ namespace MainUI.Procedure
 
             try
             {
-                LoadGridView();
+                LoadGridView(Model);
             }
             catch (Exception ex)
             {
@@ -54,12 +59,20 @@ namespace MainUI.Procedure
         /// <summary>
         /// 加载表格参数
         /// </summary>
-        private void LoadGridView()
+        private void LoadGridView(string model)
         {
             try
             {
+                this.Model = model;
+                // 没选型号就不加载，避免读到错误文件
+                if (string.IsNullOrEmpty(this.Model))
+                {
+                    this.dgvMH.Rows.Clear();
+                    return;
+                }
+
                 // 加载工况配置参数
-                gkConfig = new GKConfig(Key);
+                new GKConfig(this.Model, Key);
 
                 this.lblTitle.Text = Key + " 工况表";
 
@@ -99,6 +112,13 @@ namespace MainUI.Procedure
         {
             try
             {
+                if (string.IsNullOrEmpty(this.Model))
+                {
+                    Var.MsgBoxWarn(this, "请先选择型号");
+                    return;
+                }
+
+                gkConfig = new GKConfig(this.Model, Key);   // 确保写回当前型号文件
                 gkConfig.DurabilityDatas.Clear();
 
                 for (int i = 0; i < dgvMH.Rows.Count; i++)
@@ -396,7 +416,7 @@ namespace MainUI.Procedure
                     OpcOperationLog.LogConfigObject("工况表-新增行", newStep);
                 }
                 // 刷新显示
-                LoadGridView();
+                LoadGridView(Model);
             }
             catch (Exception ex)
             {

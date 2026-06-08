@@ -1729,7 +1729,7 @@ namespace MainUI.TestScreen
             this.rButton4.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.rButton4.TabIndex = 762;
             this.rButton4.Tag = "1";
-            this.rButton4.Text = "左进气管阀2";
+            this.rButton4.Text = "进气管阀2";
             this.rButton4.TrueColor = System.Drawing.Color.Lime;
             this.rButton4.Click += new System.EventHandler(this.rButton10_Click);
             // 
@@ -1748,7 +1748,7 @@ namespace MainUI.TestScreen
             this.rButton5.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.rButton5.TabIndex = 761;
             this.rButton5.Tag = "1";
-            this.rButton5.Text = "左进气管阀1";
+            this.rButton5.Text = "进气管阀1";
             this.rButton5.TrueColor = System.Drawing.Color.Lime;
             this.rButton5.Click += new System.EventHandler(this.rButton10_Click);
             // 
@@ -1767,7 +1767,7 @@ namespace MainUI.TestScreen
             this.rButton6.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.rButton6.TabIndex = 760;
             this.rButton6.Tag = "1";
-            this.rButton6.Text = "左排气管阀2";
+            this.rButton6.Text = "排气管阀2";
             this.rButton6.TrueColor = System.Drawing.Color.Lime;
             this.rButton6.Click += new System.EventHandler(this.rButton10_Click);
             // 
@@ -1786,7 +1786,7 @@ namespace MainUI.TestScreen
             this.rButton7.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.rButton7.TabIndex = 759;
             this.rButton7.Tag = "1";
-            this.rButton7.Text = "左排气管阀1";
+            this.rButton7.Text = "排气管阀1";
             this.rButton7.TrueColor = System.Drawing.Color.Lime;
             this.rButton7.Click += new System.EventHandler(this.rButton10_Click);
             // 
@@ -1819,7 +1819,7 @@ namespace MainUI.TestScreen
             this.rButton3.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.rButton3.TabIndex = 762;
             this.rButton3.Tag = "1";
-            this.rButton3.Text = "右排气管阀2";
+            this.rButton3.Text = "排气管阀2";
             this.rButton3.TrueColor = System.Drawing.Color.Lime;
             this.rButton3.Click += new System.EventHandler(this.rButton10_Click);
             // 
@@ -1838,7 +1838,7 @@ namespace MainUI.TestScreen
             this.rButton2.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.rButton2.TabIndex = 761;
             this.rButton2.Tag = "1";
-            this.rButton2.Text = "右排气管阀1";
+            this.rButton2.Text = "排气管阀1";
             this.rButton2.TrueColor = System.Drawing.Color.Lime;
             this.rButton2.Click += new System.EventHandler(this.rButton10_Click);
             // 
@@ -1857,7 +1857,7 @@ namespace MainUI.TestScreen
             this.rButton1.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.rButton1.TabIndex = 760;
             this.rButton1.Tag = "1";
-            this.rButton1.Text = "右进气管阀2";
+            this.rButton1.Text = "进气管阀2";
             this.rButton1.TrueColor = System.Drawing.Color.Lime;
             this.rButton1.Click += new System.EventHandler(this.rButton10_Click);
             // 
@@ -1876,7 +1876,7 @@ namespace MainUI.TestScreen
             this.rButton10.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.rButton10.TabIndex = 759;
             this.rButton10.Tag = "1";
-            this.rButton10.Text = "右进气管阀1";
+            this.rButton10.Text = "进气管阀1";
             this.rButton10.TrueColor = System.Drawing.Color.Lime;
             this.rButton10.Click += new System.EventHandler(this.rButton10_Click);
             // 

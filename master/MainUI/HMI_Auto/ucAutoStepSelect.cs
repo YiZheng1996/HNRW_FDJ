@@ -142,7 +142,7 @@ namespace MainUI.HMI_Auto
 
             this.lblTestName.Text = _TestName == "耐久试验" ? "360h" : "100h";
             this.lblTestName2.Text = $"{this.lblTestName.Text} 执行步骤";
-            gkConfig = new GKConfig(this.lblTestName.Text);
+            gkConfig = new GKConfig(Common.mTestViewModel.ModelName, this.lblTestName.Text);
 
             currentStatusConfig = new CurrentStatusConfig(Common.mTestViewModel.ModelName, _TestName);
 

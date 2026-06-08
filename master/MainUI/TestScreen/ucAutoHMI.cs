@@ -207,7 +207,9 @@ namespace MainUI
                 this.btnXN.Switch = true;
                 this.btnStop.Enabled = false;
                 this.btnPause.Enabled = false;
-                gkConfig = new GKConfig("100h");
+
+                //gkConfig = new GKConfig("100h");
+                gkConfig = new GKConfig(Common.mTestViewModel.ModelName, "100h");
 
                 MiddleData.instnce.testDataView.TestName = "性能试验";
                 this.lblAutoName.Text = "100h 步骤";
@@ -1762,7 +1764,8 @@ namespace MainUI
                 string nameView = Is100h ? "性能试验" : "耐久试验";
 
                 // 更新工况表
-                gkConfig = new GKConfig(tagValue);
+                //gkConfig = new GKConfig(tagValue);
+                gkConfig = new GKConfig(Common.mTestViewModel.ModelName, tagValue);
 
                 this.btnXN.Switch = Is100h;
                 this.btnNJ.Switch = !Is100h;

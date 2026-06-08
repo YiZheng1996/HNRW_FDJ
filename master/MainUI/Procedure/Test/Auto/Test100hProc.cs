@@ -484,7 +484,7 @@ namespace MainUI.Procedure.Test.Performance
                     // 励磁调节，最大不超过目标值
                     TVar.Variable = excitationAdjustment;
                     MaxExcitation = Math.Min(currentExcitation + excitationAdjustment, targetExcitation);
-                    using (MainUI.Fault.OperationContext.Begin("自动试验-100h-降励磁调节"))
+                    using (MainUI.Fault.OperationContext.Begin("自动试验-100h-升励磁调节"))
                     {
                         Common.AOgrp.SetExcitationVal(MaxExcitation);
                     }

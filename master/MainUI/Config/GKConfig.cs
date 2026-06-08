@@ -14,8 +14,14 @@ namespace MainUI.Config
     /// </summary>
     public class GKConfig : IniConfig
     {
-        public GKConfig(string tag)
-          : base(Application.StartupPath + "\\config\\GKConfig.ini")
+        //public GKConfig(string tag)
+        //  : base(Application.StartupPath + "\\config\\GKConfig.ini")
+        //{
+        //    this.SetSectionName(tag + "_GKConfig");
+        //    Load();
+        //}
+
+        public GKConfig(string model, string tag) : base(Application.StartupPath + $"\\config\\{model}.ini")
         {
             this.SetSectionName(tag + "_GKConfig");
             Load();
