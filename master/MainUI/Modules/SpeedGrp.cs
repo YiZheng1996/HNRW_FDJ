@@ -82,6 +82,19 @@ namespace MainUI.Modules
             this.Write("Value3.每转感应点数", (double)count);
         }
 
+        public void SetTooth1(int count)
+        {
+            this.Write("Value1.每转感应点数", (double)count);
+        }
+        public void SetTooth2(int count)
+        {
+            this.Write("Value2.每转感应点数", (double)count);
+        }
+        public void SetTooth3(int count)
+        {
+            this.Write("Value3.每转感应点数", (double)count);
+        }
+
         public override void Init()
         {
             string[] items = new string[] {

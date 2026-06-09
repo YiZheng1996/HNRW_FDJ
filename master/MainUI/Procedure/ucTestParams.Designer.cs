@@ -112,7 +112,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.numNumberofTeeth = new System.Windows.Forms.NumericUpDown();
+            this.numNumberofTeeth1 = new System.Windows.Forms.NumericUpDown();
             this.uiLabel20 = new Sunny.UI.UILabel();
             this.numMinSpeed = new System.Windows.Forms.NumericUpDown();
             this.numRateSpeed = new System.Windows.Forms.NumericUpDown();
@@ -169,6 +169,8 @@
             this.btnGet = new Sunny.UI.UIButton();
             this.uiLabel2 = new Sunny.UI.UILabel();
             this.txtType = new Sunny.UI.UITextBox();
+            this.numNumberofTeeth2 = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel24 = new Sunny.UI.UILabel();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -220,7 +222,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeMultValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeTimeValue)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateTorque)).BeginInit();
@@ -237,6 +239,7 @@
             this.tabPage5.SuspendLayout();
             this.contextMenuStrip360h.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth2)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -1295,7 +1298,9 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.numNumberofTeeth);
+            this.groupBox2.Controls.Add(this.numNumberofTeeth2);
+            this.groupBox2.Controls.Add(this.uiLabel24);
+            this.groupBox2.Controls.Add(this.numNumberofTeeth1);
             this.groupBox2.Controls.Add(this.uiLabel20);
             this.groupBox2.Controls.Add(this.numMinSpeed);
             this.groupBox2.Controls.Add(this.numRateSpeed);
@@ -1307,40 +1312,40 @@
             this.groupBox2.Controls.Add(this.uiLabel3);
             this.groupBox2.Location = new System.Drawing.Point(14, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(348, 277);
+            this.groupBox2.Size = new System.Drawing.Size(348, 329);
             this.groupBox2.TabIndex = 395;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "发动机基础参数";
             // 
-            // numNumberofTeeth
+            // numNumberofTeeth1
             // 
-            this.numNumberofTeeth.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numNumberofTeeth.Location = new System.Drawing.Point(197, 231);
-            this.numNumberofTeeth.Maximum = new decimal(new int[] {
+            this.numNumberofTeeth1.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numNumberofTeeth1.Location = new System.Drawing.Point(197, 230);
+            this.numNumberofTeeth1.Maximum = new decimal(new int[] {
             500,
             0,
             0,
             0});
-            this.numNumberofTeeth.Name = "numNumberofTeeth";
-            this.numNumberofTeeth.Size = new System.Drawing.Size(120, 32);
-            this.numNumberofTeeth.TabIndex = 85;
+            this.numNumberofTeeth1.Name = "numNumberofTeeth1";
+            this.numNumberofTeeth1.Size = new System.Drawing.Size(120, 32);
+            this.numNumberofTeeth1.TabIndex = 85;
             // 
             // uiLabel20
             // 
             this.uiLabel20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.uiLabel20.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.uiLabel20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel20.Location = new System.Drawing.Point(1, 232);
+            this.uiLabel20.Location = new System.Drawing.Point(1, 228);
             this.uiLabel20.Name = "uiLabel20";
             this.uiLabel20.Size = new System.Drawing.Size(190, 26);
             this.uiLabel20.TabIndex = 84;
-            this.uiLabel20.Text = "飞轮盘齿数(T)";
+            this.uiLabel20.Text = "飞轮盘1齿数(T)";
             this.uiLabel20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // numMinSpeed
             // 
             this.numMinSpeed.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numMinSpeed.Location = new System.Drawing.Point(197, 181);
+            this.numMinSpeed.Location = new System.Drawing.Point(197, 184);
             this.numMinSpeed.Maximum = new decimal(new int[] {
             500,
             0,
@@ -1353,7 +1358,7 @@
             // numRateSpeed
             // 
             this.numRateSpeed.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numRateSpeed.Location = new System.Drawing.Point(197, 134);
+            this.numRateSpeed.Location = new System.Drawing.Point(197, 138);
             this.numRateSpeed.Maximum = new decimal(new int[] {
             3000,
             0,
@@ -1366,7 +1371,7 @@
             // numRateTorque
             // 
             this.numRateTorque.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numRateTorque.Location = new System.Drawing.Point(197, 90);
+            this.numRateTorque.Location = new System.Drawing.Point(197, 92);
             this.numRateTorque.Maximum = new decimal(new int[] {
             99999,
             0,
@@ -1381,7 +1386,7 @@
             this.uiLabel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.uiLabel5.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.uiLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel5.Location = new System.Drawing.Point(1, 182);
+            this.uiLabel5.Location = new System.Drawing.Point(1, 181);
             this.uiLabel5.Name = "uiLabel5";
             this.uiLabel5.Size = new System.Drawing.Size(190, 26);
             this.uiLabel5.TabIndex = 82;
@@ -1503,6 +1508,7 @@
             this.ucGKParams1.Key = "360h";
             this.ucGKParams1.Location = new System.Drawing.Point(907, 14);
             this.ucGKParams1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.ucGKParams1.Model = null;
             this.ucGKParams1.Name = "ucGKParams1";
             this.ucGKParams1.Size = new System.Drawing.Size(703, 848);
             this.ucGKParams1.TabIndex = 658;
@@ -2101,6 +2107,31 @@
             this.txtType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtType.Watermark = "请选择";
             // 
+            // numNumberofTeeth2
+            // 
+            this.numNumberofTeeth2.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numNumberofTeeth2.Location = new System.Drawing.Point(197, 276);
+            this.numNumberofTeeth2.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numNumberofTeeth2.Name = "numNumberofTeeth2";
+            this.numNumberofTeeth2.Size = new System.Drawing.Size(120, 32);
+            this.numNumberofTeeth2.TabIndex = 87;
+            // 
+            // uiLabel24
+            // 
+            this.uiLabel24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.uiLabel24.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.uiLabel24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel24.Location = new System.Drawing.Point(1, 275);
+            this.uiLabel24.Name = "uiLabel24";
+            this.uiLabel24.Size = new System.Drawing.Size(190, 26);
+            this.uiLabel24.TabIndex = 86;
+            this.uiLabel24.Text = "飞轮盘2齿数(T)";
+            this.uiLabel24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // ucTestParams
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2162,7 +2193,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeMultValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeTimeValue)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateTorque)).EndInit();
@@ -2181,6 +2212,7 @@
             this.tabPage5.ResumeLayout(false);
             this.contextMenuStrip360h.ResumeLayout(false);
             this.uiGroupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2325,6 +2357,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private Sunny.UI.UILabel uiLabel20;
         private System.Windows.Forms.NumericUpDown numnumberofTeeth;
-        private System.Windows.Forms.NumericUpDown numNumberofTeeth;
+        private System.Windows.Forms.NumericUpDown numNumberofTeeth1;
+        private System.Windows.Forms.NumericUpDown numNumberofTeeth2;
+        private Sunny.UI.UILabel uiLabel24;
     }
 }

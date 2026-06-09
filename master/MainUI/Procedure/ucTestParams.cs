@@ -85,7 +85,8 @@ namespace MainUI.Procedure
                 this.numOilPanLong.Value = paraconfig.OilPanLong.ToDecimal();
                 this.numOilPanWide.Value = paraconfig.OilPanWide.ToDecimal();
                 this.numOilPanHeight.Value = paraconfig.OilPanHeight.ToDecimal();
-                this.numNumberofTeeth.Value = paraconfig.NumberofTeeth.ToInt();
+                this.numNumberofTeeth1.Value = paraconfig.NumberofTeeth1.ToInt();
+                this.numNumberofTeeth2.Value = paraconfig.NumberofTeeth2.ToInt();
 
                 this.TorqueChangeTimeValue.Value = paraconfig.IntervalTime;
                 this.TorqueChangeMultValue.Value = paraconfig.TorqueChangeMultiple;
@@ -96,6 +97,9 @@ namespace MainUI.Procedure
 
                 // 360小时（循环代码）
                 uc360hParams1.LoadGridView(txtModel.Text);
+
+                // 360h 工况表
+                ucGKParams1.LoadGridView(txtModel.Text);
 
                 // 励磁调节参数
                 ucExcitationRegulationParams1.LoadGridView(txtModel.Text);
@@ -152,7 +156,8 @@ namespace MainUI.Procedure
                 paraconfig.OilPanLong = this.numOilPanLong.Value.ToInt();
                 paraconfig.OilPanWide = this.numOilPanWide.Value.ToInt();
                 paraconfig.OilPanHeight = this.numOilPanHeight.Value.ToInt();
-                paraconfig.NumberofTeeth = this.numNumberofTeeth.Value.ToInt();
+                paraconfig.NumberofTeeth1 = this.numNumberofTeeth1.Value.ToInt();
+                paraconfig.NumberofTeeth2 = this.numNumberofTeeth2.Value.ToInt();
 
                 paraconfig.IntervalTime = this.TorqueChangeTimeValue.Value.ToInt();
                 paraconfig.TorqueChangeMultiple = this.TorqueChangeMultValue.Value.ToInt();

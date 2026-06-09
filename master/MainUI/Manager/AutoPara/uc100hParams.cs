@@ -51,6 +51,7 @@ namespace MainUI.Procedure
         {
             Model = model;
             LoadGridView();
+            ucGKParams1.LoadGridView(model);
         }
 
         /// <summary>

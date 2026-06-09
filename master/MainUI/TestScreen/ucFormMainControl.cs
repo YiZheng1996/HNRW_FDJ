@@ -267,14 +267,15 @@ namespace MainUI.TestScreen
                 Var.MsgBoxWarn(this, "台位控制PLC通讯异常，下发最低工作转速失败!" + ex.Message);
             }
 
-            // 下发齿数到转速模块三个通道
+            // 下发齿数到转速模块
             try
             {
                 using (MainUI.Fault.OperationContext.Begin(this, null,
                     string.Format("切换型号[{0}]-下发齿数", model)))
                 {
-                    Common.speedGrp.SetToothCount(
-                        MiddleData.instnce.SelectModelConfig.NumberofTeeth);
+                    //Common.speedGrp.SetTooth1(); //TODO:齿数固定暂时无法得知，预留
+                    Common.speedGrp.SetTooth2(MiddleData.instnce.SelectModelConfig.NumberofTeeth1);
+                    Common.speedGrp.SetTooth3(MiddleData.instnce.SelectModelConfig.NumberofTeeth2);
                 }
             }
             catch (Exception ex)

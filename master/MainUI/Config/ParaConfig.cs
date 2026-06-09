@@ -52,10 +52,16 @@ namespace MainUI.Config
         public int MinSpeed { get; set; } = 350;
 
         /// <summary>
-        /// 飞轮盘齿数
+        /// 飞轮盘2齿数
         /// </summary>
-        [IniKeyName("飞轮盘齿数")]
-        public int NumberofTeeth { get; set; } = 0;
+        [IniKeyName("飞轮盘1齿数")]
+        public int NumberofTeeth1 { get; set; } = 0;
+
+        /// <summary>
+        /// 飞轮盘2齿数
+        /// </summary>
+        [IniKeyName("飞轮盘2齿数")]
+        public int NumberofTeeth2 { get; set; } = 0;
 
         /// <summary>
         /// 油底壳长 mm

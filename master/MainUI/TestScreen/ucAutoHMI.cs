@@ -290,6 +290,10 @@ namespace MainUI
             // 刷新表格
             // InitializeDataGridView();
 
+            // 型号切换后必须重建 gkConfig，否则 FreshStepView 仍使用旧型号工况数据
+            var tagValue = this.btnXN.Switch ? "100h" : "360h";
+            gkConfig = new GKConfig(model, tagValue);
+
             // 根据当前选择的类型刷新
             FreshStepView();
         }

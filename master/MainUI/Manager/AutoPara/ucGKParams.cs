@@ -59,7 +59,7 @@ namespace MainUI.Procedure
         /// <summary>
         /// 加载表格参数
         /// </summary>
-        private void LoadGridView(string model)
+        public void LoadGridView(string model)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace MainUI.Procedure
                 }
 
                 // 加载工况配置参数
-                new GKConfig(this.Model, Key);
+                gkConfig = new GKConfig(this.Model, Key);
 
                 this.lblTitle.Text = Key + " 工况表";
 
