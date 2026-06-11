@@ -820,10 +820,6 @@ namespace MainUI.Services
                         var stopList = GetActiveFaultsByType(WarnTypeEnum.Stop);
                         bool isEngineRunningNow = (CurrentData.发动机转速 > MiddleData.instnce.SelectModelConfig.MinSpeed - 10 && Common.DOgrp["发动机DC24V供电"]);
 
-                        // 停机故障检测
-                        //if (Var.FaultConfig?.FaultDataLists?.Count > 0 && stopList.Count > 0 && isEngineRunningNow)
-
-
                         // 停机故障检测：门控由“240 的 FaultDataLists 非空”改为“故障判据已就绪”，
                         // 与 StartFaultDetectionThread 保持同一判据，避免“检测在跑、停机不发”的割裂
                         if (_ecmFaultConditions != null && _ecmFaultConditions.Count > 0
@@ -1438,14 +1434,6 @@ namespace MainUI.Services
         /// </summary>
         public List<string> GetActiveFaultsByType(WarnTypeEnum faultType)
         {
-            //var excludePatterns = new[] { "发动机转速1_飞轮", "发动机转速2_飞轮" };  // 要排除的字符串列表
-
-            //return _faultStates
-            //    .Where(f => f.Value != null && f.Value.CurrentActiveFault == faultType)
-            //    .Select(f => f.Key)
-            //    .Where(key => !excludePatterns.Any(pattern => key.Contains(pattern)))
-            //    .ToList();
-
             // 正式
             return _faultStates
                 .Where(f => f.Value != null && f.Value.CurrentActiveFault == faultType)

@@ -135,7 +135,6 @@
             this.btnTimeWaveTorque = new System.Windows.Forms.Button();
             this.btnHistoryWaveTorque = new System.Windows.Forms.Button();
             this.btnCurrentWaveTorque = new System.Windows.Forms.Button();
-            this.uiLineChart2 = new Sunny.UI.UILineChart();
             this.label5 = new System.Windows.Forms.Label();
             this.LineChartSpeed = new Sunny.UI.UILineChart();
             this.label2 = new System.Windows.Forms.Label();
@@ -1251,7 +1250,6 @@
             this.panel2.Controls.Add(this.btnTimeWaveTorque);
             this.panel2.Controls.Add(this.btnHistoryWaveTorque);
             this.panel2.Controls.Add(this.btnCurrentWaveTorque);
-            this.panel2.Controls.Add(this.uiLineChart2);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.LineChartSpeed);
             this.panel2.Controls.Add(this.label2);
@@ -1362,19 +1360,6 @@
             this.btnCurrentWaveTorque.Text = "实时曲线";
             this.btnCurrentWaveTorque.UseVisualStyleBackColor = true;
             this.btnCurrentWaveTorque.Click += new System.EventHandler(this.btnCurrentWave_Click);
-            // 
-            // uiLineChart2
-            // 
-            this.uiLineChart2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLineChart2.LegendFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLineChart2.Location = new System.Drawing.Point(3, 555);
-            this.uiLineChart2.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiLineChart2.MouseDownType = Sunny.UI.UILineChartMouseDownType.Zoom;
-            this.uiLineChart2.Name = "uiLineChart2";
-            this.uiLineChart2.Size = new System.Drawing.Size(1630, 269);
-            this.uiLineChart2.SubFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLineChart2.TabIndex = 616;
-            this.uiLineChart2.Text = "uiLineChart2";
             // 
             // label5
             // 
@@ -3221,7 +3206,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label5;
         private Sunny.UI.UILineChart LineChartSpeed;
-        private Sunny.UI.UILineChart uiLineChart2;
         private System.Windows.Forms.Button btnRecoverWaveTorque;
         private System.Windows.Forms.Button btnTimeWaveTorque;
         private System.Windows.Forms.Button btnHistoryWaveTorque;

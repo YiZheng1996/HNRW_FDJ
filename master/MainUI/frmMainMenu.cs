@@ -427,7 +427,7 @@ namespace MainUI
                 Var.FaultService.FaultStatusChange(FaultTypeEnum.communication, IsZCNg ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "台位主从通讯");
                 Var.FaultService.FaultStatusChange(FaultTypeEnum.communication, lsRYNg ? WarnTypeEnum.Tip : WarnTypeEnum.None, "燃油耗仪");
                 Var.FaultService.FaultStatusChange(FaultTypeEnum.communication, IsBC ? WarnTypeEnum.Tip : WarnTypeEnum.None, "机油耗磅秤");
-                Var.FaultService.FaultStatusChange(FaultTypeEnum.communication, lsWeightNg ? WarnTypeEnum.Stop : WarnTypeEnum.None, "称重仪");
+                Var.FaultService.FaultStatusChange(FaultTypeEnum.communication, lsWeightNg ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "称重仪");
             }
             catch (Exception ex)
             {

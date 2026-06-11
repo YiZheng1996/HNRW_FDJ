@@ -38,6 +38,8 @@
             this.lbl = new System.Windows.Forms.Label();
             this.btnAdd100hStep = new Sunny.UI.UIButton();
             this.dgvMH = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.StepIndex100 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RPM = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,8 +47,6 @@
             this.ExcitationCurrent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Power = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StepNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMH)).BeginInit();
@@ -184,6 +184,28 @@
             this.dgvMH.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvMH_CellValidating);
             this.dgvMH.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvMH_DataError);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblTitle);
+            this.panel1.Controls.Add(this.dgvMH);
+            this.panel1.Controls.Add(this.groupBox7);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(703, 848);
+            this.panel1.TabIndex = 443;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(3, 11);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(120, 25);
+            this.lblTitle.TabIndex = 443;
+            this.lblTitle.Text = "360h 工况表";
+            // 
             // StepIndex100
             // 
             this.StepIndex100.DataPropertyName = "Index";
@@ -192,6 +214,7 @@
             this.StepIndex100.Name = "StepIndex100";
             this.StepIndex100.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.StepIndex100.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.StepIndex100.Visible = false;
             // 
             // GK
             // 
@@ -244,28 +267,6 @@
             this.Column2.Text = "删除";
             this.Column2.UseColumnTextForButtonValue = true;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Controls.Add(this.dgvMH);
-            this.panel1.Controls.Add(this.groupBox7);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(703, 848);
-            this.panel1.TabIndex = 443;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(3, 11);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(120, 25);
-            this.lblTitle.TabIndex = 443;
-            this.lblTitle.Text = "360h 工况表";
-            // 
             // ucGKParams
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -294,6 +295,8 @@
         private System.Windows.Forms.Label lbl;
         private Sunny.UI.UIButton btnAdd100hStep;
         private Sunny.UI.UIButton btnExcelIn;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn StepIndex100;
         private System.Windows.Forms.DataGridViewTextBoxColumn GK;
         private System.Windows.Forms.DataGridViewTextBoxColumn RPM;
@@ -301,7 +304,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ExcitationCurrent;
         private System.Windows.Forms.DataGridViewTextBoxColumn Power;
         private System.Windows.Forms.DataGridViewButtonColumn Column2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lblTitle;
     }
 }
