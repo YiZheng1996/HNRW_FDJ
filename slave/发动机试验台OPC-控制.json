@@ -973,6 +973,15 @@
 										"servermain.TAG_SCALING_TYPE": 0
 									},
 									{
+										"common.ALLTYPES_NAME": "设置发动机最高转速",
+										"common.ALLTYPES_DESCRIPTION": "设置发动机最低转速",
+										"servermain.TAG_ADDRESS": "DB701.DBD94",
+										"servermain.TAG_DATA_TYPE": 8,
+										"servermain.TAG_READ_WRITE_ACCESS": 1,
+										"servermain.TAG_SCAN_RATE_MILLISECONDS": 100,
+										"servermain.TAG_SCALING_TYPE": 0
+									},
+									{
 										"common.ALLTYPES_NAME": "水泵出口电动调节阀控制-18",
 										"common.ALLTYPES_DESCRIPTION": "水泵出口电动调节阀控制-18",
 										"servermain.TAG_ADDRESS": "DB144.DBD288",

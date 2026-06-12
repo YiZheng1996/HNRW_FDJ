@@ -28,25 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.btnExcelIn = new Sunny.UI.UIButton();
             this.StepNum = new System.Windows.Forms.NumericUpDown();
             this.lbl = new System.Windows.Forms.Label();
             this.btnAdd100hStep = new Sunny.UI.UIButton();
             this.dgvMH = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.StepIndex100 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GK = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colRpmPct = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTorquePct = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RPM = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Torque = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExcitationCurrent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Power = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StepNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMH)).BeginInit();
@@ -74,11 +76,11 @@
             // 
             this.btnExcelIn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExcelIn.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.btnExcelIn.Location = new System.Drawing.Point(520, 44);
+            this.btnExcelIn.Location = new System.Drawing.Point(521, 34);
             this.btnExcelIn.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnExcelIn.MinimumSize = new System.Drawing.Size(2, 1);
             this.btnExcelIn.Name = "btnExcelIn";
-            this.btnExcelIn.Size = new System.Drawing.Size(142, 45);
+            this.btnExcelIn.Size = new System.Drawing.Size(162, 45);
             this.btnExcelIn.TabIndex = 443;
             this.btnExcelIn.Text = "从工况表进行导入";
             this.btnExcelIn.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -142,32 +144,34 @@
             this.dgvMH.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMH.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvMH.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 14F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(4);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMH.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 14F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(4);
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMH.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvMH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMH.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.StepIndex100,
             this.GK,
+            this.colRpmPct,
+            this.colTorquePct,
             this.RPM,
             this.Torque,
             this.ExcitationCurrent,
             this.Power,
             this.Column2});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 14F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvMH.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("微软雅黑", 14F);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvMH.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvMH.EnableHeadersVisualStyles = false;
             this.dgvMH.Location = new System.Drawing.Point(3, 42);
             this.dgvMH.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
@@ -183,28 +187,6 @@
             this.dgvMH.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMH_CellEnter);
             this.dgvMH.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvMH_CellValidating);
             this.dgvMH.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvMH_DataError);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Controls.Add(this.dgvMH);
-            this.panel1.Controls.Add(this.groupBox7);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(703, 848);
-            this.panel1.TabIndex = 443;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(3, 11);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(120, 25);
-            this.lblTitle.TabIndex = 443;
-            this.lblTitle.Text = "360h 工况表";
             // 
             // StepIndex100
             // 
@@ -223,11 +205,27 @@
             this.GK.Name = "GK";
             this.GK.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // colRpmPct
+            // 
+            this.colRpmPct.FillWeight = 60F;
+            this.colRpmPct.HeaderText = "转速%";
+            this.colRpmPct.Name = "colRpmPct";
+            this.colRpmPct.ReadOnly = true;
+            this.colRpmPct.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colTorquePct
+            // 
+            this.colTorquePct.FillWeight = 60F;
+            this.colTorquePct.HeaderText = "扭矩%";
+            this.colTorquePct.Name = "colTorquePct";
+            this.colTorquePct.ReadOnly = true;
+            this.colTorquePct.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // RPM
             // 
             this.RPM.DataPropertyName = "RPM";
-            dataGridViewCellStyle2.Format = "F0";
-            this.RPM.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Format = "F0";
+            this.RPM.DefaultCellStyle = dataGridViewCellStyle6;
             this.RPM.FillWeight = 80F;
             this.RPM.HeaderText = "转速值(rpm)";
             this.RPM.Name = "RPM";
@@ -236,8 +234,8 @@
             // Torque
             // 
             this.Torque.DataPropertyName = "Torque";
-            dataGridViewCellStyle3.Format = "F0";
-            this.Torque.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Format = "F0";
+            this.Torque.DefaultCellStyle = dataGridViewCellStyle7;
             this.Torque.FillWeight = 80F;
             this.Torque.HeaderText = "扭矩值(N.m)";
             this.Torque.Name = "Torque";
@@ -266,6 +264,28 @@
             this.Column2.Name = "Column2";
             this.Column2.Text = "删除";
             this.Column2.UseColumnTextForButtonValue = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblTitle);
+            this.panel1.Controls.Add(this.dgvMH);
+            this.panel1.Controls.Add(this.groupBox7);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(703, 848);
+            this.panel1.TabIndex = 443;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(3, 11);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(120, 25);
+            this.lblTitle.TabIndex = 443;
+            this.lblTitle.Text = "360h 工况表";
             // 
             // ucGKParams
             // 
@@ -299,6 +319,8 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn StepIndex100;
         private System.Windows.Forms.DataGridViewTextBoxColumn GK;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colRpmPct;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTorquePct;
         private System.Windows.Forms.DataGridViewTextBoxColumn RPM;
         private System.Windows.Forms.DataGridViewTextBoxColumn Torque;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExcitationCurrent;

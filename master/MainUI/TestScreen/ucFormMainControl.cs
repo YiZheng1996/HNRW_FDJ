@@ -261,6 +261,10 @@ namespace MainUI.TestScreen
                 {
                     Common.AOgrp["设置发动机最低转速"] = MiddleData.instnce.SelectModelConfig.MinSpeed;
                 }
+                using (MainUI.Fault.OperationContext.Begin(this, null, string.Format("切换型号[{0}]-下发最高转速", model)))
+                {
+                    Common.AOgrp["设置发动机最高转速"] = MiddleData.instnce.SelectModelConfig.MaxSpeed;
+                }
             }
             catch (Exception ex)
             {

@@ -52,6 +52,12 @@ namespace MainUI.Config
         public int MinSpeed { get; set; } = 350;
 
         /// <summary>
+        /// 最大工作转速
+        /// </summary>
+        [IniKeyName("最大工作转速")]
+        public int MaxSpeed { get; set; } = 350;
+
+        /// <summary>
         /// 飞轮盘2齿数
         /// </summary>
         [IniKeyName("飞轮盘1齿数")]

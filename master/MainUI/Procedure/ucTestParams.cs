@@ -1143,6 +1143,107 @@ namespace MainUI.Procedure
             }
         }
 
+        ///// <summary>
+        ///// 360小时循环代码详细步骤表格单元格值编辑结束后触发
+        ///// </summary>
+        //private void dgvNode_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (e.RowIndex >= 0 && e.RowIndex < dgvNode.Rows.Count)
+        //    {
+        //        try
+        //        {
+        //            // 恢复输入法状态
+        //            this.ImeMode = ImeMode.NoControl;
+
+        //            DataGridViewRow detailRow = dgvNode.Rows[e.RowIndex];
+        //            // 获取单元格
+        //            DataGridViewCell cell = detailRow.Cells[e.ColumnIndex];
+        //            string columnName = dgvNode.Columns[e.ColumnIndex].Name;
+        //            int detailIndex = Convert.ToInt32(detailRow.Cells["NodeIndex"].Value);
+
+        //            // 验证输入
+        //            string inputValue = cell.Value?.ToString() ?? "";
+
+        //            if (columnName == "NodeSpeed" || columnName == "NodeTorque" || columnName == "NodeTime" || columnName == "GK")
+        //            {
+        //                // 验证是否为数字（防止中文输入）
+        //                if (!IsValidNumber(inputValue))
+        //                {
+        //                    Var.MsgBoxWarn(this, $"请输入有效的数字！当前输入：{inputValue}");
+        //                    cell.Value = 0;
+        //                    //LoadGridViewNode(); // 重新加载恢复原值
+        //                    return;
+        //                }
+
+        //                double value = Convert.ToDouble(inputValue);
+
+        //                // 验证范围
+        //                if (columnName == "NodeSpeed" && (value < 0 || value > MAX_RPM))
+        //                {
+        //                    Var.MsgBoxWarn(this, $"转速范围：0-{MAX_RPM}！当前输入：{value}");
+        //                    cell.Value = 0;
+        //                    //LoadGridViewNode();
+        //                    return;
+        //                }
+        //                else if (columnName == "NodeTorque" && (value < 0 || value > MAX_TORQUE))
+        //                {
+        //                    Var.MsgBoxWarn(this, $"扭矩范围：0-{MAX_TORQUE}！当前输入：{value}");
+        //                    cell.Value = 0;
+        //                    //LoadGridViewNode();
+        //                    return;
+        //                }
+        //                else if (columnName == "NodeTime" && (value < 0 || value > MAX_RUN_TIME))
+        //                {
+        //                    Var.MsgBoxWarn(this, $"运行时间范围：0-{MAX_RUN_TIME}！当前输入：{value}");
+        //                    cell.Value = 1;
+        //                    //LoadGridViewNode();
+        //                    return;
+        //                }
+        //                else if (columnName == "GK")
+        //                {
+        //                    // todo 是否检测工况编号是否存在
+        //                    //return;
+        //                }
+        //            }
+
+        //            // 获取修改后的值
+        //            double rpm = Convert.ToDouble(detailRow.Cells["NodeSpeed"].Value);
+        //            double torque = Convert.ToDouble(detailRow.Cells["NodeTorque"].Value);
+        //            double runTime = Convert.ToDouble(detailRow.Cells["NodeTime"].Value);
+        //            string gkNo = detailRow.Cells["GK"].Value.ToString();
+
+        //            // 更新配置数据
+        //            var detailData = durStepConfig.testBasePara.FirstOrDefault(d => d.Index == detailIndex);
+        //            if (detailData != null)
+        //            {
+        //                // 更新修改的值
+        //                detailData.RPM = rpm;
+        //                detailData.Torque = torque;
+        //                detailData.RunTime = runTime;
+        //                detailData.GKNo = gkNo;
+
+        //                durStepConfig.Save();
+        //                if (_cellEditOldValue != inputValue)
+        //                {
+        //                    OpcOperationLog.LogConfig("360循环代码-编辑行",
+        //                        $"型号={txtModel.Text} 循环={listTestStep.Text} " +
+        //                        $"行={e.RowIndex + 1} 列={dgvNode.Columns[e.ColumnIndex].HeaderText} " +
+        //                        $"旧值={_cellEditOldValue} 新值={inputValue}");
+        //                }
+        //            }
+        //        }
+        //        catch (FormatException)
+        //        {
+        //            Var.MsgBoxWarn(this, "输入格式错误，请输入有效的数字！");
+        //            //LoadGridViewNode(); // 重新加载恢复原值
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Var.MsgBoxWarn(this, "保存失败：" + ex.Message);
+        //        }
+        //    }
+        //}
+
         /// <summary>
         /// 360小时循环代码详细步骤表格单元格值编辑结束后触发
         /// </summary>
@@ -1156,86 +1257,92 @@ namespace MainUI.Procedure
                     this.ImeMode = ImeMode.NoControl;
 
                     DataGridViewRow detailRow = dgvNode.Rows[e.RowIndex];
-                    // 获取单元格
                     DataGridViewCell cell = detailRow.Cells[e.ColumnIndex];
                     string columnName = dgvNode.Columns[e.ColumnIndex].Name;
                     int detailIndex = Convert.ToInt32(detailRow.Cells["NodeIndex"].Value);
-
-                    // 验证输入
                     string inputValue = cell.Value?.ToString() ?? "";
 
-                    if (columnName == "NodeSpeed" || columnName == "NodeTorque" || columnName == "NodeTime" || columnName == "GK")
+                    // 工况编号列：查表回填转速%/扭矩%
+                    if (columnName == "GK")
                     {
-                        // 验证是否为数字（防止中文输入）
+                        string gkNo = inputValue.Trim();
+
+                        if (string.IsNullOrEmpty(gkNo))
+                        {
+                            Var.MsgBoxWarn(this, "工况编号不能为空");
+                            return;
+                        }
+
+                        // 按当前型号查360h工况表
+                        var gkConfig360 = new GKConfig(txtModel.Text, "360h");
+                        var gkData = gkConfig360.DurabilityDatas.FirstOrDefault(d => d.GKNo == gkNo);
+
+                        if (gkData == null)
+                        {
+                            Var.MsgBoxWarn(this, $"工况编号 {gkNo} 不存在于360h工况表，请检查");
+                            return; // 不回填、不保存，保留输入让用户修正
+                        }
+
+                        // 标定值换算% 并回填只读列（与工况表使用同一套换算逻辑）
+                        var paraConfig = new ParaConfig(txtModel.Text);
+                        GKPercent pct = gkData.ToPercent(paraConfig);
+
+                        detailRow.Cells["NodeSpeed"].Value = pct.SpeedPct;
+                        detailRow.Cells["NodeTorque"].Value = pct.TorquePct;
+
+                        // 更新配置数据并保存
+                        var detailData = durStepConfig.testBasePara.FirstOrDefault(d => d.Index == detailIndex);
+                        if (detailData != null)
+                        {
+                            detailData.GKNo = gkNo;
+                            detailData.RPM = pct.SpeedPct;
+                            detailData.Torque = pct.TorquePct;
+                            durStepConfig.Save();
+
+                            OpcOperationLog.LogConfig("360循环代码-编辑行",
+                                $"型号={txtModel.Text} 循环={listTestStep.Text} " +
+                                $"行={e.RowIndex + 1} 工况编号={gkNo} → 转速%={pct.SpeedPct} 扭矩%={pct.TorquePct}");
+                        }
+                        return;
+                    }
+
+                    // ===== 运行时间列：原有数值校验逻辑 =====
+                    if (columnName == "NodeTime")
+                    {
                         if (!IsValidNumber(inputValue))
                         {
                             Var.MsgBoxWarn(this, $"请输入有效的数字！当前输入：{inputValue}");
-                            cell.Value = 0;
-                            //LoadGridViewNode(); // 重新加载恢复原值
-                            return;
-                        }
-
-                        double value = Convert.ToDouble(inputValue);
-
-                        // 验证范围
-                        if (columnName == "NodeSpeed" && (value < 0 || value > MAX_RPM))
-                        {
-                            Var.MsgBoxWarn(this, $"转速范围：0-{MAX_RPM}！当前输入：{value}");
-                            cell.Value = 0;
-                            //LoadGridViewNode();
-                            return;
-                        }
-                        else if (columnName == "NodeTorque" && (value < 0 || value > MAX_TORQUE))
-                        {
-                            Var.MsgBoxWarn(this, $"扭矩范围：0-{MAX_TORQUE}！当前输入：{value}");
-                            cell.Value = 0;
-                            //LoadGridViewNode();
-                            return;
-                        }
-                        else if (columnName == "NodeTime" && (value < 0 || value > MAX_RUN_TIME))
-                        {
-                            Var.MsgBoxWarn(this, $"运行时间范围：0-{MAX_RUN_TIME}！当前输入：{value}");
                             cell.Value = 1;
-                            //LoadGridViewNode();
                             return;
                         }
-                        else if (columnName == "GK")
+
+                        double runTime = Convert.ToDouble(inputValue);
+                        if (runTime < 0 || runTime > MAX_RUN_TIME)
                         {
-                            // todo 是否检测工况编号是否存在
-                            //return;
+                            Var.MsgBoxWarn(this, $"运行时间范围：0-{MAX_RUN_TIME}！当前输入：{runTime}");
+                            cell.Value = 1;
+                            return;
                         }
-                    }
 
-                    // 获取修改后的值
-                    double rpm = Convert.ToDouble(detailRow.Cells["NodeSpeed"].Value);
-                    double torque = Convert.ToDouble(detailRow.Cells["NodeTorque"].Value);
-                    double runTime = Convert.ToDouble(detailRow.Cells["NodeTime"].Value);
-                    string gkNo = detailRow.Cells["GK"].Value.ToString();
-
-                    // 更新配置数据
-                    var detailData = durStepConfig.testBasePara.FirstOrDefault(d => d.Index == detailIndex);
-                    if (detailData != null)
-                    {
-                        // 更新修改的值
-                        detailData.RPM = rpm;
-                        detailData.Torque = torque;
-                        detailData.RunTime = runTime;
-                        detailData.GKNo = gkNo;
-
-                        durStepConfig.Save();
-                        if (_cellEditOldValue != inputValue)
+                        var detailData = durStepConfig.testBasePara.FirstOrDefault(d => d.Index == detailIndex);
+                        if (detailData != null)
                         {
-                            OpcOperationLog.LogConfig("360循环代码-编辑行",
-                                $"型号={txtModel.Text} 循环={listTestStep.Text} " +
-                                $"行={e.RowIndex + 1} 列={dgvNode.Columns[e.ColumnIndex].HeaderText} " +
-                                $"旧值={_cellEditOldValue} 新值={inputValue}");
+                            detailData.RunTime = runTime;
+                            durStepConfig.Save();
+
+                            if (_cellEditOldValue != inputValue)
+                            {
+                                OpcOperationLog.LogConfig("360循环代码-编辑行",
+                                    $"型号={txtModel.Text} 循环={listTestStep.Text} " +
+                                    $"行={e.RowIndex + 1} 列={dgvNode.Columns[e.ColumnIndex].HeaderText} " +
+                                    $"旧值={_cellEditOldValue} 新值={inputValue}");
+                            }
                         }
                     }
                 }
                 catch (FormatException)
                 {
                     Var.MsgBoxWarn(this, "输入格式错误，请输入有效的数字！");
-                    //LoadGridViewNode(); // 重新加载恢复原值
                 }
                 catch (Exception ex)
                 {

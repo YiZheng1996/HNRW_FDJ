@@ -1,5 +1,7 @@
 ﻿using MainUI.Config;
 using MainUI.Fault;
+using MainUI.Helper;
+using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,9 @@ namespace MainUI.Procedure
         /// </summary>
         public string Model { get; set; }
 
+        // 获取标定扭矩、转速
+        private ParaConfig _paraConfig;
+
         // 工况配置参数
         GKConfig gkConfig { get; set; }
 
@@ -34,7 +39,6 @@ namespace MainUI.Procedure
             get { return _key; }
             set { _key = value; }
         }
-
 
         public ucGKParams()
         {
@@ -74,14 +78,20 @@ namespace MainUI.Procedure
                 // 加载工况配置参数
                 gkConfig = new GKConfig(this.Model, Key);
 
+                // 按当前型号加载标定值，用于百分比显示
+                _paraConfig = new ParaConfig(this.Model);
+
                 this.lblTitle.Text = Key + " 工况表";
 
                 this.dgvMH.Rows.Clear();
                 foreach (var item in gkConfig.DurabilityDatas)
                 {
+                    GKPercent pct = item.ToPercent(_paraConfig);
                     int rowIndex = this.dgvMH.Rows.Add(
                         item.Index,
                         item.GKNo,
+                        pct.SpeedPct,
+                        pct.TorquePct,
                         item.Speed,
                         item.Torque,
                         item.ExcitationCurrent,
@@ -221,8 +231,8 @@ namespace MainUI.Procedure
         /// </summary>
         private void dgvMH_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // 如果点击的是删除按钮列（第6列，索引为6）
-            if (e.RowIndex >= 0 && e.ColumnIndex == 6)
+            // 如果点击的是删除按钮列
+            if (e.RowIndex >= 0 && e.ColumnIndex == dgvMH.Columns["Column2"].Index)
             {
                 // 防止事件冒泡
                 dgvMH.EndEdit();

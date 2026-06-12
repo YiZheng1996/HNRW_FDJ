@@ -272,6 +272,7 @@
     <Compile Include="FSql\Model\ManualRecordMain.cs" />
     <Compile Include="FSql\Model\StartupTestPara.cs" />
     <Compile Include="Helper\DeviceStatusProcessor.cs" />
+    <Compile Include="Helper\GKDataExtensions.cs" />
     <Compile Include="Helper\WorkingConditionExcel.cs" />
     <Compile Include="HMI_Auto\ucAutoStepSelect.cs">
       <SubType>Form</SubType>

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiTabControl1 = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -112,6 +112,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.numNumberofTeeth2 = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel24 = new Sunny.UI.UILabel();
             this.numNumberofTeeth1 = new System.Windows.Forms.NumericUpDown();
             this.uiLabel20 = new Sunny.UI.UILabel();
             this.numMinSpeed = new System.Windows.Forms.NumericUpDown();
@@ -148,12 +150,6 @@
             this.uiDoubleUpDown1 = new Sunny.UI.UIDoubleUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.dgvNode = new System.Windows.Forms.DataGridView();
-            this.NodeIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GK = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NodeTorque = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NodeSpeed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NodeTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listTestStep = new System.Windows.Forms.ListBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -169,8 +165,12 @@
             this.btnGet = new Sunny.UI.UIButton();
             this.uiLabel2 = new Sunny.UI.UILabel();
             this.txtType = new Sunny.UI.UITextBox();
-            this.numNumberofTeeth2 = new System.Windows.Forms.NumericUpDown();
-            this.uiLabel24 = new Sunny.UI.UILabel();
+            this.NodeIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GK = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NodeTorque = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NodeSpeed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NodeTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -222,6 +222,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeMultValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeTimeValue)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateSpeed)).BeginInit();
@@ -239,7 +240,6 @@
             this.tabPage5.SuspendLayout();
             this.contextMenuStrip360h.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth2)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -1317,6 +1317,31 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "发动机基础参数";
             // 
+            // numNumberofTeeth2
+            // 
+            this.numNumberofTeeth2.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numNumberofTeeth2.Location = new System.Drawing.Point(197, 276);
+            this.numNumberofTeeth2.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numNumberofTeeth2.Name = "numNumberofTeeth2";
+            this.numNumberofTeeth2.Size = new System.Drawing.Size(120, 32);
+            this.numNumberofTeeth2.TabIndex = 87;
+            // 
+            // uiLabel24
+            // 
+            this.uiLabel24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.uiLabel24.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.uiLabel24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel24.Location = new System.Drawing.Point(1, 275);
+            this.uiLabel24.Name = "uiLabel24";
+            this.uiLabel24.Size = new System.Drawing.Size(190, 26);
+            this.uiLabel24.TabIndex = 86;
+            this.uiLabel24.Text = "飞轮盘2齿数(T)";
+            this.uiLabel24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // numNumberofTeeth1
             // 
             this.numNumberofTeeth1.Font = new System.Drawing.Font("微软雅黑", 14F);
@@ -1820,15 +1845,15 @@
             this.dgvNode.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvNode.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvNode.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(4);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvNode.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(4);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvNode.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvNode.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNode.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NodeIndex,
@@ -1837,14 +1862,14 @@
             this.NodeSpeed,
             this.NodeTime,
             this.Column4});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNode.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvNode.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvNode.EnableHeadersVisualStyles = false;
             this.dgvNode.Location = new System.Drawing.Point(128, 16);
             this.dgvNode.Name = "dgvNode";
@@ -1859,50 +1884,6 @@
             this.dgvNode.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNode_CellEnter);
             this.dgvNode.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvNode_CellValidating);
             this.dgvNode.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvNode_EditingControlShowing);
-            // 
-            // NodeIndex
-            // 
-            this.NodeIndex.DataPropertyName = "Index";
-            this.NodeIndex.FillWeight = 70F;
-            this.NodeIndex.HeaderText = "步骤号";
-            this.NodeIndex.Name = "NodeIndex";
-            this.NodeIndex.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // GK
-            // 
-            this.GK.FillWeight = 80F;
-            this.GK.HeaderText = "工况编号";
-            this.GK.Name = "GK";
-            this.GK.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NodeTorque
-            // 
-            this.NodeTorque.DataPropertyName = "Torque";
-            this.NodeTorque.HeaderText = "扭矩(%)";
-            this.NodeTorque.Name = "NodeTorque";
-            this.NodeTorque.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NodeSpeed
-            // 
-            this.NodeSpeed.DataPropertyName = "RPM";
-            this.NodeSpeed.HeaderText = "转速(%)";
-            this.NodeSpeed.Name = "NodeSpeed";
-            this.NodeSpeed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NodeTime
-            // 
-            this.NodeTime.DataPropertyName = "Time";
-            this.NodeTime.HeaderText = "运行时间(min)";
-            this.NodeTime.Name = "NodeTime";
-            this.NodeTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column4
-            // 
-            this.Column4.FillWeight = 60F;
-            this.Column4.HeaderText = "操作";
-            this.Column4.Name = "Column4";
-            this.Column4.Text = "删除";
-            this.Column4.UseColumnTextForButtonValue = true;
             // 
             // groupBox1
             // 
@@ -2107,30 +2088,51 @@
             this.txtType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtType.Watermark = "请选择";
             // 
-            // numNumberofTeeth2
+            // NodeIndex
             // 
-            this.numNumberofTeeth2.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numNumberofTeeth2.Location = new System.Drawing.Point(197, 276);
-            this.numNumberofTeeth2.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.numNumberofTeeth2.Name = "numNumberofTeeth2";
-            this.numNumberofTeeth2.Size = new System.Drawing.Size(120, 32);
-            this.numNumberofTeeth2.TabIndex = 87;
+            this.NodeIndex.DataPropertyName = "Index";
+            this.NodeIndex.FillWeight = 70F;
+            this.NodeIndex.HeaderText = "步骤号";
+            this.NodeIndex.Name = "NodeIndex";
+            this.NodeIndex.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // uiLabel24
+            // GK
             // 
-            this.uiLabel24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.uiLabel24.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.uiLabel24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel24.Location = new System.Drawing.Point(1, 275);
-            this.uiLabel24.Name = "uiLabel24";
-            this.uiLabel24.Size = new System.Drawing.Size(190, 26);
-            this.uiLabel24.TabIndex = 86;
-            this.uiLabel24.Text = "飞轮盘2齿数(T)";
-            this.uiLabel24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.GK.FillWeight = 80F;
+            this.GK.HeaderText = "工况编号";
+            this.GK.Name = "GK";
+            this.GK.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NodeTorque
+            // 
+            this.NodeTorque.DataPropertyName = "Torque";
+            this.NodeTorque.HeaderText = "扭矩(%)";
+            this.NodeTorque.Name = "NodeTorque";
+            this.NodeTorque.ReadOnly = true;
+            this.NodeTorque.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NodeSpeed
+            // 
+            this.NodeSpeed.DataPropertyName = "RPM";
+            this.NodeSpeed.HeaderText = "转速(%)";
+            this.NodeSpeed.Name = "NodeSpeed";
+            this.NodeSpeed.ReadOnly = true;
+            this.NodeSpeed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NodeTime
+            // 
+            this.NodeTime.DataPropertyName = "Time";
+            this.NodeTime.HeaderText = "运行时间(min)";
+            this.NodeTime.Name = "NodeTime";
+            this.NodeTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column4
+            // 
+            this.Column4.FillWeight = 60F;
+            this.Column4.HeaderText = "操作";
+            this.Column4.Name = "Column4";
+            this.Column4.Text = "删除";
+            this.Column4.UseColumnTextForButtonValue = true;
             // 
             // ucTestParams
             // 
@@ -2193,6 +2195,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeMultValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeTimeValue)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateSpeed)).EndInit();
@@ -2212,7 +2215,6 @@
             this.tabPage5.ResumeLayout(false);
             this.contextMenuStrip360h.ResumeLayout(false);
             this.uiGroupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2346,12 +2348,6 @@
         private ucGKParams ucGKParams1;
         private Sunny.UI.UIButton btnDown;
         private Sunny.UI.UIButton btnUP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NodeIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GK;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NodeTorque;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NodeSpeed;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NodeTime;
-        private System.Windows.Forms.DataGridViewButtonColumn Column4;
         private System.Windows.Forms.TabPage tabPage5;
         private ucExcitationRegulationParams ucExcitationRegulationParams1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
@@ -2360,5 +2356,11 @@
         private System.Windows.Forms.NumericUpDown numNumberofTeeth1;
         private System.Windows.Forms.NumericUpDown numNumberofTeeth2;
         private Sunny.UI.UILabel uiLabel24;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NodeIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GK;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NodeTorque;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NodeSpeed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NodeTime;
+        private System.Windows.Forms.DataGridViewButtonColumn Column4;
     }
 }
