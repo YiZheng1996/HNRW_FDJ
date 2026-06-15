@@ -1096,7 +1096,7 @@
 									},
 									{
 										"common.ALLTYPES_NAME": "柴油机停机",
-										"common.ALLTYPES_DESCRIPTION": "柴油机停机",
+										"common.ALLTYPES_DESCRIPTION": "柴油机停机，急停按钮",
 										"servermain.TAG_ADDRESS": "DB142.DBX28.6",
 										"servermain.TAG_DATA_TYPE": 1,
 										"servermain.TAG_READ_WRITE_ACCESS": 1,

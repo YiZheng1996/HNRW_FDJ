@@ -55,7 +55,7 @@ namespace MainUI.Config
         /// 最大工作转速
         /// </summary>
         [IniKeyName("最大工作转速")]
-        public int MaxSpeed { get; set; } = 350;
+        public int MaxSpeed { get; set; } = 1000;
 
         /// <summary>
         /// 飞轮盘2齿数

@@ -336,15 +336,15 @@ namespace MainUI.TestScreen
             }
 
             //给启机/甩车控制面板里的转速和电流初始化
-            //转速
-            Control control = FindControl(ucStartup1, "nudBeginInvertSpeed");
-            if (control is UIDoubleUpDown)
-            {
-                UIDoubleUpDown dud = control as UIDoubleUpDown;
-                //dud.Value = pubInfo.DefaultRotationSpeed;
-                dud.Maximum = pubInfo.MaxRotationSpeed;
-                dud.Minimum = pubInfo.MinRotationSpeed;
-            }
+            //启机变频器转速，暂时写死 Max180
+            //Control control = FindControl(ucStartup1, "nudBeginInvertSpeed");
+            //if (control is UIDoubleUpDown)
+            //{
+            //    UIDoubleUpDown dud = control as UIDoubleUpDown;
+            //    //dud.Value = pubInfo.DefaultRotationSpeed;
+            //    dud.Maximum = pubInfo.MaxRotationSpeed;
+            //    dud.Minimum = pubInfo.MinRotationSpeed;
+            //}
             //电流
             Control control2 = FindControl(ucStartup1, "nudBeginCurrent");
             if (control2 is UIDoubleUpDown)
@@ -646,29 +646,6 @@ namespace MainUI.TestScreen
             if (e.Key == "紧急停止")
             {
                 EventTriggerModel.ScramChanged(e.Value);
-
-                if (e.Value)
-                {
-
-                }
-                else
-                {
-                    // 使用Invoke确保在UI线程中执行
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke(new Action(() =>
-                        {
-                            if (!scarmForm.IsOpen)
-                                scarmForm.ShowInfo();
-                        }));
-                    }
-                    else
-                    {
-                        if (!scarmForm.IsOpen)
-                            scarmForm.ShowInfo();
-                    }
-
-                }
             }
             //泵类信号灯特殊处理
             else if (e.Key == "主发通风机1主接检测")
@@ -1676,6 +1653,24 @@ namespace MainUI.TestScreen
             catch { }
         }
 
+        private void btnSetSpeedReduce00_Click(object sender, EventArgs e)
+        {
+            bool result = Var.MsgBoxYesNo(this, "确定将发动机转速降低至怠速吗？");
+            if (result == false)
+            {
+                return;
+            }
+            btnSetSpeedReduce.Focus();
+            var button = sender as RButton;
+            var tag = button.Tag.ToInt();
+            var val = Common.AOgrp["发动机油门调节"] - tag;
+            if (val <= 0) val = 0;
+            using (Fault.OperationContext.Begin(this, sender, string.Format("发动机转速-{0}", tag)))
+            {
+                Common.AOgrp["发动机油门调节"] = MiddleData.instnce.SelectModelConfig.MinSpeed;
+            }
+            this.ucNudSpeed.Value = MiddleData.instnce.SelectModelConfig.MinSpeed;
+        }
     }
 
 

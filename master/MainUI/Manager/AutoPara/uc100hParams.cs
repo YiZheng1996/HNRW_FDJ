@@ -1,5 +1,7 @@
-﻿using MainUI.Config.Test;
+﻿using MainUI.Config;
+using MainUI.Config.Test;
 using MainUI.Fault;
+using MainUI.Helper;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -457,104 +459,232 @@ namespace MainUI.Procedure
         /// </summary>
         private void dgv100hMH_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.RowIndex < dgv100hMH.Rows.Count && dgvMH.SelectedRows.Count > 0)
+            if (e.RowIndex < 0 || e.RowIndex >= dgv100hMH.Rows.Count) return;
+
+            try
             {
-                try
+                DataGridViewRow detailRow = dgv100hMH.Rows[e.RowIndex];
+                DataGridViewCell cell = detailRow.Cells[e.ColumnIndex];
+                string columnName = dgv100hMH.Columns[e.ColumnIndex].Name;
+                string inputValue = cell.Value?.ToString() ?? "";
+
+                // 获取主流程行/详细步骤索引（与原逻辑保持一致）
+                DataGridViewRow mainRow = dgvMH.SelectedRows[0];
+                int mainIndex = Convert.ToInt32(mainRow.Cells["Index"].Value);
+                int detailIndex = Convert.ToInt32(detailRow.Cells["StepIndex100"].Value);
+
+                var stepData = testConfig.testStepLists.FirstOrDefault(d => d.Index == mainIndex);
+                if (stepData == null) return;
+
+                // 工况编号列：查100h工况表回填扭矩%/转速%
+                if (columnName == "GK")
                 {
-                    // 恢复输入法状态
-                    this.ImeMode = ImeMode.NoControl;
+                    string gkNo = inputValue.Trim();
 
-                    DataGridViewRow mainRow = dgvMH.SelectedRows[0];
-                    int mainIndex = Convert.ToInt32(mainRow.Cells["Index"].Value);
-
-                    DataGridViewRow detailRow = dgv100hMH.Rows[e.RowIndex];
-                    int detailIndex = Convert.ToInt32(detailRow.Cells["StepIndex100"].Value);
-
-                    // 获取单元格
-                    DataGridViewCell cell = detailRow.Cells[e.ColumnIndex];
-                    string columnName = dgv100hMH.Columns[e.ColumnIndex].Name;
-
-                    // 验证输入
-                    string inputValue = cell.Value?.ToString() ?? "";
-
-                    if (columnName == "RPM" || columnName == "Torque" || columnName == "RunTime" || columnName == "GK")
+                    if (string.IsNullOrEmpty(gkNo))
                     {
-                        // 验证是否为数字（防止中文输入）
-                        if (!IsValidNumber(inputValue))
-                        {
-                            Var.MsgBoxWarn(this, $"请输入有效的数字！当前输入：{inputValue}");
-                            cell.Value = 0;
-                        }
-
-                        double value = Convert.ToDouble(inputValue);
-
-                        // 验证范围
-                        if (columnName == "RPM" && (value < 0 || value > MAX_RPM))
-                        {
-                            Var.MsgBoxWarn(this, $"转速范围：0-{MAX_RPM}！当前输入：{value}");
-                            cell.Value = 0;
-                        }
-                        else if (columnName == "Torque" && (value < 0 || value > MAX_TORQUE))
-                        {
-                            Var.MsgBoxWarn(this, $"扭矩范围：0-{MAX_TORQUE}！当前输入：{value}");
-                            cell.Value = 0;
-                        }
-                        else if (columnName == "RunTime" && (value < 0 || value > MAX_RUN_TIME))
-                        {
-                            Var.MsgBoxWarn(this, $"运行时间范围：0-{MAX_RUN_TIME}！当前输入：{value}");
-                            cell.Value = 0;
-                        }
-                        else if (columnName == "GK")
-                        {
-                            // todo 需要检测是否在工况编号表，如果不在则说明输入错误？
-
-                            //return;
-                        }
+                        Var.MsgBoxWarn(this, "工况编号不能为空");
+                        return;
                     }
 
-                    // 获取修改后的值
-                    double rpm = Convert.ToDouble(detailRow.Cells["RPM"].Value);
-                    double torque = Convert.ToDouble(detailRow.Cells["Torque"].Value);
-                    double runTime = Convert.ToDouble(detailRow.Cells["RunTime"].Value);
-                    string gkNo = detailRow.Cells["GK"].Value.ToString();
+                    // 按当前型号查100h工况表
+                    var gkConfig100 = new GKConfig(Model, "100h");
+                    var gkData = gkConfig100.DurabilityDatas.FirstOrDefault(d => d.GKNo == gkNo);
 
-                    // 更新配置数据
-                    var stepData = testConfig.testStepLists.FirstOrDefault(d => d.Index == mainIndex);
-
-                    if (stepData != null)
+                    if (gkData == null)
                     {
-                        var detailData = stepData.testBasePara.FirstOrDefault(d => d.Index == detailIndex);
-                        if (detailData != null)
-                        {
-                            // 更新修改的值
-                            detailData.RPM = rpm;
-                            detailData.Torque = torque;
-                            detailData.RunTime = runTime;
-                            detailData.GKNo = gkNo;
-                            testConfig.Save();
+                        Var.MsgBoxWarn(this, $"工况编号 {gkNo} 不存在于100h工况表，请检查");
+                        return; // 不回填、不保存，保留输入让用户修正
+                    }
 
-                            string _newVal = detailRow.Cells[e.ColumnIndex].Value?.ToString() ?? "";
-                            if (_cellEditOldValue != _newVal)
-                            {
-                                OpcOperationLog.LogConfig("100h流程-编辑步骤",
-                                    $"型号={Model} 阶段={lbl100hStepName.Text} 步骤={detailIndex} " +
-                                    $"列={dgv100hMH.Columns[e.ColumnIndex].HeaderText} " +
-                                    $"旧值={_cellEditOldValue} 新值={_newVal}");
-                            }
-                        }
+                    // 标定值换算% 并回填只读列（与工况表/360h使用同一套换算逻辑）
+                    var paraConfig = new ParaConfig(Model);
+                    GKPercent pct = gkData.ToPercent(paraConfig);
+
+                    detailRow.Cells["RPM"].Value = pct.SpeedPct;
+                    detailRow.Cells["Torque"].Value = pct.TorquePct;
+
+                    // 更新配置数据并保存
+                    var detailData = stepData.testBasePara.FirstOrDefault(d => d.Index == detailIndex);
+                    if (detailData != null)
+                    {
+                        detailData.GKNo = gkNo;
+                        detailData.RPM = pct.SpeedPct;
+                        detailData.Torque = pct.TorquePct;
+                        testConfig.Save();
+
+                        OpcOperationLog.LogConfig("100h流程-编辑详细步骤",
+                            $"型号={Model} 行={e.RowIndex + 1} " +
+                            $"工况编号={gkNo} → 转速%={pct.SpeedPct} 扭矩%={pct.TorquePct}");
+                    }
+                    return;
+                }
+
+                // RPM/Torque/RunTime列：原有数值校验逻辑
+                if (columnName == "RPM" || columnName == "Torque" || columnName == "RunTime")
+                {
+                    if (!IsValidNumber(inputValue))
+                    {
+                        Var.MsgBoxWarn(this, $"请输入有效的数字！当前输入：{inputValue}");
+                        cell.Value = 0;
+                    }
+
+                    double value = Convert.ToDouble(cell.Value);
+
+                    if (columnName == "RPM" && (value < 0 || value > MAX_RPM))
+                    {
+                        Var.MsgBoxWarn(this, $"转速范围：0-{MAX_RPM}！当前输入：{value}");
+                        cell.Value = 0;
+                    }
+                    else if (columnName == "Torque" && (value < 0 || value > MAX_TORQUE))
+                    {
+                        Var.MsgBoxWarn(this, $"扭矩范围：0-{MAX_TORQUE}！当前输入：{value}");
+                        cell.Value = 0;
+                    }
+                    else if (columnName == "RunTime" && (value < 0 || value > MAX_RUN_TIME))
+                    {
+                        Var.MsgBoxWarn(this, $"运行时间范围：0-{MAX_RUN_TIME}！当前输入：{value}");
+                        cell.Value = 0;
                     }
                 }
-                catch (FormatException)
+
+                // 获取修改后的值（GK列已在上面return，不会走到这里）
+                double rpm = Convert.ToDouble(detailRow.Cells["RPM"].Value);
+                double torque = Convert.ToDouble(detailRow.Cells["Torque"].Value);
+                double runTime = Convert.ToDouble(detailRow.Cells["RunTime"].Value);
+                string gkNoCur = detailRow.Cells["GK"].Value.ToString();
+
+                var detailData2 = stepData.testBasePara.FirstOrDefault(d => d.Index == detailIndex);
+                if (detailData2 != null)
                 {
-                    Var.MsgBoxWarn(this, "输入格式错误，请输入有效的数字！");
-                    Load100hStepDetails(); // 重新加载恢复原值
-                }
-                catch (Exception ex)
-                {
-                    Var.MsgBoxWarn(this, "保存失败：" + ex.Message);
+                    detailData2.RPM = rpm;
+                    detailData2.Torque = torque;
+                    detailData2.RunTime = runTime;
+                    detailData2.GKNo = gkNoCur;
+                    testConfig.Save();
+
+                    string _newVal = cell.Value?.ToString() ?? "";
+                    if (_cellEditOldValue != _newVal)
+                    {
+                        OpcOperationLog.LogConfig("100h流程-编辑详细步骤",
+                            $"型号={Model} 行={e.RowIndex + 1} " +
+                            $"列={dgv100hMH.Columns[e.ColumnIndex].HeaderText} " +
+                            $"旧值={_cellEditOldValue} 新值={_newVal}");
+                    }
                 }
             }
+            catch (FormatException)
+            {
+                Var.MsgBoxWarn(this, "输入格式错误，请输入有效的数字！");
+            }
+            catch (Exception ex)
+            {
+                Var.MsgBoxWarn(this, "保存失败：" + ex.Message);
+            }
         }
+
+
+
+        //private void dgv100hMH_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (e.RowIndex >= 0 && e.RowIndex < dgv100hMH.Rows.Count && dgvMH.SelectedRows.Count > 0)
+        //    {
+        //        try
+        //        {
+        //            // 恢复输入法状态
+        //            this.ImeMode = ImeMode.NoControl;
+
+        //            DataGridViewRow mainRow = dgvMH.SelectedRows[0];
+        //            int mainIndex = Convert.ToInt32(mainRow.Cells["Index"].Value);
+
+        //            DataGridViewRow detailRow = dgv100hMH.Rows[e.RowIndex];
+        //            int detailIndex = Convert.ToInt32(detailRow.Cells["StepIndex100"].Value);
+
+        //            // 获取单元格
+        //            DataGridViewCell cell = detailRow.Cells[e.ColumnIndex];
+        //            string columnName = dgv100hMH.Columns[e.ColumnIndex].Name;
+
+        //            // 验证输入
+        //            string inputValue = cell.Value?.ToString() ?? "";
+
+        //            if (columnName == "RPM" || columnName == "Torque" || columnName == "RunTime" || columnName == "GK")
+        //            {
+        //                // 验证是否为数字（防止中文输入）
+        //                if (!IsValidNumber(inputValue))
+        //                {
+        //                    Var.MsgBoxWarn(this, $"请输入有效的数字！当前输入：{inputValue}");
+        //                    cell.Value = 0;
+        //                }
+
+        //                double value = Convert.ToDouble(inputValue);
+
+        //                // 验证范围
+        //                if (columnName == "RPM" && (value < 0 || value > MAX_RPM))
+        //                {
+        //                    Var.MsgBoxWarn(this, $"转速范围：0-{MAX_RPM}！当前输入：{value}");
+        //                    cell.Value = 0;
+        //                }
+        //                else if (columnName == "Torque" && (value < 0 || value > MAX_TORQUE))
+        //                {
+        //                    Var.MsgBoxWarn(this, $"扭矩范围：0-{MAX_TORQUE}！当前输入：{value}");
+        //                    cell.Value = 0;
+        //                }
+        //                else if (columnName == "RunTime" && (value < 0 || value > MAX_RUN_TIME))
+        //                {
+        //                    Var.MsgBoxWarn(this, $"运行时间范围：0-{MAX_RUN_TIME}！当前输入：{value}");
+        //                    cell.Value = 0;
+        //                }
+        //                else if (columnName == "GK")
+        //                {
+        //                    // todo 需要检测是否在工况编号表，如果不在则说明输入错误？
+
+        //                    //return;
+        //                }
+        //            }
+
+        //            // 获取修改后的值
+        //            double rpm = Convert.ToDouble(detailRow.Cells["RPM"].Value);
+        //            double torque = Convert.ToDouble(detailRow.Cells["Torque"].Value);
+        //            double runTime = Convert.ToDouble(detailRow.Cells["RunTime"].Value);
+        //            string gkNo = detailRow.Cells["GK"].Value.ToString();
+
+        //            // 更新配置数据
+        //            var stepData = testConfig.testStepLists.FirstOrDefault(d => d.Index == mainIndex);
+
+        //            if (stepData != null)
+        //            {
+        //                var detailData = stepData.testBasePara.FirstOrDefault(d => d.Index == detailIndex);
+        //                if (detailData != null)
+        //                {
+        //                    // 更新修改的值
+        //                    detailData.RPM = rpm;
+        //                    detailData.Torque = torque;
+        //                    detailData.RunTime = runTime;
+        //                    detailData.GKNo = gkNo;
+        //                    testConfig.Save();
+
+        //                    string _newVal = detailRow.Cells[e.ColumnIndex].Value?.ToString() ?? "";
+        //                    if (_cellEditOldValue != _newVal)
+        //                    {
+        //                        OpcOperationLog.LogConfig("100h流程-编辑步骤",
+        //                            $"型号={Model} 阶段={lbl100hStepName.Text} 步骤={detailIndex} " +
+        //                            $"列={dgv100hMH.Columns[e.ColumnIndex].HeaderText} " +
+        //                            $"旧值={_cellEditOldValue} 新值={_newVal}");
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        catch (FormatException)
+        //        {
+        //            Var.MsgBoxWarn(this, "输入格式错误，请输入有效的数字！");
+        //            Load100hStepDetails(); // 重新加载恢复原值
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Var.MsgBoxWarn(this, "保存失败：" + ex.Message);
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// 键盘输入验证（防止输入非数字字符）

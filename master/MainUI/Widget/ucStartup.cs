@@ -250,8 +250,9 @@ namespace MainUI.Widget
             var status8 = MiddleData.instnce.IsOpenEngineCycle() == true;
             var status9 = Common.DOgrp["发动机DC24V供电"] == true;
             var status10 = Common.gd350_1.RunningStatus == false;
+            var statusStop = Common.DIgrp["柴油机停止"] == false;
 
-            this.uiLightStart.State = (speed && status && status2 && status3 && status4 && status5 && status8 && status9 && lcStatus && speedStatus && status10) ? UILightState.On : UILightState.Off;
+            this.uiLightStart.State = (speed && status && status2 && status3 && status4 && status5 && status8 && status9 && lcStatus && speedStatus && status10 && statusStop) ? UILightState.On : UILightState.Off;
             this.uiLightShake.State = (speed && status && status2 && status3 && status4 && !status5 && status8 && !status9 && lcStatus && speedStatus) ? UILightState.On : UILightState.Off;
 
             this.uiLightWaterUP.State = status3 ? UILightState.On : UILightState.Off;
@@ -273,6 +274,8 @@ namespace MainUI.Widget
             this.lblInverterVoltage.Text = Common.gd350_1.OutputVoltage.ToString();
             this.lblInverterCurrent.Text = Common.gd350_1.OutputCurrent.ToString();
             this.lblInverterPower.Text = Common.gd350_1.OutputPower.ToString();
+
+            uiLightStop.State = statusStop ? UILightState.On : UILightState.Off;
 
             if (Common.DOgrp["发动机DC24V供电"])
             {
@@ -451,6 +454,12 @@ namespace MainUI.Widget
                 if (Common.DIgrp["盘车连锁开关"] == false)
                 {
                     errorMessages.AppendLine($"{++msgIndex}. 盘车连锁开关未处于闭合状态。");
+                }
+
+                // 桌面按钮，柴油机停止新年好检测
+                if (Common.DIgrp["柴油机停止"] == true)
+                {
+                    errorMessages.AppendLine($"{++msgIndex}. 桌面柴油机停止处于按下状态，请取消。");
                 }
 
                 // 检查发动机启停预启动

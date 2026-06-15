@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MainUI.Global;
+using System;
 using System.IO.Ports;
-using System.Threading;
+using System.Text;
 using System.Text.RegularExpressions;
-using MainUI.Global;
 using System.Timers;
 
 namespace MainUI.Equip
@@ -132,9 +128,6 @@ namespace MainUI.Equip
                     if (Connnect == 1)
                     {
                         Connnect = 0;
-
-                        //TODO：模拟测试用，暂时固定1未在线状态
-                        //Connnect = 1; 
 
                         Common.opcExChangeSendGrp.SetDouble("称重仪_NoError", Connnect);
                         Var.LogInfo("ZMPT650F连接超时，设备断线");

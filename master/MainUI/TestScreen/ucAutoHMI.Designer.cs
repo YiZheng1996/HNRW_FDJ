@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             MainUI.Wave.WaveInfo waveInfo1 = new MainUI.Wave.WaveInfo();
             MainUI.Wave.WaveInfo waveInfo2 = new MainUI.Wave.WaveInfo();
             MainUI.Wave.WaveInfo waveInfo3 = new MainUI.Wave.WaveInfo();
@@ -119,6 +119,7 @@
             this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvGK = new System.Windows.Forms.DataGridView();
             this.GK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLC = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -292,6 +293,7 @@
             this.tabPage12.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGK)).BeginInit();
             this.tabPage13.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabPage14.SuspendLayout();
@@ -1084,6 +1086,7 @@
             // 
             this.panel9.Controls.Add(this.dgvAuto);
             this.panel9.Controls.Add(this.lblAutoName);
+            this.panel9.Controls.Add(this.dgvGK);
             this.panel9.Font = new System.Drawing.Font("宋体", 13F);
             this.panel9.Location = new System.Drawing.Point(1, 3);
             this.panel9.Name = "panel9";
@@ -1114,27 +1117,22 @@
             this.dataGridViewTextBoxColumn24,
             this.dataGridViewTextBoxColumn25,
             this.Column1,
-            this.Column4,
-            this.GK,
-            this.dataGridViewTextBoxColumn29,
-            this.colLC,
-            this.Column7,
-            this.Column8});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 13F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAuto.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Column4});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 13F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAuto.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvAuto.EnableHeadersVisualStyles = false;
             this.dgvAuto.Location = new System.Drawing.Point(6, 46);
             this.dgvAuto.Name = "dgvAuto";
             this.dgvAuto.RowHeadersVisible = false;
             this.dgvAuto.RowTemplate.Height = 23;
             this.dgvAuto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvAuto.Size = new System.Drawing.Size(911, 631);
+            this.dgvAuto.Size = new System.Drawing.Size(447, 515);
             this.dgvAuto.TabIndex = 805;
             this.dgvAuto.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvAuto_CellBeginEdit);
             this.dgvAuto.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAuto_CellEndEdit);
@@ -1166,7 +1164,6 @@
             // 
             // Column1
             // 
-            this.Column1.FillWeight = 140F;
             this.Column1.HeaderText = "循环代码";
             this.Column1.Name = "Column1";
             this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -1178,6 +1175,37 @@
             this.Column4.Name = "Column4";
             this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // dgvGK
+            // 
+            this.dgvGK.AllowUserToAddRows = false;
+            this.dgvGK.AllowUserToDeleteRows = false;
+            this.dgvGK.AllowUserToResizeColumns = false;
+            this.dgvGK.AllowUserToResizeRows = false;
+            this.dgvGK.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvGK.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvGK.BackgroundColor = System.Drawing.Color.White;
+            this.dgvGK.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvGK.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvGK.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.GK,
+            this.dataGridViewTextBoxColumn29,
+            this.colLC,
+            this.Column7,
+            this.Column8});
+            this.dgvGK.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvGK.EnableHeadersVisualStyles = false;
+            this.dgvGK.Location = new System.Drawing.Point(459, 46);
+            this.dgvGK.Name = "dgvGK";
+            this.dgvGK.RowHeadersVisible = false;
+            this.dgvGK.RowTemplate.Height = 23;
+            this.dgvGK.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dgvGK.Size = new System.Drawing.Size(458, 515);
+            this.dgvGK.TabIndex = 806;
+            this.dgvGK.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvGK_CellBeginEdit);
+            this.dgvGK.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGK_CellEndEdit);
+            this.dgvGK.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvGK_CellValidating);
+            this.dgvGK.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvGK_EditingControlShowing);
+            // 
             // GK
             // 
             this.GK.FillWeight = 95F;
@@ -1188,8 +1216,8 @@
             // dataGridViewTextBoxColumn29
             // 
             this.dataGridViewTextBoxColumn29.DataPropertyName = "RPM";
-            dataGridViewCellStyle2.Format = "F0";
-            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Format = "F0";
+            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn29.FillWeight = 80F;
             this.dataGridViewTextBoxColumn29.HeaderText = "转速值";
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
@@ -1198,8 +1226,8 @@
             // colLC
             // 
             this.colLC.DataPropertyName = "ColLC";
-            dataGridViewCellStyle3.Format = "F0";
-            this.colLC.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Format = "F0";
+            this.colLC.DefaultCellStyle = dataGridViewCellStyle4;
             this.colLC.HeaderText = "励磁电流";
             this.colLC.Name = "colLC";
             this.colLC.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -2865,7 +2893,6 @@
             this.button1.TabIndex = 812;
             this.button1.Text = "数据模拟";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ucAutoHMI
@@ -2954,6 +2981,7 @@
             this.tabPage12.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGK)).EndInit();
             this.tabPage13.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -3108,11 +3136,7 @@
         private System.Windows.Forms.Label lblTSecond;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView dgvAuto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StepIndex100;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridView dgvGK;
         private System.Windows.Forms.DataGridViewTextBoxColumn GK;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn29;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLC;
@@ -3217,5 +3241,10 @@
         private System.Windows.Forms.TabPage tabPage1;
         private HMI_Auto.ucFuelConsumptionMeasurement ucFuelConsumptionMeasurement1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StepIndex100;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }

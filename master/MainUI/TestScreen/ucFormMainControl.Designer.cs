@@ -30,15 +30,14 @@ namespace MainUI.TestScreen
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label12 = new System.Windows.Forms.Label();
             this.LCCurrentValue = new System.Windows.Forms.Label();
             this.LCVoltageValue = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.lblRunTime = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.btnSetSpeedReduce00 = new RW.UI.Controls.RButton();
             this.btnSetLCReduce10 = new RW.UI.Controls.RButton();
             this.btnSetLCAdd10 = new RW.UI.Controls.RButton();
             this.btnSetLCReduce5 = new RW.UI.Controls.RButton();
@@ -60,6 +59,8 @@ namespace MainUI.TestScreen
             this.btnSetLCZero = new RW.UI.Controls.RButton();
             this.btnSetLCReduce = new RW.UI.Controls.RButton();
             this.btnSetLCAdd = new RW.UI.Controls.RButton();
+            this.lblRunTime = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.Screen3Timer = new System.Windows.Forms.Timer(this.components);
             this.uiLedBulb2 = new Sunny.UI.UILedBulb();
             this.rButton2 = new RW.UI.Controls.RButton();
@@ -200,8 +201,7 @@ namespace MainUI.TestScreen
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.lblRunTime);
-            this.groupBox12.Controls.Add(this.label3);
+            this.groupBox12.Controls.Add(this.btnSetSpeedReduce00);
             this.groupBox12.Controls.Add(this.btnSetLCReduce10);
             this.groupBox12.Controls.Add(this.btnSetLCAdd10);
             this.groupBox12.Controls.Add(this.btnSetLCReduce5);
@@ -235,29 +235,21 @@ namespace MainUI.TestScreen
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "发动机过程控制";
             // 
-            // lblRunTime
+            // btnSetSpeedReduce00
             // 
-            this.lblRunTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblRunTime.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblRunTime.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblRunTime.ForeColor = System.Drawing.Color.Black;
-            this.lblRunTime.Location = new System.Drawing.Point(226, 577);
-            this.lblRunTime.Name = "lblRunTime";
-            this.lblRunTime.Size = new System.Drawing.Size(125, 28);
-            this.lblRunTime.TabIndex = 794;
-            this.lblRunTime.Tag = "水阻箱进水电动调节阀";
-            this.lblRunTime.Text = "0.0";
-            this.lblRunTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("宋体", 14F);
-            this.label3.Location = new System.Drawing.Point(15, 582);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(210, 19);
-            this.label3.TabIndex = 795;
-            this.label3.Text = "发动机累计运行时间(h)";
+            this.btnSetSpeedReduce00.BackColor = System.Drawing.Color.Silver;
+            this.btnSetSpeedReduce00.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnSetSpeedReduce00.FalseColor = System.Drawing.Color.Silver;
+            this.btnSetSpeedReduce00.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSetSpeedReduce00.Location = new System.Drawing.Point(21, 569);
+            this.btnSetSpeedReduce00.Name = "btnSetSpeedReduce00";
+            this.btnSetSpeedReduce00.Size = new System.Drawing.Size(330, 43);
+            this.btnSetSpeedReduce00.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.btnSetSpeedReduce00.TabIndex = 710;
+            this.btnSetSpeedReduce00.Tag = "";
+            this.btnSetSpeedReduce00.Text = "转速怠速";
+            this.btnSetSpeedReduce00.TrueColor = System.Drawing.Color.Lime;
+            this.btnSetSpeedReduce00.Click += new System.EventHandler(this.btnSetSpeedReduce00_Click);
             // 
             // btnSetLCReduce10
             // 
@@ -385,7 +377,7 @@ namespace MainUI.TestScreen
             this.btnSetSpeedReduce20.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSetSpeedReduce20.FalseColor = System.Drawing.Color.Silver;
             this.btnSetSpeedReduce20.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSetSpeedReduce20.Location = new System.Drawing.Point(21, 520);
+            this.btnSetSpeedReduce20.Location = new System.Drawing.Point(21, 524);
             this.btnSetSpeedReduce20.Name = "btnSetSpeedReduce20";
             this.btnSetSpeedReduce20.Size = new System.Drawing.Size(157, 33);
             this.btnSetSpeedReduce20.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -401,7 +393,7 @@ namespace MainUI.TestScreen
             this.btnSetSpeedAdd20.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSetSpeedAdd20.FalseColor = System.Drawing.Color.Silver;
             this.btnSetSpeedAdd20.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSetSpeedAdd20.Location = new System.Drawing.Point(194, 520);
+            this.btnSetSpeedAdd20.Location = new System.Drawing.Point(194, 524);
             this.btnSetSpeedAdd20.Name = "btnSetSpeedAdd20";
             this.btnSetSpeedAdd20.Size = new System.Drawing.Size(157, 33);
             this.btnSetSpeedAdd20.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -416,7 +408,7 @@ namespace MainUI.TestScreen
             this.ucNudSpeed.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.ucNudSpeed.DecimalPlaces = 0;
             this.ucNudSpeed.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ucNudSpeed.Location = new System.Drawing.Point(21, 436);
+            this.ucNudSpeed.Location = new System.Drawing.Point(21, 440);
             this.ucNudSpeed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucNudSpeed.Maximum = 1100D;
             this.ucNudSpeed.Minimum = 0D;
@@ -437,7 +429,7 @@ namespace MainUI.TestScreen
             this.btnSetSpeed.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSetSpeed.FalseColor = System.Drawing.Color.Silver;
             this.btnSetSpeed.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSetSpeed.Location = new System.Drawing.Point(272, 436);
+            this.btnSetSpeed.Location = new System.Drawing.Point(272, 438);
             this.btnSetSpeed.Name = "btnSetSpeed";
             this.btnSetSpeed.Size = new System.Drawing.Size(79, 33);
             this.btnSetSpeed.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -451,7 +443,7 @@ namespace MainUI.TestScreen
             // 
             this.label47.AutoSize = true;
             this.label47.Font = new System.Drawing.Font("宋体", 14F);
-            this.label47.Location = new System.Drawing.Point(15, 412);
+            this.label47.Location = new System.Drawing.Point(15, 416);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(135, 19);
             this.label47.TabIndex = 656;
@@ -463,7 +455,7 @@ namespace MainUI.TestScreen
             this.btnSetSpeedReduce.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSetSpeedReduce.FalseColor = System.Drawing.Color.Silver;
             this.btnSetSpeedReduce.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSetSpeedReduce.Location = new System.Drawing.Point(21, 476);
+            this.btnSetSpeedReduce.Location = new System.Drawing.Point(21, 480);
             this.btnSetSpeedReduce.Name = "btnSetSpeedReduce";
             this.btnSetSpeedReduce.Size = new System.Drawing.Size(157, 33);
             this.btnSetSpeedReduce.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -479,7 +471,7 @@ namespace MainUI.TestScreen
             this.btnSetSpeedAdd.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSetSpeedAdd.FalseColor = System.Drawing.Color.Silver;
             this.btnSetSpeedAdd.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSetSpeedAdd.Location = new System.Drawing.Point(194, 476);
+            this.btnSetSpeedAdd.Location = new System.Drawing.Point(194, 480);
             this.btnSetSpeedAdd.Name = "btnSetSpeedAdd";
             this.btnSetSpeedAdd.Size = new System.Drawing.Size(157, 33);
             this.btnSetSpeedAdd.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -495,7 +487,7 @@ namespace MainUI.TestScreen
             this.btnSetLC.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSetLC.FalseColor = System.Drawing.Color.Silver;
             this.btnSetLC.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSetLC.Location = new System.Drawing.Point(273, 131);
+            this.btnSetLC.Location = new System.Drawing.Point(273, 132);
             this.btnSetLC.Name = "btnSetLC";
             this.btnSetLC.Size = new System.Drawing.Size(79, 33);
             this.btnSetLC.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -582,6 +574,30 @@ namespace MainUI.TestScreen
             this.btnSetLCAdd.Text = "励磁+1";
             this.btnSetLCAdd.TrueColor = System.Drawing.Color.Lime;
             this.btnSetLCAdd.Click += new System.EventHandler(this.btnSetLCAdd_Click);
+            // 
+            // lblRunTime
+            // 
+            this.lblRunTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblRunTime.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblRunTime.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblRunTime.ForeColor = System.Drawing.Color.Black;
+            this.lblRunTime.Location = new System.Drawing.Point(9, 583);
+            this.lblRunTime.Name = "lblRunTime";
+            this.lblRunTime.Size = new System.Drawing.Size(200, 28);
+            this.lblRunTime.TabIndex = 794;
+            this.lblRunTime.Tag = "水阻箱进水电动调节阀";
+            this.lblRunTime.Text = "0.0";
+            this.lblRunTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("宋体", 14F);
+            this.label3.Location = new System.Drawing.Point(9, 553);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(210, 19);
+            this.label3.TabIndex = 795;
+            this.label3.Text = "发动机累计运行时间(h)";
             // 
             // Screen3Timer
             // 
@@ -1028,15 +1044,15 @@ namespace MainUI.TestScreen
             this.dataGridStartup.AllowUserToResizeRows = false;
             this.dataGridStartup.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridStartup.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(4);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridStartup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(4);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridStartup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridStartup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridStartup.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index,
@@ -1052,14 +1068,14 @@ namespace MainUI.TestScreen
             this.Column5,
             this.Column7,
             this.Column11});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridStartup.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridStartup.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridStartup.EnableHeadersVisualStyles = false;
             this.dataGridStartup.Location = new System.Drawing.Point(4, 4);
             this.dataGridStartup.Margin = new System.Windows.Forms.Padding(4);
@@ -1354,6 +1370,8 @@ namespace MainUI.TestScreen
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Controls.Add(this.lblRunTime);
             this.groupBox4.Controls.Add(this.uiLight1);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.label1);
@@ -1839,5 +1857,6 @@ namespace MainUI.TestScreen
         private RW.UI.Controls.RButton btnSetLCAdd10;
         private RW.UI.Controls.RButton btnSetSpeedReduce20;
         private RW.UI.Controls.RButton btnSetSpeedAdd20;
+        private RW.UI.Controls.RButton btnSetSpeedReduce00;
     }
 }

@@ -636,10 +636,14 @@ namespace MainUI
         /// <summary>
         /// 刷新步骤表
         /// </summary>
+        /// <summary>
+        /// 刷新步骤表
+        /// </summary>
         public void FreshStepView()
         {
             // 清空表
             this.dgvAuto.Rows.Clear();
+            this.dgvGK.Rows.Clear();
             DurStepConfigDic.Clear();
 
             MiddleData.instnce.CurrentStatusData = new CurrentStatusConfig(Common.mTestViewModel.ModelName, MiddleData.instnce.testDataView.TestName);
@@ -648,13 +652,10 @@ namespace MainUI
             {
                 // 100小时
                 TestConfig100 = new Test100hConfig(Common.mTestViewModel.ModelName, MiddleData.instnce.testDataView.TestName);
-                var maxVal = Math.Max(gkConfig.DurabilityDatas.Count, TestConfig100.testStepLists.Count);
 
-                for (int i = 0; i < maxVal; i++)
+                foreach (var stepData in TestConfig100.testStepLists)
                 {
-                    var stepData = TestConfig100.testStepLists.Count - 1 >= i ? TestConfig100.testStepLists[i] : null;
-                    var gkData = gkConfig.DurabilityDatas.Count - 1 >= i ? gkConfig.DurabilityDatas[i] : null;
-                    this.dgvAuto.Rows.Add(stepData?.Index, stepData?.Index, stepData == null ? "-" : "", stepData?.TestName, stepData?.DayNum, gkData?.GKNo, gkData?.Speed, gkData?.ExcitationCurrent, gkData?.Torque, gkData?.Power);
+                    this.dgvAuto.Rows.Add(stepData.Index, stepData.Index, "", stepData.TestName, stepData.DayNum);
                 }
 
                 // 100小时 循环代码 数据
@@ -664,13 +665,10 @@ namespace MainUI
             {
                 // 360小时的主流程 数据
                 TestConfig360 = new Test360hConfig(Common.mTestViewModel.ModelName);
-                var maxVal = Math.Max(gkConfig.DurabilityDatas.Count, TestConfig360.DurabilityDatas.Count);
 
-                for (int i = 0; i < maxVal; i++)
+                foreach (var stepData in TestConfig360.DurabilityDatas)
                 {
-                    var stepData = TestConfig360.DurabilityDatas.Count - 1 >= i ? TestConfig360.DurabilityDatas[i] : null;
-                    var gkData = gkConfig.DurabilityDatas.Count - 1 >= i ? gkConfig.DurabilityDatas[i] : null;
-                    this.dgvAuto.Rows.Add(stepData?.Index, stepData?.PhaseName, stepData?.CycleName, stepData?.NodeName, stepData?.DayNum, gkData?.GKNo, gkData?.Speed, gkData?.ExcitationCurrent, gkData?.Torque, gkData?.Power);
+                    this.dgvAuto.Rows.Add(stepData.Index, stepData.PhaseName, stepData.CycleName, stepData.NodeName, stepData.DayNum);
                 }
 
                 // 360小时 循环代码 数据
@@ -680,6 +678,12 @@ namespace MainUI
                     DurStepConfigDic.Add(durStepConfig);
                 }
                 ucStepStatus1.LoadItem(DurStepConfigDic);
+            }
+
+            // 工况参考表（独立填充，与左侧步骤表行号无关）
+            foreach (var gkData in gkConfig.DurabilityDatas)
+            {
+                this.dgvGK.Rows.Add(gkData.GKNo, gkData.Speed, gkData.ExcitationCurrent, gkData.Torque, gkData.Power);
             }
 
             // 刷新步骤
@@ -844,8 +848,10 @@ namespace MainUI
 
 
             // 线程执行
-            th = new Thread(new ThreadStart(AutoTestStart));
-            th.Name = MiddleData.instnce.testDataView.TestName + "线程";
+            th = new Thread(new ThreadStart(AutoTestStart))
+            {
+                Name = MiddleData.instnce.testDataView.TestName + "线程"
+            };
             th.Start();
 
             // 打开曲线采集计时器
@@ -2483,13 +2489,163 @@ namespace MainUI
             e.Handled = true;
         }
 
-
-
-
-
-
-
         #endregion
+
+        /// <summary>
+        /// 工况参考表：开始编辑
+        /// </summary>
+        private void dgvGK_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            string columnName = this.dgvGK.Columns[e.ColumnIndex].Name;
+
+            // 只允许编辑励磁电流列
+            if (columnName != "colLC")
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            this.ImeMode = ImeMode.Disable;
+        }
+
+        /// <summary>
+        /// 工况参考表：结束编辑
+        /// </summary>
+        private void dgvGK_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < this.dgvGK.Rows.Count)
+            {
+                object originalValue = null;
+
+                try
+                {
+                    this.ImeMode = ImeMode.NoControl;
+
+                    DataGridViewRow detailRow = this.dgvGK.Rows[e.RowIndex];
+                    DataGridViewCell cell = detailRow.Cells[e.ColumnIndex];
+                    string columnName = this.dgvGK.Columns[e.ColumnIndex].Name;
+
+                    originalValue = cell.Value;
+                    string inputValue = cell.Value?.ToString() ?? "";
+
+                    if (columnName == "colLC")
+                    {
+                        if (!ObjectCopier.IsValidNumber(inputValue))
+                        {
+                            Var.MsgBoxWarn(this, $"请输入有效的数字！当前输入：{inputValue}");
+                            cell.Value = originalValue;
+                            return;
+                        }
+
+                        double value = Convert.ToDouble(inputValue);
+
+                        if (value < 0 || value > 500)
+                        {
+                            Var.MsgBoxWarn(this, $"励磁电流范围：0-500！当前输入：{value}");
+                            cell.Value = originalValue;
+                            return;
+                        }
+                    }
+
+                    double excitationValue = Convert.ToDouble(inputValue);
+
+                    // 直接取本行自己的工况编号（同一张表，不再跨表对应）
+                    string gkNo = detailRow.Cells["GK"].Value.ToString();
+
+                    var data = gkConfig.DurabilityDatas.FirstOrDefault(d => d.GKNo == gkNo);
+                    if (data != null)
+                    {
+                        data.ExcitationCurrent = excitationValue;
+                        gkConfig.Save();
+                    }
+                }
+                catch (FormatException)
+                {
+                    Var.MsgBoxWarn(this, "输入格式错误，请输入有效的数字！");
+                    this.dgvGK.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = originalValue;
+                }
+                catch (Exception ex)
+                {
+                    Var.MsgBoxWarn(this, "保存失败：" + ex.Message);
+                    this.dgvGK.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = originalValue;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 工况参考表：单元格校验
+        /// </summary>
+        private void dgvGK_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < dgvGK.Rows.Count)
+            {
+                string columnName = dgvGK.Columns[e.ColumnIndex].Name;
+
+                if (columnName == "colLC")
+                {
+                    string value = e.FormattedValue?.ToString() ?? "";
+
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        dgvGK.Rows[e.RowIndex].ErrorText = "不能为空！";
+                        e.Cancel = true;
+                        return;
+                    }
+
+                    if (!ObjectCopier.IsValidNumber(value))
+                    {
+                        dgvGK.Rows[e.RowIndex].ErrorText = "请输入有效的数字！";
+                        e.Cancel = true;
+                        return;
+                    }
+
+                    double doubleValue;
+                    if (!double.TryParse(value, out doubleValue))
+                    {
+                        dgvGK.Rows[e.RowIndex].ErrorText = "请输入有效的数字！";
+                        e.Cancel = true;
+                        return;
+                    }
+
+                    if (doubleValue < 0 || doubleValue > 500)
+                    {
+                        dgvGK.Rows[e.RowIndex].ErrorText = $"励磁电流范围：0-{500} A";
+                        Var.MsgBoxWarn(this, dgvGK.Rows[e.RowIndex].ErrorText);
+                        e.Cancel = true;
+                    }
+
+                    dgvGK.Rows[e.RowIndex].ErrorText = "";
+                }
+            }
+        }
+
+        /// <summary>
+        /// 工况参考表：编辑控件输入限制
+        /// </summary>
+        private void dgvGK_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (this.dgvGK.CurrentCell == null) return;
+
+            int columnIndex = this.dgvGK.CurrentCell.ColumnIndex;
+            string columnName = this.dgvGK.Columns[columnIndex].Name;
+
+            if (columnName == "colLC")
+            {
+                TextBox textBox = e.Control as TextBox;
+                if (textBox != null)
+                {
+                    textBox.KeyPress -= new KeyPressEventHandler(TextBox_KeyPress);
+                    textBox.KeyPress += new KeyPressEventHandler(TextBox_KeyPress);
+                    textBox.ImeMode = ImeMode.Disable;
+                }
+            }
+        }
+
+
+
+
 
         #region 模拟数据功能
         private void button1_Click(object sender, EventArgs e)

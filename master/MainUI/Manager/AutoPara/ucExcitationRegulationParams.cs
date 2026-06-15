@@ -1,25 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using RW.UI.Manager;
-using MainUI.Model;
-using MainUI.BLL;
-using MainUI.Config;
-using MainUI.Properties;
-using MainUI.Config.Test;
-using MainUI.Procedure.Test;
-using MainUI.Global;
-using Sunny.UI;
-using MainUI.Helper;
-using static MainUI.Config.PubConfig;
-using System.IO;
+﻿using MainUI.Config;
 using MainUI.Fault;
+using System;
+using System.Windows.Forms;
 
 namespace MainUI.Procedure
 {
