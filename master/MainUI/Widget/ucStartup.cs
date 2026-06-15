@@ -1,16 +1,10 @@
 ﻿using MainUI.Global;
-using MainUI.Modules;
 using MainUI.TestScreen;
 using RW.UI.Controls;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MainUI.Modules.EventArgsModel;
 
@@ -287,8 +281,31 @@ namespace MainUI.Widget
                 this.btnDC24VOpen.Switch = false;
                 this.btnDC24VClose.Switch = true;
             }
+
+            UpdateStartupParaLock();
         }
 
+        /// <summary>
+        /// 启机参数锁定：发动机转速 > 300 视为启机完成，
+        /// 锁定"变频器转速"和"励磁电流"的设置输入框及设置按钮，
+        /// 转速回落到 ≤300（即停机）后自动解锁。
+        /// </summary>
+        private void UpdateStartupParaLock()
+        {
+            try
+            {
+                bool enabled = MiddleData.instnce.GetEngineSpeed() <= 300;
+
+                this.nudBeginInvertSpeed.Enabled = enabled;
+                this.nudBeginCurrent.Enabled = enabled;
+                this.btnSetBeginSpeed.Enabled = enabled;
+                this.btnSetBeginLC.Enabled = enabled;
+            }
+            catch (Exception ex)
+            {
+                try { Var.LogInfo("UpdateStartupParaLock 异常: " + ex.Message); } catch { }
+            }
+        }
 
         /// <summary>
         /// 关闭开启按钮通用点击事件
@@ -384,6 +401,12 @@ namespace MainUI.Widget
         /// </summary>
         private void btnSetBeginSpeed_Click(object sender, EventArgs e)
         {
+            if (MiddleData.instnce.GetEngineSpeed() > 300)
+            {
+                Var.MsgBoxWarn(this, "发动机运行中，启机参数不可调整，请等待停机后再设置。");
+                return;
+            }
+
             this.btnSetBeginSpeed.Focus();
 
             var value = Math.Round((manaulData.BeginInvertSpeed * 7) / 60, 2);
@@ -391,6 +414,7 @@ namespace MainUI.Widget
             {
                 Common.gd350_1.SetFrequency = value;
             }
+
         }
 
         /// <summary>
@@ -398,6 +422,12 @@ namespace MainUI.Widget
         /// </summary>
         private void btnSetBeginLC_Click(object sender, EventArgs e)
         {
+            if (MiddleData.instnce.GetEngineSpeed() > 300)
+            {
+                Var.MsgBoxWarn(this, "发动机运行中，启机参数不可调整，请等待停机后再设置。");
+                return;
+            }
+
             this.btnSetBeginLC.Focus();
 
             if (MiddleData.instnce.EngineSpeed >= 350)
@@ -411,7 +441,28 @@ namespace MainUI.Widget
 
             using (MainUI.Fault.OperationContext.Begin(this, sender, "启机-设置励磁电流"))
             {
-                Common.AOgrp["励磁调节"] = manaulData.BeginCurrent;
+                double current = manaulData.BeginCurrent;
+
+                // 按当前型号配方参数中的励磁电流最大值判断：超过则输出0
+                try
+                {
+                    var pubsConfig = MiddleData.instnce.PubsConfig;
+                    if (pubsConfig != null && pubsConfig.PubParaList.Count > 0)
+                    {
+                        double maxExcitation = pubsConfig.PubParaList[0].MaxExcitationCurrent;
+                        if (current > maxExcitation)
+                        {
+                            current = 0;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Var.LogInfo($"启机励磁设置-读取配方参数异常:{ex.ToString()}");
+                }
+
+                Common.AOgrp["励磁调节"] = current;
+                nudBeginCurrent.Value = current;
             }
         }
 

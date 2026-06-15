@@ -680,7 +680,8 @@ namespace MainUI.Services
                 "【燃油】精滤器2前后压差过大",
                 "【机油】机滤器1前后压差过大",
                 "【机油】机滤器2前后压差过大",
-                "厂房总气压不足"
+                "厂房总气压不足",
+                "急停按钮已按下"
             };
 
             foreach (var faultName in calculateFaults)
@@ -692,6 +693,7 @@ namespace MainUI.Services
                     Desc = faultName.Contains("粗滤器") ? $"{faultName}，粗滤器堵塞。" :
                            faultName.Contains("精滤器") ? $"{faultName}，精滤器堵塞。" :
                            faultName.Contains("机滤器") ? $"{faultName}，机滤器堵塞。" :
+                           faultName == "急停按钮已按下" ? "急停按钮已按下！请确认现场安全后复位急停按钮。" :
                            $"{faultName}",
                     FaultType = FaultTypeEnum.calculate,
                 };
@@ -1001,11 +1003,15 @@ namespace MainUI.Services
             var pressure1 = Common.AIgrp["厂房进气压力检测1"];
             var pressure2 = Common.AIgrp["厂房进气压力检测2"];
             bool Isfault5 = false;
-            if (pressure1 < 400 || pressure2 < 400) 
+            if (pressure1 < 400 || pressure2 < 400)
             {
                 Isfault5 = true;
             }
             FaultStatusChange(FaultTypeEnum.calculate, Isfault5 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "厂房总气压不足");
+
+            // 急停按钮：紧急停止DI为 false 表示已按下
+            bool IsScramPressed = Common.DIgrp["紧急停止"] == false;
+            FaultStatusChange(FaultTypeEnum.calculate, IsScramPressed ? WarnTypeEnum.Stop : WarnTypeEnum.None, "急停按钮已按下");
         }
 
         /// <summary>

@@ -132,6 +132,11 @@ namespace MainUI.Config
         [IniKeyName("启机甩车长按超时")]
         public int StartupHoldTimeoutMs { get; set; } = 5000;
 
+        /// <summary>
+        ///励磁输出单次调节幅度
+        /// </summary>
+        [IniKeyName("励磁输出单次调节幅度")]
+        public int MaxExcitationSingleStep { get; set; } = 80;
     }
 
 

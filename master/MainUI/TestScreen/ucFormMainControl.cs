@@ -351,7 +351,9 @@ namespace MainUI.TestScreen
             {
                 UIDoubleUpDown dud = control2 as UIDoubleUpDown;
                 //dud.Value = pubInfo.DefaultExcitationCurrent;
-                dud.Maximum = pubInfo.MaxExcitationCurrent;
+
+                // 暂时取消，防止误操作，超过500A励磁电流判断为输入错误，直接输出励磁值为0
+                //dud.Maximum = pubInfo.MaxExcitationCurrent; 
                 dud.Minimum = pubInfo.MinExcitationCurrent;
             }
 
@@ -938,9 +940,24 @@ namespace MainUI.TestScreen
                     return;
                 }
             }
+
+            var currentVal = Common.AOgrp["励磁调节"];
+            var targetVal = ucNudLC.Value;
+            var diff = targetVal - currentVal;
+
+            string msg = $"当前励磁：{currentVal:F1} A\n目标励磁：{targetVal:F1} A\n变化量：{diff:+0.0;-0.0;0} A";
+
+            // 单次跳变幅度过大时，加重警告文案
+            if (Math.Abs(diff) > Var.SysConfig.MaxExcitationSingleStep)
+            {
+                msg = "调节幅度较大，请仔细核对输入值是否正确！\n\n" + msg;
+                bool result = Var.MsgBoxYesNo(this, msg);
+                if (!result) return;
+            }
+
             using (MainUI.Fault.OperationContext.Begin(this, sender, "手动设定励磁电流"))
             {
-                Common.AOgrp["励磁调节"] = ucNudLC.Value;
+                Common.AOgrp["励磁调节"] = targetVal;
             }
         }
 

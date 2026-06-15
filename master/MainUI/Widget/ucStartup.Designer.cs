@@ -684,7 +684,7 @@ namespace MainUI.Widget
             this.nudBeginCurrent.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nudBeginCurrent.Location = new System.Drawing.Point(16, 116);
             this.nudBeginCurrent.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.nudBeginCurrent.Maximum = 200D;
+            this.nudBeginCurrent.Maximum = 1000D;
             this.nudBeginCurrent.Minimum = 0D;
             this.nudBeginCurrent.MinimumSize = new System.Drawing.Size(100, 0);
             this.nudBeginCurrent.Name = "nudBeginCurrent";
