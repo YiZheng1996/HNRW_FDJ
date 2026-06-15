@@ -65,6 +65,7 @@
             this.btnChangePwd = new Sunny.UI.UIImageButton();
             this.btnReports = new Sunny.UI.UIImageButton();
             this.btnMainData = new Sunny.UI.UIImageButton();
+            this.btnAllData = new Sunny.UI.UIImageButton();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.uiImageButtonMain = new Sunny.UI.UIImageButton();
             this.uiImageButtonAutoMain = new Sunny.UI.UIImageButton();
@@ -83,6 +84,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnChangePwd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnReports)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMainData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAllData)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiImageButtonMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiImageButtonAutoMain)).BeginInit();
@@ -409,10 +411,11 @@
             this.flowLayoutPanel2.Controls.Add(this.btnChangePwd);
             this.flowLayoutPanel2.Controls.Add(this.btnReports);
             this.flowLayoutPanel2.Controls.Add(this.btnMainData);
+            this.flowLayoutPanel2.Controls.Add(this.btnAllData);
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 617);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 516);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(86, 386);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(86, 487);
             this.flowLayoutPanel2.TabIndex = 122;
             // 
             // btnExit
@@ -425,7 +428,7 @@
             this.btnExit.ImageHover = ((System.Drawing.Image)(resources.GetObject("btnExit.ImageHover")));
             this.btnExit.ImageOffset = new System.Drawing.Point(12, 5);
             this.btnExit.ImagePress = ((System.Drawing.Image)(resources.GetObject("btnExit.ImagePress")));
-            this.btnExit.Location = new System.Drawing.Point(3, 293);
+            this.btnExit.Location = new System.Drawing.Point(3, 394);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(80, 90);
             this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -445,7 +448,7 @@
             this.btnChangePwd.ImageHover = ((System.Drawing.Image)(resources.GetObject("btnChangePwd.ImageHover")));
             this.btnChangePwd.ImageOffset = new System.Drawing.Point(12, 5);
             this.btnChangePwd.ImagePress = ((System.Drawing.Image)(resources.GetObject("btnChangePwd.ImagePress")));
-            this.btnChangePwd.Location = new System.Drawing.Point(3, 197);
+            this.btnChangePwd.Location = new System.Drawing.Point(3, 298);
             this.btnChangePwd.Name = "btnChangePwd";
             this.btnChangePwd.Size = new System.Drawing.Size(80, 90);
             this.btnChangePwd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -464,7 +467,7 @@
             this.btnReports.ImageHover = ((System.Drawing.Image)(resources.GetObject("btnReports.ImageHover")));
             this.btnReports.ImageOffset = new System.Drawing.Point(12, 5);
             this.btnReports.ImagePress = ((System.Drawing.Image)(resources.GetObject("btnReports.ImagePress")));
-            this.btnReports.Location = new System.Drawing.Point(3, 101);
+            this.btnReports.Location = new System.Drawing.Point(3, 202);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(80, 90);
             this.btnReports.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -483,7 +486,7 @@
             this.btnMainData.ImageHover = ((System.Drawing.Image)(resources.GetObject("btnMainData.ImageHover")));
             this.btnMainData.ImageOffset = new System.Drawing.Point(12, 5);
             this.btnMainData.ImagePress = ((System.Drawing.Image)(resources.GetObject("btnMainData.ImagePress")));
-            this.btnMainData.Location = new System.Drawing.Point(3, 5);
+            this.btnMainData.Location = new System.Drawing.Point(3, 106);
             this.btnMainData.Name = "btnMainData";
             this.btnMainData.Size = new System.Drawing.Size(80, 90);
             this.btnMainData.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -492,6 +495,23 @@
             this.btnMainData.Text = "参数管理";
             this.btnMainData.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnMainData.Click += new System.EventHandler(this.btnMainData_Click);
+            // 
+            // btnAllData
+            // 
+            this.btnAllData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnAllData.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAllData.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btnAllData.Image = global::MainUI.Properties.Resources.wendang;
+            this.btnAllData.ImageOffset = new System.Drawing.Point(12, 5);
+            this.btnAllData.Location = new System.Drawing.Point(3, 10);
+            this.btnAllData.Name = "btnAllData";
+            this.btnAllData.Size = new System.Drawing.Size(80, 90);
+            this.btnAllData.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.btnAllData.TabIndex = 123;
+            this.btnAllData.TabStop = false;
+            this.btnAllData.Text = "数据分析";
+            this.btnAllData.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAllData.Click += new System.EventHandler(this.btnAllData_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -613,6 +633,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnChangePwd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnReports)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMainData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAllData)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiImageButtonMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiImageButtonAutoMain)).EndInit();
@@ -665,5 +686,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private Sunny.UI.UIImageButton btnDuctHeating;
         private System.Windows.Forms.ToolStripStatusLabel tslblJYBC;
+        private Sunny.UI.UIImageButton btnAllData;
     }
 }

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiTabControl1 = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -99,9 +99,11 @@
             this.MaxExcitationCurrent = new System.Windows.Forms.NumericUpDown();
             this.MaxHighTemperatureWater = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
+            this.numMinSpeed = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.btnDelete = new Sunny.UI.UIButton();
             this.label2 = new System.Windows.Forms.Label();
+            this.uiLabel5 = new Sunny.UI.UILabel();
             this.label6 = new System.Windows.Forms.Label();
             this.RPMChangeMultValue = new System.Windows.Forms.NumericUpDown();
             this.CollectIntervalTimeValue = new System.Windows.Forms.NumericUpDown();
@@ -112,14 +114,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.numPolePair = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel25 = new Sunny.UI.UILabel();
             this.numNumberofTeeth2 = new System.Windows.Forms.NumericUpDown();
             this.uiLabel24 = new Sunny.UI.UILabel();
             this.numNumberofTeeth1 = new System.Windows.Forms.NumericUpDown();
             this.uiLabel20 = new Sunny.UI.UILabel();
-            this.numMinSpeed = new System.Windows.Forms.NumericUpDown();
             this.numRateSpeed = new System.Windows.Forms.NumericUpDown();
             this.numRateTorque = new System.Windows.Forms.NumericUpDown();
-            this.uiLabel5 = new Sunny.UI.UILabel();
             this.uiLabel8 = new Sunny.UI.UILabel();
             this.numRatePower = new System.Windows.Forms.NumericUpDown();
             this.uiLabel4 = new Sunny.UI.UILabel();
@@ -150,6 +152,12 @@
             this.uiDoubleUpDown1 = new Sunny.UI.UIDoubleUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.dgvNode = new System.Windows.Forms.DataGridView();
+            this.NodeIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GK = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NodeTorque = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NodeSpeed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NodeTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listTestStep = new System.Windows.Forms.ListBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -165,12 +173,9 @@
             this.btnGet = new Sunny.UI.UIButton();
             this.uiLabel2 = new Sunny.UI.UILabel();
             this.txtType = new Sunny.UI.UITextBox();
-            this.NodeIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GK = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NodeTorque = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NodeSpeed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NodeTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.uiLabel26 = new Sunny.UI.UILabel();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -217,14 +222,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.DefaultOilTemperature)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxExcitationCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxHighTemperatureWater)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RPMChangeMultValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CollectIntervalTimeValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeMultValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeTimeValue)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPolePair)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateTorque)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRatePower)).BeginInit();
@@ -240,6 +246,8 @@
             this.tabPage5.SuspendLayout();
             this.contextMenuStrip360h.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -274,6 +282,7 @@
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox8);
             this.tabPage1.Controls.Add(this.chkNotFresh);
             this.tabPage1.Controls.Add(this.groupBox6);
@@ -305,7 +314,7 @@
             this.groupBox8.Controls.Add(this.numOilPanLong);
             this.groupBox8.Controls.Add(this.uiLabel22);
             this.groupBox8.Controls.Add(this.uiLabel23);
-            this.groupBox8.Location = new System.Drawing.Point(7, 454);
+            this.groupBox8.Location = new System.Drawing.Point(1242, 355);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(348, 39);
             this.groupBox8.TabIndex = 429;
@@ -1168,17 +1177,30 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(324, 550);
+            this.label9.Location = new System.Drawing.Point(1559, 451);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(56, 25);
             this.label9.TabIndex = 425;
             this.label9.Text = "%/次";
             this.label9.Visible = false;
             // 
+            // numMinSpeed
+            // 
+            this.numMinSpeed.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numMinSpeed.Location = new System.Drawing.Point(195, 97);
+            this.numMinSpeed.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numMinSpeed.Name = "numMinSpeed";
+            this.numMinSpeed.Size = new System.Drawing.Size(120, 32);
+            this.numMinSpeed.TabIndex = 83;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(323, 506);
+            this.label7.Location = new System.Drawing.Point(1558, 407);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 25);
             this.label7.TabIndex = 426;
@@ -1202,17 +1224,29 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(270, 641);
+            this.label2.Location = new System.Drawing.Point(1505, 542);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 25);
             this.label2.TabIndex = 424;
             this.label2.Text = "min";
             this.label2.Visible = false;
             // 
+            // uiLabel5
+            // 
+            this.uiLabel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.uiLabel5.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.uiLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel5.Location = new System.Drawing.Point(25, 98);
+            this.uiLabel5.Name = "uiLabel5";
+            this.uiLabel5.Size = new System.Drawing.Size(164, 26);
+            this.uiLabel5.TabIndex = 82;
+            this.uiLabel5.Text = "最低转速(r/min) ";
+            this.uiLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(323, 591);
+            this.label6.Location = new System.Drawing.Point(1558, 492);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(58, 25);
             this.label6.TabIndex = 427;
@@ -1221,7 +1255,7 @@
             // 
             // RPMChangeMultValue
             // 
-            this.RPMChangeMultValue.Location = new System.Drawing.Point(187, 547);
+            this.RPMChangeMultValue.Location = new System.Drawing.Point(1422, 448);
             this.RPMChangeMultValue.Name = "RPMChangeMultValue";
             this.RPMChangeMultValue.Size = new System.Drawing.Size(120, 32);
             this.RPMChangeMultValue.TabIndex = 423;
@@ -1229,7 +1263,7 @@
             // 
             // CollectIntervalTimeValue
             // 
-            this.CollectIntervalTimeValue.Location = new System.Drawing.Point(209, 639);
+            this.CollectIntervalTimeValue.Location = new System.Drawing.Point(1444, 540);
             this.CollectIntervalTimeValue.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -1242,7 +1276,7 @@
             // 
             // TorqueChangeMultValue
             // 
-            this.TorqueChangeMultValue.Location = new System.Drawing.Point(186, 504);
+            this.TorqueChangeMultValue.Location = new System.Drawing.Point(1421, 405);
             this.TorqueChangeMultValue.Name = "TorqueChangeMultValue";
             this.TorqueChangeMultValue.Size = new System.Drawing.Size(120, 32);
             this.TorqueChangeMultValue.TabIndex = 424;
@@ -1251,7 +1285,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(97, 641);
+            this.label4.Location = new System.Drawing.Point(1332, 542);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(126, 25);
             this.label4.TabIndex = 422;
@@ -1260,7 +1294,7 @@
             // 
             // TorqueChangeTimeValue
             // 
-            this.TorqueChangeTimeValue.Location = new System.Drawing.Point(186, 589);
+            this.TorqueChangeTimeValue.Location = new System.Drawing.Point(1421, 490);
             this.TorqueChangeTimeValue.Name = "TorqueChangeTimeValue";
             this.TorqueChangeTimeValue.Size = new System.Drawing.Size(120, 32);
             this.TorqueChangeTimeValue.TabIndex = 422;
@@ -1269,7 +1303,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(39, 550);
+            this.label5.Location = new System.Drawing.Point(1274, 451);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(164, 25);
             this.label5.TabIndex = 420;
@@ -1279,7 +1313,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(39, 506);
+            this.label3.Location = new System.Drawing.Point(1274, 407);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(164, 25);
             this.label3.TabIndex = 421;
@@ -1289,7 +1323,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 591);
+            this.label1.Location = new System.Drawing.Point(1274, 492);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(126, 25);
             this.label1.TabIndex = 419;
@@ -1302,25 +1336,48 @@
             this.groupBox2.Controls.Add(this.uiLabel24);
             this.groupBox2.Controls.Add(this.numNumberofTeeth1);
             this.groupBox2.Controls.Add(this.uiLabel20);
-            this.groupBox2.Controls.Add(this.numMinSpeed);
             this.groupBox2.Controls.Add(this.numRateSpeed);
             this.groupBox2.Controls.Add(this.numRateTorque);
-            this.groupBox2.Controls.Add(this.uiLabel5);
             this.groupBox2.Controls.Add(this.uiLabel8);
             this.groupBox2.Controls.Add(this.numRatePower);
             this.groupBox2.Controls.Add(this.uiLabel4);
             this.groupBox2.Controls.Add(this.uiLabel3);
             this.groupBox2.Location = new System.Drawing.Point(14, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(348, 329);
+            this.groupBox2.Size = new System.Drawing.Size(354, 282);
             this.groupBox2.TabIndex = 395;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "发动机基础参数";
             // 
+            // numPolePair
+            // 
+            this.numPolePair.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numPolePair.Location = new System.Drawing.Point(195, 52);
+            this.numPolePair.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numPolePair.Name = "numPolePair";
+            this.numPolePair.Size = new System.Drawing.Size(120, 32);
+            this.numPolePair.TabIndex = 89;
+            // 
+            // uiLabel25
+            // 
+            this.uiLabel25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.uiLabel25.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.uiLabel25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel25.Location = new System.Drawing.Point(25, 54);
+            this.uiLabel25.Name = "uiLabel25";
+            this.uiLabel25.Size = new System.Drawing.Size(164, 26);
+            this.uiLabel25.TabIndex = 88;
+            this.uiLabel25.Text = "极对数";
+            this.uiLabel25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // numNumberofTeeth2
             // 
             this.numNumberofTeeth2.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numNumberofTeeth2.Location = new System.Drawing.Point(197, 276);
+            this.numNumberofTeeth2.Location = new System.Drawing.Point(197, 231);
             this.numNumberofTeeth2.Maximum = new decimal(new int[] {
             500,
             0,
@@ -1335,7 +1392,7 @@
             this.uiLabel24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.uiLabel24.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.uiLabel24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel24.Location = new System.Drawing.Point(1, 275);
+            this.uiLabel24.Location = new System.Drawing.Point(1, 230);
             this.uiLabel24.Name = "uiLabel24";
             this.uiLabel24.Size = new System.Drawing.Size(190, 26);
             this.uiLabel24.TabIndex = 86;
@@ -1345,7 +1402,7 @@
             // numNumberofTeeth1
             // 
             this.numNumberofTeeth1.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numNumberofTeeth1.Location = new System.Drawing.Point(197, 230);
+            this.numNumberofTeeth1.Location = new System.Drawing.Point(197, 185);
             this.numNumberofTeeth1.Maximum = new decimal(new int[] {
             500,
             0,
@@ -1360,25 +1417,12 @@
             this.uiLabel20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.uiLabel20.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.uiLabel20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel20.Location = new System.Drawing.Point(1, 228);
+            this.uiLabel20.Location = new System.Drawing.Point(1, 183);
             this.uiLabel20.Name = "uiLabel20";
             this.uiLabel20.Size = new System.Drawing.Size(190, 26);
             this.uiLabel20.TabIndex = 84;
             this.uiLabel20.Text = "飞轮盘1齿数(T)";
             this.uiLabel20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // numMinSpeed
-            // 
-            this.numMinSpeed.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numMinSpeed.Location = new System.Drawing.Point(197, 184);
-            this.numMinSpeed.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.numMinSpeed.Name = "numMinSpeed";
-            this.numMinSpeed.Size = new System.Drawing.Size(120, 32);
-            this.numMinSpeed.TabIndex = 83;
             // 
             // numRateSpeed
             // 
@@ -1405,18 +1449,6 @@
             this.numRateTorque.Name = "numRateTorque";
             this.numRateTorque.Size = new System.Drawing.Size(120, 32);
             this.numRateTorque.TabIndex = 83;
-            // 
-            // uiLabel5
-            // 
-            this.uiLabel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.uiLabel5.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.uiLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel5.Location = new System.Drawing.Point(1, 181);
-            this.uiLabel5.Name = "uiLabel5";
-            this.uiLabel5.Size = new System.Drawing.Size(190, 26);
-            this.uiLabel5.TabIndex = 82;
-            this.uiLabel5.Text = "最小工作转速(r/min) ";
-            this.uiLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // uiLabel8
             // 
@@ -1845,15 +1877,15 @@
             this.dgvNode.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvNode.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvNode.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(4);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvNode.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(4);
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvNode.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvNode.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNode.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NodeIndex,
@@ -1862,14 +1894,14 @@
             this.NodeSpeed,
             this.NodeTime,
             this.Column4});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNode.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvNode.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvNode.EnableHeadersVisualStyles = false;
             this.dgvNode.Location = new System.Drawing.Point(128, 16);
             this.dgvNode.Name = "dgvNode";
@@ -1884,6 +1916,52 @@
             this.dgvNode.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNode_CellEnter);
             this.dgvNode.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvNode_CellValidating);
             this.dgvNode.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvNode_EditingControlShowing);
+            // 
+            // NodeIndex
+            // 
+            this.NodeIndex.DataPropertyName = "Index";
+            this.NodeIndex.FillWeight = 70F;
+            this.NodeIndex.HeaderText = "步骤号";
+            this.NodeIndex.Name = "NodeIndex";
+            this.NodeIndex.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GK
+            // 
+            this.GK.FillWeight = 80F;
+            this.GK.HeaderText = "工况编号";
+            this.GK.Name = "GK";
+            this.GK.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NodeTorque
+            // 
+            this.NodeTorque.DataPropertyName = "Torque";
+            this.NodeTorque.HeaderText = "扭矩(%)";
+            this.NodeTorque.Name = "NodeTorque";
+            this.NodeTorque.ReadOnly = true;
+            this.NodeTorque.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NodeSpeed
+            // 
+            this.NodeSpeed.DataPropertyName = "RPM";
+            this.NodeSpeed.HeaderText = "转速(%)";
+            this.NodeSpeed.Name = "NodeSpeed";
+            this.NodeSpeed.ReadOnly = true;
+            this.NodeSpeed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NodeTime
+            // 
+            this.NodeTime.DataPropertyName = "Time";
+            this.NodeTime.HeaderText = "运行时间(min)";
+            this.NodeTime.Name = "NodeTime";
+            this.NodeTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column4
+            // 
+            this.Column4.FillWeight = 60F;
+            this.Column4.HeaderText = "操作";
+            this.Column4.Name = "Column4";
+            this.Column4.Text = "删除";
+            this.Column4.UseColumnTextForButtonValue = true;
             // 
             // groupBox1
             // 
@@ -2088,51 +2166,44 @@
             this.txtType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtType.Watermark = "请选择";
             // 
-            // NodeIndex
+            // groupBox5
             // 
-            this.NodeIndex.DataPropertyName = "Index";
-            this.NodeIndex.FillWeight = 70F;
-            this.NodeIndex.HeaderText = "步骤号";
-            this.NodeIndex.Name = "NodeIndex";
-            this.NodeIndex.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.groupBox5.Controls.Add(this.uiLabel26);
+            this.groupBox5.Controls.Add(this.numericUpDown2);
+            this.groupBox5.Controls.Add(this.uiLabel25);
+            this.groupBox5.Controls.Add(this.numPolePair);
+            this.groupBox5.Controls.Add(this.uiLabel5);
+            this.groupBox5.Controls.Add(this.numMinSpeed);
+            this.groupBox5.Location = new System.Drawing.Point(15, 304);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(347, 319);
+            this.groupBox5.TabIndex = 430;
+            this.groupBox5.TabStop = false;
             // 
-            // GK
+            // uiLabel26
             // 
-            this.GK.FillWeight = 80F;
-            this.GK.HeaderText = "工况编号";
-            this.GK.Name = "GK";
-            this.GK.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.uiLabel26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.uiLabel26.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.uiLabel26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel26.Location = new System.Drawing.Point(19, 142);
+            this.uiLabel26.Name = "uiLabel26";
+            this.uiLabel26.Size = new System.Drawing.Size(170, 26);
+            this.uiLabel26.TabIndex = 90;
+            this.uiLabel26.Text = "最高转速(r/min) ";
+            this.uiLabel26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // NodeTorque
+            // numericUpDown2
             // 
-            this.NodeTorque.DataPropertyName = "Torque";
-            this.NodeTorque.HeaderText = "扭矩(%)";
-            this.NodeTorque.Name = "NodeTorque";
-            this.NodeTorque.ReadOnly = true;
-            this.NodeTorque.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NodeSpeed
-            // 
-            this.NodeSpeed.DataPropertyName = "RPM";
-            this.NodeSpeed.HeaderText = "转速(%)";
-            this.NodeSpeed.Name = "NodeSpeed";
-            this.NodeSpeed.ReadOnly = true;
-            this.NodeSpeed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NodeTime
-            // 
-            this.NodeTime.DataPropertyName = "Time";
-            this.NodeTime.HeaderText = "运行时间(min)";
-            this.NodeTime.Name = "NodeTime";
-            this.NodeTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column4
-            // 
-            this.Column4.FillWeight = 60F;
-            this.Column4.HeaderText = "操作";
-            this.Column4.Name = "Column4";
-            this.Column4.Text = "删除";
-            this.Column4.UseColumnTextForButtonValue = true;
+            this.numericUpDown2.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numericUpDown2.Location = new System.Drawing.Point(195, 142);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(120, 32);
+            this.numericUpDown2.TabIndex = 91;
             // 
             // ucTestParams
             // 
@@ -2190,14 +2261,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.DefaultOilTemperature)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxExcitationCurrent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxHighTemperatureWater)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RPMChangeMultValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CollectIntervalTimeValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeMultValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeTimeValue)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numPolePair)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateTorque)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRatePower)).EndInit();
@@ -2215,6 +2287,8 @@
             this.tabPage5.ResumeLayout(false);
             this.contextMenuStrip360h.ResumeLayout(false);
             this.uiGroupBox1.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2362,5 +2436,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NodeSpeed;
         private System.Windows.Forms.DataGridViewTextBoxColumn NodeTime;
         private System.Windows.Forms.DataGridViewButtonColumn Column4;
+        private System.Windows.Forms.NumericUpDown num;
+        private Sunny.UI.UILabel uiLabel25;
+        private System.Windows.Forms.NumericUpDown numPolePair;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private Sunny.UI.UILabel uiLabel26;
     }
 }

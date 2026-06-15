@@ -160,6 +160,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\AllDataRecordDB.cs" />
     <Compile Include="BLL\ModelBLL.cs" />
     <Compile Include="BLL\ModelTypeBLL.cs" />
     <Compile Include="BLL\SysLogBLL.cs" />
@@ -263,11 +264,29 @@
     <Compile Include="frmProcessDataManager.Designer.cs">
       <DependentUpon>frmProcessDataManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="FSql\AllCollectData\AIDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\AODataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\BaseDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\DIDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\DODataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\EngineOilDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\ExChangeDataGrpBool.cs" />
+    <Compile Include="FSql\AllCollectData\ExChangeDataGrpDouble.cs" />
+    <Compile Include="FSql\AllCollectData\FuelDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\GD350_1Data.cs" />
+    <Compile Include="FSql\AllCollectData\PipelineFaultDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\PLC2AIDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\SpeedDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\StartPLCDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\ThreePhaseElectricData.cs" />
+    <Compile Include="FSql\AllCollectData\TRDPDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\WaterDataGrp.cs" />
     <Compile Include="FSql\FaultEventService.cs" />
     <Compile Include="FSql\AutoRecordService.cs" />
     <Compile Include="FSql\Model\FaultEvent.cs" />
     <Compile Include="FSql\Model\AutoRecordPara.cs" />
     <Compile Include="FSql\Model\IRecordData.cs" />
+    <Compile Include="FSql\Model\TestParaAllData.cs" />
     <Compile Include="FSql\Model\TestParaALLMain.cs" />
     <Compile Include="FSql\Model\ManualRecordMain.cs" />
     <Compile Include="FSql\Model\StartupTestPara.cs" />
@@ -343,6 +362,14 @@
       <DependentUpon>ucFeulHMI.cs</DependentUpon>
     </Compile>
     <Compile Include="Procedure\Test\Auto\Test100hProc.cs" />
+    <Compile Include="Report\Entity\ColumnDefinition.cs" />
+    <Compile Include="Report\ucAllDataRecord.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\ucAllDataRecord.Designer.cs">
+      <DependentUpon>ucAllDataRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\ucAllDataRecord_Method.cs" />
     <Compile Include="Report\ucAutoRecord.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -977,6 +1004,9 @@
     <EmbeddedResource Include="Manager\AutoPara\ucGKParams.resx">
       <DependentUpon>ucGKParams.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\ucAllDataRecord.resx">
+      <DependentUpon>ucAllDataRecord.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\ucAutoRecord.resx">
       <DependentUpon>ucAutoRecord.cs</DependentUpon>

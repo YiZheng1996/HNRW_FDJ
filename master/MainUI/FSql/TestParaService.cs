@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using Newtonsoft.Json;
 using MainUI.FSql.Model;
+using MetorSignalSimulator.UI.Model;
 
 namespace MainUI.FSql
 {
@@ -79,7 +80,7 @@ namespace MainUI.FSql
                     gid = MGid, // 生成正整数ID
                     BeginTime = DateTime.Now,
                     UserName = RW.UI.RWUser.User.Username,
-                    DieselEngineModel = "-",
+                    DieselEngineModel = Common.mTestViewModel.ModelName ?? "-",
                     DieselEngineNo = "-",
                     TestName = "-"
                 };
@@ -225,10 +226,19 @@ namespace MainUI.FSql
                 }
 
                 // TRDP数据
-                if (Var.TRDP.trdpValue != null)
+                Dictionary<string, object> trdpSaveDict = new Dictionary<string, object>();
+                foreach (FullTags tag in Var.TRDP.tags)
                 {
-                    var aiData = Var.TRDP.trdpValue.ToDictionary(kv => $"TRDP_{kv.Key}", kv => (object)kv.Value);
-                    allData["TRDP"] = aiData;
+                    string saveKey = "TRDP_" + tag.DataLabel;
+                    if (Var.TRDP.trdpValue.ContainsKey(tag.DataLabel))
+                    {
+                        trdpSaveDict[saveKey] = Var.TRDP.trdpValue[tag.DataLabel];
+                    }
+                    else
+                    {
+                        trdpSaveDict[saveKey] = tag.RealTimeValue;
+                    }
+                    allData["TRDP"] = trdpSaveDict;
                 }
 
                 // AI模块数据

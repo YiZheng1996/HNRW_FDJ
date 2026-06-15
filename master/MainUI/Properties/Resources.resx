@@ -127,17 +127,14 @@
   <data name="kg_SPOFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\kg_SPOFF.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AutoHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AutoHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="发动机俯视图" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\发动机俯视图.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="spreadsheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\spreadsheet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="三通4 noback" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\三通4 noback.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="向右" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\向右.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="kgled_ON_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\kgled_ON_red.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -171,6 +168,9 @@
   </data>
   <data name="exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\tec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="复选框勾" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\复选框勾.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -232,8 +232,8 @@
   <data name="database11" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\database11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PipeRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PipeRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="三通4 noback" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\三通4 noback.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="发动机图" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\发动机图.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -250,6 +250,9 @@
   <data name="mv_RightVer_ON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mv_RightVer_ON.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="风道加热按下" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\风道加热按下.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="mv_Hor_ON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mv_Hor_ON.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -261,9 +264,6 @@
   </data>
   <data name="发动机" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\发动机.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="真空泵false" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\真空泵false.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -295,6 +295,9 @@
   <data name="ThreeT2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ThreeT2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="过程数据" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\过程数据.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="technical_hammer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\technical_hammer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -304,8 +307,8 @@
   <data name="edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AutoHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AutoHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="真空泵false" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\真空泵false.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="管路结节" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\管路结节.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -313,13 +316,13 @@
   <data name="变频器" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\变频器.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="过程数据" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\过程数据.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PipeRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PipeRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tec" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\tec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="向右" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\向右.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="风道加热按下" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\风道加热按下.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="wendang" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\浅蓝\wendang.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

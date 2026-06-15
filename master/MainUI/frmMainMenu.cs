@@ -66,6 +66,12 @@ namespace MainUI
         /// </summary>
         ucDuctHeating ucDuctHeatingHMI = new ucDuctHeating();
 
+        /// <summary>
+        /// 数据分析界面
+        /// pym
+        /// </summary>
+        ucAllDataRecord ucAllDataRecordHMI = new ucAllDataRecord();
+
         public frmMainMenu()
         {
             InitializeComponent();
@@ -130,6 +136,11 @@ namespace MainUI
                 this.splitContainer1.Panel2.Controls.Add(ucAutoRecord);
                 this.ucAutoRecord.Dock = DockStyle.Fill;
 
+                //pym
+                this.ucAutoRecord.Dock = DockStyle.Fill;
+                this.splitContainer1.Panel2.Controls.Add(ucAllDataRecordHMI);
+                this.ucAllDataRecordHMI.Dock = DockStyle.Fill;
+
                 // 监听拍下急停时
                 EventTriggerModel.OnScramChanged += EventTriggerModel_OnScramChanged;
 
@@ -145,12 +156,16 @@ namespace MainUI
                     case "2"://工程师
                     case "工艺员":
                         this.btnMainData.Visible = false;
+                        //pym
+                        this.btnAllData.Visible = false;
                         Var.UserPrivate = 2;
                         break;
                     case "3"://操作员
                     case "操作员":
                         this.btnMainData.Visible = false;
                         this.btnHardwareTest.Visible = false;
+                        //pym
+                        this.btnAllData.Visible = false;
                         //this.btnSysLog.Visible = false;
                         Var.UserPrivate = 3;
                         break;
@@ -158,6 +173,8 @@ namespace MainUI
                         Var.UserPrivate = 3;
                         this.btnMainData.Visible = false;
                         this.btnHardwareTest.Visible = false;
+                        //pym
+                        this.btnAllData.Visible = false;
                         break;
                 }
 
@@ -299,6 +316,8 @@ namespace MainUI
             this.uiImageButtonAutoMain.BackColor = this.BackColor;
             this.btnReports.BackColor = this.BackColor;
             this.btnDuctHeating.BackColor = this.BackColor;
+            //pym
+            this.btnAllData.BackColor = this.BackColor;
             this.btnMainData.BackColor = SystemColors.GradientActiveCaption;
 
             // 添加参数管理界面
@@ -307,7 +326,29 @@ namespace MainUI
             this.Screen1HMI.Visible = false;
             this.ucAutoRecord.Visible = false;
             this.ucDuctHeatingHMI.Visible = false;
+            this.ucAllDataRecordHMI.Visible = false;
             this.ucParaMangerHMI.Visible = true;
+        }
+
+        /// <summary>
+        /// 数据分析
+        /// pym
+        /// </summary>
+        private void btnAllData_Click(object sender, EventArgs e)
+        {
+            this.uiImageButtonAutoMain.BackColor = this.BackColor;
+            this.uiImageButtonMain.BackColor = this.BackColor;
+            this.btnMainData.BackColor = this.BackColor;
+            this.btnReports.BackColor = this.BackColor;
+            this.btnDuctHeating.BackColor = this.BackColor;
+            this.btnAllData.BackColor = SystemColors.GradientActiveCaption;
+
+            this.ucFromHMI.Visible = false;
+            this.ucAutoRecord.Visible = false;
+            this.ucParaMangerHMI.Visible = false;
+            this.ucAutoRecord.Visible = false;
+            this.ucDuctHeatingHMI.Visible = false;
+            this.ucAllDataRecordHMI.Visible = true;
         }
 
         /// <summary>
@@ -318,13 +359,18 @@ namespace MainUI
             this.uiImageButtonAutoMain.BackColor = this.BackColor;
             this.uiImageButtonMain.BackColor = this.BackColor;
             this.btnMainData.BackColor = this.BackColor;
+            //pym
+            this.btnAllData.BackColor = this.BackColor;
+            this.btnDuctHeating.BackColor = this.BackColor;
             this.btnReports.BackColor = SystemColors.GradientActiveCaption;
 
             this.ucFromHMI.Visible = false;
             this.ucAutoRecord.Visible = false;
             this.ucParaMangerHMI.Visible = false;
             this.ucAutoRecord.Visible = true;
-
+            //pym
+            this.ucAllDataRecordHMI.Visible = false;
+            this.ucAutoRecord.Visible = true;
             //frmDataManager fdm = new frmDataManager();
             //fdm.ShowDialog();
         }
@@ -513,10 +559,12 @@ namespace MainUI
             this.btnMainData.BackColor = this.BackColor;
             this.btnReports.BackColor = this.BackColor;
             this.btnDuctHeating.BackColor = this.BackColor;
+            this.btnAllData.BackColor = this.BackColor;
 
             this.ucAutoRecord.Visible = false;
             this.ucParaMangerHMI.Visible = false;
             this.ucAutoRecord.Visible = false;
+            this.ucAllDataRecordHMI.Visible = false;
             this.ucDuctHeatingHMI.Visible = false;
 
             if (Var.SysConfig.ExeType == 1)
@@ -543,11 +591,13 @@ namespace MainUI
             this.btnMainData.BackColor = this.BackColor;
             this.btnReports.BackColor = this.BackColor;
             this.btnDuctHeating.BackColor = this.BackColor;
+            this.btnAllData.BackColor = this.BackColor;
 
             this.ucDuctHeatingHMI.Visible = false;
             this.ucAutoRecord.Visible = false;
             this.ucParaMangerHMI.Visible = false;
             this.ucAutoRecord.Visible = false;
+            this.ucAllDataRecordHMI.Visible = false;
 
             // 添加自动界面
             this.ucFromHMI.SelectPage("Auto");
@@ -565,6 +615,7 @@ namespace MainUI
             this.uiImageButtonAutoMain.BackColor = this.BackColor;
             this.btnReports.BackColor = this.BackColor;
             this.btnMainData.BackColor = this.BackColor;
+            this.btnAllData.BackColor = this.BackColor;
             this.btnDuctHeating.BackColor = SystemColors.GradientActiveCaption;
 
             // 添加参数管理界面
@@ -573,6 +624,7 @@ namespace MainUI
             this.Screen1HMI.Visible = false;
             this.ucAutoRecord.Visible = false;
             this.ucParaMangerHMI.Visible = false;
+            this.ucAllDataRecordHMI.Visible = false;
             this.ucDuctHeatingHMI.Visible = true;
         }
 
