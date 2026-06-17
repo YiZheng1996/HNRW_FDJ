@@ -12,7 +12,6 @@ namespace MainUI.Config
     {
         public TrialParaConfig() : base(Application.StartupPath + "\\config\\Para.ini")
         {
-            Load();
         }
 
         public TrialParaConfig(string model, TrialTypeEnum trialType)

@@ -753,7 +753,7 @@ namespace MainUI.Services
                     {
                         // 获取当前发动机转速
                         // 原逻辑为：CurrentData.发动机转速 而不是 GetEngineSpeed()，以前逻辑存在BUG，这样无论 TRDP 有没有数据，只要发动机在转，门控就会放行，飞轮超速就能被正确检测到
-                        bool isEngineRunningNow = (MiddleData.instnce.GetEngineSpeed() > MiddleData.instnce.SelectModelConfig.MinSpeed - 10 && Common.DOgrp["发动机DC24V供电"]);
+                        bool isEngineRunningNow = (MiddleData.instnce.GetEngineSpeed() > MiddleData.instnce.TrialConfig.MinSpeed - 10 && Common.DOgrp["发动机DC24V供电"]);
 
                         // ECM故障检测
                         //if (isEngineRunningNow && Var.FaultConfig?.FaultDataLists?.Count > 0)
@@ -820,7 +820,7 @@ namespace MainUI.Services
                     {
                         // 获取当前停机故障列表
                         var stopList = GetActiveFaultsByType(WarnTypeEnum.Stop);
-                        bool isEngineRunningNow = (CurrentData.发动机转速 > MiddleData.instnce.SelectModelConfig.MinSpeed - 10 && Common.DOgrp["发动机DC24V供电"]);
+                        bool isEngineRunningNow = (CurrentData.发动机转速 > MiddleData.instnce.TrialConfig.MinSpeed - 10 && Common.DOgrp["发动机DC24V供电"]);
 
                         // 停机故障检测：门控由“240 的 FaultDataLists 非空”改为“故障判据已就绪”，
                         // 与 StartFaultDetectionThread 保持同一判据，避免“检测在跑、停机不发”的割裂

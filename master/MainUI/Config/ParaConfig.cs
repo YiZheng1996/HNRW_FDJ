@@ -46,12 +46,6 @@ namespace MainUI.Config
         public int RatedTorque { get; set; }
 
         /// <summary>
-        /// 最小工作转速
-        /// </summary>
-        [IniKeyName("最小工作转速")]
-        public int MinSpeed { get; set; } = 350;
-
-        /// <summary>
         /// 飞轮盘2齿数
         /// </summary>
         [IniKeyName("飞轮盘1齿数")]

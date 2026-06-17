@@ -1,24 +1,16 @@
-﻿using System;
+﻿using MainUI.Config;
+using MainUI.Config.Test;
+using MainUI.Fault;
+using MainUI.Global;
+using MainUI.Helper;
+using Sunny.UI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RW.UI.Manager;
-using MainUI.Model;
-using MainUI.BLL;
-using MainUI.Config;
-using MainUI.Properties;
-using MainUI.Config.Test;
-using MainUI.Procedure.Test;
-using MainUI.Global;
-using Sunny.UI;
-using MainUI.Helper;
 using static MainUI.Config.PubConfig;
-using MainUI.Fault;
 
 namespace MainUI.Procedure
 {
@@ -80,7 +72,6 @@ namespace MainUI.Procedure
 
                 this.numRatePower.Value = paraconfig.RatedPower.ToDecimal();
                 this.numRateTorque.Value = paraconfig.RatedTorque.ToDecimal();
-                this.numMinSpeed.Value = paraconfig.MinSpeed.ToDecimal();
                 this.numRateSpeed.Value = paraconfig.RatedSpeed.ToDecimal();
                 this.numNumberofTeeth1.Value = paraconfig.NumberofTeeth1.ToInt();
                 this.numNumberofTeeth2.Value = paraconfig.NumberofTeeth2.ToInt();
@@ -131,8 +122,8 @@ namespace MainUI.Procedure
                 cboRadTrialType.Items.Add(TrialTypeEnum.TypeTest.DisplayName());
             }
 
-            // 默认选中例行，触发 SelectedIndexChanged 加载对应值
-            cboRadTrialType.SelectedIndex = 0;
+            // 恢复当前系统已选定的试验类型，而不是永远显示例行
+            cboRadTrialType.SelectedIndex = Var.SysConfig.LastTrialType;
         }
 
         /// <summary>
@@ -168,10 +159,8 @@ namespace MainUI.Procedure
                 paraconfig.RatedPower = this.numRatePower.Value.ToInt();
                 paraconfig.RatedTorque = this.numRateTorque.Value.ToInt();
                 paraconfig.RatedSpeed = this.numRateSpeed.Value.ToInt();
-                paraconfig.MinSpeed = this.numMinSpeed.Value.ToInt();
                 paraconfig.NumberofTeeth1 = this.numNumberofTeeth1.Value.ToInt();
                 paraconfig.NumberofTeeth2 = this.numNumberofTeeth2.Value.ToInt();
-
                 paraconfig.IntervalTime = this.TorqueChangeTimeValue.Value.ToInt();
                 paraconfig.TorqueChangeMultiple = this.TorqueChangeMultValue.Value.ToInt();
                 paraconfig.RPMChangeMultiple = this.RPMChangeMultValue.Value.ToInt();

@@ -171,7 +171,6 @@
     <Compile Include="Config\ExcitationRegulationConfig.cs" />
     <Compile Include="Config\GKConfig.cs" />
     <Compile Include="Config\Modules\ValveConfig.cs" />
-    <Compile Include="Config\TestType.cs" />
     <Compile Include="Config\Test\Test360hConfig.cs" />
     <Compile Include="Config\ETHConfig.cs" />
     <Compile Include="Config\GraphConfig.cs" />

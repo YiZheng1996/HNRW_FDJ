@@ -26,9 +26,6 @@ namespace MainUI
                 Var.SysConfig.LastModel = dlg.SelectedModel;
                 Var.SysConfig.LastModelType = dlg.SelectedModelType;
                 Var.SysConfig.LastTrialTypeEnum = dlg.SelectedTrialType;
-                Var.SysConfig.Save();
-
-                // 试验编号
                 Var.SysConfig.TestNo = dlg.TestNo;
                 Var.SysConfig.Save();
             }

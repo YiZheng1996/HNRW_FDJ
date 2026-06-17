@@ -199,6 +199,7 @@ namespace MainUI.TestScreen
             Common.AOgrp["排气风道左调节阀控制"] = 100;
 
             // 初始化试验类型
+            // 注意一定放到最后初始化，否则顺序错乱将影响参数加载
             InitTrialTypeCombo();
         }
 
@@ -397,6 +398,12 @@ namespace MainUI.TestScreen
             cboRadTrialType.SelectedIndex = Var.SysConfig.LastTrialType; // 恢复上次选择
 
             _initializing = false;
+
+            // 手动触发一次，确保启动时 TrialConfig 和 PLC 转速范围都被正确初始化。
+            if (!string.IsNullOrEmpty(Var.SysConfig.LastModel))
+            {
+                LoadTrialParaConfig(Var.SysConfig.LastModel, Var.SysConfig.LastTrialTypeEnum);
+            }
         }
 
 
@@ -1703,9 +1710,9 @@ namespace MainUI.TestScreen
             if (val <= 0) val = 0;
             using (Fault.OperationContext.Begin(this, sender, string.Format("发动机转速-{0}", tag)))
             {
-                Common.AOgrp["发动机油门调节"] = MiddleData.instnce.SelectModelConfig.MinSpeed;
+                Common.AOgrp["发动机油门调节"] = MiddleData.instnce.TrialConfig.MinSpeed;
             }
-            this.ucNudSpeed.Value = MiddleData.instnce.SelectModelConfig.MinSpeed;
+            this.ucNudSpeed.Value = MiddleData.instnce.TrialConfig.MinSpeed;
         }
 
         private void cboRadTrialType_SelectedIndexChanged(object sender, EventArgs e)

@@ -409,7 +409,8 @@ namespace MainUI.Widget
 
             this.btnSetBeginSpeed.Focus();
 
-            var value = Math.Round((manaulData.BeginInvertSpeed * 7) / 60, 2);
+            var polePairs = MiddleData.instnce.TrialConfig.PolePairs;
+            var value = Math.Round((manaulData.BeginInvertSpeed * polePairs) / 60, 2);
             using (MainUI.Fault.OperationContext.Begin(this, sender, "启机-设置变频器频率"))
             {
                 Common.gd350_1.SetFrequency = value;

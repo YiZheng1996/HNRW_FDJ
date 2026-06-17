@@ -282,7 +282,7 @@ namespace MainUI
             this.txtModel.Text = Common.mTestViewModel.ModelName;
             this.txtTorque.Text = MiddleData.instnce.SelectModelConfig.RatedTorque.ToString();
             this.txtSpeed.Text = MiddleData.instnce.SelectModelConfig.RatedSpeed.ToString();
-            this.txtMinSpeed.Text = MiddleData.instnce.SelectModelConfig.MinSpeed.ToString();
+            this.txtMinSpeed.Text = MiddleData.instnce.TrialConfig.MinSpeed.ToString();
 
             // 刷新基础参数
             BaseTest.para = MiddleData.instnce.SelectModelConfig;
