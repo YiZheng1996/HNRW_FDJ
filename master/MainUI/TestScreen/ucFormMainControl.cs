@@ -140,6 +140,9 @@ namespace MainUI.TestScreen
             Common.DOgrp.KeyValueChange += DOgrp_KeyValueChange;
             Common.excitationGrp.KeyValueChange += ExcitationGrp_KeyValueChange;
 
+            // 参数管理保存后自动刷新运行中的 TrialConfig
+            EventTriggerModel.OnParaNameChanged += OnTrialParaSaved;
+
             // 更新UI
             this.ucNudLC.Value = Common.AOgrp["励磁调节"];
             this.ucNudSpeed.Value = Common.AOgrp["发动机油门调节"];
@@ -210,6 +213,19 @@ namespace MainUI.TestScreen
         }
 
         /// <summary>
+        /// 参数管理保存后，若保存的型号与当前运行型号一致，
+        /// 自动刷新 MiddleData.TrialConfig 并重新下发转速范围至 PLC。
+        /// </summary>
+        private void OnTrialParaSaved(string savedModel)
+        {
+            // 只刷新当前运行型号
+            if (savedModel != Var.SysConfig.LastModel) return;
+
+            // 用当前激活的试验类型重新加载
+            LoadTrialParaConfig(savedModel, Var.SysConfig.LastTrialTypeEnum);
+        }
+
+        /// <summary>
         /// 切换型号
         /// </summary>
         /// <param name="sender"></param>
@@ -251,8 +267,15 @@ namespace MainUI.TestScreen
 
             MiddleData.instnce.TrialConfig = trialPara;
 
-            // 界面显示同步更新
-            //this.txtMinSpeed.Text = trialPara.MinSpeed.ToString();
+            // 配置完整性校验，避免把 0 当成有效转速下发
+            if (trialPara.MinSpeed <= 0 || trialPara.MaxSpeed <= 0
+                || trialPara.MaxSpeed <= trialPara.MinSpeed)
+            {
+                Var.MsgBoxWarn(this,
+                    $"型号[{model}]-{trialType.DisplayName()} 的最低/最高工作转速配置异常" +
+                    $"（最低={trialPara.MinSpeed}，最高={trialPara.MaxSpeed}），已跳过转速范围下发，请检查参数。");
+                return;
+            }
 
             try
             {
