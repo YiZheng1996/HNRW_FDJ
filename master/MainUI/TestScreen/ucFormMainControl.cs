@@ -181,6 +181,12 @@ namespace MainUI.TestScreen
                 // 加载配方
                 LoadPubConfig();
                 EventTriggerModel.RaiseOnModelNameChanged(Var.SysConfig.LastModel);
+
+                // 从登录时填写的发动机编号回填出厂号字段
+                if (!string.IsNullOrEmpty(Var.SysConfig.TestNo))
+                {
+                    this.txtChuchanghao.Text = Var.SysConfig.TestNo;
+                }
             }
 
             // 后台自动采集数据

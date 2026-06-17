@@ -25,6 +25,7 @@ using MainUI.Helper;
 using MainUI.Fault.Model;
 using MainUI.Fault;
 using MainUI.Report;
+using MainUI.Config;
 
 namespace MainUI
 {
@@ -106,8 +107,16 @@ namespace MainUI
                 // 工艺界面显示管路或者控制工艺界面
                 var ExeType = Var.SysConfig.ExeType;
 
-                //为参数管理添加点位
+                // 为参数管理添加点位
                 LoadParaManagerNodes(ExeType);
+
+                // 在 ucHMI.Init() 之前预加载 TrialConfig
+                if (!string.IsNullOrEmpty(Var.SysConfig.LastModel))
+                {
+                    MiddleData.instnce.TrialConfig = new TrialParaConfig(
+                        Var.SysConfig.LastModel,
+                        Var.SysConfig.LastTrialTypeEnum);
+                }
 
                 // 如果类型是1，则跳转到控制界面
                 if (ExeType == 1)

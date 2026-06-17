@@ -490,6 +490,12 @@ namespace MainUI.Widget
                 // 当前是启机还是甩车
                 MiddleData.instnce.StartupName = tag;
 
+                // 急停信号检测
+                if (!Common.DIgrp["紧急停止"])
+                {
+                    errorMessages.AppendLine($"{++msgIndex}. 急停按钮已按下，请恢复急停按钮。");
+                }
+
                 // 检查水阻升降上极限检测
                 if (!Common.DIgrp["水阻升降上极限检测"])
                 {
