@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiTabControl1 = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -302,7 +302,7 @@
             // 
             this.cboRadTrialType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboRadTrialType.FormattingEnabled = true;
-            this.cboRadTrialType.Location = new System.Drawing.Point(134, 371);
+            this.cboRadTrialType.Location = new System.Drawing.Point(134, 332);
             this.cboRadTrialType.Name = "cboRadTrialType";
             this.cboRadTrialType.Size = new System.Drawing.Size(197, 33);
             this.cboRadTrialType.TabIndex = 432;
@@ -313,7 +313,7 @@
             this.uiLabel21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.uiLabel21.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.uiLabel21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel21.Location = new System.Drawing.Point(15, 375);
+            this.uiLabel21.Location = new System.Drawing.Point(15, 336);
             this.uiLabel21.Name = "uiLabel21";
             this.uiLabel21.Size = new System.Drawing.Size(113, 23);
             this.uiLabel21.TabIndex = 431;
@@ -328,9 +328,9 @@
             this.groupBox5.Controls.Add(this.numPolePairs);
             this.groupBox5.Controls.Add(this.uiLabel5);
             this.groupBox5.Controls.Add(this.numMinSpeed);
-            this.groupBox5.Location = new System.Drawing.Point(15, 402);
+            this.groupBox5.Location = new System.Drawing.Point(15, 363);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(347, 201);
+            this.groupBox5.Size = new System.Drawing.Size(347, 172);
             this.groupBox5.TabIndex = 430;
             this.groupBox5.TabStop = false;
             // 
@@ -339,7 +339,7 @@
             this.uiLabel26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.uiLabel26.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.uiLabel26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel26.Location = new System.Drawing.Point(19, 142);
+            this.uiLabel26.Location = new System.Drawing.Point(27, 123);
             this.uiLabel26.Name = "uiLabel26";
             this.uiLabel26.Size = new System.Drawing.Size(170, 26);
             this.uiLabel26.TabIndex = 90;
@@ -349,7 +349,7 @@
             // numMaxSpeed
             // 
             this.numMaxSpeed.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numMaxSpeed.Location = new System.Drawing.Point(195, 142);
+            this.numMaxSpeed.Location = new System.Drawing.Point(203, 123);
             this.numMaxSpeed.Maximum = new decimal(new int[] {
             1100,
             0,
@@ -364,7 +364,7 @@
             this.uiLabel25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.uiLabel25.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.uiLabel25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel25.Location = new System.Drawing.Point(25, 54);
+            this.uiLabel25.Location = new System.Drawing.Point(33, 35);
             this.uiLabel25.Name = "uiLabel25";
             this.uiLabel25.Size = new System.Drawing.Size(164, 26);
             this.uiLabel25.TabIndex = 88;
@@ -374,7 +374,7 @@
             // numPolePairs
             // 
             this.numPolePairs.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numPolePairs.Location = new System.Drawing.Point(195, 52);
+            this.numPolePairs.Location = new System.Drawing.Point(203, 33);
             this.numPolePairs.Maximum = new decimal(new int[] {
             500,
             0,
@@ -389,7 +389,7 @@
             this.uiLabel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.uiLabel5.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.uiLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel5.Location = new System.Drawing.Point(25, 98);
+            this.uiLabel5.Location = new System.Drawing.Point(33, 79);
             this.uiLabel5.Name = "uiLabel5";
             this.uiLabel5.Size = new System.Drawing.Size(164, 26);
             this.uiLabel5.TabIndex = 82;
@@ -399,7 +399,7 @@
             // numMinSpeed
             // 
             this.numMinSpeed.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numMinSpeed.Location = new System.Drawing.Point(195, 97);
+            this.numMinSpeed.Location = new System.Drawing.Point(203, 78);
             this.numMinSpeed.Maximum = new decimal(new int[] {
             500,
             0,
@@ -1839,15 +1839,15 @@
             this.dgvNode.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvNode.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvNode.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(4);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvNode.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(4);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvNode.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvNode.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNode.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NodeIndex,
@@ -1856,14 +1856,14 @@
             this.NodeSpeed,
             this.NodeTime,
             this.Column4});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNode.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvNode.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvNode.EnableHeadersVisualStyles = false;
             this.dgvNode.Location = new System.Drawing.Point(128, 16);
             this.dgvNode.Name = "dgvNode";

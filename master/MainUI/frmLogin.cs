@@ -86,9 +86,12 @@ namespace MainUI
             cboTrialType.Items.Add(TrialTypeEnum.RoutineTest.DisplayName()); // index 1
             cboTrialType.Items.Add(TrialTypeEnum.TypeTest.DisplayName());    // index 2
 
-            int lastTrialIdx = Var.SysConfig.LastTrialType + 1;
-            cboTrialType.SelectedIndex = (lastTrialIdx >= 1 && lastTrialIdx <= 2)
-                ? lastTrialIdx : 0;
+            // 记录试验类型
+            //int lastTrialIdx = Var.SysConfig.LastTrialType + 1;
+            //cboTrialType.SelectedIndex = (lastTrialIdx >= 1 && lastTrialIdx <= 2)
+            //    ? lastTrialIdx : 0;
+
+            cboTrialType.SelectedIndex = 0;
 
             // 试验编号
             txtTestNo.Text = Var.SysConfig.TestNo ?? "";

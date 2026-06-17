@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MainUI.Global;
 using RW.Modules;
 using static MainUI.Modules.EventArgsModel;
 
@@ -105,7 +106,10 @@ namespace MainUI.Modules
                 }
 
                 // 执行计算：转速 = (频率 * 60) / 7
-                return Math.Round((frequency * 60) / 7, 1);
+                int polePairs = MiddleData.instnce.TrialConfig.PolePairs;
+                if (polePairs <= 0) polePairs = 7;   // 兜底，避免除零/配置缺失
+
+                return Math.Round((frequency * 60) / polePairs, 1);
             }
         }
 

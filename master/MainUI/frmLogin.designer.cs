@@ -185,7 +185,7 @@
             this.txtTestNo.Name = "txtTestNo";
             this.txtTestNo.ShowText = false;
             this.txtTestNo.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.txtTestNo.Watermark = "请输入试验编号，如 2024-001";
+            this.txtTestNo.Watermark = "请输入发动机编号";
             this.txtTestNo.TextChanged += new System.EventHandler(this.AnyField_Changed);
             // 
             // pnlDivBottom
@@ -234,6 +234,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.CancelButton = this.btnExit;
+            this.ControlBox = false;
             this.Controls.Add(this.pnlHero);
             this.Controls.Add(this.pnlHeroBorder);
             this.Controls.Add(this.uiLblSectionLogin);

@@ -553,7 +553,7 @@
     <value>微软雅黑, 13pt</value>
   </data>
   <data name="uiLblTestNo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 354</value>
+    <value>25, 357</value>
   </data>
   <data name="uiLblTestNo.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 24</value>
@@ -583,7 +583,7 @@
     <value>微软雅黑, 13pt</value>
   </data>
   <data name="txtTestNo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>128, 350</value>
+    <value>128, 353</value>
   </data>
   <data name="txtTestNo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -613,7 +613,7 @@
     <value>14</value>
   </data>
   <data name="pnlDivBottom.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 400</value>
+    <value>32, 403</value>
   </data>
   <data name="pnlDivBottom.Size" type="System.Drawing.Size, System.Drawing">
     <value>596, 1</value>
@@ -637,7 +637,7 @@
     <value>微软雅黑, 10.5pt</value>
   </data>
   <data name="lblMessage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>128, 410</value>
+    <value>128, 407</value>
   </data>
   <data name="lblMessage.Size" type="System.Drawing.Size, System.Drawing">
     <value>494, 22</value>
@@ -664,7 +664,7 @@
     <value>微软雅黑, 12.75pt, style=Bold</value>
   </data>
   <data name="btnExit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>128, 442</value>
+    <value>128, 439</value>
   </data>
   <data name="btnExit.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
@@ -697,7 +697,7 @@
     <value>微软雅黑, 14pt, style=Bold</value>
   </data>
   <data name="btnSignIn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 442</value>
+    <value>262, 439</value>
   </data>
   <data name="btnSignIn.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
@@ -727,7 +727,7 @@
     <value>微软雅黑, 9pt</value>
   </data>
   <data name="lblHint.Location" type="System.Drawing.Point, System.Drawing">
-    <value>128, 492</value>
+    <value>128, 489</value>
   </data>
   <data name="lblHint.Size" type="System.Drawing.Size, System.Drawing">
     <value>494, 18</value>
@@ -760,7 +760,7 @@
     <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>660, 518</value>
+    <value>660, 520</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

@@ -185,6 +185,12 @@ namespace MainUI.Procedure
                 if (Var.SysConfig.LastModel == txtModel.Text)
                 {
                     EventTriggerModel.ParaModelChanged(txtModel.Text);
+
+                    // 若改的是当前正在使用的试验类型，提醒重新下发（避免静默不生效）
+                    if ((int)trialType == Var.SysConfig.LastTrialType)
+                    {
+                        Var.MsgBoxWarn(this, "已保存当前试验类型参数。请回到主控界面重新选择一次试验类型，使新的转速范围/极对数下发生效。");
+                    }
                 }
             }
             catch (Exception ex)
