@@ -7,55 +7,44 @@ namespace MainUI
 {
     static class Program
     {
-        /// <summary>
-        /// 应用程序的主入口点。
-        /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // 启动前必须确认型号/试验类型/试验编号
-            using (var dlg = new FrmStartupConfirm())
-            {
-                if (dlg.ShowDialog() != DialogResult.OK)
-                    return; // 用户取消，直接退出
-
-                // 写入全局状态
-                Var.SysConfig.LastModel = dlg.SelectedModel;
-                Var.SysConfig.LastModelType = dlg.SelectedModelType;
-                Var.SysConfig.LastTrialTypeEnum = dlg.SelectedTrialType;
-                Var.SysConfig.TestNo = dlg.TestNo;
-                Var.SysConfig.Save();
-            }
-
+            // 日志在登录前启动，登录界面的操作也会被记录
             GlobalClickLogger.Instance.Start();
             MainUI.Fault.OpcOperationLog.Start();
-            frmLogin login = new frmLogin();
-            login.Icon = new System.Drawing.Icon("logo.ico");
+
+            frmLogin login = new frmLogin
+            {
+                Icon = new System.Drawing.Icon("logo.ico")
+            };
+
             var files = Directory.GetFiles(Application.StartupPath, "logo.*");
             var f = files.Where(x => !x.Contains("logo.ico")).FirstOrDefault();
             if (f != null)
             {
-                System.Drawing.Image image = System.Drawing.Image.FromFile(f);//登录界面和主界面的图片
+                System.Drawing.Image image = System.Drawing.Image.FromFile(f);
                 login.Logo.Image = image;
-                login.Logo.SizeMode = PictureBoxSizeMode.StretchImage;
+                login.Logo.SizeMode = PictureBoxSizeMode.Zoom;
             }
+
             #region 单例模式
             string softname = Application.ProductName;
             bool flag = false;
-            System.Threading.Mutex mutex = new System.Threading.Mutex(true, softname, out flag);
-            //第一个参数:true--给调用线程赋予互斥体的初始所属权  
-            //第一个参数:互斥体的名称  
-            //第三个参数:返回值,如果调用线程已被授予互斥体的初始所属权,则返回true  
+            System.Threading.Mutex mutex =
+                new System.Threading.Mutex(true, softname, out flag);
             if (!flag)
             {
-                MessageBox.Show("只能运行一个程序！", "请确定", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("只能运行一个程序！", "请确定",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Environment.Exit(0);
             }
             #endregion
 
+            // 登录 + 试验信息确认
             DialogResult dr = login.ShowDialog();
             if (dr == DialogResult.OK)
             {
@@ -63,25 +52,24 @@ namespace MainUI
                 {
                     var initResult = Var.Init();
                     if (!initResult) return;
-                    //Var.Connect();
-                    //MainForm main = new MainForm();
-                    //main.Show();
 
-                    frmMainMenu main = new frmMainMenu();
-                    main.Icon = new System.Drawing.Icon("logo.ico");
+                    frmMainMenu main = new frmMainMenu
+                    {
+                        Icon = new System.Drawing.Icon("logo.ico")
+                    };
                     if (f != null)
                     {
-                        System.Drawing.Image image = System.Drawing.Image.FromFile(f);//登录界面和主界面的图片
+                        System.Drawing.Image image = System.Drawing.Image.FromFile(f);
                         main.Logo.Image = image;
                     }
                     Application.Run(main);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("OPC初始化失败" + ex.Message, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("OPC初始化失败" + ex.Message, "系统提示",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
     }
 }

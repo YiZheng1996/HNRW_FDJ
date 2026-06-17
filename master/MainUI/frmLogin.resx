@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -118,28 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblSoftName.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 20pt</value>
+  <data name="Logo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 17</value>
+  </data>
+  <data name="Logo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 78</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lblSoftName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblSoftName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 25</value>
-  </data>
-  <data name="lblSoftName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>496, 52</value>
+  <data name="Logo.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Logo.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Logo.Name" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="&gt;&gt;Logo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Logo.Parent" xml:space="preserve">
+    <value>pnlHero</value>
+  </data>
+  <data name="&gt;&gt;Logo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblSoftName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 30pt, style=Bold</value>
+  </data>
+  <data name="lblSoftName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 34</value>
+  </data>
+  <data name="lblSoftName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>373, 60</value>
+  </data>
   <data name="lblSoftName.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
+    <value>1</value>
   </data>
   <data name="lblSoftName.Text" xml:space="preserve">
-    <value>XXX试验台</value>
-  </data>
-  <data name="lblSoftName.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+    <value>发动机性能试验台</value>
   </data>
   <data name="&gt;&gt;lblSoftName.Name" xml:space="preserve">
     <value>lblSoftName</value>
@@ -148,28 +166,484 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lblSoftName.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>pnlHero</value>
   </data>
   <data name="&gt;&gt;lblSoftName.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnlHero.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="pnlHero.Size" type="System.Drawing.Size, System.Drawing">
+    <value>660, 120</value>
+  </data>
+  <data name="pnlHero.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;pnlHero.Name" xml:space="preserve">
+    <value>pnlHero</value>
+  </data>
+  <data name="&gt;&gt;pnlHero.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlHero.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlHero.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pnlHeroBorder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 120</value>
+  </data>
+  <data name="pnlHeroBorder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>660, 2</value>
+  </data>
+  <data name="pnlHeroBorder.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;pnlHeroBorder.Name" xml:space="preserve">
+    <value>pnlHeroBorder</value>
+  </data>
+  <data name="&gt;&gt;pnlHeroBorder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlHeroBorder.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlHeroBorder.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="uiLblSectionLogin.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9.5pt</value>
+  </data>
+  <data name="uiLblSectionLogin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 142</value>
+  </data>
+  <data name="uiLblSectionLogin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>596, 22</value>
+  </data>
+  <data name="uiLblSectionLogin.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="uiLblSectionLogin.Text" xml:space="preserve">
+    <value>登录信息</value>
+  </data>
+  <data name="&gt;&gt;uiLblSectionLogin.Name" xml:space="preserve">
+    <value>uiLblSectionLogin</value>
+  </data>
+  <data name="&gt;&gt;uiLblSectionLogin.Type" xml:space="preserve">
+    <value>Sunny.UI.UILabel, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;uiLblSectionLogin.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;uiLblSectionLogin.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="uiLabel3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 13pt</value>
+  </data>
+  <data name="uiLabel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 176</value>
+  </data>
+  <data name="uiLabel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 30</value>
+  </data>
+  <data name="uiLabel3.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="uiLabel3.Text" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="uiLabel3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;uiLabel3.Name" xml:space="preserve">
+    <value>uiLabel3</value>
+  </data>
+  <data name="&gt;&gt;uiLabel3.Type" xml:space="preserve">
+    <value>Sunny.UI.UILabel, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;uiLabel3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;uiLabel3.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cboUsername.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 13pt</value>
+  </data>
+  <data name="cboUsername.Location" type="System.Drawing.Point, System.Drawing">
+    <value>128, 172</value>
+  </data>
+  <data name="cboUsername.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="cboUsername.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>63, 0</value>
+  </data>
+  <data name="cboUsername.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 30, 2</value>
+  </data>
+  <data name="cboUsername.Size" type="System.Drawing.Size, System.Drawing">
+    <value>494, 36</value>
+  </data>
+  <data name="cboUsername.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;cboUsername.Name" xml:space="preserve">
+    <value>cboUsername</value>
+  </data>
+  <data name="&gt;&gt;cboUsername.Type" xml:space="preserve">
+    <value>Sunny.UI.UIComboBox, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;cboUsername.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cboUsername.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="uiLabel1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 13pt</value>
+  </data>
+  <data name="uiLabel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 220</value>
+  </data>
+  <data name="uiLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 30</value>
+  </data>
+  <data name="uiLabel1.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="uiLabel1.Text" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="uiLabel1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;uiLabel1.Name" xml:space="preserve">
+    <value>uiLabel1</value>
+  </data>
+  <data name="&gt;&gt;uiLabel1.Type" xml:space="preserve">
+    <value>Sunny.UI.UILabel, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;uiLabel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;uiLabel1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="txtPassword.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 13pt</value>
+  </data>
+  <data name="txtPassword.Location" type="System.Drawing.Point, System.Drawing">
+    <value>128, 216</value>
+  </data>
+  <data name="txtPassword.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="txtPassword.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 16</value>
+  </data>
+  <data name="txtPassword.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="txtPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>494, 36</value>
+  </data>
+  <data name="txtPassword.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;txtPassword.Name" xml:space="preserve">
+    <value>txtPassword</value>
+  </data>
+  <data name="&gt;&gt;txtPassword.Type" xml:space="preserve">
+    <value>Sunny.UI.UITextBox, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;txtPassword.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtPassword.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="pnlDivTrial.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 264</value>
+  </data>
+  <data name="pnlDivTrial.Size" type="System.Drawing.Size, System.Drawing">
+    <value>596, 1</value>
+  </data>
+  <data name="pnlDivTrial.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="lblMessage.AutoSize" type="System.Boolean, mscorlib">
+  <data name="&gt;&gt;pnlDivTrial.Name" xml:space="preserve">
+    <value>pnlDivTrial</value>
+  </data>
+  <data name="&gt;&gt;pnlDivTrial.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlDivTrial.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlDivTrial.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="uiLblSectionTrial.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9.5pt</value>
+  </data>
+  <data name="uiLblSectionTrial.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 274</value>
+  </data>
+  <data name="uiLblSectionTrial.Size" type="System.Drawing.Size, System.Drawing">
+    <value>596, 22</value>
+  </data>
+  <data name="uiLblSectionTrial.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="uiLblSectionTrial.Text" xml:space="preserve">
+    <value>试验信息（每次启动必填）</value>
+  </data>
+  <data name="&gt;&gt;uiLblSectionTrial.Name" xml:space="preserve">
+    <value>uiLblSectionTrial</value>
+  </data>
+  <data name="&gt;&gt;uiLblSectionTrial.Type" xml:space="preserve">
+    <value>Sunny.UI.UILabel, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;uiLblSectionTrial.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;uiLblSectionTrial.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="uiLblModel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lblMessage.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="uiLblModel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 13pt</value>
+  </data>
+  <data name="uiLblModel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 308</value>
+  </data>
+  <data name="uiLblModel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 24</value>
+  </data>
+  <data name="uiLblModel.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="uiLblModel.Text" xml:space="preserve">
+    <value>发动机型号</value>
+  </data>
+  <data name="uiLblModel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;uiLblModel.Name" xml:space="preserve">
+    <value>uiLblModel</value>
+  </data>
+  <data name="&gt;&gt;uiLblModel.Type" xml:space="preserve">
+    <value>Sunny.UI.UILabel, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;uiLblModel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;uiLblModel.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="cboModel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 13pt</value>
+  </data>
+  <data name="cboModel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>128, 304</value>
+  </data>
+  <data name="cboModel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="cboModel.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>63, 0</value>
+  </data>
+  <data name="cboModel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 30, 2</value>
+  </data>
+  <data name="cboModel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>196, 36</value>
+  </data>
+  <data name="cboModel.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;cboModel.Name" xml:space="preserve">
+    <value>cboModel</value>
+  </data>
+  <data name="&gt;&gt;cboModel.Type" xml:space="preserve">
+    <value>Sunny.UI.UIComboBox, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;cboModel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cboModel.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="uiLblTrialType.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="uiLblTrialType.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 13pt</value>
+  </data>
+  <data name="uiLblTrialType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>340, 308</value>
+  </data>
+  <data name="uiLblTrialType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 24</value>
+  </data>
+  <data name="uiLblTrialType.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="uiLblTrialType.Text" xml:space="preserve">
+    <value>试验类型</value>
+  </data>
+  <data name="uiLblTrialType.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;uiLblTrialType.Name" xml:space="preserve">
+    <value>uiLblTrialType</value>
+  </data>
+  <data name="&gt;&gt;uiLblTrialType.Type" xml:space="preserve">
+    <value>Sunny.UI.UILabel, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;uiLblTrialType.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;uiLblTrialType.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="cboTrialType.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 13pt</value>
+  </data>
+  <data name="cboTrialType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>429, 304</value>
+  </data>
+  <data name="cboTrialType.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="cboTrialType.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>63, 0</value>
+  </data>
+  <data name="cboTrialType.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 30, 2</value>
+  </data>
+  <data name="cboTrialType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 34</value>
+  </data>
+  <data name="cboTrialType.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;cboTrialType.Name" xml:space="preserve">
+    <value>cboTrialType</value>
+  </data>
+  <data name="&gt;&gt;cboTrialType.Type" xml:space="preserve">
+    <value>Sunny.UI.UIComboBox, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;cboTrialType.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cboTrialType.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="uiLblTestNo.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="uiLblTestNo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 13pt</value>
+  </data>
+  <data name="uiLblTestNo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 354</value>
+  </data>
+  <data name="uiLblTestNo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 24</value>
+  </data>
+  <data name="uiLblTestNo.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="uiLblTestNo.Text" xml:space="preserve">
+    <value>发动机编号</value>
+  </data>
+  <data name="uiLblTestNo.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;uiLblTestNo.Name" xml:space="preserve">
+    <value>uiLblTestNo</value>
+  </data>
+  <data name="&gt;&gt;uiLblTestNo.Type" xml:space="preserve">
+    <value>Sunny.UI.UILabel, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;uiLblTestNo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;uiLblTestNo.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="txtTestNo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 13pt</value>
+  </data>
+  <data name="txtTestNo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>128, 350</value>
+  </data>
+  <data name="txtTestNo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="txtTestNo.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 16</value>
+  </data>
+  <data name="txtTestNo.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="txtTestNo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>494, 36</value>
+  </data>
+  <data name="txtTestNo.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;txtTestNo.Name" xml:space="preserve">
+    <value>txtTestNo</value>
+  </data>
+  <data name="&gt;&gt;txtTestNo.Type" xml:space="preserve">
+    <value>Sunny.UI.UITextBox, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;txtTestNo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtTestNo.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="pnlDivBottom.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 400</value>
+  </data>
+  <data name="pnlDivBottom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>596, 1</value>
+  </data>
+  <data name="pnlDivBottom.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;pnlDivBottom.Name" xml:space="preserve">
+    <value>pnlDivBottom</value>
+  </data>
+  <data name="&gt;&gt;pnlDivBottom.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlDivBottom.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlDivBottom.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="lblMessage.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 10.5pt</value>
   </data>
   <data name="lblMessage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 214</value>
+    <value>128, 410</value>
   </data>
   <data name="lblMessage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 20</value>
+    <value>494, 22</value>
   </data>
   <data name="lblMessage.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="lblMessage.Text" xml:space="preserve">
-    <value>用户名不能为空！</value>
+    <value>15</value>
   </data>
   <data name="lblMessage.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -184,319 +658,109 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblMessage.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="uiLabel3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 11pt</value>
-  </data>
-  <data name="uiLabel3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="uiLabel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>257, 109</value>
-  </data>
-  <data name="uiLabel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
-  </data>
-  <data name="uiLabel3.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <data name="uiLabel3.Text" xml:space="preserve">
-    <value>用户名</value>
-  </data>
-  <data name="uiLabel3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;uiLabel3.Name" xml:space="preserve">
-    <value>uiLabel3</value>
-  </data>
-  <data name="&gt;&gt;uiLabel3.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Version=3.1.8.0, Culture=neutral, PublicKeyToken=27d7d2e821d97aeb</value>
-  </data>
-  <data name="&gt;&gt;uiLabel3.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;uiLabel3.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="uiLabel1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 11pt</value>
-  </data>
-  <data name="uiLabel1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="uiLabel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>257, 163</value>
-  </data>
-  <data name="uiLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 23</value>
-  </data>
-  <data name="uiLabel1.TabIndex" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
-  <data name="uiLabel1.Text" xml:space="preserve">
-    <value>密码</value>
-  </data>
-  <data name="uiLabel1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;uiLabel1.Name" xml:space="preserve">
-    <value>uiLabel1</value>
-  </data>
-  <data name="&gt;&gt;uiLabel1.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Version=3.1.8.0, Culture=neutral, PublicKeyToken=27d7d2e821d97aeb</value>
-  </data>
-  <data name="&gt;&gt;uiLabel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;uiLabel1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="btnSignIn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="btnSignIn.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12pt</value>
-  </data>
-  <data name="btnSignIn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>142, 251</value>
-  </data>
-  <data name="btnSignIn.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="btnSignIn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 39</value>
-  </data>
-  <data name="btnSignIn.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="btnSignIn.Text" xml:space="preserve">
-    <value>登录</value>
-  </data>
-  <data name="&gt;&gt;btnSignIn.Name" xml:space="preserve">
-    <value>btnSignIn</value>
-  </data>
-  <data name="&gt;&gt;btnSignIn.Type" xml:space="preserve">
-    <value>Sunny.UI.UIButton, SunnyUI, Version=3.1.8.0, Culture=neutral, PublicKeyToken=27d7d2e821d97aeb</value>
-  </data>
-  <data name="&gt;&gt;btnSignIn.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;btnSignIn.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="btnExit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+    <value>16</value>
   </data>
   <data name="btnExit.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12pt</value>
+    <value>微软雅黑, 12.75pt, style=Bold</value>
   </data>
   <data name="btnExit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>288, 251</value>
+    <value>128, 442</value>
   </data>
   <data name="btnExit.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
   </data>
   <data name="btnExit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 39</value>
+    <value>120, 42</value>
   </data>
   <data name="btnExit.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
+    <value>16</value>
   </data>
   <data name="btnExit.Text" xml:space="preserve">
-    <value>退出</value>
+    <value>取消</value>
   </data>
   <data name="&gt;&gt;btnExit.Name" xml:space="preserve">
     <value>btnExit</value>
   </data>
   <data name="&gt;&gt;btnExit.Type" xml:space="preserve">
-    <value>Sunny.UI.UIButton, SunnyUI, Version=3.1.8.0, Culture=neutral, PublicKeyToken=27d7d2e821d97aeb</value>
+    <value>Sunny.UI.UIButton, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
   </data>
   <data name="&gt;&gt;btnExit.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnExit.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>17</value>
   </data>
-  <data name="cboUsername.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12pt</value>
-  </data>
-  <data name="cboUsername.Items" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cboUsername.Items1" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cboUsername.Items2" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="cboUsername.Items3" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="cboUsername.Items4" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="cboUsername.Items5" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="cboUsername.Items6" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="cboUsername.Items7" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="cboUsername.Items8" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="cboUsername.Items9" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="cboUsername.Items10" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="cboUsername.Items11" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="cboUsername.Location" type="System.Drawing.Point, System.Drawing">
-    <value>336, 110</value>
-  </data>
-  <data name="cboUsername.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="cboUsername.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>63, 0</value>
-  </data>
-  <data name="cboUsername.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 30, 2</value>
-  </data>
-  <data name="cboUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 29</value>
-  </data>
-  <data name="cboUsername.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="&gt;&gt;cboUsername.Name" xml:space="preserve">
-    <value>cboUsername</value>
-  </data>
-  <data name="&gt;&gt;cboUsername.Type" xml:space="preserve">
-    <value>Sunny.UI.UIComboBox, SunnyUI, Version=3.1.8.0, Culture=neutral, PublicKeyToken=27d7d2e821d97aeb</value>
-  </data>
-  <data name="&gt;&gt;cboUsername.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;cboUsername.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="txtPassword.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12pt</value>
-  </data>
-  <data name="txtPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>336, 161</value>
-  </data>
-  <data name="txtPassword.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="txtPassword.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="txtPassword.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="txtPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 29</value>
-  </data>
-  <data name="txtPassword.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;txtPassword.Name" xml:space="preserve">
-    <value>txtPassword</value>
-  </data>
-  <data name="&gt;&gt;txtPassword.Type" xml:space="preserve">
-    <value>Sunny.UI.UITextBox, SunnyUI, Version=3.1.8.0, Culture=neutral, PublicKeyToken=27d7d2e821d97aeb</value>
-  </data>
-  <data name="&gt;&gt;txtPassword.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;txtPassword.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="Logo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Logo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 99</value>
-  </data>
-  <data name="Logo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 94</value>
-  </data>
-  <data name="Logo.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>StretchImage</value>
-  </data>
-  <data name="Logo.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="&gt;&gt;Logo.Name" xml:space="preserve">
-    <value>Logo</value>
-  </data>
-  <data name="&gt;&gt;Logo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Logo.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Logo.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="uiLabel2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 10pt</value>
-  </data>
-  <data name="uiLabel2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="uiLabel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="uiLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 23</value>
-  </data>
-  <data name="uiLabel2.TabIndex" type="System.Int32, mscorlib">
-    <value>116</value>
-  </data>
-  <data name="uiLabel2.Text" xml:space="preserve">
-    <value>用户登录</value>
-  </data>
-  <data name="uiLabel2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="uiLabel2.Visible" type="System.Boolean, mscorlib">
+  <data name="btnSignIn.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;uiLabel2.Name" xml:space="preserve">
-    <value>uiLabel2</value>
+  <data name="btnSignIn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 14pt, style=Bold</value>
   </data>
-  <data name="&gt;&gt;uiLabel2.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Version=3.1.8.0, Culture=neutral, PublicKeyToken=27d7d2e821d97aeb</value>
+  <data name="btnSignIn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>262, 442</value>
   </data>
-  <data name="&gt;&gt;uiLabel2.Parent" xml:space="preserve">
+  <data name="btnSignIn.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="btnSignIn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 42</value>
+  </data>
+  <data name="btnSignIn.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="btnSignIn.Text" xml:space="preserve">
+    <value>确认登录</value>
+  </data>
+  <data name="&gt;&gt;btnSignIn.Name" xml:space="preserve">
+    <value>btnSignIn</value>
+  </data>
+  <data name="&gt;&gt;btnSignIn.Type" xml:space="preserve">
+    <value>Sunny.UI.UIButton, SunnyUI, Version=3.9.2.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;btnSignIn.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;uiLabel2.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;btnSignIn.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="lblHint.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9pt</value>
+  </data>
+  <data name="lblHint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>128, 492</value>
+  </data>
+  <data name="lblHint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>494, 18</value>
+  </data>
+  <data name="lblHint.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="lblHint.Text" xml:space="preserve">
+    <value>用户名、密码、型号、试验类型、试验编号五项全部填写后方可确认登录</value>
+  </data>
+  <data name="lblHint.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lblHint.Name" xml:space="preserve">
+    <value>lblHint</value>
+  </data>
+  <data name="&gt;&gt;lblHint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblHint.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblHint.ZOrder" xml:space="preserve">
+    <value>19</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
+    <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>542, 305</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 11pt</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 5, 3, 5</value>
+    <value>660, 518</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
