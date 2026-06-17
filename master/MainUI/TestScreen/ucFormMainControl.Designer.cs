@@ -30,8 +30,8 @@ namespace MainUI.TestScreen
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label12 = new System.Windows.Forms.Label();
             this.LCCurrentValue = new System.Windows.Forms.Label();
             this.LCVoltageValue = new System.Windows.Forms.Label();
@@ -121,7 +121,6 @@ namespace MainUI.TestScreen
             this.uiLight4 = new Sunny.UI.UILight();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtMinSpeed = new Sunny.UI.UITextBox();
             this.txtSpeed = new Sunny.UI.UITextBox();
             this.txtTorque = new Sunny.UI.UITextBox();
             this.uiLabel4 = new Sunny.UI.UILabel();
@@ -139,6 +138,7 @@ namespace MainUI.TestScreen
             this.ucParamTorque = new MainUI.Widget.ucParamKeyUI();
             this.ucParamPower = new MainUI.Widget.ucParamKeyUI();
             this.ucParamSpeed = new MainUI.Widget.ucParamKeyUI();
+            this.cboRadTrialType = new Sunny.UI.UIComboBox();
             this.groupBox12.SuspendLayout();
             this.grpFJKZ.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1044,15 +1044,15 @@ namespace MainUI.TestScreen
             this.dataGridStartup.AllowUserToResizeRows = false;
             this.dataGridStartup.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridStartup.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(4);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridStartup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(4);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridStartup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridStartup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridStartup.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index,
@@ -1068,14 +1068,14 @@ namespace MainUI.TestScreen
             this.Column5,
             this.Column7,
             this.Column11});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridStartup.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridStartup.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridStartup.EnableHeadersVisualStyles = false;
             this.dataGridStartup.Location = new System.Drawing.Point(4, 4);
             this.dataGridStartup.Margin = new System.Windows.Forms.Padding(4);
@@ -1390,7 +1390,7 @@ namespace MainUI.TestScreen
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.txtMinSpeed);
+            this.groupBox3.Controls.Add(this.cboRadTrialType);
             this.groupBox3.Controls.Add(this.txtSpeed);
             this.groupBox3.Controls.Add(this.txtTorque);
             this.groupBox3.Controls.Add(this.uiLabel4);
@@ -1408,28 +1408,6 @@ namespace MainUI.TestScreen
             this.groupBox3.TabIndex = 795;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "发动机基础参数";
-            // 
-            // txtMinSpeed
-            // 
-            this.txtMinSpeed.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtMinSpeed.DecimalPlaces = 0;
-            this.txtMinSpeed.Font = new System.Drawing.Font("宋体", 14F);
-            this.txtMinSpeed.Location = new System.Drawing.Point(211, 210);
-            this.txtMinSpeed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtMinSpeed.Maximum = 5000D;
-            this.txtMinSpeed.MaxLength = 500;
-            this.txtMinSpeed.Minimum = 0D;
-            this.txtMinSpeed.MinimumSize = new System.Drawing.Size(1, 16);
-            this.txtMinSpeed.Name = "txtMinSpeed";
-            this.txtMinSpeed.Padding = new System.Windows.Forms.Padding(5);
-            this.txtMinSpeed.ReadOnly = true;
-            this.txtMinSpeed.RectReadOnlyColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            this.txtMinSpeed.ShowText = false;
-            this.txtMinSpeed.Size = new System.Drawing.Size(171, 29);
-            this.txtMinSpeed.Style = Sunny.UI.UIStyle.Custom;
-            this.txtMinSpeed.TabIndex = 673;
-            this.txtMinSpeed.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.txtMinSpeed.Watermark = "";
             // 
             // txtSpeed
             // 
@@ -1483,9 +1461,9 @@ namespace MainUI.TestScreen
             this.uiLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             this.uiLabel4.Location = new System.Drawing.Point(13, 215);
             this.uiLabel4.Name = "uiLabel4";
-            this.uiLabel4.Size = new System.Drawing.Size(184, 19);
+            this.uiLabel4.Size = new System.Drawing.Size(89, 19);
             this.uiLabel4.TabIndex = 670;
-            this.uiLabel4.Text = "最小工作转速(rpm)";
+            this.uiLabel4.Text = "试验类型";
             this.uiLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // uiLabel2
@@ -1707,6 +1685,41 @@ namespace MainUI.TestScreen
             this.ucParamSpeed.TitleHeight = 35;
             this.ucParamSpeed.Unit = "";
             // 
+            // cboRadTrialType
+            // 
+            this.cboRadTrialType.DataSource = null;
+            this.cboRadTrialType.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
+            this.cboRadTrialType.FillColor = System.Drawing.Color.White;
+            this.cboRadTrialType.FilterMaxCount = 50;
+            this.cboRadTrialType.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.cboRadTrialType.ItemHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
+            this.cboRadTrialType.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16"});
+            this.cboRadTrialType.ItemSelectForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.cboRadTrialType.Location = new System.Drawing.Point(211, 211);
+            this.cboRadTrialType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cboRadTrialType.MinimumSize = new System.Drawing.Size(63, 0);
+            this.cboRadTrialType.Name = "cboRadTrialType";
+            this.cboRadTrialType.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            this.cboRadTrialType.RectSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom;
+            this.cboRadTrialType.Size = new System.Drawing.Size(171, 29);
+            this.cboRadTrialType.SymbolSize = 24;
+            this.cboRadTrialType.TabIndex = 673;
+            this.cboRadTrialType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cboRadTrialType.Watermark = "请选择";
+            this.cboRadTrialType.SelectedIndexChanged += new System.EventHandler(this.cboRadTrialType_SelectedIndexChanged);
+            // 
             // ucFormMainControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
@@ -1818,7 +1831,6 @@ namespace MainUI.TestScreen
         private Sunny.UI.UILabel uiLabel5;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UILabel uiLabel4;
-        private Sunny.UI.UITextBox txtMinSpeed;
         private Sunny.UI.UITextBox txtSpeed;
         private Sunny.UI.UITextBox txtTorque;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
@@ -1858,5 +1870,6 @@ namespace MainUI.TestScreen
         private RW.UI.Controls.RButton btnSetSpeedReduce20;
         private RW.UI.Controls.RButton btnSetSpeedAdd20;
         private RW.UI.Controls.RButton btnSetSpeedReduce00;
+        private Sunny.UI.UIComboBox cboRadTrialType;
     }
 }

@@ -1,4 +1,5 @@
-﻿using RW.Configuration;
+﻿using MainUI.Global;
+using RW.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,28 @@ namespace MainUI.Config
         /// </summary>
         [IniKeyName("最后选择的型号类型")]
         public string LastModelType { get; set; }
+
+        /// <summary>
+        /// 最后选择的试验类型 0：例行试验  1：型式试验
+        /// </summary>
+        [IniKeyName("最后选择的试验类型")]
+        public int LastTrialType { get; set; } = 0;
+
+        /// <summary>
+        /// 最后选择的试验类型（枚举形式，便于代码判断；写入会同步持久化字段）
+        /// </summary>
+        [System.ComponentModel.Browsable(false)]
+        public TrialTypeEnum LastTrialTypeEnum
+        {
+            get { return (TrialTypeEnum)LastTrialType; }
+            set { LastTrialType = (int)value; }
+        }
+
+        /// <summary>
+        /// 当前试验编号
+        /// </summary>
+        [IniKeyName("试验编号")]
+        public string TestNo { get; set; }
 
         /// <summary>
         /// 设备编号

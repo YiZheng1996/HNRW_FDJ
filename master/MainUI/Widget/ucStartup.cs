@@ -618,7 +618,8 @@ namespace MainUI.Widget
                 {
                     Common.AOgrp["励磁调节"] = manaulData.BeginCurrent;
 
-                    var value = Math.Round((manaulData.BeginInvertSpeed * 7) / 60, 2);
+                    var polePairs = MiddleData.instnce.TrialConfig.PolePairs;
+                    var value = Math.Round((manaulData.BeginInvertSpeed * polePairs) / 60, 2);
                     Common.gd350_1.SetFrequency = value;
                     Common.gd350_1.SetRun = true;
                 }
@@ -661,7 +662,7 @@ namespace MainUI.Widget
                 }
 
                 Var.MsgBoxWarn(this, $"启机出现异常:{ex.Message.ToString()}");
-                Var.LogInfo($"点动-启机出现异常:{ex.ToString()}");
+                Var.LogInfo($"点动-启机出现异常:{ex}");
             }
         }
 

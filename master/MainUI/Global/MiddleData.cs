@@ -32,6 +32,11 @@ namespace MainUI.Global
         public ParaConfig SelectModelConfig { get; set; } = new ParaConfig();
 
         /// <summary>
+        /// 当前试验类型参数（极对数/最小最大转速，按型号+试验类型加载）
+        /// </summary>
+        public TrialParaConfig TrialConfig { get; set; } = new TrialParaConfig();
+
+        /// <summary>
         /// 配方参数
         /// </summary>
         public PubConfig PubsConfig { get; set; } = new PubConfig(); 

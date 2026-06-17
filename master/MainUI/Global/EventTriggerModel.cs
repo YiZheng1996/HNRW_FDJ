@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MainUI.Global
 {
@@ -10,6 +6,9 @@ namespace MainUI.Global
     {
         // 定义事件
         public static event Action<string> OnModelNameChanged;
+
+        // 定义试验类型选择事件
+        public static event Action<TrialTypeEnum> OnTrialTypeChanged;
 
         /// <summary>
         /// 型号更新时
@@ -20,7 +19,7 @@ namespace MainUI.Global
             OnModelNameChanged?.Invoke(modelName);
         }
 
- 
+
         public static event Action<string> OnParaNameChanged;
         /// <summary>
         /// 参数管理型号更新时
@@ -70,6 +69,14 @@ namespace MainUI.Global
         public static void TimngChanged(double timer)
         {
             OnTimngChanged?.Invoke(timer);
+        }
+
+        /// <summary>
+        /// 试验类型（例行/型式）切换时
+        /// </summary>
+        public static void RaiseOnTrialTypeChanged(TrialTypeEnum trialType)
+        {
+            OnTrialTypeChanged?.Invoke(trialType);
         }
     }
 }

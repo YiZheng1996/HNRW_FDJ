@@ -82,9 +82,6 @@ namespace MainUI.Procedure
                 this.numRateTorque.Value = paraconfig.RatedTorque.ToDecimal();
                 this.numMinSpeed.Value = paraconfig.MinSpeed.ToDecimal();
                 this.numRateSpeed.Value = paraconfig.RatedSpeed.ToDecimal();
-                this.numOilPanLong.Value = paraconfig.OilPanLong.ToDecimal();
-                this.numOilPanWide.Value = paraconfig.OilPanWide.ToDecimal();
-                this.numOilPanHeight.Value = paraconfig.OilPanHeight.ToDecimal();
                 this.numNumberofTeeth1.Value = paraconfig.NumberofTeeth1.ToInt();
                 this.numNumberofTeeth2.Value = paraconfig.NumberofTeeth2.ToInt();
 
@@ -112,11 +109,30 @@ namespace MainUI.Procedure
 
                 // 加载配方参数
                 LoadPubConfig();
+
+                // 加载试验类型下拉框
+                LoadTrialParaConfig();
             }
             catch (Exception ex)
             {
                 Var.MsgBoxWarn(this, "数据加载失败：" + ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 加载试验类型下拉框
+        /// </summary>
+        private void LoadTrialParaConfig()
+        {
+            // 绑定下拉框（只初始化一次）
+            if (cboRadTrialType.Items.Count == 0)
+            {
+                cboRadTrialType.Items.Add(TrialTypeEnum.RoutineTest.DisplayName());
+                cboRadTrialType.Items.Add(TrialTypeEnum.TypeTest.DisplayName());
+            }
+
+            // 默认选中例行，触发 SelectedIndexChanged 加载对应值
+            cboRadTrialType.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -153,9 +169,6 @@ namespace MainUI.Procedure
                 paraconfig.RatedTorque = this.numRateTorque.Value.ToInt();
                 paraconfig.RatedSpeed = this.numRateSpeed.Value.ToInt();
                 paraconfig.MinSpeed = this.numMinSpeed.Value.ToInt();
-                paraconfig.OilPanLong = this.numOilPanLong.Value.ToInt();
-                paraconfig.OilPanWide = this.numOilPanWide.Value.ToInt();
-                paraconfig.OilPanHeight = this.numOilPanHeight.Value.ToInt();
                 paraconfig.NumberofTeeth1 = this.numNumberofTeeth1.Value.ToInt();
                 paraconfig.NumberofTeeth2 = this.numNumberofTeeth2.Value.ToInt();
 
@@ -166,6 +179,16 @@ namespace MainUI.Procedure
                 paraconfig.Save();
 
                 btnSavePub_Click(null, null);
+
+                // 保存当前下拉框选中的试验类型参数
+                var trialType = (TrialTypeEnum)cboRadTrialType.SelectedIndex;
+                var trialPara = new TrialParaConfig(txtModel.Text, trialType)
+                {
+                    PolePairs = numPolePairs.Value.ToInt(),
+                    MinSpeed = numMinSpeed.Value.ToInt(),
+                    MaxSpeed = numMaxSpeed.Value.ToInt()
+                };
+                trialPara.Save();
 
                 Var.MsgBoxSuccess(this, "保存成功。");
 
@@ -1566,6 +1589,18 @@ namespace MainUI.Procedure
             para2.Torque = tempTorque;
             para2.RunTime = tempRunTime;
             para2.StepName = tempStepName;
+        }
+
+        private void cboRadTrialType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtModel.Text)) return;
+
+            var trialType = (TrialTypeEnum)cboRadTrialType.SelectedIndex;
+            var config = new TrialParaConfig(txtModel.Text, trialType);
+
+            numPolePairs.Value = config.PolePairs;
+            numMinSpeed.Value = config.MinSpeed;
+            numMaxSpeed.Value = config.MaxSpeed;
         }
     }
 }

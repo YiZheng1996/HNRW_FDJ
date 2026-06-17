@@ -23,6 +23,8 @@ namespace MainUI.TestScreen
         // 显示管路系统的窗体
         FrmPipeControl frmPipeControlHMI { get; set; } = null;
 
+        private bool _initializing = false;
+
         // 记录数据View状态类
         ManaulData manaulData = new ManaulData();
 
@@ -168,7 +170,6 @@ namespace MainUI.TestScreen
             // 如果存在另一个窗体，弹出到另一个页面
             MoveFormToMonitor(frmPipeControlHMI, moveIndex);
 
-            //TestParaService.instnce.StartRecord();
             // 检查一下最后一次是否选择型号，如果选择好，则默认加载
             if (Var.SysConfig.LastModel != null)
             {
@@ -196,6 +197,9 @@ namespace MainUI.TestScreen
             Common.AOgrp["排气风道右调节阀控制"] = 100;
             Common.AOgrp["进气风道左调节阀控制"] = 100;
             Common.AOgrp["排气风道左调节阀控制"] = 100;
+
+            // 初始化试验类型
+            InitTrialTypeCombo();
         }
 
         /// <summary>
@@ -217,6 +221,9 @@ namespace MainUI.TestScreen
             // 加载型号基础参数
             LoadParaConfig(Common.mTestViewModel.ModelName);
 
+            // 按当前试验类型下发极对数/转速范围
+            LoadTrialParaConfig(Common.mTestViewModel.ModelName, Var.SysConfig.LastTrialTypeEnum);
+
             // 加载配方
             LoadPubConfig();
 
@@ -225,6 +232,40 @@ namespace MainUI.TestScreen
 
             EventTriggerModel.RaiseOnModelNameChanged(Common.mTestViewModel.ModelName);
         }
+
+        /// <summary>
+        /// 按"型号 + 当前试验类型"重新下发与试验类型相关的标定参数
+        /// </summary>
+        private void LoadTrialParaConfig(string model, TrialTypeEnum trialType)
+        {
+            if (string.IsNullOrEmpty(model)) return;
+
+            var trialPara = new TrialParaConfig(model, trialType);
+
+            MiddleData.instnce.TrialConfig = trialPara;
+
+            // 界面显示同步更新
+            //this.txtMinSpeed.Text = trialPara.MinSpeed.ToString();
+
+            try
+            {
+                using (MainUI.Fault.OperationContext.Begin(this, null,
+                    $"型号[{model}]-{trialType.DisplayName()}-下发最低转速"))
+                {
+                    Common.AOgrp["设置发动机最低转速"] = trialPara.MinSpeed;
+                }
+                using (MainUI.Fault.OperationContext.Begin(this, null,
+                    $"型号[{model}]-{trialType.DisplayName()}-下发最高转速"))
+                {
+                    Common.AOgrp["设置发动机最高转速"] = trialPara.MaxSpeed;
+                }
+            }
+            catch (Exception ex)
+            {
+                Var.MsgBoxWarn(this, "台位控制PLC通讯异常，下发转速范围失败！" + ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// 编号改变时，同步到自动试验页面
@@ -253,23 +294,6 @@ namespace MainUI.TestScreen
             this.txtModel.Text = model;
             this.txtTorque.Text = MiddleData.instnce.SelectModelConfig.RatedTorque.ToString();
             this.txtSpeed.Text = MiddleData.instnce.SelectModelConfig.RatedSpeed.ToString();
-            this.txtMinSpeed.Text = MiddleData.instnce.SelectModelConfig.MinSpeed.ToString();
-
-            try
-            {
-                using (MainUI.Fault.OperationContext.Begin(this, null, string.Format("切换型号[{0}]-下发最低转速", model)))
-                {
-                    Common.AOgrp["设置发动机最低转速"] = MiddleData.instnce.SelectModelConfig.MinSpeed;
-                }
-                using (MainUI.Fault.OperationContext.Begin(this, null, string.Format("切换型号[{0}]-下发最高转速", model)))
-                {
-                    Common.AOgrp["设置发动机最高转速"] = MiddleData.instnce.SelectModelConfig.MaxSpeed;
-                }
-            }
-            catch (Exception ex)
-            {
-                Var.MsgBoxWarn(this, "台位控制PLC通讯异常，下发最低工作转速失败!" + ex.Message);
-            }
 
             // 下发齿数到转速模块
             try
@@ -359,6 +383,20 @@ namespace MainUI.TestScreen
 
             // 设置甩机启机运行超时时间
             Common.gd350_1.TimeOutPeriod = Var.SysConfig.StartupHoldTimeoutMs;
+        }
+
+        // 初始化试验类型
+        private void InitTrialTypeCombo()
+        {
+            _initializing = true;
+
+            cboRadTrialType.Items.Clear();
+            cboRadTrialType.Items.Add(TrialTypeEnum.RoutineTest.DisplayName()); // 例行试验
+            cboRadTrialType.Items.Add(TrialTypeEnum.TypeTest.DisplayName());    // 型式试验
+
+            cboRadTrialType.SelectedIndex = Var.SysConfig.LastTrialType; // 恢复上次选择
+
+            _initializing = false;
         }
 
 
@@ -727,25 +765,6 @@ namespace MainUI.TestScreen
                 // 实时下发给下位机
                 Common.ExChangeGrp.SetDouble("柴油机转速", MiddleData.instnce.EngineSpeed);
             }
-
-            // 以下点位为kepserver转发
-            //Common.ExChangeGrp.SetDouble("高温水出机温度", Common.AI2Grp["T1高温水出机温度"]);
-            //Common.ExChangeGrp.SetDouble("高温水进机温度", Common.AI2Grp["T2高温水进机温度"]);
-            //Common.ExChangeGrp.SetDouble("预热水箱温度", Common.waterGrp["预热水箱温度检测-T12"]);
-            //Common.ExChangeGrp.SetDouble("预热水箱液位", Common.waterGrp["预热水箱液位检测"]);
-
-            //Common.ExChangeGrp.SetDouble("待处理机油箱温度", Common.engineOilGrp["待处理机油箱温度检测-T24"]);
-            //Common.ExChangeGrp.SetDouble("待处理机油箱液位", Common.engineOilGrp["待处理机油箱液位检测-L19"]);
-            //Common.ExChangeGrp.SetDouble("机油箱温度", Common.engineOilGrp["机油箱温度检测-T23"]);
-            //Common.ExChangeGrp.SetDouble("机油箱液位", Common.engineOilGrp["机油箱液位检测-L18"]);
-            //Common.ExChangeGrp.SetDouble("机油出机压力", Common.AI2Grp["P20机油泵出口压力"]);
-            //Common.ExChangeGrp.SetDouble("机油进机压力", Common.AI2Grp["P21主油道进口油压"]);
-
-            ////todo 暂时不知道哪个点位
-            ////Common.ExChangeGrp.SetDouble("内循环水箱液位", Common.engineOilGrp[""]);
-            //Common.ExChangeGrp.SetDouble("燃油进机温度", Common.AI2Grp["T31燃油泵进口油温"]);
-            //Common.ExChangeGrp.SetDouble("燃油进机压力", Common.AI2Grp["P38燃油供油压力"]);
-            //Common.ExChangeGrp.SetDouble("燃油箱液位", Common.fuelGrp["柴油箱液位检测-L29"]);
         }
 
         /// <summary>
@@ -1687,6 +1706,28 @@ namespace MainUI.TestScreen
                 Common.AOgrp["发动机油门调节"] = MiddleData.instnce.SelectModelConfig.MinSpeed;
             }
             this.ucNudSpeed.Value = MiddleData.instnce.SelectModelConfig.MinSpeed;
+        }
+
+        private void cboRadTrialType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_initializing) return;
+
+            // 运行中禁止切换
+            if (MiddleData.instnce.GetEngineSpeed() > 300)
+            {
+                Var.MsgBoxWarn(this, "发动机运行中，禁止切换试验类型，请停机后再切换。");
+                return;
+            }
+
+            var newType = (TrialTypeEnum)cboRadTrialType.SelectedIndex;
+            if (Var.SysConfig.LastTrialTypeEnum == newType) return;
+
+            Var.SysConfig.LastTrialTypeEnum = newType;
+            Var.SysConfig.Save();
+
+            LoadTrialParaConfig(Var.SysConfig.LastModel, newType);
+
+            EventTriggerModel.RaiseOnTrialTypeChanged(newType);
         }
     }
 

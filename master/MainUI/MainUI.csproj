@@ -171,6 +171,7 @@
     <Compile Include="Config\ExcitationRegulationConfig.cs" />
     <Compile Include="Config\GKConfig.cs" />
     <Compile Include="Config\Modules\ValveConfig.cs" />
+    <Compile Include="Config\TestType.cs" />
     <Compile Include="Config\Test\Test360hConfig.cs" />
     <Compile Include="Config\ETHConfig.cs" />
     <Compile Include="Config\GraphConfig.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Config\ParaConfig.cs" />
     <Compile Include="Config\SysParas.cs" />
     <Compile Include="Config\Test\Test100hConfig.cs" />
+    <Compile Include="Config\TrialParaConfig.cs" />
     <Compile Include="Driver\COMMData.cs" />
     <Compile Include="Driver\CRC32Cls.cs" />
     <Compile Include="Driver\ExcelModel.cs" />
@@ -264,6 +266,12 @@
     <Compile Include="frmProcessDataManager.Designer.cs">
       <DependentUpon>frmProcessDataManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmStartupConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmStartupConfirm.Designer.cs">
+      <DependentUpon>FrmStartupConfirm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FSql\AllCollectData\AIDataGrp.cs" />
     <Compile Include="FSql\AllCollectData\AODataGrp.cs" />
     <Compile Include="FSql\AllCollectData\BaseDataGrp.cs" />
@@ -290,6 +298,7 @@
     <Compile Include="FSql\Model\TestParaALLMain.cs" />
     <Compile Include="FSql\Model\ManualRecordMain.cs" />
     <Compile Include="FSql\Model\StartupTestPara.cs" />
+    <Compile Include="Global\TrialTypeExtensions.cs" />
     <Compile Include="Helper\DeviceStatusProcessor.cs" />
     <Compile Include="Helper\GKDataExtensions.cs" />
     <Compile Include="Helper\WorkingConditionExcel.cs" />
@@ -969,6 +978,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmProcessDataManager.resx">
       <DependentUpon>frmProcessDataManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmStartupConfirm.resx">
+      <DependentUpon>FrmStartupConfirm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HMI_Auto\ucFuelConsumptionMeasurement.resx">
       <DependentUpon>ucFuelConsumptionMeasurement.cs</DependentUpon>

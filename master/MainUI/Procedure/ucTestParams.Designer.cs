@@ -29,18 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiTabControl1 = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.numOilPanHeight = new System.Windows.Forms.NumericUpDown();
-            this.numOilPanWide = new System.Windows.Forms.NumericUpDown();
+            this.cboRadTrialType = new System.Windows.Forms.ComboBox();
             this.uiLabel21 = new Sunny.UI.UILabel();
-            this.numOilPanLong = new System.Windows.Forms.NumericUpDown();
-            this.uiLabel22 = new Sunny.UI.UILabel();
-            this.uiLabel23 = new Sunny.UI.UILabel();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.uiLabel26 = new Sunny.UI.UILabel();
+            this.numMaxSpeed = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel25 = new Sunny.UI.UILabel();
+            this.numPolePairs = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel5 = new Sunny.UI.UILabel();
+            this.numMinSpeed = new System.Windows.Forms.NumericUpDown();
             this.chkNotFresh = new Sunny.UI.UICheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -99,11 +101,9 @@
             this.MaxExcitationCurrent = new System.Windows.Forms.NumericUpDown();
             this.MaxHighTemperatureWater = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
-            this.numMinSpeed = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.btnDelete = new Sunny.UI.UIButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.uiLabel5 = new Sunny.UI.UILabel();
             this.label6 = new System.Windows.Forms.Label();
             this.RPMChangeMultValue = new System.Windows.Forms.NumericUpDown();
             this.CollectIntervalTimeValue = new System.Windows.Forms.NumericUpDown();
@@ -114,8 +114,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.numPolePair = new System.Windows.Forms.NumericUpDown();
-            this.uiLabel25 = new Sunny.UI.UILabel();
             this.numNumberofTeeth2 = new System.Windows.Forms.NumericUpDown();
             this.uiLabel24 = new Sunny.UI.UILabel();
             this.numNumberofTeeth1 = new System.Windows.Forms.NumericUpDown();
@@ -173,15 +171,12 @@
             this.btnGet = new Sunny.UI.UIButton();
             this.uiLabel2 = new Sunny.UI.UILabel();
             this.txtType = new Sunny.UI.UITextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.uiLabel26 = new Sunny.UI.UILabel();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numOilPanHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOilPanWide)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOilPanLong)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPolePairs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaxIntakeDuctRightFlow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DefaultRotationSpeed)).BeginInit();
@@ -222,13 +217,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.DefaultOilTemperature)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxExcitationCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxHighTemperatureWater)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RPMChangeMultValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CollectIntervalTimeValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeMultValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeTimeValue)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numPolePair)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateSpeed)).BeginInit();
@@ -246,8 +239,6 @@
             this.tabPage5.SuspendLayout();
             this.contextMenuStrip360h.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -282,8 +273,9 @@
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.cboRadTrialType);
+            this.tabPage1.Controls.Add(this.uiLabel21);
             this.tabPage1.Controls.Add(this.groupBox5);
-            this.tabPage1.Controls.Add(this.groupBox8);
             this.tabPage1.Controls.Add(this.chkNotFresh);
             this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.label9);
@@ -306,96 +298,116 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "基础参数";
             // 
-            // groupBox8
+            // cboRadTrialType
             // 
-            this.groupBox8.Controls.Add(this.numOilPanHeight);
-            this.groupBox8.Controls.Add(this.numOilPanWide);
-            this.groupBox8.Controls.Add(this.uiLabel21);
-            this.groupBox8.Controls.Add(this.numOilPanLong);
-            this.groupBox8.Controls.Add(this.uiLabel22);
-            this.groupBox8.Controls.Add(this.uiLabel23);
-            this.groupBox8.Location = new System.Drawing.Point(1242, 355);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(348, 39);
-            this.groupBox8.TabIndex = 429;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "发动机油底壳参数";
-            this.groupBox8.Visible = false;
-            // 
-            // numOilPanHeight
-            // 
-            this.numOilPanHeight.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numOilPanHeight.Location = new System.Drawing.Point(198, 127);
-            this.numOilPanHeight.Maximum = new decimal(new int[] {
-            6000,
-            0,
-            0,
-            0});
-            this.numOilPanHeight.Name = "numOilPanHeight";
-            this.numOilPanHeight.Size = new System.Drawing.Size(120, 32);
-            this.numOilPanHeight.TabIndex = 83;
-            // 
-            // numOilPanWide
-            // 
-            this.numOilPanWide.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numOilPanWide.Location = new System.Drawing.Point(198, 83);
-            this.numOilPanWide.Maximum = new decimal(new int[] {
-            6000,
-            0,
-            0,
-            0});
-            this.numOilPanWide.Name = "numOilPanWide";
-            this.numOilPanWide.Size = new System.Drawing.Size(120, 32);
-            this.numOilPanWide.TabIndex = 83;
+            this.cboRadTrialType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboRadTrialType.FormattingEnabled = true;
+            this.cboRadTrialType.Location = new System.Drawing.Point(134, 371);
+            this.cboRadTrialType.Name = "cboRadTrialType";
+            this.cboRadTrialType.Size = new System.Drawing.Size(197, 33);
+            this.cboRadTrialType.TabIndex = 432;
+            this.cboRadTrialType.SelectedIndexChanged += new System.EventHandler(this.cboRadTrialType_SelectedIndexChanged);
             // 
             // uiLabel21
             // 
             this.uiLabel21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.uiLabel21.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.uiLabel21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel21.Location = new System.Drawing.Point(54, 130);
+            this.uiLabel21.Location = new System.Drawing.Point(15, 375);
             this.uiLabel21.Name = "uiLabel21";
-            this.uiLabel21.Size = new System.Drawing.Size(137, 23);
-            this.uiLabel21.TabIndex = 82;
-            this.uiLabel21.Text = "高(mm)";
+            this.uiLabel21.Size = new System.Drawing.Size(113, 23);
+            this.uiLabel21.TabIndex = 431;
+            this.uiLabel21.Text = "试验类型";
             this.uiLabel21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // numOilPanLong
+            // groupBox5
             // 
-            this.numOilPanLong.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numOilPanLong.Location = new System.Drawing.Point(198, 39);
-            this.numOilPanLong.Maximum = new decimal(new int[] {
-            6000,
+            this.groupBox5.Controls.Add(this.uiLabel26);
+            this.groupBox5.Controls.Add(this.numMaxSpeed);
+            this.groupBox5.Controls.Add(this.uiLabel25);
+            this.groupBox5.Controls.Add(this.numPolePairs);
+            this.groupBox5.Controls.Add(this.uiLabel5);
+            this.groupBox5.Controls.Add(this.numMinSpeed);
+            this.groupBox5.Location = new System.Drawing.Point(15, 402);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(347, 201);
+            this.groupBox5.TabIndex = 430;
+            this.groupBox5.TabStop = false;
+            // 
+            // uiLabel26
+            // 
+            this.uiLabel26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.uiLabel26.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.uiLabel26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel26.Location = new System.Drawing.Point(19, 142);
+            this.uiLabel26.Name = "uiLabel26";
+            this.uiLabel26.Size = new System.Drawing.Size(170, 26);
+            this.uiLabel26.TabIndex = 90;
+            this.uiLabel26.Text = "最高转速(r/min) ";
+            this.uiLabel26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numMaxSpeed
+            // 
+            this.numMaxSpeed.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numMaxSpeed.Location = new System.Drawing.Point(195, 142);
+            this.numMaxSpeed.Maximum = new decimal(new int[] {
+            1100,
             0,
             0,
             0});
-            this.numOilPanLong.Name = "numOilPanLong";
-            this.numOilPanLong.Size = new System.Drawing.Size(120, 32);
-            this.numOilPanLong.TabIndex = 83;
+            this.numMaxSpeed.Name = "numMaxSpeed";
+            this.numMaxSpeed.Size = new System.Drawing.Size(120, 32);
+            this.numMaxSpeed.TabIndex = 91;
             // 
-            // uiLabel22
+            // uiLabel25
             // 
-            this.uiLabel22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.uiLabel22.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.uiLabel22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel22.Location = new System.Drawing.Point(54, 86);
-            this.uiLabel22.Name = "uiLabel22";
-            this.uiLabel22.Size = new System.Drawing.Size(137, 23);
-            this.uiLabel22.TabIndex = 82;
-            this.uiLabel22.Text = "宽(mm)";
-            this.uiLabel22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.uiLabel25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.uiLabel25.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.uiLabel25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel25.Location = new System.Drawing.Point(25, 54);
+            this.uiLabel25.Name = "uiLabel25";
+            this.uiLabel25.Size = new System.Drawing.Size(164, 26);
+            this.uiLabel25.TabIndex = 88;
+            this.uiLabel25.Text = "极对数";
+            this.uiLabel25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // uiLabel23
+            // numPolePairs
             // 
-            this.uiLabel23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.uiLabel23.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.uiLabel23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel23.Location = new System.Drawing.Point(54, 42);
-            this.uiLabel23.Name = "uiLabel23";
-            this.uiLabel23.Size = new System.Drawing.Size(137, 23);
-            this.uiLabel23.TabIndex = 82;
-            this.uiLabel23.Text = "长(mm)";
-            this.uiLabel23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.numPolePairs.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numPolePairs.Location = new System.Drawing.Point(195, 52);
+            this.numPolePairs.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numPolePairs.Name = "numPolePairs";
+            this.numPolePairs.Size = new System.Drawing.Size(120, 32);
+            this.numPolePairs.TabIndex = 89;
+            // 
+            // uiLabel5
+            // 
+            this.uiLabel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.uiLabel5.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.uiLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel5.Location = new System.Drawing.Point(25, 98);
+            this.uiLabel5.Name = "uiLabel5";
+            this.uiLabel5.Size = new System.Drawing.Size(164, 26);
+            this.uiLabel5.TabIndex = 82;
+            this.uiLabel5.Text = "最低转速(r/min) ";
+            this.uiLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numMinSpeed
+            // 
+            this.numMinSpeed.Font = new System.Drawing.Font("微软雅黑", 14F);
+            this.numMinSpeed.Location = new System.Drawing.Point(195, 97);
+            this.numMinSpeed.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numMinSpeed.Name = "numMinSpeed";
+            this.numMinSpeed.Size = new System.Drawing.Size(120, 32);
+            this.numMinSpeed.TabIndex = 83;
             // 
             // chkNotFresh
             // 
@@ -403,7 +415,7 @@
             this.chkNotFresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkNotFresh.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.chkNotFresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.chkNotFresh.Location = new System.Drawing.Point(162, 680);
+            this.chkNotFresh.Location = new System.Drawing.Point(1353, 578);
             this.chkNotFresh.MinimumSize = new System.Drawing.Size(1, 1);
             this.chkNotFresh.Name = "chkNotFresh";
             this.chkNotFresh.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
@@ -1184,19 +1196,6 @@
             this.label9.Text = "%/次";
             this.label9.Visible = false;
             // 
-            // numMinSpeed
-            // 
-            this.numMinSpeed.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numMinSpeed.Location = new System.Drawing.Point(195, 97);
-            this.numMinSpeed.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.numMinSpeed.Name = "numMinSpeed";
-            this.numMinSpeed.Size = new System.Drawing.Size(120, 32);
-            this.numMinSpeed.TabIndex = 83;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -1230,18 +1229,6 @@
             this.label2.TabIndex = 424;
             this.label2.Text = "min";
             this.label2.Visible = false;
-            // 
-            // uiLabel5
-            // 
-            this.uiLabel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.uiLabel5.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.uiLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel5.Location = new System.Drawing.Point(25, 98);
-            this.uiLabel5.Name = "uiLabel5";
-            this.uiLabel5.Size = new System.Drawing.Size(164, 26);
-            this.uiLabel5.TabIndex = 82;
-            this.uiLabel5.Text = "最低转速(r/min) ";
-            this.uiLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label6
             // 
@@ -1348,31 +1335,6 @@
             this.groupBox2.TabIndex = 395;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "发动机基础参数";
-            // 
-            // numPolePair
-            // 
-            this.numPolePair.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numPolePair.Location = new System.Drawing.Point(195, 52);
-            this.numPolePair.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.numPolePair.Name = "numPolePair";
-            this.numPolePair.Size = new System.Drawing.Size(120, 32);
-            this.numPolePair.TabIndex = 89;
-            // 
-            // uiLabel25
-            // 
-            this.uiLabel25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.uiLabel25.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.uiLabel25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel25.Location = new System.Drawing.Point(25, 54);
-            this.uiLabel25.Name = "uiLabel25";
-            this.uiLabel25.Size = new System.Drawing.Size(164, 26);
-            this.uiLabel25.TabIndex = 88;
-            this.uiLabel25.Text = "极对数";
-            this.uiLabel25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // numNumberofTeeth2
             // 
@@ -1877,15 +1839,15 @@
             this.dgvNode.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvNode.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvNode.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(4);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvNode.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(4);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvNode.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvNode.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNode.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NodeIndex,
@@ -1894,14 +1856,14 @@
             this.NodeSpeed,
             this.NodeTime,
             this.Column4});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNode.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvNode.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvNode.EnableHeadersVisualStyles = false;
             this.dgvNode.Location = new System.Drawing.Point(128, 16);
             this.dgvNode.Name = "dgvNode";
@@ -2166,45 +2128,6 @@
             this.txtType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtType.Watermark = "请选择";
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.uiLabel26);
-            this.groupBox5.Controls.Add(this.numericUpDown2);
-            this.groupBox5.Controls.Add(this.uiLabel25);
-            this.groupBox5.Controls.Add(this.numPolePair);
-            this.groupBox5.Controls.Add(this.uiLabel5);
-            this.groupBox5.Controls.Add(this.numMinSpeed);
-            this.groupBox5.Location = new System.Drawing.Point(15, 304);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(347, 319);
-            this.groupBox5.TabIndex = 430;
-            this.groupBox5.TabStop = false;
-            // 
-            // uiLabel26
-            // 
-            this.uiLabel26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.uiLabel26.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.uiLabel26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel26.Location = new System.Drawing.Point(19, 142);
-            this.uiLabel26.Name = "uiLabel26";
-            this.uiLabel26.Size = new System.Drawing.Size(170, 26);
-            this.uiLabel26.TabIndex = 90;
-            this.uiLabel26.Text = "最高转速(r/min) ";
-            this.uiLabel26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Font = new System.Drawing.Font("微软雅黑", 14F);
-            this.numericUpDown2.Location = new System.Drawing.Point(195, 142);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 32);
-            this.numericUpDown2.TabIndex = 91;
-            // 
             // ucTestParams
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2216,10 +2139,10 @@
             this.uiTabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numOilPanHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOilPanWide)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOilPanLong)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPolePairs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaxIntakeDuctRightFlow)).EndInit();
@@ -2261,13 +2184,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.DefaultOilTemperature)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxExcitationCurrent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxHighTemperatureWater)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RPMChangeMultValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CollectIntervalTimeValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeMultValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TorqueChangeTimeValue)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numPolePair)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNumberofTeeth1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRateSpeed)).EndInit();
@@ -2287,8 +2208,6 @@
             this.tabPage5.ResumeLayout(false);
             this.contextMenuStrip360h.ResumeLayout(false);
             this.uiGroupBox1.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2406,13 +2325,6 @@
         private System.Windows.Forms.NumericUpDown StepNum360;
         private Sunny.UI.UIButton btnAdd360hStep;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.NumericUpDown numOilPanHeight;
-        private System.Windows.Forms.NumericUpDown numOilPanWide;
-        private Sunny.UI.UILabel uiLabel21;
-        private System.Windows.Forms.NumericUpDown numOilPanLong;
-        private Sunny.UI.UILabel uiLabel22;
-        private Sunny.UI.UILabel uiLabel23;
         private uc100hParams uc100hParams1;
         private uc360hParams uc360hParams1;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -2424,7 +2336,7 @@
         private Sunny.UI.UIButton btnUP;
         private System.Windows.Forms.TabPage tabPage5;
         private ucExcitationRegulationParams ucExcitationRegulationParams1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numMaxSpeed;
         private Sunny.UI.UILabel uiLabel20;
         private System.Windows.Forms.NumericUpDown numnumberofTeeth;
         private System.Windows.Forms.NumericUpDown numNumberofTeeth1;
@@ -2438,8 +2350,10 @@
         private System.Windows.Forms.DataGridViewButtonColumn Column4;
         private System.Windows.Forms.NumericUpDown num;
         private Sunny.UI.UILabel uiLabel25;
-        private System.Windows.Forms.NumericUpDown numPolePair;
+        private System.Windows.Forms.NumericUpDown numPolePairs;
         private System.Windows.Forms.GroupBox groupBox5;
         private Sunny.UI.UILabel uiLabel26;
+        private System.Windows.Forms.ComboBox cboRadTrialType;
+        private Sunny.UI.UILabel uiLabel21;
     }
 }

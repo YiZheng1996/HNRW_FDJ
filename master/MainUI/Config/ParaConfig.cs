@@ -52,12 +52,6 @@ namespace MainUI.Config
         public int MinSpeed { get; set; } = 350;
 
         /// <summary>
-        /// 最大工作转速
-        /// </summary>
-        [IniKeyName("最大工作转速")]
-        public int MaxSpeed { get; set; } = 1000;
-
-        /// <summary>
         /// 飞轮盘2齿数
         /// </summary>
         [IniKeyName("飞轮盘1齿数")]
@@ -68,24 +62,6 @@ namespace MainUI.Config
         /// </summary>
         [IniKeyName("飞轮盘2齿数")]
         public int NumberofTeeth2 { get; set; } = 0;
-
-        /// <summary>
-        /// 油底壳长 mm
-        /// </summary>
-        [IniKeyName("油底壳长")]
-        public int OilPanLong { get; set; }
-
-        /// <summary>
-        /// 油底壳宽 mm
-        /// </summary>
-        [IniKeyName("油底壳宽")]
-        public int OilPanWide { get; set; }
-
-        /// <summary>
-        /// 油底壳高 mm
-        /// </summary>
-        [IniKeyName("油底壳高")]
-        public int OilPanHeight { get; set; }
 
         /// <summary>
         /// 此节点扭矩分段(增加/减少)时间

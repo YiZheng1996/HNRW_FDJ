@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using RW.UI;
-using RW.UI.Manager.User;
 using System.IO;
-using MainUI.Fault;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace MainUI
 {
@@ -20,6 +15,24 @@ namespace MainUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // 启动前必须确认型号/试验类型/试验编号
+            using (var dlg = new FrmStartupConfirm())
+            {
+                if (dlg.ShowDialog() != DialogResult.OK)
+                    return; // 用户取消，直接退出
+
+                // 写入全局状态
+                Var.SysConfig.LastModel = dlg.SelectedModel;
+                Var.SysConfig.LastModelType = dlg.SelectedModelType;
+                Var.SysConfig.LastTrialTypeEnum = dlg.SelectedTrialType;
+                Var.SysConfig.Save();
+
+                // 试验编号
+                Var.SysConfig.TestNo = dlg.TestNo;
+                Var.SysConfig.Save();
+            }
+
             GlobalClickLogger.Instance.Start();
             MainUI.Fault.OpcOperationLog.Start();
             frmLogin login = new frmLogin();
@@ -68,7 +81,7 @@ namespace MainUI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("OPC初始化失败"+ ex.Message, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("OPC初始化失败" + ex.Message, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 

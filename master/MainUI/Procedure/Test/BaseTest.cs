@@ -1,5 +1,6 @@
 ﻿using MainUI.Config;
 using MainUI.Config.Test;
+using MainUI.Global;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,11 @@ namespace MainUI.Procedure
         /// 测试进行中（为false时自动退出测试）
         /// </summary>
         public bool IsTesting { get; set; }
+
+        /// <summary>
+        /// 当前试验类型（例行/型式）
+        /// </summary>
+        protected TrialTypeEnum CurrentTrialType => Var.SysConfig.LastTrialTypeEnum;
 
         //private bool Delay(double sj, int interval, WaitCallback wait)
         //{
