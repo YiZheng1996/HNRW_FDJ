@@ -75,6 +75,8 @@ namespace MainUI.Widget
             this.lblInverterVoltage = new System.Windows.Forms.Label();
             this.timerSlow = new System.Windows.Forms.Timer(this.components);
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.uiLightStop2 = new Sunny.UI.UILight();
+            this.label4 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
             this.LightInvertFault = new Sunny.UI.UILight();
             this.label39 = new System.Windows.Forms.Label();
@@ -240,7 +242,7 @@ namespace MainUI.Widget
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label20.Location = new System.Drawing.Point(202, 32);
+            this.label20.Location = new System.Drawing.Point(203, 32);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(161, 19);
             this.label20.TabIndex = 851;
@@ -269,7 +271,7 @@ namespace MainUI.Widget
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label19.Location = new System.Drawing.Point(198, 32);
+            this.label19.Location = new System.Drawing.Point(199, 32);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(161, 19);
             this.label19.TabIndex = 849;
@@ -586,7 +588,7 @@ namespace MainUI.Widget
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("宋体", 14F);
-            this.label8.Location = new System.Drawing.Point(27, 63);
+            this.label8.Location = new System.Drawing.Point(26, 87);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(85, 19);
             this.label8.TabIndex = 847;
@@ -606,7 +608,7 @@ namespace MainUI.Widget
             // 
             this.uiLightShake.CenterColor = System.Drawing.Color.Lime;
             this.uiLightShake.Font = new System.Drawing.Font("宋体", 12F);
-            this.uiLightShake.Location = new System.Drawing.Point(6, 60);
+            this.uiLightShake.Location = new System.Drawing.Point(6, 84);
             this.uiLightShake.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiLightShake.Name = "uiLightShake";
             this.uiLightShake.OffCenterColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -751,13 +753,15 @@ namespace MainUI.Widget
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.uiLightShake);
+            this.groupBox11.Controls.Add(this.uiLightStop2);
+            this.groupBox11.Controls.Add(this.label4);
             this.groupBox11.Controls.Add(this.uiLightDV24Close);
             this.groupBox11.Controls.Add(this.label20);
             this.groupBox11.Controls.Add(this.btnManualShake);
             this.groupBox11.Controls.Add(this.uiLightFuelCycleClose);
             this.groupBox11.Controls.Add(this.label8);
             this.groupBox11.Controls.Add(this.label9);
-            this.groupBox11.Controls.Add(this.uiLightShake);
             this.groupBox11.Font = new System.Drawing.Font("宋体", 14F);
             this.groupBox11.Location = new System.Drawing.Point(404, 308);
             this.groupBox11.Name = "groupBox11";
@@ -765,6 +769,34 @@ namespace MainUI.Widget
             this.groupBox11.TabIndex = 870;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "甩车控制";
+            // 
+            // uiLightStop2
+            // 
+            this.uiLightStop2.CenterColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.uiLightStop2.Font = new System.Drawing.Font("宋体", 12F);
+            this.uiLightStop2.Location = new System.Drawing.Point(6, 57);
+            this.uiLightStop2.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiLightStop2.Name = "uiLightStop2";
+            this.uiLightStop2.OffCenterColor = System.Drawing.Color.Lime;
+            this.uiLightStop2.OffColor = System.Drawing.Color.MediumSeaGreen;
+            this.uiLightStop2.OnCenterColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.uiLightStop2.OnColor = System.Drawing.Color.Red;
+            this.uiLightStop2.Radius = 23;
+            this.uiLightStop2.Size = new System.Drawing.Size(23, 23);
+            this.uiLightStop2.State = Sunny.UI.UILightState.Off;
+            this.uiLightStop2.TabIndex = 852;
+            this.uiLightStop2.Tag = "";
+            this.uiLightStop2.Text = "uiLight3";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("宋体", 14F);
+            this.label4.Location = new System.Drawing.Point(26, 60);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(85, 19);
+            this.label4.TabIndex = 853;
+            this.label4.Text = "停机按钮";
             // 
             // label42
             // 
@@ -781,7 +813,7 @@ namespace MainUI.Widget
             // 
             this.LightInvertFault.CenterColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.LightInvertFault.Font = new System.Drawing.Font("宋体", 14F);
-            this.LightInvertFault.Location = new System.Drawing.Point(359, 62);
+            this.LightInvertFault.Location = new System.Drawing.Point(358, 62);
             this.LightInvertFault.MinimumSize = new System.Drawing.Size(1, 1);
             this.LightInvertFault.Name = "LightInvertFault";
             this.LightInvertFault.OffCenterColor = System.Drawing.Color.Silver;
@@ -821,7 +853,7 @@ namespace MainUI.Widget
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("宋体", 14F);
-            this.label29.Location = new System.Drawing.Point(377, 64);
+            this.label29.Location = new System.Drawing.Point(378, 64);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(47, 19);
             this.label29.TabIndex = 629;
@@ -831,7 +863,7 @@ namespace MainUI.Widget
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("宋体", 14F);
-            this.label33.Location = new System.Drawing.Point(377, 93);
+            this.label33.Location = new System.Drawing.Point(378, 93);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(66, 19);
             this.label33.TabIndex = 634;
@@ -1287,5 +1319,7 @@ namespace MainUI.Widget
         private Sunny.UI.UILight uiLight1;
         private System.Windows.Forms.Label label2;
         private Sunny.UI.UILight uiLightStop;
+        private Sunny.UI.UILight uiLightStop2;
+        private System.Windows.Forms.Label label4;
     }
 }
