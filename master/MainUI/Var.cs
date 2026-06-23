@@ -1,31 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RW.Modules;
-using RW.Driver;
-using RW.Drawing;
-using System.Windows.Forms;
-using System.Diagnostics;
-using RW.Data;
-using MainUI.Config;
-using System.IO;
-using System.Drawing;
-using System.Management;
-using MainUI.BLL;
-using Newtonsoft.Json;
-using MetorSignalSimulator.UI.SocketFile;
-using MetorSignalSimulator.UI.Model;
-using MainUI.Services;
-using BogieIdling.UI.Model;
+﻿using BogieIdling.UI.Model;
 using BogieIdling.UI.TRDP;
-using MainUI.Equip;
-using MainUI.Driver;
-using System.Threading;
-using MainUI.FSql;
-using MainUI.Fault;
+using MainUI.BLL;
+using MainUI.Config;
 using MainUI.Config.Modules;
+using MainUI.Data;
+using MainUI.Driver;
+using MainUI.Equip;
+using MainUI.Services;
+using MetorSignalSimulator.UI.Model;
+using RW.Data;
+using RW.Driver;
+using System;
+using System.Configuration;
+using System.Drawing;
+using System.IO;
+using System.Management;
+using System.Windows.Forms;
 
 namespace MainUI
 {
@@ -33,7 +23,7 @@ namespace MainUI
     {
         public static string SoftName = "发动机性能试验台";
 
-        public static string Version = "GJCS25042 VA.1.20260206";
+        public static string Version = "GJCS25042 VA.1.20260622";
 
         /// <summary>
         /// OPC交互-发送端
@@ -122,11 +112,9 @@ namespace MainUI
         /// </summary>
         public static bool NotFresh = false;
 
-        //public static string ConnectionString = @"provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\db.mdb;jet oledb:database password=ok";  //数据库连接字符串
-        //public static OleDB Database = new OleDB();
-
-        public static SQLiteDB Database = new SQLiteDB();
-        public static string ConnectionString = @"Data Source=DataBase.db;Version=3;";
+        public static string ConnectionString =
+            ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
+        public static IDbBase Database = new MySqlAdoDb(ConnectionString);
 
         /// <summary>
         /// 程序配置文件

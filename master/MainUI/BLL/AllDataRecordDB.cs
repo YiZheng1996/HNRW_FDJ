@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MainUI.FSql;
+﻿using MainUI.FSql;
 using MainUI.FSql.Model;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using MainUI.Helper;
-using Sunny.UI;
+using System;
+using System.Collections.Generic;
 
 namespace MainUI.BLL
 {
@@ -70,6 +64,6 @@ namespace MainUI.BLL
             }
             return list;
         }
-           
+
     }
 }
