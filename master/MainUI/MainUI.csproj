@@ -288,6 +288,7 @@
     <Compile Include="FSql\AllCollectData\ThreePhaseElectricData.cs" />
     <Compile Include="FSql\AllCollectData\TRDPDataGrp.cs" />
     <Compile Include="FSql\AllCollectData\WaterDataGrp.cs" />
+    <Compile Include="FSql\Data\MySqlAdoDb.cs" />
     <Compile Include="FSql\FaultEventService.cs" />
     <Compile Include="FSql\AutoRecordService.cs" />
     <Compile Include="FSql\Model\FaultEvent.cs" />
@@ -1353,9 +1354,7 @@
     <None Include="img\kgled_ON_red.gif" />
     <None Include="Resources\CRRC_full.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FSql\User\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

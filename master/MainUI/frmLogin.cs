@@ -162,7 +162,7 @@ namespace MainUI
 
             // 密码校验
             int uid = Convert.ToInt32(cboUsername.SelectedValue);
-            DataTable dtUser = bllUser.Get(uid);
+            var dtUser = bllUser.GetById(uid);
             if (dtUser.Rows.Count == 0)
             { ShowError("未找到该用户！"); return; }
 
