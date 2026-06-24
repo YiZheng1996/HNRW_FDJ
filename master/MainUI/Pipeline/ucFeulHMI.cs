@@ -36,6 +36,7 @@ namespace MainUI
         // 模拟量的集合
         Dictionary<string, ucPipePara> DoubleDicValve = new Dictionary<string, ucPipePara>();
 
+        // 测试GIT
         public void Init()
         {
             uipry33up1.Link(uiPipe2);
