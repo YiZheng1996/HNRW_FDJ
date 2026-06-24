@@ -790,7 +790,7 @@ namespace MainUI.TestScreen
             this.uiLight4.State = Common.DIgrp["柴油机停机"] ? UILightState.On : UILightState.Off;
 
             // 水阻箱温度
-            this.lblSZTemp.Text = Common.fuelGrp["水阻箱温度检测"].ToString();
+            this.lblSZTemp.Text = Common.fuelGrp["水阻箱温度检测"].ToString("F1");
 
             // 实时重量
             this.WeightValue.Text = MiddleData.instnce.PTFWeight.ToString();

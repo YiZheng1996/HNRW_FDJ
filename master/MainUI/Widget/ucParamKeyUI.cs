@@ -111,7 +111,7 @@ namespace MainUI.Widget
                     this.Invoke(new Action(() =>
                     {
                         // 更新数值文本
-                        lblValue.Text = value.ToString();
+                        lblValue.Text = value.ToString("F1");
 
                         // 更新颜色：超过上限阈值变红，否则绿色
                         var hi = scale.Ranges.Count > 1 ? scale.Ranges[1].StartValue : scale.MaxValue;

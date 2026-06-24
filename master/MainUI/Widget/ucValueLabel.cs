@@ -44,12 +44,12 @@ namespace MainUI.Widget
                     {
                         this.Invoke(new Action(() =>
                         {
-                            lblValue.Text = value.ToString();
+                            lblValue.Text = value.ToString("F1");
                         }));
                     }
                     else
                     {
-                        lblValue.Text = value.ToString();
+                        lblValue.Text = value.ToString("F1");
                     }
                 }
             }

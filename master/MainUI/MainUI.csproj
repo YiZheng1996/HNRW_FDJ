@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>RW.ico</ApplicationIcon>
@@ -988,6 +990,9 @@
     <EmbeddedResource Include="Manager\AutoPara\ucExcitationRegulationParams.resx">
       <DependentUpon>ucExcitationRegulationParams.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AOGrp.resx">
+      <DependentUpon>AOGrp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modules\OpcStatusGrp.resx">
       <DependentUpon>OpcStatusGrp.cs</DependentUpon>
     </EmbeddedResource>
@@ -1025,6 +1030,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestScreen\frmEngineData.resx">
       <DependentUpon>frmEngineData.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHardWare.resx">
       <DependentUpon>frmHardWare.cs</DependentUpon>
