@@ -1963,7 +1963,8 @@ namespace MainUI
         /// </summary>
         public void InitWave()
         {
-            DateTime dt = DateTime.Now;
+            //DateTime dt = DateTime.Now;
+            _waveStartTime = DateTime.Now;   // 记录曲线起始时间
 
             #region 扭矩曲线
             UILineOption option = new UILineOption();
@@ -1997,8 +1998,7 @@ namespace MainUI
             option.Legend.AddData("标准扭矩", Color.Blue);  // 启用图例
             option.Legend.Top = 0;           // 顶部对齐
             option.Legend.Left = UILeftAlignment.Left;  // 左对齐
-
-            option.XAxisType = UIAxisType.DateTime;
+            option.XAxisType = UIAxisType.Value;
 
             var series = option.AddSeries(new UILineSeries("标准扭矩", Color.Blue));
             series.Symbol = UILinePointSymbol.None;
@@ -2014,14 +2014,14 @@ namespace MainUI
 
             option.YAxis.Name = "扭矩(%)";
             //X轴坐标轴显示格式化
-            option.XAxis.AxisLabel.DateTimeFormat = "HH:mm";
+            option.XAxis.SetRange(0d, 120d);
 
             //Y轴坐标轴显示小数位数
             option.YAxis.AxisLabel.DecimalPlaces = 0;
+
             // 设置Y轴最大值（关键代码）
             option.YAxis.SetRange(0, 110);  // Y轴范围0-100，最大值设为100
             //设置X轴显示范围
-            option.XAxis.SetRange(dt, dt.AddMinutes(121));
             LineChartTorque.SetOption(option);
             #endregion
 
@@ -2057,7 +2057,7 @@ namespace MainUI
             speedOption.Legend.Top = 0;
             speedOption.Legend.Left = UILeftAlignment.Left;
 
-            speedOption.XAxisType = UIAxisType.DateTime;
+            speedOption.XAxisType = UIAxisType.Value;
 
             // 添加设定转速曲线
             var speedSeries = speedOption.AddSeries(new UILineSeries("标准转速", Color.Blue));
@@ -2075,14 +2075,11 @@ namespace MainUI
 
             speedOption.YAxis.Name = "转速(%)";
             // X轴坐标轴显示格式化
-            speedOption.XAxis.AxisLabel.DateTimeFormat = "yyyy-MM-dd HH:mm";
+            speedOption.XAxis.SetRange(0d, 120d);
             // Y轴坐标轴显示小数位数
             speedOption.YAxis.AxisLabel.DecimalPlaces = 0;
             // 设置Y轴最大值
             speedOption.YAxis.SetRange(0, 110);
-            // 设置X轴显示范围（2小时范围）
-            speedOption.XAxis.SetRange(dt, dt.AddMinutes(121));
-
             LineChartSpeed.SetOption(speedOption);
 
             InitStandardPreviewUI();
@@ -2100,8 +2097,11 @@ namespace MainUI
         /// <param name="value">数值</param>
         public void AddRealTimeData(UILineChart chart, string waveName, string seriesName, DateTime timestamp, double value)
         {
-            // 添加曲线数据
-            chart.Option.AddData(seriesName, timestamp, value);
+            // 计算经过分钟数作为X值
+            double elapsedMinutes = (timestamp - _waveStartTime).TotalMinutes;
+
+            // AddData 用 double X
+            chart.Option.AddData(seriesName, elapsedMinutes, value);
 
             // 从字典中获取对象后再新增数据
             waveReocrd.TryGetValue(waveName, out var WRecord);
@@ -2116,8 +2116,9 @@ namespace MainUI
                 // 最长实时数据只显示2小时
                 if (dataCount > 120 && WRecord.CurrentType)
                 {
-                    // 调整X轴范围显示最新2小时数据
-                    chart.Option.XAxis.SetRange(DateTime.Now.AddMinutes(-120), DateTime.Now.AddMinutes(1));
+                    // 调整X轴范围显示最新2小时数据，滑动窗口也改成分钟数范围
+                    double latestMin = (DateTime.Now - _waveStartTime).TotalMinutes;
+                    chart.Option.XAxis.SetRange(latestMin - 120d, latestMin + 1d);
                 }
             }
 
@@ -2158,8 +2159,8 @@ namespace MainUI
             var chart = GetChartByWaveName(button.Tag.ToString());
             if (WRecord.WaveDataPoints[0].DataPoints.Count > 0)
             {
-                // 调整X轴范围显示最新2小时数据
-                chart.Option.XAxis.SetRange(DateTime.Now.AddMinutes(-120), WRecord.WaveDataPoints[0].DataPoints[WRecord.WaveDataPoints[0].DataPoints.Count - 1].Timestamp.AddMinutes(1));
+                double latestMin = (DateTime.Now - _waveStartTime).TotalMinutes;
+                chart.Option.XAxis.SetRange(Math.Max(0, latestMin - 120d), latestMin + 1d);
                 chart.Refresh();
             }
         }
@@ -2176,11 +2177,12 @@ namespace MainUI
             WRecord.CurrentType = false;
 
             var chart = GetChartByWaveName(button.Tag.ToString());
-
-            if (WRecord.WaveDataPoints[0].DataPoints.Count > 0)
+            var pts = WRecord.WaveDataPoints[0].DataPoints;
+            if (pts.Count > 0)
             {
-                // 历史曲线查询所有数据
-                chart.Option.XAxis.SetRange(WRecord.WaveDataPoints[0].DataPoints[0].Timestamp, WRecord.WaveDataPoints[0].DataPoints[WRecord.WaveDataPoints[0].DataPoints.Count - 1].Timestamp.AddMinutes(1));
+                double minX = (pts[0].Timestamp - _waveStartTime).TotalMinutes;
+                double maxX = (pts[pts.Count - 1].Timestamp - _waveStartTime).TotalMinutes + 1d;
+                chart.Option.XAxis.SetRange(minX, maxX);
                 chart.Refresh();
             }
         }
@@ -2267,6 +2269,9 @@ namespace MainUI
 
         /// <summary>标准转速曲线系列名（即原"设定转速"改名）</summary>
         private const string StdSpeedSeries = "标准转速";
+
+        /// <summary>曲线X轴起始时间（用于将DateTime转为经过分钟数）</summary>
+        private DateTime _waveStartTime = DateTime.Now;
 
         /// <summary>可选循环代码（铁标附录F：A A' B C / D E F G H I L M N / O P Q R）。A' 在配置里以反引号存储</summary>
         private static readonly string[] StandardCycleCodes =
@@ -2372,6 +2377,17 @@ namespace MainUI
                     return;
                 }
 
+                // 重置实时线起点 + 清空实时线历史数据
+                _waveStartTime = cycleStart;
+                ClearSeriesData(LineChartTorque, "扭矩");
+                ClearSeriesData(LineChartSpeed, "转速");
+
+                // 同步清空内存里的数据点（历史/实时切换按钮依赖这个）
+                if (waveReocrd.TryGetValue("扭矩曲线", out var torqueRecord))
+                    torqueRecord.WaveDataPoints.FirstOrDefault(d => d.CurveName == "扭矩")?.DataPoints.Clear();
+                if (waveReocrd.TryGetValue("转速曲线", out var speedRecord))
+                    speedRecord.WaveDataPoints.FirstOrDefault(d => d.CurveName == "转速")?.DataPoints.Clear();
+
                 DrawStandardCycle(cycleCode, cycleStart, setXRange: true);
                 SetWaveFixedWindow();      // CurrentType=false，锁定整段窗口
                 _lastOverlayCode = cycleCode;
@@ -2415,9 +2431,8 @@ namespace MainUI
                 {
                     double total = steps.Sum(p => p.RunTime);
                     if (total <= 0) total = 1;
-                    DateTime end = anchor.AddMinutes(total);
-                    LineChartTorque.Option.XAxis.SetRange(anchor, end);
-                    LineChartSpeed.Option.XAxis.SetRange(anchor, end);
+                    LineChartTorque.Option.XAxis.SetRange(0d, total);
+                    LineChartSpeed.Option.XAxis.SetRange(0d, total);
                 }
 
                 LineChartTorque.Refresh();
@@ -2486,13 +2501,13 @@ namespace MainUI
 
             ClearSeriesData(chart, seriesName);
 
-            double t = 0;
+            // Value轴写法，X = 距anchor的累计分钟数
+            double offsetMin = 0d;
             foreach (var step in steps)
             {
-                double val = valueSelector(step);
-                chart.Option.AddData(seriesName, anchor.AddMinutes(t), val); // 台阶左端
-                t += step.RunTime;
-                chart.Option.AddData(seriesName, anchor.AddMinutes(t), val); // 台阶右端
+                chart.Option.AddData(seriesName, offsetMin, (double)valueSelector(step));
+                offsetMin += step.RunTime;
+                chart.Option.AddData(seriesName, offsetMin, (double)valueSelector(step));
             }
         }
 
