@@ -1,4 +1,5 @@
-﻿using MainUI.Config;
+﻿using DevComponents.AdvTree;
+using MainUI.Config;
 using MainUI.Config.Test;
 using MainUI.Global;
 using System;
@@ -83,6 +84,8 @@ namespace MainUI.Procedure.Test.Performance
                 TVar.ExcitationDiffMin = 5;
                 TVar.TSecond = 0;
 
+                hmi.ResetStandardOverlay();   // 让首个循环必定重画
+                hmi.ClearStandardCycle();     // 清掉预览残留
                 TestStatus(true);
                 TxtTips($"{CurrentTestType}测试开始");
 
@@ -136,6 +139,7 @@ namespace MainUI.Procedure.Test.Performance
                                 currentStep = currentAllData.FirstOrDefault(d => d.Index == MiddleData.instnce.CurrentStatusData.PhaseIndex);
                                 if (currentStep != null)
                                 {
+                                    hmi.OverlayStandardCycle(node, DateTime.Now);
                                     // 通过工况编号获取具体转速，励磁电流
                                     MiddleData.instnce.CurrentStatusData.NodeName = node; // 循环代码
                                     MiddleData.instnce.CurrentStatusData.TargetSpeedPercent = MiddleData.instnce.testDataView.TestSpeedPercent = currentStep.RPM;
@@ -205,6 +209,7 @@ namespace MainUI.Procedure.Test.Performance
                                 currentStep = currentAllData.FirstOrDefault(d => d.Index == MiddleData.instnce.CurrentStatusData.PhaseIndex);
                                 if (currentStep != null)
                                 {
+                                    hmi.OverlayStandardCycle(currentStep.StepName, DateTime.Now);
                                     // 通过工况编号获取具体转速，励磁电流
                                     MiddleData.instnce.CurrentStatusData.NodeName = currentStep.TestName; // 循环代码
                                     MiddleData.instnce.CurrentStatusData.TargetSpeedPercent = MiddleData.instnce.testDataView.TestSpeedPercent = currentStep.RPM;
@@ -429,6 +434,7 @@ namespace MainUI.Procedure.Test.Performance
                 MiddleData.instnce.testDataView.TestTorquePercent = 0;
 
                 TestStatus(false);
+                hmi.ResetStandardOverlay();
                 return TestingStatus;
             }
             catch (Exception ex)
