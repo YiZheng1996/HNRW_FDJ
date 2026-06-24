@@ -846,6 +846,7 @@ namespace MainUI
             // 启动实时曲线记录
             //this.ucWaveTorqueNew.StartRealtime();
 
+            //hmi.ResetStandardOverlay();
 
             // 线程执行
             th = new Thread(new ThreadStart(AutoTestStart))
@@ -1275,8 +1276,8 @@ namespace MainUI
 
                     // 记录曲线一个点
                     var nowDate = DateTime.Now;
-                    AddTorqueData(nowDate, MiddleData.instnce.EngineTorquePercent, MiddleData.instnce.CurrentStatusData.TargetTorquePercent);
-                    AddSpeedData(nowDate, MiddleData.instnce.EngineSpeedPercent, MiddleData.instnce.CurrentStatusData.TargetSpeedPercent);
+                    AddTorqueData(nowDate, MiddleData.instnce.EngineTorquePercent);
+                    AddSpeedData(nowDate, MiddleData.instnce.EngineSpeedPercent);
 
                     // 重新开始计时器（从0开始）
                     ResetWatch();
@@ -1970,7 +1971,7 @@ namespace MainUI
             List<WaveData> waveDatasTorque = new List<WaveData>()
             {
                 new WaveData(){ CurveName= "扭矩"},
-                new WaveData(){ CurveName= "设定扭矩"},
+                new WaveData(){ CurveName= "标准扭矩"},
             };
             var torqueData = new WaveReocrd
             {
@@ -1989,18 +1990,17 @@ namespace MainUI
             option.ToolTip.Visible = false;
             option.Title = new UITitle();
             option.Title.Text = "扭矩曲线";
-            //option.Title.SubText = "LineChart";
 
             // 设置图例显示
             option.Legend = new UILegend();
             option.Legend.AddData("扭矩", Color.Red);  // 启用图例
-            option.Legend.AddData("设定扭矩", Color.Blue);  // 启用图例
+            option.Legend.AddData("标准扭矩", Color.Blue);  // 启用图例
             option.Legend.Top = 0;           // 顶部对齐
             option.Legend.Left = UILeftAlignment.Left;  // 左对齐
 
             option.XAxisType = UIAxisType.DateTime;
 
-            var series = option.AddSeries(new UILineSeries("设定扭矩", Color.Blue));
+            var series = option.AddSeries(new UILineSeries("标准扭矩", Color.Blue));
             series.Symbol = UILinePointSymbol.None;
             series.SymbolSize = 4;
             series.SymbolLineWidth = 2;
@@ -2014,9 +2014,7 @@ namespace MainUI
 
             option.YAxis.Name = "扭矩(%)";
             //X轴坐标轴显示格式化
-            option.XAxis.AxisLabel.DateTimeFormat = "yyyy-MM-dd HH:mm";
-            // 设置X轴间隔为10分钟
-            //option.XAxis.Interval = 10 * 60 * 1000;  // 10分钟，单位是毫秒
+            option.XAxis.AxisLabel.DateTimeFormat = "HH:mm";
 
             //Y轴坐标轴显示小数位数
             option.YAxis.AxisLabel.DecimalPlaces = 0;
@@ -2031,7 +2029,7 @@ namespace MainUI
             List<WaveData> waveDatasSpeed = new List<WaveData>()
             {
                 new WaveData(){ CurveName= "转速"},
-                new WaveData(){ CurveName= "设定转速"},
+                new WaveData(){ CurveName= "标准转速"},
             };
             var speedData = new WaveReocrd
             {
@@ -2055,14 +2053,14 @@ namespace MainUI
             // 设置图例显示
             speedOption.Legend = new UILegend();
             speedOption.Legend.AddData("转速", Color.Red);
-            speedOption.Legend.AddData("设定转速", Color.Blue);
+            speedOption.Legend.AddData("标准转速", Color.Blue);
             speedOption.Legend.Top = 0;
             speedOption.Legend.Left = UILeftAlignment.Left;
 
             speedOption.XAxisType = UIAxisType.DateTime;
 
             // 添加设定转速曲线
-            var speedSeries = speedOption.AddSeries(new UILineSeries("设定转速", Color.Blue));
+            var speedSeries = speedOption.AddSeries(new UILineSeries("标准转速", Color.Blue));
             speedSeries.Symbol = UILinePointSymbol.None;
             speedSeries.SymbolSize = 4;
             speedSeries.SymbolLineWidth = 2;
@@ -2086,6 +2084,9 @@ namespace MainUI
             speedOption.XAxis.SetRange(dt, dt.AddMinutes(121));
 
             LineChartSpeed.SetOption(speedOption);
+
+            InitStandardPreviewUI();
+
             #endregion
         }
 
@@ -2124,24 +2125,23 @@ namespace MainUI
         }
 
         /// <summary>
-        /// 添加扭矩实时数据
+        /// 添加扭矩实时数据（只画实际线；标准线由切码整段铺负责）
         /// </summary>
-        /// <param name="timestamp"></param>
+        /// <param name="timestamp">时间</param>
         /// <param name="actualTorque">实时扭矩</param>
-        /// <param name="setTorque">设定扭矩</param>
-        public void AddTorqueData(DateTime timestamp, double actualTorque, double setTorque)
+        public void AddTorqueData(DateTime timestamp, double actualTorque)
         {
             AddRealTimeData(LineChartTorque, "扭矩曲线", "扭矩", timestamp, actualTorque);
-            AddRealTimeData(LineChartTorque, "扭矩曲线", "设定扭矩", timestamp, setTorque);
         }
 
         /// <summary>
-        /// 添加转速实时数据
+        /// 添加转速实时数据（只画实际线；标准线由切码整段铺负责）
         /// </summary>
-        public void AddSpeedData(DateTime timestamp, double actualSpeed, double setSpeed)
+        /// <param name="timestamp"></param>
+        /// <param name="actualSpeed"></param>
+        public void AddSpeedData(DateTime timestamp, double actualSpeed)
         {
             AddRealTimeData(LineChartSpeed, "转速曲线", "转速", timestamp, actualSpeed);
-            AddRealTimeData(LineChartSpeed, "转速曲线", "设定转速", timestamp, setSpeed);
         }
 
         /// <summary>
@@ -2262,25 +2262,270 @@ namespace MainUI
             }
         }
 
-        /// <summary>
-        /// 根据曲线名称获取对应的颜色
-        /// </summary>
-        private Color GetSeriesColor(string curveName)
+        /// <summary>标准扭矩曲线系列名（即原"设定扭矩"改名）</summary>
+        private const string StdTorqueSeries = "标准扭矩";
+
+        /// <summary>标准转速曲线系列名（即原"设定转速"改名）</summary>
+        private const string StdSpeedSeries = "标准转速";
+
+        /// <summary>可选循环代码（铁标附录F：A A' B C / D E F G H I L M N / O P Q R）。A' 在配置里以反引号存储</summary>
+        private static readonly string[] StandardCycleCodes =
         {
-            if (curveName == "扭矩" || curveName == "转速")
+            "A", "A`", "B", "C", "D", "E", "F", "G", "H", "I", "L", "M", "N", "O", "P", "Q", "R"
+        };
+
+        private bool _stdPreviewUIInited = false;
+        private ComboBox _cboStdCycle;
+
+        /// <summary>叠加模式去重：记录上次已铺的循环代码，仅在切码时重画</summary>
+        private string _lastOverlayCode = null;
+
+        /// <summary>
+        /// 初始化标准工况预览的小控件。
+        /// 控件挂在扭矩图所在父容器，相对扭矩图右上角定位，可在设计器内自行调整。
+        /// </summary>
+        public void InitStandardPreviewUI()
+        {
+            try
             {
-                return Color.Red;
+                if (_stdPreviewUIInited) return;
+                if (LineChartTorque == null || LineChartTorque.Parent == null) return;
+
+                Control parent = LineChartTorque.Parent;
+
+                _cboStdCycle = new ComboBox
+                {
+                    DropDownStyle = ComboBoxStyle.DropDownList,
+                    Width = 90,
+                    Font = new Font("微软雅黑", 10F)
+                };
+                _cboStdCycle.Items.AddRange(StandardCycleCodes);
+                if (_cboStdCycle.Items.Count > 0) _cboStdCycle.SelectedIndex = 0;
+
+                var btnPreview = new Button { Text = "预览标准工况", Width = 110, Height = 30, Font = new Font("微软雅黑", 10F) };
+                var btnClear = new Button { Text = "清除标准", Width = 80, Height = 30, Font = new Font("微软雅黑", 10F) };
+
+                int top = Math.Max(0, LineChartTorque.Top + 2);
+                int right = LineChartTorque.Right;
+                btnClear.Location = new Point(right - btnClear.Width - 4, top);
+                btnPreview.Location = new Point(btnClear.Left - btnPreview.Width - 4, top);
+                _cboStdCycle.Location = new Point(btnPreview.Left - _cboStdCycle.Width - 4, top + 2);
+
+                btnPreview.Click += (s, e) =>
+                {
+                    var code = _cboStdCycle.SelectedItem?.ToString();
+                    if (!string.IsNullOrEmpty(code)) PreviewStandardCycle(code);
+                };
+                btnClear.Click += (s, e) => ClearStandardCycle();
+
+                parent.Controls.Add(_cboStdCycle);
+                parent.Controls.Add(btnPreview);
+                parent.Controls.Add(btnClear);
+                _cboStdCycle.BringToFront();
+                btnPreview.BringToFront();
+                btnClear.BringToFront();
+
+                _stdPreviewUIInited = true;
             }
-            else if (curveName == "设定扭矩" || curveName == "设定转速")
+            catch (Exception ex)
             {
-                return Color.Blue;
-            }
-            else
-            {
-                return Color.Green;
+                Var.LogInfo("初始化标准工况预览控件失败：" + ex.Message);
             }
         }
 
+        /// <summary>
+        /// 预览模式：未跑试验时单独绘制某循环标准阶梯。锚点固定今天0点，X轴铺满整段。
+        /// </summary>
+        public void PreviewStandardCycle(string cycleCode)
+        {
+            try
+            {
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => PreviewStandardCycle(cycleCode)));
+                    return;
+                }
+                DrawStandardCycle(cycleCode, DateTime.Today, setXRange: true);
+                SetWaveFixedWindow(); // 预览不滚动
+            }
+            catch (Exception ex)
+            {
+                Var.LogInfo($"预览标准工况[{cycleCode}]失败：" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 叠加模式：试验中切到某循环代码时调用。仅在代码变化时重画（自带去重）。
+        /// 以切码瞬间 cycleStart 为锚点提前铺整段，并锁定整段窗口不滚动。
+        /// 可在试验线程直接调用（内部自动切回UI线程）。
+        /// </summary>
+        public void OverlayStandardCycle(string cycleCode, DateTime cycleStart)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(cycleCode)) return;
+                if (cycleCode == _lastOverlayCode) return; // 未切码，不重画（先在调用线程判断，避免无谓跨线程）
+
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => OverlayStandardCycle(cycleCode, cycleStart)));
+                    return;
+                }
+
+                DrawStandardCycle(cycleCode, cycleStart, setXRange: true);
+                SetWaveFixedWindow();      // CurrentType=false，锁定整段窗口
+                _lastOverlayCode = cycleCode;
+            }
+            catch (Exception ex)
+            {
+                Var.LogInfo($"叠加标准工况[{cycleCode}]失败：" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 重置叠加去重状态（开始/结束试验时调用，使下次切码必定重画）。
+        /// </summary>
+        public void ResetStandardOverlay()
+        {
+            _lastOverlayCode = null;
+        }
+
+        /// <summary>
+        /// 核心绘制：把某循环标准阶梯填入"标准扭矩/标准转速"两条线。
+        /// </summary>
+        /// <param name="cycleCode">循环代码</param>
+        /// <param name="anchor">0分钟对应的时间锚点</param>
+        /// <param name="setXRange">true=X轴设为整段循环；false=不动X轴</param>
+        public void DrawStandardCycle(string cycleCode, DateTime anchor, bool setXRange)
+        {
+            try
+            {
+                var steps = GetCycleSteps(cycleCode);
+                if (steps == null || steps.Count == 0)
+                {
+                    ClearStandardCycle();
+                    Var.LogInfo($"循环代码[{cycleCode}]在型号[{GetModel()}]下未配置工况序列，无法绘制标准曲线。");
+                    return;
+                }
+
+                FillStaircase(LineChartTorque, StdTorqueSeries, steps, anchor, p => p.Torque);
+                FillStaircase(LineChartSpeed, StdSpeedSeries, steps, anchor, p => p.RPM);
+
+                if (setXRange)
+                {
+                    double total = steps.Sum(p => p.RunTime);
+                    if (total <= 0) total = 1;
+                    DateTime end = anchor.AddMinutes(total);
+                    LineChartTorque.Option.XAxis.SetRange(anchor, end);
+                    LineChartSpeed.Option.XAxis.SetRange(anchor, end);
+                }
+
+                LineChartTorque.Refresh();
+                LineChartSpeed.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Var.LogInfo($"绘制标准工况[{cycleCode}]失败：" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 清除标准曲线两条线的数据点（不影响实际红线）。
+        /// </summary>
+        public void ClearStandardCycle()
+        {
+            try
+            {
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(ClearStandardCycle));
+                    return;
+                }
+                ClearSeriesData(LineChartTorque, StdTorqueSeries);
+                ClearSeriesData(LineChartSpeed, StdSpeedSeries);
+                LineChartTorque.Refresh();
+                LineChartSpeed.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Var.LogInfo("清除标准工况曲线失败：" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 读取某循环代码已配置的工况序列（按步骤号排序）。
+        /// </summary>
+        private List<TestBasePara> GetCycleSteps(string cycleCode)
+        {
+            try
+            {
+                string model = GetModel();
+                if (string.IsNullOrEmpty(model) || string.IsNullOrEmpty(cycleCode))
+                    return new List<TestBasePara>();
+
+                var cfg = new DurStepConfig(model, cycleCode);
+                return cfg.testBasePara == null
+                    ? new List<TestBasePara>()
+                    : cfg.testBasePara.OrderBy(p => p.Index).ToList();
+            }
+            catch (Exception ex)
+            {
+                Var.LogInfo($"读取循环代码[{cycleCode}]工况序列失败：" + ex.Message);
+                return new List<TestBasePara>();
+            }
+        }
+
+        /// <summary>
+        /// 把工况序列构造成阶梯并填入指定系列：每段加 (anchor+t,值) 和 (anchor+t+时长,值) 两点，
+        /// 相邻段同X不同Y自动形成竖直跃变 → 标准阶梯。
+        /// </summary>
+        private void FillStaircase(UILineChart chart, string seriesName, List<TestBasePara> steps,
+            DateTime anchor, Func<TestBasePara, double> valueSelector)
+        {
+            if (chart == null) return;
+
+            ClearSeriesData(chart, seriesName);
+
+            double t = 0;
+            foreach (var step in steps)
+            {
+                double val = valueSelector(step);
+                chart.Option.AddData(seriesName, anchor.AddMinutes(t), val); // 台阶左端
+                t += step.RunTime;
+                chart.Option.AddData(seriesName, anchor.AddMinutes(t), val); // 台阶右端
+            }
+        }
+
+        /// <summary>
+        /// 清空单条系列数据点。优先用 UILineSeries.Clear()；不同 SunnyUI 版本字段名不同，这里不直接碰内部 List。
+        /// </summary>
+        private void ClearSeriesData(UILineChart chart, string seriesName)
+        {
+            if (chart?.Option?.Series == null) return;
+            if (chart.Option.Series.TryGetValue(seriesName, out var series) && series != null)
+            {
+                series.Clear();
+            }
+        }
+
+        /// <summary>
+        /// 把两张图标记为"固定窗口"（CurrentType=false），使实时刷新里的2小时滚动逻辑不再生效，
+        /// 锁定在整段循环窗口。操作员仍可点"实时曲线"按钮恢复滚动。
+        /// </summary>
+        private void SetWaveFixedWindow()
+        {
+            if (waveReocrd.TryGetValue("扭矩曲线", out var wt) && wt != null) wt.CurrentType = false;
+            if (waveReocrd.TryGetValue("转速曲线", out var ws) && ws != null) ws.CurrentType = false;
+        }
+
+        /// <summary>
+        /// 当前型号名。
+        /// </summary>
+        private string GetModel()
+        {
+            try { return Common.mTestViewModel?.ModelName; }
+            catch { return null; }
+        }
         #endregion
 
         #region 表格更改事件
