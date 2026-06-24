@@ -29,7 +29,6 @@ using MainUI.Config;
 
 namespace MainUI
 {
-    //qqwedfaesfasfeafaeaf
     public partial class frmMainMenu : Form
     {
         [System.Runtime.InteropServices.DllImport("user32.dll")]

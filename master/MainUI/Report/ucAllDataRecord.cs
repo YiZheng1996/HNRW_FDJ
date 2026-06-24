@@ -736,5 +736,16 @@ namespace MainUI.Report
         {
             _pageSize = this.pageSize.Text.ToInt();
         }
+
+
+        /// <summary>
+        /// 数据分析导出excel文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Report_Save(object sender, EventArgs e)
+        {
+            ucAllDataRecord_Method.Report_Excel(this.allDataRecord);
+        }
     }
 }

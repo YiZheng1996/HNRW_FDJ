@@ -39,6 +39,37 @@ namespace MainUI.FSql.AllCollectData
         /// </summary>
         public double RotateSpeedSet { get; set; }
 
+
+        /// <summary>
+        /// 电源放大器A滤值
+        /// </summary>
+        public double PowerAmplifierAFilteredValue { get; set; }
+
+        /// <summary>
+        /// 电源放大器B滤值
+        /// </summary>
+        public double PowerAmplifierBFilteredValue { get; set; }
+
+        /// <summary>
+        /// 电源放大器C滤值
+        /// </summary>
+        public double PowerAmplifierCFilteredValue { get; set; }
+
+        /// <summary>
+        /// 电源放大器A实际值
+        /// </summary>
+        public double PowerAmplifierAActualValue { get; set; }
+
+        /// <summary>
+        /// 电源放大器B实际值
+        /// </summary>
+        public double PowerAmplifierBActualValue { get; set; }
+
+        /// <summary>
+        /// 电源放大器C实际值
+        /// </summary>
+        public double PowerAmplifierCActualValue { get; set; }
+
         /// <summary>
         /// 燃油量
         /// </summary>

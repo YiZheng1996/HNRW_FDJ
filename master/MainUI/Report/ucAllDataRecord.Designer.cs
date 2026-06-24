@@ -68,6 +68,7 @@ namespace MainUI.Report
             this.pageNO = new Sunny.UI.UITextBox();
             this.pageSize = new Sunny.UI.UITextBox();
             this.uiLabel5 = new Sunny.UI.UILabel();
+            this.reportSave = new RW.UI.Controls.RButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.allDataRecord)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -548,11 +549,28 @@ namespace MainUI.Report
             this.uiLabel5.Text = "条/页";
             this.uiLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // reportSave
+            // 
+            this.reportSave.BackColor = System.Drawing.Color.Silver;
+            this.reportSave.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.reportSave.FalseColor = System.Drawing.Color.Silver;
+            this.reportSave.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.reportSave.Location = new System.Drawing.Point(898, 9);
+            this.reportSave.Name = "reportSave";
+            this.reportSave.Size = new System.Drawing.Size(152, 72);
+            this.reportSave.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.reportSave.TabIndex = 857;
+            this.reportSave.Tag = "";
+            this.reportSave.Text = "导出excel文件";
+            this.reportSave.TrueColor = System.Drawing.Color.Lime;
+            this.reportSave.Click += new System.EventHandler(this.Report_Save);
+            // 
             // ucAllDataRecord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.Controls.Add(this.reportSave);
             this.Controls.Add(this.uiLabel5);
             this.Controls.Add(this.pageSize);
             this.Controls.Add(this.pageNO);
@@ -625,5 +643,6 @@ namespace MainUI.Report
         private Sunny.UI.UITextBox pageNO;
         private Sunny.UI.UITextBox pageSize;
         private Sunny.UI.UILabel uiLabel5;
+        private RW.UI.Controls.RButton reportSave;
     }
 }

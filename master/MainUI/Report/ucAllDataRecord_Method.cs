@@ -1,5 +1,6 @@
 ﻿using MainUI.FSql.AllCollectData;
 using MainUI.FSql.Model;
+using MiniExcelLibs;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MainUI.Report
 {
@@ -72,6 +74,14 @@ namespace MainUI.Report
                     _columnDefinitions.Add(new ColumnDefinition("Duration", "持续期"));
                     _columnDefinitions.Add(new ColumnDefinition("AdvanceAngle", "提前角"));
                     _columnDefinitions.Add(new ColumnDefinition("SyncStatus", "同步状态"));
+
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierAFilteredValue", "电源放大器A滤值"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierBFilteredValue", "电源放大器B滤值"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierCFilteredValue", "电源放大器C滤值"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierAActualValue", "电源放大器A实际值"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierBActualValue", "电源放大器B实际值"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierCActualValue", "电源放大器C实际值"));
+
                     _columnDefinitions.Add(new ColumnDefinition("ECURunTime", "ECU运行时间"));
                     _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault1", "电磁阀故障1#"));
                     _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault2", "电磁阀故障2#"));
@@ -808,6 +818,12 @@ namespace MainUI.Report
                     trdp.Duration = Convert.ToDouble(trdpData["TRDP_持续期"]);
                     trdp.AdvanceAngle = Convert.ToDouble(trdpData["TRDP_提前角"]);
                     trdp.SyncStatus = Convert.ToDouble(trdpData["TRDP_同步状态"]);
+                    trdp.PowerAmplifierAFilteredValue = Convert.ToDouble(trdpData["TRDP_电源放大器A滤值"]);
+                    trdp.PowerAmplifierBFilteredValue = Convert.ToDouble(trdpData["TRDP_电源放大器B滤值"]);
+                    trdp.PowerAmplifierCFilteredValue = Convert.ToDouble(trdpData["TRDP_电源放大器C滤值"]);
+                    trdp.PowerAmplifierAActualValue = Convert.ToDouble(trdpData["TRDP_电源放大器A实际值"]);
+                    trdp.PowerAmplifierBActualValue = Convert.ToDouble(trdpData["TRDP_电源放大器B实际值"]);
+                    trdp.PowerAmplifierCActualValue = Convert.ToDouble(trdpData["TRDP_电源放大器C实际值"]);
                     trdp.ECURunTime = Convert.ToDouble(trdpData["TRDP_ECU运行时间"]);
                     trdp.SolenoidValveFault1 = Convert.ToDouble(trdpData["TRDP_电磁阀故障1#"]);
                     trdp.SolenoidValveFault2 = Convert.ToDouble(trdpData["TRDP_电磁阀故障2#"]);
@@ -1619,6 +1635,54 @@ namespace MainUI.Report
         private static T CloneRowEntity<T>(T source)
         {
             return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source));
+        }
+
+
+
+        /// <summary>
+        /// 导出excel
+        /// </summary>
+        /// <param name="dgv"></param>
+        public void Report_Excel(DataGridView dgv)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Title = "请选择保存路径";
+                saveFileDialog.Filter = "Excel 文件 (*.xlsx)|*.xlsx|CSV 文件 (*.csv)|*.csv|所有文件 (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.FileName = $"数据分析_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;  // 用户自选的路径
+
+                    var exportColumns = dgv.Columns  // 取要导出的列（跳过隐藏列）
+                        .Cast<DataGridViewColumn>()
+                        .Where(c => c.Visible)
+                        .OrderBy(c => c.DisplayIndex)
+                        .ToList();
+                    // 2. 组装数据：每行一个 Dictionary，key 用列标题
+                    var rows = new List<Dictionary<string, object>>();
+                    foreach (DataGridViewRow row in dgv.Rows)
+                    {
+                        if (row.IsNewRow) continue;   // 跳过最后一行空白行
+                        var dict = new Dictionary<string, object>();
+                        foreach (var col in exportColumns)
+                        {
+                            string header = string.IsNullOrEmpty(col.HeaderText)
+                                ? col.Name
+                                : col.HeaderText;
+                            // FormattedValue = 界面上看到的；Value = 原始值
+                            object cellValue = row.Cells[col.Index].FormattedValue ?? "";
+                            dict[header] = cellValue;
+                        }
+                        rows.Add(dict);
+                    }
+                    MiniExcel.SaveAs(filePath, rows);           // 3. 写 Excel
+                }
+            }
+
         }
     }
 }
