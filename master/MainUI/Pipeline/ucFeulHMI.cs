@@ -479,7 +479,7 @@ namespace MainUI
             var MassFlowCC = this.ucPipePara14.Value - this.ucPipePara9.Value;
 
             this.flowDiff.Text = Math.Round(MassFlowCC, 1).ToString();
-            this.lblOilCoast.Text = Math.Round(MassFlowCC / MiddleData.instnce.EnginePower, 1).ToString();
+            this.lblOilCoast.Text = Math.Round(MassFlowCC *1000 / MiddleData.instnce.EnginePower, 1).ToString();
         }
 
         private void switchPictureBox13_SwitchChanged(object sender, bool value)
