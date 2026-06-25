@@ -111,7 +111,7 @@ namespace MainUI.Widget
                     this.Invoke(new Action(() =>
                     {
                         // 更新数值文本
-                        lblValue.Text = value.ToString("F1");
+                        lblValue.Text = value.ToString();
 
                         // 更新颜色：超过上限阈值变红，否则绿色
                         var hi = scale.Ranges.Count > 1 ? scale.Ranges[1].StartValue : scale.MaxValue;
@@ -160,8 +160,10 @@ namespace MainUI.Widget
         {
             // 只在单位非空时追加一个空格和单位，避免重复追加
             var unitPart = string.IsNullOrWhiteSpace(_unit) ? "" : $" {_unit}";
-            // 若需要保留一位小数：lblValue.Text = $"{_gaugeValue:F1}{unitPart}";
-            lblValue.Text = $"{lblValue.Text}{unitPart}";
+            // 若需要保留一位小数：
+            lblValue.Text = $"{_gaugeValue:F1}{unitPart}";
+            //不保留小数
+            //lblValue.Text = $"{lblValue.Text}{unitPart}";
         }
     }
 }

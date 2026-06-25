@@ -44,11 +44,21 @@ namespace MainUI.Widget
                     {
                         this.Invoke(new Action(() =>
                         {
+                            if (_title == "设备生命信号" || _title == "ECU运行时间")
+                            {
+                                lblValue.Text = value.ToString();
+                                return;
+                            }
                             lblValue.Text = value.ToString("F1");
                         }));
                     }
                     else
                     {
+                        if (_title == "设备生命信号" || _title == "ECU运行时间")
+                        {
+                            lblValue.Text = value.ToString();
+                            return;
+                        }
                         lblValue.Text = value.ToString("F1");
                     }
                 }

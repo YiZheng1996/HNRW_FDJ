@@ -661,6 +661,10 @@ namespace MainUI
                 BackColor = Color.Transparent,
                 Value = 0
             };
+            if (vl.Unit == "mm3")
+            {
+                vl.Unit = "mm³";
+            }
             return vl;
         }
 
