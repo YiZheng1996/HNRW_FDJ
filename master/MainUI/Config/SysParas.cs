@@ -160,6 +160,12 @@ namespace MainUI.Config
         /// </summary>
         [IniKeyName("励磁输出单次调节幅度")]
         public int MaxExcitationSingleStep { get; set; } = 80;
+
+        /// <summary>
+        /// 燃油油耗率
+        /// </summary>
+        [IniKeyName("燃油油耗率")]
+        public double FOilNum { get; set; }
     }
 
 
