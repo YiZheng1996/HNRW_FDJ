@@ -774,7 +774,7 @@ namespace MainUI.TestScreen
             this.ucValueFrom1Label32.TitleColor = System.Drawing.Color.Black;
             this.ucValueFrom1Label32.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueFrom1Label32.TitleWidth = 116;
-            this.ucValueFrom1Label32.Unit = "m3/h";
+            this.ucValueFrom1Label32.Unit = "m³/h";
             this.ucValueFrom1Label32.UnitFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueFrom1Label32.UnitWidth = 55;
             this.ucValueFrom1Label32.Value = 0D;
@@ -796,7 +796,7 @@ namespace MainUI.TestScreen
             this.ucValueFrom1Label31.TitleColor = System.Drawing.Color.Black;
             this.ucValueFrom1Label31.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueFrom1Label31.TitleWidth = 116;
-            this.ucValueFrom1Label31.Unit = "m3/h";
+            this.ucValueFrom1Label31.Unit = "m³/h";
             this.ucValueFrom1Label31.UnitFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueFrom1Label31.UnitWidth = 55;
             this.ucValueFrom1Label31.Value = 0D;
@@ -818,7 +818,7 @@ namespace MainUI.TestScreen
             this.ucValueFrom1Label30.TitleColor = System.Drawing.Color.Black;
             this.ucValueFrom1Label30.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueFrom1Label30.TitleWidth = 116;
-            this.ucValueFrom1Label30.Unit = "m3/h";
+            this.ucValueFrom1Label30.Unit = "m³/h";
             this.ucValueFrom1Label30.UnitFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueFrom1Label30.UnitWidth = 55;
             this.ucValueFrom1Label30.Value = 0D;

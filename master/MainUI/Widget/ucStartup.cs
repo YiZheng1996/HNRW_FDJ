@@ -272,8 +272,8 @@ namespace MainUI.Widget
 
             this.LightInvertRunning.State = (Common.gd350_1.RunStatusAI == 1 || Common.gd350_1.RunStatusAI == 2) ? UILightState.On : UILightState.Off;
             this.lblInverterVoltage.Text = Common.gd350_1.OutputVoltage.ToString("F1");
-            this.lblInverterCurrent.Text = Common.gd350_1.OutputCurrent.ToString("F2");
-            this.lblInverterPower.Text = Common.gd350_1.OutputPower.ToString("F3");
+            this.lblInverterCurrent.Text = Common.gd350_1.OutputCurrent.ToString("F1");
+            this.lblInverterPower.Text = Common.gd350_1.OutputPower.ToString("F1");
 
             uiLightStop.State = statusStop ? UILightState.On : UILightState.Off;
             uiLightStop2.State = statusStop ? UILightState.On : UILightState.Off;
