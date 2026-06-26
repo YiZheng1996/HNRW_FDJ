@@ -253,7 +253,7 @@ namespace MainUI.Widget
             this.uiLightStart.State = (speed && status && status2 && status3 && status4 && status5 && status8 && status9 && lcStatus && speedStatus && status10 && statusStop) ? UILightState.On : UILightState.Off;
 
             // 甩机
-            this.uiLightShake.State = (speed && status && status2 && status3 && status4 && !status5 && status8 /*&& !status9*/ && lcStatus && speedStatus && statusStop2) ? UILightState.On : UILightState.Off;
+            this.uiLightShake.State = (speed && status && !status2 && status3 && status4 && !status5 && status8 /*&& !status9*/ && lcStatus && speedStatus && statusStop2) ? UILightState.On : UILightState.Off;
 
             this.uiLightWaterUP.State = status3 ? UILightState.On : UILightState.Off;
 

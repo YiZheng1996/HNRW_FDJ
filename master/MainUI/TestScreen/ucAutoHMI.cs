@@ -2173,18 +2173,55 @@ namespace MainUI
         private void btnHistoryWave_Click(object sender, EventArgs e)
         {
             var button = sender as Button;
-            waveReocrd.TryGetValue(button.Tag.ToString(), out var WRecord);
-            WRecord.CurrentType = false;
+            string waveName = button.Tag.ToString();
+            if (!waveReocrd.TryGetValue(waveName, out var WRecord)) return;
 
-            var chart = GetChartByWaveName(button.Tag.ToString());
-            var pts = WRecord.WaveDataPoints[0].DataPoints;
-            if (pts.Count > 0)
+            WRecord.CurrentType = false;
+            var chart = GetChartByWaveName(waveName);
+
+            // 弹出工况段选择
+            var segments = WRecord.HistorySegments;
+            if (segments.Count == 0)
             {
-                double minX = (pts[0].Timestamp - _waveStartTime).TotalMinutes;
-                double maxX = (pts[pts.Count - 1].Timestamp - _waveStartTime).TotalMinutes + 1d;
-                chart.Option.XAxis.SetRange(minX, maxX);
-                chart.Refresh();
+                // 没有历史段，回看当前工况
+                ShowCurrentSegment(chart, WRecord);
+                return;
             }
+
+            // 用简单 InputBox 或自制窗口让操作员选段
+            // 这里示例直接显示最后一段（可替换为选择弹窗）
+            var seg = segments[segments.Count - 1];
+            ShowHistorySegment(chart, seg);
+        }
+
+        private void ShowCurrentSegment(UILineChart chart, WaveReocrd rec)
+        {
+            var curveName = rec.ReocrdName == "扭矩曲线" ? "扭矩" : "转速";
+            var pts = rec.WaveDataPoints.FirstOrDefault(d => d.CurveName == curveName)?.DataPoints;
+            if (pts == null || pts.Count == 0) return;
+
+            double maxX = (pts[pts.Count - 1].Timestamp - rec.WaveStartTime).TotalMinutes + 1d;
+            chart.Option.XAxis.SetRange(0d, Math.Max(maxX, 1d));
+            chart.Refresh();
+        }
+
+        private void ShowHistorySegment(UILineChart chart, WaveSegment seg)
+        {
+            // 把历史段数据重新填回对应曲线（替换当前数据）
+            var seriesName = chart == LineChartTorque ? "扭矩" : "转速";
+            ClearSeriesData(chart, seriesName);
+
+            foreach (var pt in seg.DataPoints)
+            {
+                double x = (pt.Timestamp - seg.StartTime).TotalMinutes;
+                chart.Option.AddData(seriesName, x, pt.Value);
+            }
+
+            double totalMin = seg.DataPoints.Count > 0
+                ? (seg.DataPoints[seg.DataPoints.Count - 1].Timestamp - seg.StartTime).TotalMinutes + 1d
+                : 1d;
+            chart.Option.XAxis.SetRange(0d, Math.Max(totalMin, 1d));
+            chart.Refresh();
         }
 
         /// <summary>
@@ -2369,7 +2406,7 @@ namespace MainUI
             try
             {
                 if (string.IsNullOrEmpty(cycleCode)) return;
-                if (cycleCode == _lastOverlayCode) return; // 未切码，不重画（先在调用线程判断，避免无谓跨线程）
+                if (cycleCode == _lastOverlayCode) return;
 
                 if (this.InvokeRequired)
                 {
@@ -2377,24 +2414,55 @@ namespace MainUI
                     return;
                 }
 
-                // 重置实时线起点 + 清空实时线历史数据
+                // 切换前：把当前工况数据存档
+                ArchiveCurrentSegment(_lastOverlayCode);
+
+                // 重置实时线起点
                 _waveStartTime = cycleStart;
+
+                // 更新两个记录的 WaveStartTime
+                if (waveReocrd.TryGetValue("扭矩曲线", out var tRec)) tRec.WaveStartTime = cycleStart;
+                if (waveReocrd.TryGetValue("转速曲线", out var sRec)) sRec.WaveStartTime = cycleStart;
+
+                // 清空实时线当前数据
                 ClearSeriesData(LineChartTorque, "扭矩");
                 ClearSeriesData(LineChartSpeed, "转速");
-
-                // 同步清空内存里的数据点（历史/实时切换按钮依赖这个）
-                if (waveReocrd.TryGetValue("扭矩曲线", out var torqueRecord))
-                    torqueRecord.WaveDataPoints.FirstOrDefault(d => d.CurveName == "扭矩")?.DataPoints.Clear();
-                if (waveReocrd.TryGetValue("转速曲线", out var speedRecord))
-                    speedRecord.WaveDataPoints.FirstOrDefault(d => d.CurveName == "转速")?.DataPoints.Clear();
+                tRec?.WaveDataPoints.FirstOrDefault(d => d.CurveName == "扭矩")?.DataPoints.Clear();
+                sRec?.WaveDataPoints.FirstOrDefault(d => d.CurveName == "转速")?.DataPoints.Clear();
 
                 DrawStandardCycle(cycleCode, cycleStart, setXRange: true);
-                SetWaveFixedWindow();      // CurrentType=false，锁定整段窗口
+                SetWaveFixedWindow();
                 _lastOverlayCode = cycleCode;
             }
             catch (Exception ex)
             {
                 Var.LogInfo($"叠加标准工况[{cycleCode}]失败：" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 把当前实时数据快照到历史存档
+        /// </summary>
+        /// <param name="cycleCode"></param>
+        private void ArchiveCurrentSegment(string cycleCode)
+        {
+            if (string.IsNullOrEmpty(cycleCode)) return;
+
+            foreach (var waveName in new[] { "扭矩曲线", "转速曲线" })
+            {
+                if (!waveReocrd.TryGetValue(waveName, out var rec)) continue;
+
+                // 取第一条曲线（扭矩或转速的实时线）
+                var curveName = waveName == "扭矩曲线" ? "扭矩" : "转速";
+                var wdata = rec.WaveDataPoints.FirstOrDefault(d => d.CurveName == curveName);
+                if (wdata == null || wdata.DataPoints.Count == 0) continue;
+
+                rec.HistorySegments.Add(new WaveSegment
+                {
+                    CycleCode = cycleCode,
+                    StartTime = rec.WaveStartTime,
+                    DataPoints = wdata.DataPoints.ToList()  // 深拷贝
+                });
             }
         }
 
