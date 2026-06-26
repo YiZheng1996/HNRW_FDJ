@@ -22,9 +22,35 @@ namespace MainUI.Wave
         public bool CurrentType { get; set; }
 
         /// <summary>
+        /// 本段曲线的X轴起始时间（工况开始时记录）
+        /// </summary>
+        public DateTime WaveStartTime { get; set; } = DateTime.Now;
+
+        /// <summary>
         /// 曲线的条数数据
         /// </summary>
         public List<WaveData> WaveDataPoints { get; set; } = new List<WaveData>();
+    }
+
+    /// <summary>
+    /// 一段工况的历史快照
+    /// </summary>
+    public class WaveSegment
+    {
+        /// <summary>
+        /// 循环代码，如 A / B / C
+        /// </summary>
+        public string CycleCode { get; set; }
+
+        /// <summary>
+        /// 这段工况的X轴起始时间
+        /// </summary>
+        public DateTime StartTime { get; set; }
+
+        /// <summary>
+        /// 数据点快照
+        /// </summary>
+        public List<DataPoint> DataPoints { get; set; } = new List<DataPoint>();
     }
 
     /// <summary>
@@ -43,7 +69,7 @@ namespace MainUI.Wave
         public List<DataPoint> DataPoints { get; set; } = new List<DataPoint>();
     }
 
-    /// <summary>
+    /// <summary>   
     /// 单个数据点
     /// </summary>
     public class DataPoint
