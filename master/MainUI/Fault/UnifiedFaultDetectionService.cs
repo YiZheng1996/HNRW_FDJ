@@ -1136,8 +1136,14 @@ namespace MainUI.Services
             {
                 var faultKey = GetFaultKey(faultType, faultName);
 
-                // 获取当前故障状态(1为故障)
-                var faultState = _faultStates[faultKey];
+                // 键不存在时自动建一个 FaultState，避免 ConcurrentDictionary 索引器抛 KeyNotFoundException。
+                // 这样动态 OPC 故障点（通讯掉线/过流/阀故障…）首次出现也能正常登记、正常跟踪。
+                var faultState = _faultStates.GetOrAdd(faultKey, k => new FaultState
+                {
+                    Name = faultName,
+                    Desc = faultName,
+                    FaultType = faultType
+                });
 
                 // 状态发生变化
                 UpdateFaultStatus(faultKey, faultState, warnType);

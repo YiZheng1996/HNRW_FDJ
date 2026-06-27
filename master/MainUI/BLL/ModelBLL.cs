@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RW.Data;
-using System.Data;
+using MainUI.Data;
 using MainUI.Model;
+using MySql.Data.MySqlClient;
 using RW.Components.Core.BLL;
-using MainUI.Data;   // ← 新增
+using System;
+using System.Data;
 
 namespace MainUI.BLL
 {
@@ -15,7 +11,6 @@ namespace MainUI.BLL
     {
         protected override void Init()
         {
-            // 只改这一处：SQLiteDB → MySqlAdoDb
             this.Database = new MySqlAdoDb(Var.ConnectionString);
             this.ConnectionString = Var.ConnectionString;
             this.Database.ConnectionString = this.ConnectionString;
@@ -24,61 +19,71 @@ namespace MainUI.BLL
 
         public DataTable GetAllKind()
         {
-            // 原逻辑不变，无方括号
             string sql = "select a.ID, Name,a.typeid,b.modeltype,a.mark from Model a,ModelType b where a.typeID = b.ID order by a.id";
             return this.GetDataTable(sql);
         }
 
         public DataTable GetAllKindByCon(string condition)
         {
-            // 原逻辑不变
             string sql = "select a.ID, Name,a.typeid,b.modeltype,a.mark from Model a,ModelType b where a.typeID = b.ID " + condition + " order by a.id";
             return this.GetDataTable(sql);
         }
 
         public bool IsExist(string modelName)
         {
-            // 原逻辑不变，无方括号
-            string sql = string.Format("select name from Model where name='{0}'", modelName);
-            DataTable dt = Database.GetDataSet(sql).Tables[0];
+            var db = (MySqlAdoDb)base.Database;
+            DataTable dt = db.GetDataSet(
+                "select name from Model where name=@name",
+                new MySqlParameter("@name", modelName ?? "")).Tables[0];
             return dt != null && dt.Rows.Count > 0;
         }
 
         public bool Add(string modelName, int typeid, string mark)
         {
-            // 去掉 [Model]、[name] 的方括号
-            string sql = string.Format(
-                "insert into Model(name,typeid,mark,CreateTime) values('{0}',{1},'{2}','{3}')",
-                modelName, typeid, mark, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            return base.Database.ExecuteNonQuery(sql, null) >= 1;
+            var db = (MySqlAdoDb)base.Database;
+            string sql = "insert into Model(name,typeid,mark,CreateTime) values(@name,@typeid,@mark,@ct)";
+            var ps = new MySqlParameter[]
+            {
+                new MySqlParameter("@name",   modelName ?? ""),
+                new MySqlParameter("@typeid", typeid),
+                new MySqlParameter("@mark",   mark ?? ""),
+                new MySqlParameter("@ct",     DateTime.Now),   // 直接传 DateTime，免区域格式问题
+            };
+            return db.ExecuteNonQuery(sql, ps) >= 1;
         }
 
         public bool Delete(string modelID)
         {
-            // 去掉 [Model] 的方括号
-            string sql = string.Format("delete from Model where ID={0}", modelID);
-            return base.Database.ExecuteNonQuery(sql, null) >= 1;
+            var db = (MySqlAdoDb)base.Database;
+            return db.ExecuteNonQuery(
+                "delete from Model where ID=@id",
+                new MySqlParameter("@id", modelID ?? "")) >= 1;
         }
 
         public bool Update(string modelID, string name, int typeid, string mark)
         {
-            // 去掉 [Model]、[name] 的方括号
-            string sql = string.Format(
-                "update Model set name='{1}',typeid={2},mark='{3}',CreateTime='{4}' where ID={0}",
-                modelID, name, typeid, mark, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            return base.Database.ExecuteNonQuery(sql, null) >= 1;
+            var db = (MySqlAdoDb)base.Database;
+            string sql = "update Model set name=@name, typeid=@typeid, mark=@mark, CreateTime=@ct where ID=@id";
+            var ps = new MySqlParameter[]
+            {
+                new MySqlParameter("@name",   name ?? ""),
+                new MySqlParameter("@typeid", typeid),
+                new MySqlParameter("@mark",   mark ?? ""),
+                new MySqlParameter("@ct",     DateTime.Now),
+                new MySqlParameter("@id",     modelID ?? ""),
+            };
+            return db.ExecuteNonQuery(sql, ps) >= 1;
         }
 
         public TestViewModel GetModel(System.Data.DataRow row)
         {
-            // 原逻辑完全不变
             TestViewModel mTestViewModel = new TestViewModel();
             if (row == null)
                 return mTestViewModel;
-            mTestViewModel.ModelID   = int.Parse(row["ID"].ToString());
+            mTestViewModel.ModelID = int.Parse(row["ID"].ToString());
             mTestViewModel.ModelName = row["Name"].ToString();
             mTestViewModel.ModelType = row["modeltype"].ToString();
-            mTestViewModel.Mark      = row["mark"].ToString();
+            mTestViewModel.Mark = row["mark"].ToString();
             return mTestViewModel;
         }
     }

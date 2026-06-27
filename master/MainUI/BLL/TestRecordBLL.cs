@@ -1,13 +1,9 @@
+using MainUI.Data;
+using MySql.Data.MySqlClient;
+using RW.Components.Core.BLL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RW.UI;
 using System.Data;
-using RW.Data;
-using RW.Components.Core.BLL;
-using MainUI.Data;   // ← 新增
 
 namespace MainUI.BLL
 {
@@ -15,58 +11,64 @@ namespace MainUI.BLL
     {
         protected override void Init()
         {
-            // 只改这一处：SQLiteDB → MySqlAdoDb
-            this.Database = new MySqlAdoDb(Var.ConnectionString);
             this.ConnectionString = Var.ConnectionString;
-            this.Database.ConnectionString = this.ConnectionString;
             this.TableName = "Record";
-            base.Init();
+            base.Init();                                          // 先让基类初始化（可能用到 TableName）
+            this.Database = new MySqlAdoDb(Var.ConnectionString); // 最后赋值，确保不被基类覆盖
+            this.Database.ConnectionString = this.ConnectionString;
         }
 
         public DataTable GetList()
         {
-            // 原逻辑不变
-            string sql = string.Format("select * from Record ");
+            string sql = "select * from Record ";
             return this.GetDataTable(sql);
         }
 
         public int SaveData(string kind, string model, string testid, string tester, string testtime, string reportPath)
         {
-            // 原逻辑不变，SQL 本身无方括号
-            string sql = string.Format(
-                "insert into Record (Kind,Model,TestID,Tester,TestTime,ReportPath,status) values ({0},'{1}','{2}','{3}','{4}','{5}',1)",
-                kind, model, testid, tester, testtime, reportPath);
-            return base.Database.ExecuteNonQuery(sql, null);
+            var db = (MySqlAdoDb)base.Database;
+            string sql = "insert into Record (Kind,Model,TestID,Tester,TestTime,ReportPath,status) " +
+                         "values(@kind,@model,@testid,@tester,@testtime,@report,1)";
+            var ps = new MySqlParameter[]
+            {
+                new MySqlParameter("@kind",     kind ?? ""),       // Kind 为整型外键，驱动会把 "3" 转 3
+                new MySqlParameter("@model",    model ?? ""),
+                new MySqlParameter("@testid",   testid ?? ""),
+                new MySqlParameter("@tester",   tester ?? ""),
+                new MySqlParameter("@testtime", testtime ?? ""),
+                new MySqlParameter("@report",   reportPath ?? ""), // 反斜杠路径参数化后不再被转义
+            };
+            return db.ExecuteNonQuery(sql, ps);
         }
 
         public DataTable FindList(string lx, string xh, string bh, string czy, DateTime from, DateTime to)
         {
-            // 原逻辑完全不变：
-            // Record.Kind = ModelType.ID，两表现已同在 MySQL，JOIN 直接生效
-            string where = "and 1=1 ";
-            where += " and status=1 ";
-            if (!string.IsNullOrEmpty(lx))
-                where += " and kind=" + lx;
-            if (!string.IsNullOrEmpty(xh))
-                where += " and Model='" + xh + "'";
-            if (!string.IsNullOrEmpty(bh))
-                where += " and TestID like '" + bh + "'";
-            if (!string.IsNullOrEmpty(czy))
-                where += " and Tester = '" + czy + "'";
+            var db = (MySqlAdoDb)base.Database;
+            var ps = new List<MySqlParameter>();
 
-            where += " and testTime BETWEEN '" + from.Date.ToString("yyyy-MM-dd 00:00:00") +
-                     "' and '" + to.Date.ToString("yyyy-MM-dd 23:59:59") + "'";
-            where += " order by TestTime desc";
+            string where = " and a.status=1 ";
+            if (!string.IsNullOrEmpty(lx)) { where += " and a.kind=@kind "; ps.Add(new MySqlParameter("@kind", lx)); }
+            if (!string.IsNullOrEmpty(xh)) { where += " and a.Model=@model "; ps.Add(new MySqlParameter("@model", xh)); }
+            if (!string.IsNullOrEmpty(bh)) { where += " and a.TestID like @testid "; ps.Add(new MySqlParameter("@testid", bh)); }
+            if (!string.IsNullOrEmpty(czy)) { where += " and a.Tester=@tester "; ps.Add(new MySqlParameter("@tester", czy)); }
 
-            string sql1 = "select a.ID,a.model,a.testid,a.tester,a.testtime,a.reportpath,b.modeltype from Record a,modeltype b where a.kind=b.id " + where;
-            return this.GetDataTable(sql1);
+            where += " and a.testTime between @from and @to ";
+            ps.Add(new MySqlParameter("@from", from.Date));                          // 当天 00:00:00
+            ps.Add(new MySqlParameter("@to", to.Date.AddDays(1).AddSeconds(-1)));  // 当天 23:59:59
+            where += " order by a.TestTime desc";
+
+            string sql = "select a.ID,a.model,a.testid,a.tester,a.testtime,a.reportpath,b.modeltype " +
+                         "from Record a, modeltype b where a.kind=b.id " + where;
+
+            return db.GetDataSet(sql, ps.ToArray()).Tables[0];
         }
 
         public int DelData(int id)
         {
-            // 原逻辑不变
-            string sql = string.Format("update Record set status=0 where id = {0}", id);
-            return base.Database.ExecuteNonQuery(sql, null);
+            var db = (MySqlAdoDb)base.Database;
+            return db.ExecuteNonQuery(
+                "update Record set status=0 where id=@id",
+                new MySqlParameter("@id", id));
         }
     }
 }

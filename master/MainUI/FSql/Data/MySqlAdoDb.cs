@@ -6,11 +6,6 @@ using RW.Data;
 
 namespace MainUI.Data
 {
-    /// <summary>
-    /// 基于 MySql.Data 的适配器，实现 RW.Data.IDbBase 接口。
-    /// 用于替代原 SQLiteDB，供 BaseBLL 子类（UserBLL / SysLogBLL 等）使用。
-    /// MySql.Data 已随 FreeSql MySQL 驱动一同引入，无需额外 NuGet 包。
-    /// </summary>
     public class MySqlAdoDb : IDbBase
     {
         private string _connStr;
@@ -28,7 +23,6 @@ namespace MainUI.Data
             _connStr = connectionString;
         }
 
-        // 连接测试
         public void Connect()
         {
             try
@@ -45,7 +39,7 @@ namespace MainUI.Data
             }
         }
 
-        // 查询：返回 DataSet
+        // 查询：返回 DataSet（不带参数）
         public DataSet GetDataSet(string sql)
         {
             try
@@ -65,7 +59,31 @@ namespace MainUI.Data
             }
         }
 
-        // 执行非查询（不带参数）
+        // 查询：返回 DataSet（带参数）—— 新增，供 BLL 做参数化 SELECT
+        public DataSet GetDataSet(string sql, params DbParameter[] parameters)
+        {
+            try
+            {
+                var ds = new DataSet();
+                using (var conn = new MySqlConnection(_connStr))
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    if (parameters != null && parameters.Length > 0)
+                        cmd.Parameters.AddRange(parameters);
+                    using (var adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(ds);
+                    }
+                }
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                Var.LogInfo("MySqlAdoDb.GetDataSet(params) 异常: " + ex.Message + " SQL: " + sql);
+                throw;
+            }
+        }
+
         public int ExecuteNonQuery(string sql)
         {
             try
@@ -84,18 +102,13 @@ namespace MainUI.Data
             }
         }
 
-        // 执行非查询（object[] 参数，当前 BLL 均传 null）
+        // object[] 参数：当前 BLL 普遍传 null，视为无参直接执行
         public int ExecuteNonQuery(string sql, object[] param)
         {
-            if (param is null)
-            {
-                throw new ArgumentNullException(nameof(param));
-            }
-
             return ExecuteNonQuery(sql);
         }
 
-        // 执行非查询（DbParameter[] 参数）
+        // DbParameter[] 参数
         public int ExecuteNonQuery(string sql, params DbParameter[] parameters)
         {
             try
@@ -116,7 +129,6 @@ namespace MainUI.Data
             }
         }
 
-        // 使用 CloseConnection，reader 关闭时连接自动释放
         public DbDataReader ExecuteReader(string sql)
         {
             try
@@ -133,7 +145,6 @@ namespace MainUI.Data
             }
         }
 
-        // 标量查询
         public object ExecuteScalar(string sql)
         {
             try
