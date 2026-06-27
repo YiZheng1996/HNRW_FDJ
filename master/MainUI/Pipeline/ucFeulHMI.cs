@@ -36,6 +36,7 @@ namespace MainUI
         // 模拟量的集合
         Dictionary<string, ucPipePara> DoubleDicValve = new Dictionary<string, ucPipePara>();
 
+
         // 测试GIT
         public void Init()
         {
@@ -479,7 +480,28 @@ namespace MainUI
             var MassFlowCC = this.ucPipePara14.Value - this.ucPipePara9.Value;
 
             this.flowDiff.Text = Math.Round(MassFlowCC, 1).ToString();
-            this.lblOilCoast.Text = Math.Round(MassFlowCC *1000 / MiddleData.instnce.EnginePower, 1).ToString();
+
+            //计算燃油油耗率
+            //因为重量断开连接之后，值无穷带，所以当发动机功率为零的时候换电功率计算
+            //一直累加
+            if (MiddleData.instnce.EnginePower != 0 )
+            { 
+                Var.SysConfig.FOilNum = Var.SysConfig.FOilNum + Math.Round(MassFlowCC * 1000 / MiddleData.instnce.EnginePower, 1);
+                Var.SysConfig.Save();
+                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString();
+               
+            }
+            else if(MiddleData.instnce.EnginePower == 0 && Common.threePhaseElectric.DataValue["有功功率"] != 0)
+            {
+                Var.SysConfig.FOilNum = Var.SysConfig.FOilNum + Math.Round(MassFlowCC * 1000 / Common.threePhaseElectric.DataValue["有功功率"], 1);
+                Var.SysConfig.Save();
+                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString();
+            }
+            else
+            {
+                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString();
+            }
+
         }
 
         private void switchPictureBox13_SwitchChanged(object sender, bool value)

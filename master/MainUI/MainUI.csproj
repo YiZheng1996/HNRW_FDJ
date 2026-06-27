@@ -990,8 +990,14 @@
     <EmbeddedResource Include="Manager\AutoPara\ucExcitationRegulationParams.resx">
       <DependentUpon>ucExcitationRegulationParams.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AIGrp.resx">
+      <DependentUpon>AIGrp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modules\AOGrp.resx">
       <DependentUpon>AOGrp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\DOGrp.resx">
+      <DependentUpon>DOGrp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\OpcStatusGrp.resx">
       <DependentUpon>OpcStatusGrp.cs</DependentUpon>

@@ -1759,7 +1759,7 @@ namespace MainUI
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("宋体", 14F);
-            this.label8.Location = new System.Drawing.Point(1479, 666);
+            this.label8.Location = new System.Drawing.Point(59, 896);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(192, 19);
             this.label8.TabIndex = 921;
@@ -1771,7 +1771,7 @@ namespace MainUI
             this.flowDiff.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.flowDiff.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.flowDiff.ForeColor = System.Drawing.Color.Black;
-            this.flowDiff.Location = new System.Drawing.Point(1687, 661);
+            this.flowDiff.Location = new System.Drawing.Point(259, 889);
             this.flowDiff.Name = "flowDiff";
             this.flowDiff.Size = new System.Drawing.Size(91, 28);
             this.flowDiff.TabIndex = 920;
@@ -1783,7 +1783,7 @@ namespace MainUI
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("宋体", 14F);
-            this.label9.Location = new System.Drawing.Point(1479, 703);
+            this.label9.Location = new System.Drawing.Point(59, 933);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(194, 19);
             this.label9.TabIndex = 922;
@@ -1795,9 +1795,9 @@ namespace MainUI
             this.lblOilCoast.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblOilCoast.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblOilCoast.ForeColor = System.Drawing.Color.Black;
-            this.lblOilCoast.Location = new System.Drawing.Point(1687, 696);
+            this.lblOilCoast.Location = new System.Drawing.Point(259, 933);
             this.lblOilCoast.Name = "lblOilCoast";
-            this.lblOilCoast.Size = new System.Drawing.Size(91, 28);
+            this.lblOilCoast.Size = new System.Drawing.Size(1542, 28);
             this.lblOilCoast.TabIndex = 923;
             this.lblOilCoast.Tag = "";
             this.lblOilCoast.Text = "0.0";
@@ -2236,16 +2236,16 @@ namespace MainUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.swp181);
-            this.Controls.Add(this.swp182);
-            this.Controls.Add(this.swp190);
-            this.Controls.Add(this.swp184);
-            this.Controls.Add(this.swp179);
-            this.Controls.Add(this.swp164);
-            this.Controls.Add(this.swp61);
-            this.Controls.Add(this.swp183);
-            this.Controls.Add(this.swp27);
             this.Controls.Add(this.swp33);
+            this.Controls.Add(this.swp27);
+            this.Controls.Add(this.swp183);
+            this.Controls.Add(this.swp61);
+            this.Controls.Add(this.swp164);
+            this.Controls.Add(this.swp179);
+            this.Controls.Add(this.swp184);
+            this.Controls.Add(this.swp190);
+            this.Controls.Add(this.swp182);
+            this.Controls.Add(this.swp181);
             this.Controls.Add(this.rButton63);
             this.Controls.Add(this.rButton64);
             this.Controls.Add(this.label30);
