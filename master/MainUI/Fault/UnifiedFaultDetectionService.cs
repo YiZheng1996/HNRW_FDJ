@@ -681,7 +681,10 @@ namespace MainUI.Services
                 "【机油】机滤器1前后压差过大",
                 "【机油】机滤器2前后压差过大",
                 "厂房总气压不足",
-                "急停按钮已按下"
+                "急停按钮已按下",
+                "高温水进机流量为0",
+                "中冷水出机流量为0",
+                "机油进机流量为0",
             };
 
             foreach (var faultName in calculateFaults)
@@ -694,7 +697,7 @@ namespace MainUI.Services
                            faultName.Contains("精滤器") ? $"{faultName}，精滤器堵塞。" :
                            faultName.Contains("机滤器") ? $"{faultName}，机滤器堵塞。" :
                            faultName == "急停按钮已按下" ? "急停按钮已按下！请确认现场安全后复位急停按钮。" :
-                           $"{faultName}",
+                           $"{faultName}",  
                     FaultType = FaultTypeEnum.calculate,
                 };
             }
@@ -1008,6 +1011,38 @@ namespace MainUI.Services
                 Isfault5 = true;
             }
             FaultStatusChange(FaultTypeEnum.calculate, Isfault5 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "厂房总气压不足");
+
+
+
+            //------------------------------------------------------------------------------------------------------------------
+            //当转速大于最低转速-10，设置励磁不等于0
+            //判断高温水，中冷水，机油流量是否大于最低流量
+            var hWater = Common.AIgrp["高温水流量测量-L3"];
+            bool Isfault6 = false;
+            if (hWater <= 30 && Var.TRDP.GetDicValue("柴油机转速") > MiddleData.instnce.TrialConfig.MinSpeed - 10 && Common.AOgrp["励磁调节"] != 0)
+            {
+                Isfault6 = true;
+            }
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault6 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "高温水进机流量为0");
+
+            var cWater = Common.AIgrp["中冷水流量测量-L8"];
+            bool Isfault7 = false;
+            if (cWater <= 30 && Var.TRDP.GetDicValue("柴油机转速") > MiddleData.instnce.TrialConfig.MinSpeed - 10 && Common.AOgrp["励磁调节"] != 0)
+            {
+                Isfault7 = true;
+            }
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault7 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "中冷水出机流量为0");
+
+            var Oil = Common.AIgrp["机油流量"];
+            bool Isfault8 = false;
+            if (Oil <= 30 && Var.TRDP.GetDicValue("柴油机转速") > MiddleData.instnce.TrialConfig.MinSpeed - 10 && Common.AOgrp["励磁调节"] != 0)
+            {
+                Isfault8 = true;
+            }
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault8 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "机油进机流量为0");
+            //------------------------------------------------------------------------------------------------------------------
+
+
 
             // 急停按钮：紧急停止DI为 false 表示已按下
             bool IsScramPressed = Common.DIgrp["紧急停止"] == false;
