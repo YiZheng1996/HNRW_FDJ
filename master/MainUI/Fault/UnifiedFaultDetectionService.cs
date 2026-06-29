@@ -682,9 +682,9 @@ namespace MainUI.Services
                 "【机油】机滤器2前后压差过大",
                 "厂房总气压不足",
                 "急停按钮已按下",
-                "高温水进机流量为0",
-                "中冷水出机流量为0",
-                "机油进机流量为0",
+                "高温水进机流量低",
+                "中冷水出机流量低",
+                "机油进机流量低",
             };
 
             foreach (var faultName in calculateFaults)
@@ -1023,7 +1023,7 @@ namespace MainUI.Services
             {
                 Isfault6 = true;
             }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault6 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "高温水进机流量为0");
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault6 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "高温水进机流量低");
 
             var cWater = Common.AIgrp["中冷水流量测量-L8"];
             bool Isfault7 = false;
@@ -1031,7 +1031,7 @@ namespace MainUI.Services
             {
                 Isfault7 = true;
             }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault7 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "中冷水出机流量为0");
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault7 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "中冷水出机流量低");
 
             var Oil = Common.AIgrp["机油流量"];
             bool Isfault8 = false;
@@ -1039,7 +1039,7 @@ namespace MainUI.Services
             {
                 Isfault8 = true;
             }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault8 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "机油进机流量为0");
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault8 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "机油进机流量低");
             //------------------------------------------------------------------------------------------------------------------
 
 
