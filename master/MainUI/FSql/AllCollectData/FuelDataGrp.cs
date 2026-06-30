@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,62 +9,37 @@ namespace MainUI.FSql.AllCollectData
 {
     public class FuelDataGrp
     {
-
-        //FuelGrp
-        /// <summary>
-        /// 水阻箱温度检测
-        /// </summary>
+        [JsonProperty("Fuel_水阻箱温度检测")]
         public double WaterResistBoxTemperatureDetect { get; set; }
 
-        /// <summary>
-        /// 精滤器2前压力检测-P36
-        /// </summary>
+        [JsonProperty("Fuel_精滤器2前压力检测-P36")]
         public double FineFilter2FrontPressureDetectP36 { get; set; }
 
-        /// <summary>
-        /// 水阻箱极板位移检测
-        /// </summary>
+        [JsonProperty("Fuel_水阻箱极板位移检测")]
         public double WaterResistBoxPolarPlateDisplacementDetect { get; set; }
 
-        /// <summary>
-        /// 粗滤器2后压力检测-P33
-        /// </summary>
+        [JsonProperty("Fuel_粗滤器2后压力检测-P33")]
         public double CoarseFilter2RearPressureDetectP33 { get; set; }
 
-        /// <summary>
-        /// 精滤器1前压力检测-P34
-        /// </summary>
+        [JsonProperty("Fuel_精滤器1前压力检测-P34")]
         public double FineFilter1FrontPressureDetectP34 { get; set; }
 
-        /// <summary>
-        /// 粗滤器1后压力检测-P31
-        /// </summary>
+        [JsonProperty("Fuel_粗滤器1后压力检测-P31")]
         public double CoarseFilter1RearPressureDetectP31 { get; set; }
 
-        /// <summary>
-        /// 精滤器2后压力检测-P37
-        /// </summary>
+        [JsonProperty("Fuel_精滤器2后压力检测-P37")]
         public double FineFilter2RearPressureDetectP37 { get; set; }
 
-        /// <summary>
-        /// 粗滤器2前压力检测-P32
-        /// </summary>
+        [JsonProperty("Fuel_粗滤器2前压力检测-P32")]
         public double CoarseFilter2FrontPressureDetectP32 { get; set; }
 
-        /// <summary>
-        /// 柴油箱液位检测-L29
-        /// </summary>
+        [JsonProperty("Fuel_柴油箱液位检测-L29")]
         public double DieselTankLevelDetectL29 { get; set; }
 
-        /// <summary>
-        /// 精滤器1后压力检测-P35
-        /// </summary>
+        [JsonProperty("Fuel_精滤器1后压力检测-P35")]
         public double FineFilter1RearPressureDetectP35 { get; set; }
 
-        /// <summary>
-        /// 粗滤器1前压力检测-P30
-        /// </summary>
+        [JsonProperty("Fuel_粗滤器1前压力检测-P30")]
         public double CoarseFilter1FrontPressureDetectP30 { get; set; }
-
     }
 }

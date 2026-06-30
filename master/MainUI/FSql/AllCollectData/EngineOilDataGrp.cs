@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,97 +9,55 @@ namespace MainUI.FSql.AllCollectData
 {
     public class EngineOilDataGrp
     {
-
-        //EngineOilGrp
-        /// <summary>
-        /// 流量计口后压力检测-P29
-        /// </summary>
+        [JsonProperty("Oil_流量计口后压力检测-P29")]
         public double FlowMeterRearPressureDetectP29 { get; set; }
 
-        /// <summary>
-        /// 机油箱出口后压力检测-P23
-        /// </summary>
+        [JsonProperty("Oil_机油箱出口后压力检测-P23")]
         public double OilTankOutletRearPressureDetectP23 { get; set; }
 
-        /// <summary>
-        /// 机油箱出口前压力检测-P22
-        /// </summary>
+        [JsonProperty("Oil_机油箱出口前压力检测-P22")]
         public double OilTankOutletFrontPressureDetectP22 { get; set; }
 
-        /// <summary>
-        /// 机油温度密码
-        /// </summary>
+        [JsonProperty("Oil_机油温度密码")]
         public double OilTemperaturePassword { get; set; }
 
-        /// <summary>
-        /// 机油温度实时PID
-        /// </summary>
+        [JsonProperty("Oil_机油温度实时PID")]
         public double OilTemperatureRealTimePID { get; set; }
 
-        /// <summary>
-        /// 待处理机油箱液位检测-L19
-        /// </summary>
+        [JsonProperty("Oil_待处理机油箱液位检测-L19")]
         public double PendingOilTankLevelDetectL19 { get; set; }
 
-        /// <summary>
-        /// 冷却器进口油温-T25
-        /// </summary>
+        [JsonProperty("Oil_冷却器进口油温-T25")]
         public double CoolerInletOilTemperatureT25 { get; set; }
 
-        /// <summary>
-        /// 预供机油压力检测-P19
-        /// </summary>
+        [JsonProperty("Oil_预供机油压力检测-P19")]
         public double PreSupplyOilPressureDetectP19 { get; set; }
 
-        /// <summary>
-        /// 前压力检测-P24
-        /// </summary>
+        [JsonProperty("Oil_前压力检测-P24")]
         public double FrontPressureDetectP24 { get; set; }
 
-        /// <summary>
-        /// 机油温度设置PID
-        /// </summary>
+        [JsonProperty("Oil_机油温度设置PID")]
         public double OilTemperatureSetPID { get; set; }
 
-        /// <summary>
-        /// 后压力检测-P25
-        /// </summary>
+        [JsonProperty("Oil_后压力检测-P25")]
         public double RearPressureDetectP25 { get; set; }
 
-        /// <summary>
-        /// 机油箱液位检测-L18
-        /// </summary>
+        [JsonProperty("Oil_机油箱液位检测-L18")]
         public double OilTankLevelDetectL18 { get; set; }
 
-        /// <summary>
-        /// 机油箱温度检测-T23
-        /// </summary>
+        [JsonProperty("Oil_机油箱温度检测-T23")]
         public double OilTankTemperatureDetectT23 { get; set; }
 
-        /// <summary>
-        /// 流量计口前压力检测-P28
-        /// </summary>
+        [JsonProperty("Oil_流量计口前压力检测-P28")]
         public double FlowMeterFrontPressureDetectP28 { get; set; }
 
-        /// <summary>
-        /// 前1压力检测-P26
-        /// </summary>
+        [JsonProperty("Oil_前1压力检测-P26")]
         public double Front1PressureDetectP26 { get; set; }
 
-        /// <summary>
-        /// 后1压力检测-P27
-        /// </summary>
+        [JsonProperty("Oil_后1压力检测-P27")]
         public double Rear1PressureDetectP27 { get; set; }
 
-        /// <summary>
-        /// 待处理机油箱温度检测-T24
-        /// </summary>
+        [JsonProperty("Oil_待处理机油箱温度检测-T24")]
         public double PendingOilTankTemperatureDetectT24 { get; set; }
-
-        /// <summary>
-        /// 机油温度PID上限值
-        /// </summary>
-        public double OilTemperaturePIDUpperLimit { get; set; }
-
     }
 }
