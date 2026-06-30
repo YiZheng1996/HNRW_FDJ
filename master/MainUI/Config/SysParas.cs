@@ -38,6 +38,13 @@ namespace MainUI.Config
         [IniKeyName("发动机运行时间")]
         public double RunTime { get; set; }
 
+
+        /// <summary>
+        /// 发动机怠速运行时间 min
+        /// </summary>
+        [IniKeyName("发动机怠速运行时间")]
+        public double dsRunTime { get; set; }
+
         /// <summary>
         /// 设备名称
         /// </summary>
