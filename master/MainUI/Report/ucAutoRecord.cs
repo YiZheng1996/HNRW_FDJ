@@ -161,8 +161,8 @@ namespace MainUI.Report
 
             InitializeColumnDefinitions();
 
-            // 初始化DataGridView列（只执行一次）
-            InitializeDataGridViewColumns();
+            // 初始化DataGridView列（只执行一次）默认自动模式
+            InitializeDataGridViewColumns(_columnDefinitions);
 
             // 初始化时禁用分页按钮
             UpdatePaginationButtons();
@@ -172,7 +172,70 @@ namespace MainUI.Report
             {
                 this.txtNumber.Text = no;
             };
+
+            // 手动/自动切换事件
+            this.rdoManual.CheckedChanged += RdoMode_CheckedChanged;
+            this.rdoAuto.CheckedChanged += RdoMode_CheckedChanged;
         }
+
+        // 模式切换处理：重建列、清空数据
+        private void RdoMode_CheckedChanged(object sender, EventArgs e)
+        {
+            // CheckedChanged 在两个按钮上都会触发，只处理"刚被选中"的那次即可
+            var rb = sender as RadioButton;
+            if (rb == null || !rb.Checked) return;
+
+            InitializeDataGridViewColumns(CurrentColumnDefinitions);
+            ClearDataGridViewRows();
+            _allData = new List<IRecordData>();
+            lblTotalNum.Text = "共 0 条";
+            UpdatePaginationButtons();
+        }
+
+        /// <summary>
+        /// 在DataGridView中显示数据
+        /// </summary>
+        private void DisplayData(List<IRecordData> data)
+        {
+            ClearDataGridViewRows();
+
+            if (data == null || data.Count == 0)
+                return;
+
+            if (!_columnsInitialized)
+            {
+                InitializeDataGridViewColumns(CurrentColumnDefinitions);
+            }
+
+            int recordNumber = (_currentPage - 1) * _pageSize + 1;
+            foreach (var record in data)
+            {
+                var row = dgvRecord.Rows[dgvRecord.Rows.Add()];
+                int columnIndex = 0;
+
+                foreach (var column in CurrentColumnDefinitions)
+                {
+                    object value = null;
+
+                    if (column.PropertyName == "Index")
+                    {
+                        value = recordNumber;
+                    }
+                    else if (column.PropertyInfo != null)
+                    {
+                        value = column.PropertyInfo.GetValue(record);
+                    }
+
+                    row.Cells[columnIndex].Value = FormatValueForDisplay(value);
+                    columnIndex++;
+                }
+
+                recordNumber++;
+            }
+
+            AutoAdjustColumns();
+        }
+
 
         private void ucAutoRecord_Load(object sender, EventArgs e)
         {
@@ -187,31 +250,31 @@ namespace MainUI.Report
         /// </summary>
         private void InitializeColumnDefinitions()
         {
-            var type = typeof(AutoRecordPara);
+            var autoType = typeof(AutoRecordPara);
             foreach (var column in _columnDefinitions)
-            {
-                column.PropertyInfo = type.GetProperty(column.PropertyName);
-            }
+                column.PropertyInfo = autoType.GetProperty(column.PropertyName);
+
+            var manualType = typeof(ManualRecordPara);
+            foreach (var column in _manualColumnDefinitions)
+                column.PropertyInfo = manualType.GetProperty(column.PropertyName);
         }
 
         /// <summary>
         /// 初始化DataGridView列（只执行一次）
         /// </summary>
-        private void InitializeDataGridViewColumns()
+        private void InitializeDataGridViewColumns(List<ColumnDefinition> columns)
         {
-            if (_columnsInitialized) return;
+            dgvRecord.Columns.Clear();
 
             // 设置表头样式
             dgvRecord.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvRecord.ColumnHeadersDefaultCellStyle.Font = new Font("宋体", 15F, FontStyle.Regular);
-            dgvRecord.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False; // 禁止换行
+            dgvRecord.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
-            // 设置行高和列宽
             dgvRecord.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dgvRecord.RowTemplate.Height = 25;
 
-            // 添加列（只添加一次）
-            foreach (var column in _columnDefinitions)
+            foreach (var column in columns)
             {
                 var dataColumn = new DataGridViewTextBoxColumn
                 {
@@ -225,7 +288,6 @@ namespace MainUI.Report
                 dgvRecord.Columns.Add(dataColumn);
             }
 
-            // 标记列已初始化
             _columnsInitialized = true;
         }
 
@@ -350,44 +412,28 @@ namespace MainUI.Report
                 return;
             }
 
+            // 手动模式：按出厂记录表模板填充
+            if (rdoManual.Checked)
+            {
+                ExportManualToExcel();
+                return;
+            }
+
+            // ── 自动模式：保持原有 CSV 导出逻辑，完全不变 ───────────────────
             try
             {
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                 {
-                    saveFileDialog.Filter = "CSV 文件 (*.csv)|*.csv|Excel 文件 (*.xlsx)|*.xlsx";  // 将CSV放在前面
+                    saveFileDialog.Filter = "CSV 文件 (*.csv)|*.csv|Excel 文件 (*.xlsx)|*.xlsx";
                     saveFileDialog.FilterIndex = 1;
-                    saveFileDialog.FileName = $"{searchName}_{this.cboModel.Text}_{this.txtNumber.Text}_{DateTime.Now:yyyyMMdd_HHmmss}.csv";  // 默认加上.csv扩展                                                       // 或者更明确地设置默认扩展名
+                    saveFileDialog.FileName = $"{searchName}_{this.cboModel.Text}_{this.txtNumber.Text}_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
                     saveFileDialog.DefaultExt = "csv";
-                    saveFileDialog.AddExtension = true;  // 确保自动添加扩展名
+                    saveFileDialog.AddExtension = true;
 
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        // 准备导出数据
-                        var exportData = PrepareExportData();
-
-                        // 根据文件类型导出
                         string filePath = saveFileDialog.FileName;
-                        if (filePath.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
-                        {
-
-                            // 直接写入CSV文件
-                            WriteDataToCsv(filePath);
-                            //await MiniExcel.SaveAsAsync(filePath, exportData, configuration: new MiniExcelLibs.OpenXml.OpenXmlConfiguration()
-                            //{
-
-                            //});
-                        }
-                        else if (filePath.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
-                        {
-                            // 直接写入CSV文件
-                            WriteDataToCsv(filePath);
-                            //await MiniExcel.SaveAsAsync(filePath, exportData,
-                            //configuration: new MiniExcelLibs.Csv.CsvConfiguration()
-                            //{
-
-                            //});
-                        }
-
+                        WriteDataToCsv(filePath);   // xlsx/csv 都走这个（与原代码一致）
                         Var.MsgBoxInfo(this, $"成功导出 {_allData.Count} 条记录到：{filePath}");
                     }
                 }
@@ -488,54 +534,6 @@ namespace MainUI.Report
 
             DisplayData(pageData);
             UpdatePaginationButtons();
-        }
-
-        /// <summary>
-        /// 在DataGridView中显示数据
-        /// </summary>
-        private void DisplayData(List<IRecordData> data)
-        {
-            ClearDataGridViewRows(); // 只清空行，不清空列
-
-            if (data == null || data.Count == 0)
-                return;
-
-            // 确保列已初始化
-            if (!_columnsInitialized)
-            {
-                InitializeDataGridViewColumns();
-            }
-
-            // 添加数据行
-            int recordNumber = (_currentPage - 1) * _pageSize + 1;
-            foreach (var record in data)
-            {
-                var row = dgvRecord.Rows[dgvRecord.Rows.Add()];
-                int columnIndex = 0;
-
-                foreach (var column in _columnDefinitions)
-                {
-                    object value = null;
-
-                    // 处理序号列
-                    if (column.PropertyName == "Index")
-                    {
-                        value = recordNumber;
-                    }
-                    else if (column.PropertyInfo != null)
-                    {
-                        value = column.PropertyInfo.GetValue(record);
-                    }
-
-                    row.Cells[columnIndex].Value = FormatValueForDisplay(value);
-                    columnIndex++;
-                }
-
-                recordNumber++;
-            }
-
-            // 自动调整列宽（确保内容完全显示）
-            AutoAdjustColumns();
         }
 
         /// <summary>
@@ -818,5 +816,208 @@ namespace MainUI.Report
             _columnNameCache[columnIndex] = columnName;
             return columnName;
         }
+
+        #region 磨合试验数据改造
+
+        // ── 1. 新增手动模式列定义（与现有 _columnDefinitions 并列存在）──────────
+        // 字段名对齐 ManualRecordPara 实际属性（含直接继承自 IRecordData 基类的字段）
+        private readonly List<ColumnDefinition> _manualColumnDefinitions = new List<ColumnDefinition>
+        {
+            new ColumnDefinition("Index",          "序号"),
+            new ColumnDefinition("RecordDataTime", "采集时间"),
+            new ColumnDefinition("TestHour",       "时"),
+            new ColumnDefinition("TestMinute",     "分"),
+            new ColumnDefinition("NominalRPM",     "名义转速 rpm"),
+            new ColumnDefinition("RPM",            "实测转速 rpm"),
+            new ColumnDefinition("NominalPower",   "名义功率 kW"),
+            new ColumnDefinition("Power",          "实测功率 kW"),
+            new ColumnDefinition("ECOQuantity",    "测油耗量 g"),
+            new ColumnDefinition("ECORate",        "燃油消耗率 g/kWh"),
+            new ColumnDefinition("PFuelInlet",          "燃油进口压力 kPa"),
+            new ColumnDefinition("LPressureOut",        "中冷泵出口压力 kPa"),
+            new ColumnDefinition("HPressureOut",        "高温泵出口压力 kPa"),
+            new ColumnDefinition("EOPressure1",         "机油泵出口压力 kPa"),
+            new ColumnDefinition("POilInlet",           "机油进口压力 kPa"),
+            new ColumnDefinition("EOPressure2",         "机油总管末端压力 kPa"),
+            new ColumnDefinition("PTurboOilFront",      "前增压器油压 kPa"),
+            new ColumnDefinition("PTurboOilAfter",      "后增压器油压 kPa"),
+            new ColumnDefinition("HeatExchangerTempIn",  "机油进口温度 ℃"),
+            new ColumnDefinition("HeatExchangerTempOut", "机油出口温度 ℃"),
+            new ColumnDefinition("HWaterTempIn",   "高温水进口温度 ℃"),
+            new ColumnDefinition("HWaterTempOut",  "高温水出口温度 ℃"),
+            new ColumnDefinition("LWaterTempIn",   "中冷水进口温度 ℃"),
+            new ColumnDefinition("LWaterTempOut",  "中冷水出口温度 ℃"),
+            new ColumnDefinition("FrontTurbochargerRPM", "前增压器转速 rpm"),
+            new ColumnDefinition("AfterTurbochargerRPM", "后增压器转速 rpm"),
+            new ColumnDefinition("Remark",         "备注"),
+        };
+
+        private List<ColumnDefinition> CurrentColumnDefinitions =>
+            rdoManual.Checked ? _manualColumnDefinitions : _columnDefinitions;
+
+
+        // 单位转换（要求①）
+        // 模板压力单位：表1(列11-18) = ×0.1MPa；表2 曲轴箱(列32) = ×10Pa；
+        // 表2 中冷器前/后(列33-36) = ×100Pa；表2 压气机前/涡轮后/涡轮前 = Pa。
+        // 例如 AI2Grp 原始返回值单位为 kPa（与项目里大多数压力字段一致）。
+        private const double FACTOR_0P1MPA = 100.0;   // 原始kPa ÷ 100  → ×0.1MPa单位下数值
+        private const double FACTOR_10PA = 0.01;    // 原始kPa ÷ 0.01 → ×10Pa 单位下数值
+        private const double FACTOR_100PA = 0.1;     // 原始kPa ÷ 0.1  → ×100Pa单位下数值
+
+        private static double ToUnit_0p1MPa(double rawKPa) => rawKPa / FACTOR_0P1MPA;
+        private static double ToUnit_10Pa(double rawKPa) => rawKPa / FACTOR_10PA;
+        private static double ToUnit_100Pa(double rawKPa) => rawKPa / FACTOR_100PA;
+
+        // 手动模式导出：按模板填充 .xls
+        private void ExportManualToExcel()
+        {
+            string templatePath = System.IO.Path.Combine(
+                Application.StartupPath, "Templates", "ManualReport.xls");
+
+            if (!System.IO.File.Exists(templatePath))
+            {
+                Var.MsgBoxWarn(this, $"模板文件不存在：{templatePath}\n请将出厂记录模板放至 Templates 目录。");
+                return;
+            }
+
+            using (var dlg = new SaveFileDialog())
+            {
+                dlg.Filter = "Excel 97-2003 (*.xls)|*.xls";
+                dlg.FileName = $"出厂试验记录_{cboModel.Text}_{txtNumber.Text}_{DateTime.Now:yyyyMMdd_HHmmss}.xls";
+                if (dlg.ShowDialog() != DialogResult.OK) return;
+
+                try
+                {
+                    System.IO.File.Copy(templatePath, dlg.FileName, overwrite: true);
+                    FillManualExcelTemplate(dlg.FileName);
+                    Var.MsgBoxInfo(this, $"导出成功：{dlg.FileName}");
+
+                    if (Var.MsgBoxYesNo(this, "是否立即打开文件？"))
+                        System.Diagnostics.Process.Start(dlg.FileName);
+                }
+                catch (Exception ex)
+                {
+                    Var.MsgBoxWarn(this, "导出失败：" + ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 使用 NPOI 按固定坐标将 ManualRecordPara 列表填入 .xls 模板。
+        /// 压力字段按模板标注单位换算后写入。
+        /// 各缸爆发压力：不写值，保留空白，由人工打印后手动填写。
+        /// </summary>
+        private void FillManualExcelTemplate(string filePath)
+        {
+            var records = _allData.Cast<ManualRecordPara>().ToList();
+
+            using (var fs = new System.IO.FileStream(filePath,
+                System.IO.FileMode.Open, System.IO.FileAccess.ReadWrite))
+            {
+                var wb = new NPOI.HSSF.UserModel.HSSFWorkbook(fs);
+                var sh = wb.GetSheetAt(0);
+
+                // ── 表头区 ──────────────────────────────────────────────────
+                SetCell(sh, 2, 2, DateTime.Now.ToString("yyyy-MM-dd"));   // 试验日期
+                SetCell(sh, 2, 9, txtNumber.Text);                         // 柴油机出厂编号
+
+                // ── 表1 主数据区（模板第12行起，0-based行索引11）─────────────
+                int dataStartRow1 = 11;
+                for (int i = 0; i < records.Count; i++)
+                {
+                    var rec = records[i];
+                    int rowIdx = dataStartRow1 + i;
+                    if (i >= 14) sh.ShiftRows(rowIdx, sh.LastRowNum, 1);
+
+                    var row = sh.GetRow(rowIdx) ?? sh.CreateRow(rowIdx);
+
+                    SetCell(row, 0, (int)rec.Index + 1);
+                    SetCell(row, 1, rec.TestHour);
+                    SetCell(row, 3, rec.TestMinute);
+                    SetCell(row, 4, rec.NominalRPM);
+                    SetCell(row, 5, rec.RPM);
+                    SetCell(row, 6, rec.NominalPower);
+                    SetCell(row, 7, rec.Power);
+                    SetCell(row, 8, rec.ECOQuantity);
+                    SetCell(row, 10, rec.ECORate);
+
+                    // 表1压力列统一 ×0.1MPa
+                    SetCell(row, 11, ToUnit_0p1MPa(rec.PFuelInlet));
+                    SetCell(row, 12, ToUnit_0p1MPa(rec.LPressureOut));
+                    SetCell(row, 13, ToUnit_0p1MPa(rec.HPressureOut));
+                    SetCell(row, 14, ToUnit_0p1MPa(rec.EOPressure1));
+                    SetCell(row, 15, ToUnit_0p1MPa(rec.POilInlet));
+                    SetCell(row, 16, ToUnit_0p1MPa(rec.EOPressure2));
+                    SetCell(row, 17, ToUnit_0p1MPa(rec.PTurboOilFront));
+                    SetCell(row, 18, ToUnit_0p1MPa(rec.PTurboOilAfter));
+
+                    SetCell(row, 19, rec.HeatExchangerTempIn);
+                    SetCell(row, 20, rec.HeatExchangerTempOut);
+                    SetCell(row, 21, rec.HWaterTempIn);
+                    SetCell(row, 22, rec.HWaterTempOut);
+                    SetCell(row, 23, rec.LWaterTempIn);
+                    SetCell(row, 24, rec.LWaterTempOut);
+                    SetCell(row, 25, rec.FrontTurbochargerRPM);
+                    SetCell(row, 26, rec.AfterTurbochargerRPM);
+                    SetCell(row, 27, rec.Remark ?? "");
+                }
+
+                // ── 表2 增压器子表（模板第32行起）────────────────────────────
+                int table1Extra = Math.Max(0, records.Count - 14);
+                int dataStartRow2 = 31 + table1Extra;
+
+                for (int i = 0; i < records.Count; i++)
+                {
+                    var rec = records[i];
+                    int rowIdx = dataStartRow2 + i;
+                    if (i >= 14) sh.ShiftRows(rowIdx, sh.LastRowNum, 1);
+
+                    var row = sh.GetRow(rowIdx) ?? sh.CreateRow(rowIdx);
+
+                    SetCell(row, 0, (int)rec.Index + 1);
+                    SetCell(row, 1, rec.PCompressorFront);                  // Pa，原值直接写
+                    SetCell(row, 2, rec.PCompressorAfter);                  // Pa
+                    SetCell(row, 3, ToUnit_10Pa(rec.PCrankcase));            // ×10Pa
+                    SetCell(row, 4, ToUnit_100Pa(rec.PInterCoolerFrontFront)); // ×100Pa
+                    SetCell(row, 5, ToUnit_100Pa(rec.PInterCoolerFrontAfter)); // ×100Pa
+                    SetCell(row, 6, rec.FrontTurbochargerPressureIn2);        // Pa（涡轮前）
+                    SetCell(row, 7, rec.TInterCoolerFrontFront);
+                    SetCell(row, 8, rec.TInterCoolerFrontAfter);
+
+                    SetCell(row, 9, rec.EGTempA1);
+                    SetCell(row, 10, rec.EGTempA2);
+                    SetCell(row, 11, rec.EGTempA3);
+                    SetCell(row, 12, rec.EGTempA4);
+                    SetCell(row, 13, rec.EGTempA5);
+                    SetCell(row, 14, rec.EGTempA6);
+
+                    SetCell(row, 17, rec.FrontTurbochargerTempIn);
+                    SetCell(row, 18, rec.AfterTurbochargerTempIn);
+
+                    // ── 要求③：各缸爆发压力不写值，保留空白，留给人工打印后手填 ──
+                    // 故意不调用 SetCell，保持模板原状空白。
+                }
+
+                fs.Seek(0, System.IO.SeekOrigin.Begin);
+                wb.Write(fs);
+            }
+        }
+
+        // ── NPOI 辅助方法 ──────────────────────────────────────────────────────
+        private static void SetCell(NPOI.SS.UserModel.ISheet sh, int row, int col, object value)
+        {
+            var r = sh.GetRow(row) ?? sh.CreateRow(row);
+            SetCell(r, col, value);
+        }
+
+        private static void SetCell(NPOI.SS.UserModel.IRow row, int col, object value)
+        {
+            var cell = row.GetCell(col) ?? row.CreateCell(col);
+            if (value is double d) cell.SetCellValue(d);
+            else if (value is int i) cell.SetCellValue(i);
+            else cell.SetCellValue(value?.ToString() ?? "");
+        }
+
+        #endregion
     }
 }

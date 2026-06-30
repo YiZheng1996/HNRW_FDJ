@@ -78,6 +78,20 @@ namespace MainUI.Config
         public string TestNo { get; set; }
 
         /// <summary>
+        /// 手动记录当前批次主表ID（断电续接用）。
+        /// 非空表示有未结束的批次，下次记录直接追加到该批次；
+        /// 为空表示需要新建批次。
+        /// </summary>
+        [IniKeyName("手动记录批次ID")]
+        public string ManualRecordMGid { get; set; } = "";
+
+        /// <summary>
+        /// 手动记录当前批次已记录条数（断电续接时从此值继续自增）。
+        /// </summary>
+        [IniKeyName("手动记录条数")]
+        public int ManualRecordIndex { get; set; } = 0;
+
+        /// <summary>
         /// 设备编号
         /// </summary>
         public string DeviceNo { get; set; }

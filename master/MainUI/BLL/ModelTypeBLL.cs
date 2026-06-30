@@ -11,11 +11,11 @@ namespace MainUI.BLL
         {
             this.ConnectionString = Var.ConnectionString;
             this.TableName = "ModelType";
-            base.Init();
             this.Database = new MySqlAdoDb(Var.ConnectionString)
             {
                 ConnectionString = this.ConnectionString
             };
+            base.Init();
         }
 
         public DataTable GetAllModelType()

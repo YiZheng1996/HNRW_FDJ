@@ -13,9 +13,9 @@ namespace MainUI.BLL
         {
             this.ConnectionString = Var.ConnectionString;
             this.TableName = "Record";
-            base.Init();                                          // 先让基类初始化（可能用到 TableName）
-            this.Database = new MySqlAdoDb(Var.ConnectionString); // 最后赋值，确保不被基类覆盖
+            this.Database = new MySqlAdoDb(Var.ConnectionString);
             this.Database.ConnectionString = this.ConnectionString;
+            base.Init();                                        
         }
 
         public DataTable GetList()

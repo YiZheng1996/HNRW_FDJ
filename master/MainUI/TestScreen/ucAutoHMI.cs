@@ -1,39 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-using MainUI.Model;
-using MainUI.Modules;
-using MainUI.Config;
-using RW.UI.Controls;
-using MainUI.Procedure;
-using System.Threading;
-using System.Diagnostics;
-using RW.Fonts;
-using Sunny.UI;
-using RW.UI;
-using RW;
-using MainUI.Equip;
-using MainUI.Procedure.Test.Performance;
-using System.Linq;
-using MainUI.BLL;
-using System.Text;
-using System.Data;
-using System.Runtime.InteropServices;
-using System.Net.NetworkInformation;
-using System.Management;
-using MainUI.Widget;
-using System.Linq;
+﻿using MainUI.Config;
 using MainUI.Config.Test;
-using MainUI.Global;
-using System.Threading.Tasks;
 using MainUI.FSql;
-using System.Collections.Concurrent;
-using static MainUI.Modules.EventArgsModel;
-using MainUI.HMI_Auto;
+using MainUI.Global;
 using MainUI.Helper;
+using MainUI.HMI_Auto;
+using MainUI.Procedure;
+using MainUI.Procedure.Test.Performance;
 using MainUI.Wave;
+using MainUI.Widget;
+using RW;
+using RW.UI.Controls;
+using Sunny.UI;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static MainUI.Modules.EventArgsModel;
 
 namespace MainUI
 {
@@ -228,6 +219,9 @@ namespace MainUI
 
                 // 触发计时更新
                 EventTriggerModel.OnTimngChanged += EventTriggerModel_OnTimngChanged;
+
+                // 手动单条数据记录
+                manualRecordService.DataSaved += ManualRecordService_DataSaved;
 
                 // 注册模块事件
                 Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange;
@@ -1552,8 +1546,6 @@ namespace MainUI
             }
         }
 
-
-        bool isRecording = false;   //记录状态
         /// <summary>
         /// 手动记录
         /// </summary>
@@ -1561,48 +1553,43 @@ namespace MainUI
         /// <param name="e"></param>
         private void btnRecord_Click(object sender, EventArgs e)
         {
-            isRecording = !isRecording;
-            if (isRecording)
+            btnRecord.Enabled = false;
+            try
             {
-                //开始记录
-                //改变按钮样式
-                this.btnRecord.Switch = true;
-                this.btnRecord.Text = "停止记录";
-                this.nudRecordFrequency.Enabled = false;
-
-                //传递柴油机试验数据
-                Dictionary<string, string> saveInfo = new Dictionary<string, string>
-                 {
-                    { "Model", Common.mTestViewModel.ModelName},       //柴油机型号
-                    { "No",this.txtChuchanghao.Text},    //柴油机编号
-                    { "MaxIndex",(this.dgvManualRecord.Rows.Count + 1).ToString()},  //下一个序号
-                    { "recordFrequency",this.nudRecordFrequency.Value.ToString() },     //记录频率
-                    { "TestName", this.btnXN.Switch ? "100h" : "360h" },     //试验项点 
-                 };
-
-                //BuildDgvManualRecord();
-
-                // 订阅数据保存事件
-                manualRecordService.DataSaved += ManualRecordService_DataSaved;
-                var result = manualRecordService.StartRecord(saveInfo);
-                if (!result)
+                var saveInfo = new Dictionary<string, string>
                 {
-                    Var.MsgBoxWarn(this, "记录数据出现异常！！");
+                    ["Model"] = Var.SysConfig.LastModel,
+                    ["No"] = Common.mTestViewModel?.ModelNo ?? "",
+                    ["TestName"] = "出厂试验"
+                };
+
+                bool ok = manualRecordService.SaveOneRecord(saveInfo, out var record, out var errMsg);
+
+                if (!ok)
+                {
+                    Var.MsgBoxWarn(this, "记录失败：" + errMsg);
                 }
+                // 成功时不需要手动刷新表格：SaveOneRecord 内部会触发 DataSaved 事件，
+                // 已订阅的 ManualRecordService_DataSaved 会自动调用现成的
+                // RefreshAddedRecord(e.manualRecord) 把这一行插入 dgvManualRecord。
             }
-            else
+            catch (Exception ex)
             {
-                //停止记录时取消订阅
-                manualRecordService.DataSaved -= ManualRecordService_DataSaved;
-                //停止记录
-                manualRecordService.StopRecord();
-                //改变按钮样式
-                this.btnRecord.Text = "记录";
-                this.btnRecord.Switch = false;
-                this.nudRecordFrequency.Enabled = true;
-                //更新表格
-                //BuildDgvManualRecord();
+                Var.MsgBoxWarn(this, "记录失败：" + ex.Message);
             }
+            finally
+            {
+                btnRecord.Enabled = true;
+            }
+        }
+        private void btnNewBatch_Click(object sender, EventArgs e)
+        {
+            bool confirm = Var.MsgBoxYesNo(this,
+         "确定要开始新批次记录吗？\n（旧数据不会删除，可在报表界面按批次查看历史记录）");
+            if (!confirm) return;
+
+            manualRecordService.StartNewBatch();
+            this.dgvManualRecord.Rows.Clear();
         }
 
         /// <summary>
@@ -1614,10 +1601,9 @@ namespace MainUI
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action<object, ManualRecordService.DataSavedEventArgs>(ManualRecordService_DataSaved), sender, e);
+                this.BeginInvoke(new Action(() => ManualRecordService_DataSaved(sender, e)));
                 return;
             }
-
             RefreshAddedRecord(e.manualRecord);
         }
 
@@ -1731,23 +1717,10 @@ namespace MainUI
             var result = Var.MsgBoxYesNo(this, "确定要清空数据吗？");
             if (!result) return;
 
-            if (this.btnRecord.Switch)
-            {
-                btnRecord_Click(null, null);
-            }
-
             this.dgvManualRecord.Rows.Clear();
-            manualRecordService.MGid = null;
-        }
-
-        /// <summary>
-        /// 间隔时间更改
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="value"></param>
-        private void nudRecordFrequency_ValueChanged(object sender, double value)
-        {
-            manualRecordService.Second = value.ToInt();
+            // 等价于原来的 MGid = null，但同时清空持久化的Index
+            manualRecordService.StartNewBatch();
+            lblRecordTip.Text = "已记录 0 条";
         }
 
         /// <summary>
@@ -2087,6 +2060,8 @@ namespace MainUI
             #endregion
         }
 
+
+        private const int MaxRealtimePoints = 7200;
         /// <summary>
         /// 添加实时数据到曲线（通用方法）
         /// </summary>

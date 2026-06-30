@@ -168,6 +168,10 @@ namespace MainUI
             this.rButton64 = new RW.UI.Controls.RButton();
             this.label30 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label10 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.swp183)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.swp190)).BeginInit();
@@ -1759,11 +1763,11 @@ namespace MainUI
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("宋体", 14F);
-            this.label8.Location = new System.Drawing.Point(59, 896);
+            this.label8.Location = new System.Drawing.Point(59, 913);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(192, 19);
+            this.label8.Size = new System.Drawing.Size(268, 19);
             this.label8.TabIndex = 921;
-            this.label8.Text = "燃油流量计油耗 kg/h";
+            this.label8.Text = "质量流量燃油流量计油耗 kg/h";
             // 
             // flowDiff
             // 
@@ -1771,9 +1775,9 @@ namespace MainUI
             this.flowDiff.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.flowDiff.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.flowDiff.ForeColor = System.Drawing.Color.Black;
-            this.flowDiff.Location = new System.Drawing.Point(259, 889);
+            this.flowDiff.Location = new System.Drawing.Point(350, 906);
             this.flowDiff.Name = "flowDiff";
-            this.flowDiff.Size = new System.Drawing.Size(91, 28);
+            this.flowDiff.Size = new System.Drawing.Size(430, 28);
             this.flowDiff.TabIndex = 920;
             this.flowDiff.Tag = "";
             this.flowDiff.Text = "0.0";
@@ -1783,11 +1787,11 @@ namespace MainUI
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("宋体", 14F);
-            this.label9.Location = new System.Drawing.Point(59, 933);
+            this.label9.Location = new System.Drawing.Point(57, 950);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(194, 19);
+            this.label9.Size = new System.Drawing.Size(270, 19);
             this.label9.TabIndex = 922;
-            this.label9.Text = "燃油油耗率 g/(kW*h)";
+            this.label9.Text = "质量流量燃油油耗率 g/(kW*h)";
             // 
             // lblOilCoast
             // 
@@ -1795,9 +1799,9 @@ namespace MainUI
             this.lblOilCoast.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblOilCoast.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblOilCoast.ForeColor = System.Drawing.Color.Black;
-            this.lblOilCoast.Location = new System.Drawing.Point(259, 933);
+            this.lblOilCoast.Location = new System.Drawing.Point(350, 945);
             this.lblOilCoast.Name = "lblOilCoast";
-            this.lblOilCoast.Size = new System.Drawing.Size(1542, 28);
+            this.lblOilCoast.Size = new System.Drawing.Size(430, 28);
             this.lblOilCoast.TabIndex = 923;
             this.lblOilCoast.Tag = "";
             this.lblOilCoast.Text = "0.0";
@@ -2232,20 +2236,72 @@ namespace MainUI
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // label10
+            // 
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label10.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(1119, 945);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(424, 28);
+            this.label10.TabIndex = 945;
+            this.label10.Tag = "";
+            this.label10.Text = "0.0";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("宋体", 14F);
+            this.label15.Location = new System.Drawing.Point(855, 950);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(251, 19);
+            this.label15.TabIndex = 944;
+            this.label15.Text = "油耗仪燃油油耗率 g/(kW*h)";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("宋体", 14F);
+            this.label16.Location = new System.Drawing.Point(857, 912);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(249, 19);
+            this.label16.TabIndex = 947;
+            this.label16.Text = "油耗仪燃油流量计油耗 kg/h";
+            // 
+            // label17
+            // 
+            this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label17.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label17.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label17.ForeColor = System.Drawing.Color.Black;
+            this.label17.Location = new System.Drawing.Point(1119, 906);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(424, 28);
+            this.label17.TabIndex = 946;
+            this.label17.Tag = "";
+            this.label17.Text = "0.0";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ucFeulHMI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.swp33);
-            this.Controls.Add(this.swp27);
-            this.Controls.Add(this.swp183);
-            this.Controls.Add(this.swp61);
-            this.Controls.Add(this.swp164);
-            this.Controls.Add(this.swp179);
-            this.Controls.Add(this.swp184);
-            this.Controls.Add(this.swp190);
-            this.Controls.Add(this.swp182);
             this.Controls.Add(this.swp181);
+            this.Controls.Add(this.swp182);
+            this.Controls.Add(this.swp190);
+            this.Controls.Add(this.swp184);
+            this.Controls.Add(this.swp179);
+            this.Controls.Add(this.swp164);
+            this.Controls.Add(this.swp61);
+            this.Controls.Add(this.swp183);
+            this.Controls.Add(this.swp27);
+            this.Controls.Add(this.swp33);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.rButton63);
             this.Controls.Add(this.rButton64);
             this.Controls.Add(this.label30);
@@ -2556,5 +2612,9 @@ namespace MainUI
         private RW.UI.Controls.RButton rButton64;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
     }
 }
