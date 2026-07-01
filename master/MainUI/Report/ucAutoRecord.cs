@@ -202,7 +202,8 @@ namespace MainUI.Report
             if (data == null || data.Count == 0)
                 return;
 
-            if (!_columnsInitialized)
+            // 不再只看 _columnsInitialized，而是确认列数和当前该用的列定义一致
+            if (!_columnsInitialized || dgvRecord.Columns.Count != CurrentColumnDefinitions.Count)
             {
                 InitializeDataGridViewColumns(CurrentColumnDefinitions);
             }
@@ -419,7 +420,7 @@ namespace MainUI.Report
                 return;
             }
 
-            // ── 自动模式：保持原有 CSV 导出逻辑，完全不变 ───────────────────
+            // 自动模式
             try
             {
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
@@ -819,10 +820,9 @@ namespace MainUI.Report
 
         #region 磨合试验数据改造
 
-        // ── 1. 新增手动模式列定义（与现有 _columnDefinitions 并列存在）──────────
-        // 字段名对齐 ManualRecordPara 实际属性（含直接继承自 IRecordData 基类的字段）
         private readonly List<ColumnDefinition> _manualColumnDefinitions = new List<ColumnDefinition>
         {
+            // 基本参数：出厂表列1-27
             new ColumnDefinition("Index",          "序号"),
             new ColumnDefinition("RecordDataTime", "采集时间"),
             new ColumnDefinition("TestHour",       "时"),
@@ -849,12 +849,56 @@ namespace MainUI.Report
             new ColumnDefinition("LWaterTempOut",  "中冷水出口温度 ℃"),
             new ColumnDefinition("FrontTurbochargerRPM", "前增压器转速 rpm"),
             new ColumnDefinition("AfterTurbochargerRPM", "后增压器转速 rpm"),
-            new ColumnDefinition("Remark",         "备注"),
+        
+            // 增压器子表：出厂表列28-42
+            new ColumnDefinition("PCompressorFront",       "压气机前压力(前) Pa"),
+            new ColumnDefinition("PCompressorAfter",       "压气机前压力(后) Pa"),
+            new ColumnDefinition("PTurboOutPressureFront", "涡轮后压力(前) Pa"),
+            new ColumnDefinition("PTurboOutPressureAfter", "涡轮后压力(后) Pa"),
+            new ColumnDefinition("PCrankcase",             "曲轴箱压力 ×10Pa"),
+            new ColumnDefinition("PInterCoolerFrontFront", "中冷器前压力(前) ×100Pa"),
+            new ColumnDefinition("PInterCoolerFrontAfter", "中冷器前压力(后) ×100Pa"),
+            new ColumnDefinition("PInterCoolerAfterFront", "中冷器后压力(前) ×100Pa"),
+            new ColumnDefinition("PInterCoolerAfterAfter", "中冷器后压力(后) ×100Pa"),
+            new ColumnDefinition("FrontTurbochargerPressureIn2", "涡轮前压力(前) Pa"),
+            new ColumnDefinition("AfterTurbochargerPressureIn2", "涡轮前压力(后) Pa"),
+            new ColumnDefinition("TInterCoolerFrontFront", "中冷器前温度(前) ℃"),
+            new ColumnDefinition("TInterCoolerFrontAfter", "中冷器前温度(后) ℃"),
+            new ColumnDefinition("TInterCoolerAfterFront", "中冷器后温度(前) ℃"),
+            new ColumnDefinition("TInterCoolerAfterAfter", "中冷器后温度(后) ℃"),
+        
+            // 各缸排温 A1-A6 / B1-B6
+            new ColumnDefinition("EGTempA1", "A1缸排温 ℃"),
+            new ColumnDefinition("EGTempA2", "A2缸排温 ℃"),
+            new ColumnDefinition("EGTempA3", "A3缸排温 ℃"),
+            new ColumnDefinition("EGTempA4", "A4缸排温 ℃"),
+            new ColumnDefinition("EGTempA5", "A5缸排温 ℃"),
+            new ColumnDefinition("EGTempA6", "A6缸排温 ℃"),
+            new ColumnDefinition("EGTempB1", "B1缸排温 ℃"),
+            new ColumnDefinition("EGTempB2", "B2缸排温 ℃"),
+            new ColumnDefinition("EGTempB3", "B3缸排温 ℃"),
+            new ColumnDefinition("EGTempB4", "B4缸排温 ℃"),
+            new ColumnDefinition("EGTempB5", "B5缸排温 ℃"),
+            new ColumnDefinition("EGTempB6", "B6缸排温 ℃"),
+        
+            // 各缸爆发压力：人工手填，软件不采集，显示占位（默认0）
+            new ColumnDefinition("BurstPA1", "A1爆发压力"),
+            new ColumnDefinition("BurstPA2", "A2爆发压力"),
+            new ColumnDefinition("BurstPA3", "A3爆发压力"),
+            new ColumnDefinition("BurstPA4", "A4爆发压力"),
+            new ColumnDefinition("BurstPA5", "A5爆发压力"),
+            new ColumnDefinition("BurstPA6", "A6爆发压力"),
+            new ColumnDefinition("BurstPB1", "B1爆发压力"),
+            new ColumnDefinition("BurstPB2", "B2爆发压力"),
+            new ColumnDefinition("BurstPB3", "B3爆发压力"),
+            new ColumnDefinition("BurstPB4", "B4爆发压力"),
+            new ColumnDefinition("BurstPB5", "B5爆发压力"),
+            new ColumnDefinition("BurstPB6", "B6爆发压力"),
+            new ColumnDefinition("Remark", "备注"),
         };
 
         private List<ColumnDefinition> CurrentColumnDefinitions =>
             rdoManual.Checked ? _manualColumnDefinitions : _columnDefinitions;
-
 
         // 单位转换（要求①）
         // 模板压力单位：表1(列11-18) = ×0.1MPa；表2 曲轴箱(列32) = ×10Pa；
@@ -871,12 +915,11 @@ namespace MainUI.Report
         // 手动模式导出：按模板填充 .xls
         private void ExportManualToExcel()
         {
-            string templatePath = System.IO.Path.Combine(
-                Application.StartupPath, "Templates", "ManualReport.xls");
+            string templatePath = System.IO.Path.Combine(Application.StartupPath, "reports", "ManualReport.xls");
 
             if (!System.IO.File.Exists(templatePath))
             {
-                Var.MsgBoxWarn(this, $"模板文件不存在：{templatePath}\n请将出厂记录模板放至 Templates 目录。");
+                Var.MsgBoxWarn(this, $"模板文件不存在：{templatePath}\n请将出厂记录模板放至 Reports 目录。");
                 return;
             }
 
@@ -902,35 +945,74 @@ namespace MainUI.Report
             }
         }
 
+        // 每页最多显示的记录条数（受表2"一条记录占A/B两行、数据区14行"的限制）
+        private const int PAGE_SIZE = 7;
+
+        // 匹配表头里"共页"和"第页"这两段（中间是任意长度空白）
+        private static readonly System.Text.RegularExpressions.Regex TotalPageRegex =
+            new System.Text.RegularExpressions.Regex(@"共\s*页");
+        private static readonly System.Text.RegularExpressions.Regex CurrentPageRegex =
+            new System.Text.RegularExpressions.Regex(@"第\s*页");
+
+        /// <summary>
+        /// 把表头文字里的"共 页"替换成"共 X 页"、"第 页"替换成"第 Y 页"。
+        /// 表头是整段合并单元格文字，位于第0行第0列。
+        /// </summary>
+        private static void SetPageHeader(NPOI.SS.UserModel.ISheet sh, int currentPage, int totalPages)
+        {
+            var row = sh.GetRow(0) ?? sh.CreateRow(0);
+            var cell = row.GetCell(0) ?? row.CreateCell(0);
+            string text = cell.ToString() ?? "";
+
+            text = TotalPageRegex.Replace(text, $"共 {totalPages} 页", 1);
+            text = CurrentPageRegex.Replace(text, $"第 {currentPage} 页", 1);
+
+            cell.SetCellValue(text);
+        }
+
         /// <summary>
         /// 使用 NPOI 按固定坐标将 ManualRecordPara 列表填入 .xls 模板。
-        /// 压力字段按模板标注单位换算后写入。
+        /// 记录数超过一页容量（PAGE_SIZE）时自动克隆模板sheet分页，不再使用 ShiftRows。
         /// 各缸爆发压力：不写值，保留空白，由人工打印后手动填写。
         /// </summary>
         private void FillManualExcelTemplate(string filePath)
         {
             var records = _allData.Cast<ManualRecordPara>().ToList();
 
-            using (var fs = new System.IO.FileStream(filePath,
-                System.IO.FileMode.Open, System.IO.FileAccess.ReadWrite))
+            // ── 第一步：只读，把文件内容加载进 workbook（读完这个流会被NPOI自动关闭，属于正常现象）──
+            NPOI.HSSF.UserModel.HSSFWorkbook wb;
+            using (var fsRead = new System.IO.FileStream(filePath,
+                System.IO.FileMode.Open, System.IO.FileAccess.Read))
             {
-                var wb = new NPOI.HSSF.UserModel.HSSFWorkbook(fs);
-                var sh = wb.GetSheetAt(0);
+                wb = new NPOI.HSSF.UserModel.HSSFWorkbook(fsRead);
+            }
 
-                // ── 表头区 ──────────────────────────────────────────────────
-                SetCell(sh, 2, 2, DateTime.Now.ToString("yyyy-MM-dd"));   // 试验日期
-                SetCell(sh, 2, 9, txtNumber.Text);                         // 柴油机出厂编号
+            var templateSheet = wb.GetSheetAt(0);
 
-                // ── 表1 主数据区（模板第12行起，0-based行索引11）─────────────
+            int totalPages = Math.Max(1, (int)Math.Ceiling(records.Count / (double)PAGE_SIZE));
+
+            for (int pageIndex = 0; pageIndex < totalPages; pageIndex++)
+            {
+                NPOI.SS.UserModel.ISheet sh = pageIndex == 0
+                    ? templateSheet
+                    : wb.CloneSheet(0);
+
+                if (pageIndex > 0)
+                    wb.SetSheetName(wb.GetSheetIndex(sh), $"{templateSheet.SheetName}_{pageIndex + 1}");
+
+                var pageRecords = records.Skip(pageIndex * PAGE_SIZE).Take(PAGE_SIZE).ToList();
+
+                SetPageHeader(sh, pageIndex + 1, totalPages);
+                SetCell(sh, 2, 2, DateTime.Now.ToString("yyyy-MM-dd"));
+                SetCell(sh, 2, 9, txtNumber.Text);
+
+                // 表1、表2填充逻辑完全不变
                 int dataStartRow1 = 11;
-                for (int i = 0; i < records.Count; i++)
+                for (int i = 0; i < pageRecords.Count; i++)
                 {
-                    var rec = records[i];
+                    var rec = pageRecords[i];
                     int rowIdx = dataStartRow1 + i;
-                    if (i >= 14) sh.ShiftRows(rowIdx, sh.LastRowNum, 1);
-
                     var row = sh.GetRow(rowIdx) ?? sh.CreateRow(rowIdx);
-
                     SetCell(row, 0, (int)rec.Index + 1);
                     SetCell(row, 1, rec.TestHour);
                     SetCell(row, 3, rec.TestMinute);
@@ -940,8 +1022,6 @@ namespace MainUI.Report
                     SetCell(row, 7, rec.Power);
                     SetCell(row, 8, rec.ECOQuantity);
                     SetCell(row, 10, rec.ECORate);
-
-                    // 表1压力列统一 ×0.1MPa
                     SetCell(row, 11, ToUnit_0p1MPa(rec.PFuelInlet));
                     SetCell(row, 12, ToUnit_0p1MPa(rec.LPressureOut));
                     SetCell(row, 13, ToUnit_0p1MPa(rec.HPressureOut));
@@ -950,7 +1030,6 @@ namespace MainUI.Report
                     SetCell(row, 16, ToUnit_0p1MPa(rec.EOPressure2));
                     SetCell(row, 17, ToUnit_0p1MPa(rec.PTurboOilFront));
                     SetCell(row, 18, ToUnit_0p1MPa(rec.PTurboOilAfter));
-
                     SetCell(row, 19, rec.HeatExchangerTempIn);
                     SetCell(row, 20, rec.HeatExchangerTempOut);
                     SetCell(row, 21, rec.HWaterTempIn);
@@ -962,48 +1041,44 @@ namespace MainUI.Report
                     SetCell(row, 27, rec.Remark ?? "");
                 }
 
-                // ── 表2 增压器子表（模板第32行起）────────────────────────────
-                int table1Extra = Math.Max(0, records.Count - 14);
-                int dataStartRow2 = 31 + table1Extra;
-
-                for (int i = 0; i < records.Count; i++)
+                int dataStartRow2 = 31;
+                for (int i = 0; i < pageRecords.Count; i++)
                 {
-                    var rec = records[i];
-                    int rowIdx = dataStartRow2 + i;
-                    if (i >= 14) sh.ShiftRows(rowIdx, sh.LastRowNum, 1);
+                    var rec = pageRecords[i];
+                    int rowIdxA = dataStartRow2 + i * 2;
+                    int rowIdxB = rowIdxA + 1;
+                    var rowA = sh.GetRow(rowIdxA) ?? sh.CreateRow(rowIdxA);
+                    var rowB = sh.GetRow(rowIdxB) ?? sh.CreateRow(rowIdxB);
 
-                    var row = sh.GetRow(rowIdx) ?? sh.CreateRow(rowIdx);
-
-                    SetCell(row, 0, (int)rec.Index + 1);
-                    SetCell(row, 1, rec.PCompressorFront);                  // Pa，原值直接写
-                    SetCell(row, 2, rec.PCompressorAfter);                  // Pa
-                    SetCell(row, 3, ToUnit_10Pa(rec.PCrankcase));            // ×10Pa
-                    SetCell(row, 4, ToUnit_100Pa(rec.PInterCoolerFrontFront)); // ×100Pa
-                    SetCell(row, 5, ToUnit_100Pa(rec.PInterCoolerFrontAfter)); // ×100Pa
-                    SetCell(row, 6, rec.FrontTurbochargerPressureIn2);        // Pa（涡轮前）
-                    SetCell(row, 7, rec.TInterCoolerFrontFront);
-                    SetCell(row, 8, rec.TInterCoolerFrontAfter);
-
-                    SetCell(row, 9, rec.EGTempA1);
-                    SetCell(row, 10, rec.EGTempA2);
-                    SetCell(row, 11, rec.EGTempA3);
-                    SetCell(row, 12, rec.EGTempA4);
-                    SetCell(row, 13, rec.EGTempA5);
-                    SetCell(row, 14, rec.EGTempA6);
-
-                    SetCell(row, 17, rec.FrontTurbochargerTempIn);
-                    SetCell(row, 18, rec.AfterTurbochargerTempIn);
-
-                    // ── 要求③：各缸爆发压力不写值，保留空白，留给人工打印后手填 ──
-                    // 故意不调用 SetCell，保持模板原状空白。
+                    SetCell(rowA, 0, (int)rec.Index + 1);
+                    SetCell(rowA, 1, rec.PCompressorFront); SetCell(rowB, 1, rec.PCompressorAfter);
+                    SetCell(rowA, 2, rec.PTurboOutPressureFront); SetCell(rowB, 2, rec.PTurboOutPressureAfter);
+                    SetCell(rowA, 3, ToUnit_10Pa(rec.PCrankcase));
+                    SetCell(rowA, 4, ToUnit_100Pa(rec.PInterCoolerFrontFront)); SetCell(rowB, 4, ToUnit_100Pa(rec.PInterCoolerFrontAfter));
+                    SetCell(rowA, 5, ToUnit_100Pa(rec.PInterCoolerAfterFront)); SetCell(rowB, 5, ToUnit_100Pa(rec.PInterCoolerAfterAfter));
+                    SetCell(rowA, 6, rec.FrontTurbochargerPressureIn2); SetCell(rowB, 6, rec.AfterTurbochargerPressureIn2);
+                    SetCell(rowA, 7, rec.TInterCoolerFrontFront); SetCell(rowB, 7, rec.TInterCoolerFrontAfter);
+                    SetCell(rowA, 8, rec.TInterCoolerAfterFront); SetCell(rowB, 8, rec.TInterCoolerAfterAfter);
+                    SetCell(rowA, 9, rec.EGTempA1); SetCell(rowB, 9, rec.EGTempB1);
+                    SetCell(rowA, 10, rec.EGTempA2); SetCell(rowB, 10, rec.EGTempB2);
+                    SetCell(rowA, 11, rec.EGTempA3); SetCell(rowB, 11, rec.EGTempB3);
+                    SetCell(rowA, 12, rec.EGTempA4); SetCell(rowB, 12, rec.EGTempB4);
+                    SetCell(rowA, 13, rec.EGTempA5); SetCell(rowB, 13, rec.EGTempB5);
+                    SetCell(rowA, 14, rec.EGTempA6); SetCell(rowB, 14, rec.EGTempB6);
+                    SetCell(rowA, 17, rec.FrontTurbochargerTempIn); SetCell(rowB, 17, rec.AfterTurbochargerTempIn);
+                    SetCell(rowA, 18, rec.FrontTurbochargerTempOut); SetCell(rowB, 18, rec.AfterTurbochargerTempOut);
                 }
+            }
 
-                fs.Seek(0, System.IO.SeekOrigin.Begin);
-                wb.Write(fs);
+            // 第二步：用一个全新的写入流保存 workbook，不再复用已经关闭的 fs
+            using (var fsWrite = new System.IO.FileStream(filePath,
+                System.IO.FileMode.Create, System.IO.FileAccess.Write))
+            {
+                wb.Write(fsWrite);
             }
         }
 
-        // ── NPOI 辅助方法 ──────────────────────────────────────────────────────
+        // NPOI 辅助方法
         private static void SetCell(NPOI.SS.UserModel.ISheet sh, int row, int col, object value)
         {
             var r = sh.GetRow(row) ?? sh.CreateRow(row);

@@ -168,10 +168,10 @@ namespace MainUI
             this.rButton64 = new RW.UI.Controls.RButton();
             this.label30 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblOilCoast2 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
+            this.flowDiff2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.swp183)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.swp190)).BeginInit();
@@ -2236,19 +2236,19 @@ namespace MainUI
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label10
+            // lblOilCoast2
             // 
-            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label10.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(1119, 945);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(424, 28);
-            this.label10.TabIndex = 945;
-            this.label10.Tag = "";
-            this.label10.Text = "0.0";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblOilCoast2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblOilCoast2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblOilCoast2.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblOilCoast2.ForeColor = System.Drawing.Color.Black;
+            this.lblOilCoast2.Location = new System.Drawing.Point(1119, 945);
+            this.lblOilCoast2.Name = "lblOilCoast2";
+            this.lblOilCoast2.Size = new System.Drawing.Size(424, 28);
+            this.lblOilCoast2.TabIndex = 945;
+            this.lblOilCoast2.Tag = "";
+            this.lblOilCoast2.Text = "0.0";
+            this.lblOilCoast2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label15
             // 
@@ -2270,37 +2270,37 @@ namespace MainUI
             this.label16.TabIndex = 947;
             this.label16.Text = "油耗仪燃油流量计油耗 kg/h";
             // 
-            // label17
+            // flowDiff2
             // 
-            this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label17.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label17.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label17.ForeColor = System.Drawing.Color.Black;
-            this.label17.Location = new System.Drawing.Point(1119, 906);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(424, 28);
-            this.label17.TabIndex = 946;
-            this.label17.Tag = "";
-            this.label17.Text = "0.0";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.flowDiff2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.flowDiff2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.flowDiff2.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.flowDiff2.ForeColor = System.Drawing.Color.Black;
+            this.flowDiff2.Location = new System.Drawing.Point(1119, 906);
+            this.flowDiff2.Name = "flowDiff2";
+            this.flowDiff2.Size = new System.Drawing.Size(424, 28);
+            this.flowDiff2.TabIndex = 946;
+            this.flowDiff2.Tag = "";
+            this.flowDiff2.Text = "0.0";
+            this.flowDiff2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ucFeulHMI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.swp181);
-            this.Controls.Add(this.swp182);
-            this.Controls.Add(this.swp190);
-            this.Controls.Add(this.swp184);
-            this.Controls.Add(this.swp179);
-            this.Controls.Add(this.swp164);
-            this.Controls.Add(this.swp61);
-            this.Controls.Add(this.swp183);
-            this.Controls.Add(this.swp27);
             this.Controls.Add(this.swp33);
+            this.Controls.Add(this.swp27);
+            this.Controls.Add(this.swp183);
+            this.Controls.Add(this.swp61);
+            this.Controls.Add(this.swp164);
+            this.Controls.Add(this.swp179);
+            this.Controls.Add(this.swp184);
+            this.Controls.Add(this.swp190);
+            this.Controls.Add(this.swp182);
+            this.Controls.Add(this.swp181);
             this.Controls.Add(this.label16);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.flowDiff2);
+            this.Controls.Add(this.lblOilCoast2);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.rButton63);
             this.Controls.Add(this.rButton64);
@@ -2612,9 +2612,9 @@ namespace MainUI
         private RW.UI.Controls.RButton rButton64;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblOilCoast2;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label flowDiff2;
     }
 }

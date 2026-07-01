@@ -474,35 +474,39 @@ namespace MainUI
             this.ucPipePara21.Value = ET4500.Instance.remainingFuel;
             this.lblYHStatus.Text = ET4500.Instance.fuelStatus;
 
+            // 燃油耗仪油耗油耗量
+            this.ucPipePara13.Value = ET4500.Instance.fuelConsumption;
+            this.flowDiff2.Text = ET4500.Instance.fuelConsumption.ToString("f1");
+
             // 计算差值
             var MassFlowCC = this.ucPipePara14.Value - this.ucPipePara9.Value;
 
             // 油耗仪燃油流量计油耗
-            label17.Text = flowDiff.Text = Math.Round(MassFlowCC, 1).ToString();
+            flowDiff.Text = Math.Round(MassFlowCC, 1).ToString();
 
             //计算燃油油耗率，无限累加
             //因为重量断开连接之后，值无穷大，所以当发动机功率为零的时候换电功率计算
             if (MiddleData.instnce.EnginePower != 0)
             {
                 // 油耗仪 * 1000 / 功率
-                this.label10.Text = Math.Round(ET4500.Instance.fuelConsumption * 1000 / MiddleData.instnce.EnginePower, 1).ToString();
+                this.lblOilCoast2.Text = Math.Round(ET4500.Instance.fuelConsumption * 1000 / MiddleData.instnce.EnginePower, 1).ToString();
 
                 Var.SysConfig.FOilNum += Math.Round(MassFlowCC * 1000 / MiddleData.instnce.EnginePower, 1);
                 Var.SysConfig.Save();
-                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString();
+                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString("f1");
             }
             else if (MiddleData.instnce.EnginePower == 0 && Common.threePhaseElectric.DataValue["有功功率"] != 0)
             {
                 // 油耗仪 * 1000 / 功率
-                this.label10.Text = Math.Round(ET4500.Instance.fuelConsumption * 1000 / Common.threePhaseElectric.DataValue["有功功率"], 1).ToString();
+                this.lblOilCoast2.Text = Math.Round(ET4500.Instance.fuelConsumption * 1000 / Common.threePhaseElectric.DataValue["有功功率"], 1).ToString();
 
                 Var.SysConfig.FOilNum += Math.Round(MassFlowCC * 1000 / Common.threePhaseElectric.DataValue["有功功率"], 1);
                 Var.SysConfig.Save();
-                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString();
+                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString("f1");
             }
             else
             {
-                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString();
+                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString("f1");
             }
 
         }
