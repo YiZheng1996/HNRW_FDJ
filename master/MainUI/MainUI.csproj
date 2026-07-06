@@ -374,6 +374,13 @@
     </Compile>
     <Compile Include="Procedure\Test\Auto\Test100hProc.cs" />
     <Compile Include="Report\Entity\ColumnDefinition.cs" />
+    <Compile Include="Report\Entity\ManualReportHeaderInfo.cs" />
+    <Compile Include="Report\frmManualReportHeader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\frmManualReportHeader.Designer.cs">
+      <DependentUpon>frmManualReportHeader.cs</DependentUpon>
+    </Compile>
     <Compile Include="Report\ucAllDataRecord.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1027,6 +1034,9 @@
     <EmbeddedResource Include="Manager\AutoPara\ucGKParams.resx">
       <DependentUpon>ucGKParams.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\frmManualReportHeader.resx">
+      <DependentUpon>frmManualReportHeader.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\ucAllDataRecord.resx">
       <DependentUpon>ucAllDataRecord.cs</DependentUpon>

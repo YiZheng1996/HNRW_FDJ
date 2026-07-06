@@ -1,19 +1,17 @@
-﻿using MainUI.BLL;
+﻿using MainUI.Config;
 using MainUI.FSql;
+using MainUI.FSql.Model;
+using MainUI.Global;
+using MainUI.Report.Entity;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MiniExcelLibs;
-using System.IO;
-using MainUI.Global;
-using MainUI.FSql.Model;
 
 namespace MainUI.Report
 {
@@ -311,6 +309,9 @@ namespace MainUI.Report
         /// </summary>
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            // 查询瞬间把结束时间刷新为当前时刻，避免 Load 时的旧时间戳把新记录挡在查询范围外
+            this.dtpEndTime.Value = DateTime.Now;
+                
             // 修正时间比较逻辑
             if (this.dtpStartTime.Value > this.dtpEndTime.Value)
             {
@@ -912,16 +913,25 @@ namespace MainUI.Report
         private static double ToUnit_10Pa(double rawKPa) => rawKPa / FACTOR_10PA;
         private static double ToUnit_100Pa(double rawKPa) => rawKPa / FACTOR_100PA;
 
-        // 手动模式导出：按模板填充 .xls
+        // 手动模式导出：按模板填充 .xls 复制模板之前先弹窗
         private void ExportManualToExcel()
         {
             string templatePath = System.IO.Path.Combine(Application.StartupPath, "reports", "ManualReport.xls");
-
             if (!System.IO.File.Exists(templatePath))
             {
-                Var.MsgBoxWarn(this, $"模板文件不存在：{templatePath}\n请将出厂记录模板放至 Reports 目录。");
+                Var.MsgBoxWarn(this, $"模板文件不存在：{templatePath}\n请将出厂记录模板放至 reports 目录。");
                 return;
             }
+
+            // 弹窗收集报表头部信息，不填/校验不过不能继续导出
+            var lastHeader = LoadLastManualReportHeader();   // 从 SysParas 读上次填的值，没有就是 null
+            ManualReportHeaderInfo headerInfo;
+            using (var dlgHeader = new frmManualReportHeader(lastHeader))
+            {
+                if (dlgHeader.ShowDialog(this) != DialogResult.OK) return;   // 取消/未通过校验直接不导出
+                headerInfo = dlgHeader.Result;
+            }
+            SaveLastManualReportHeader(headerInfo);   // 存起来，下次弹窗自动带出
 
             using (var dlg = new SaveFileDialog())
             {
@@ -932,9 +942,8 @@ namespace MainUI.Report
                 try
                 {
                     System.IO.File.Copy(templatePath, dlg.FileName, overwrite: true);
-                    FillManualExcelTemplate(dlg.FileName);
+                    FillManualExcelTemplate(dlg.FileName, headerInfo);   // 多传一个参数
                     Var.MsgBoxInfo(this, $"导出成功：{dlg.FileName}");
-
                     if (Var.MsgBoxYesNo(this, "是否立即打开文件？"))
                         System.Diagnostics.Process.Start(dlg.FileName);
                 }
@@ -948,26 +957,13 @@ namespace MainUI.Report
         // 每页最多显示的记录条数（受表2"一条记录占A/B两行、数据区14行"的限制）
         private const int PAGE_SIZE = 7;
 
-        // 匹配表头里"共页"和"第页"这两段（中间是任意长度空白）
-        private static readonly System.Text.RegularExpressions.Regex TotalPageRegex =
-            new System.Text.RegularExpressions.Regex(@"共\s*页");
-        private static readonly System.Text.RegularExpressions.Regex CurrentPageRegex =
-            new System.Text.RegularExpressions.Regex(@"第\s*页");
-
         /// <summary>
-        /// 把表头文字里的"共 页"替换成"共 X 页"、"第 页"替换成"第 Y 页"。
-        /// 表头是整段合并单元格文字，位于第0行第0列。
+        /// 把总页数写入B1、当前页写入E1（模板已把"共 X 页 第 Y 页"拆成独立单元格）。
         /// </summary>
         private static void SetPageHeader(NPOI.SS.UserModel.ISheet sh, int currentPage, int totalPages)
         {
-            var row = sh.GetRow(0) ?? sh.CreateRow(0);
-            var cell = row.GetCell(0) ?? row.CreateCell(0);
-            string text = cell.ToString() ?? "";
-
-            text = TotalPageRegex.Replace(text, $"共 {totalPages} 页", 1);
-            text = CurrentPageRegex.Replace(text, $"第 {currentPage} 页", 1);
-
-            cell.SetCellValue(text);
+            SetCell(sh, 0, 1, totalPages);   // B1 = 共 [totalPages] 页
+            SetCell(sh, 0, 4, currentPage);  // E1 = 第 [currentPage] 页
         }
 
         /// <summary>
@@ -975,11 +971,11 @@ namespace MainUI.Report
         /// 记录数超过一页容量（PAGE_SIZE）时自动克隆模板sheet分页，不再使用 ShiftRows。
         /// 各缸爆发压力：不写值，保留空白，由人工打印后手动填写。
         /// </summary>
-        private void FillManualExcelTemplate(string filePath)
+        private void FillManualExcelTemplate(string filePath, ManualReportHeaderInfo headerInfo)
         {
             var records = _allData.Cast<ManualRecordPara>().ToList();
 
-            // ── 第一步：只读，把文件内容加载进 workbook（读完这个流会被NPOI自动关闭，属于正常现象）──
+            // 第一步：只读，把文件内容加载进 workbook（读完这个流会被NPOI自动关闭，属于正常现象）
             NPOI.HSSF.UserModel.HSSFWorkbook wb;
             using (var fsRead = new System.IO.FileStream(filePath,
                 System.IO.FileMode.Open, System.IO.FileAccess.Read))
@@ -988,30 +984,49 @@ namespace MainUI.Report
             }
 
             var templateSheet = wb.GetSheetAt(0);
-
             int totalPages = Math.Max(1, (int)Math.Ceiling(records.Count / (double)PAGE_SIZE));
+
+            // 先把所有分页sheet全部克隆好，此时sheet0还没写过任何数据，克隆出来的每一页都是干净模板 
+            var pageSheets = new NPOI.SS.UserModel.ISheet[totalPages];
+            pageSheets[0] = templateSheet;
+            for (int p = 1; p < totalPages; p++)
+            {
+                var clone = wb.CloneSheet(0);
+                wb.SetSheetName(wb.GetSheetIndex(clone), $"{templateSheet.SheetName}_{p + 1}");
+                pageSheets[p] = clone;
+            }
 
             for (int pageIndex = 0; pageIndex < totalPages; pageIndex++)
             {
-                NPOI.SS.UserModel.ISheet sh = pageIndex == 0
-                    ? templateSheet
-                    : wb.CloneSheet(0);
+                NPOI.SS.UserModel.ISheet sh = pageSheets[pageIndex];
+                var pageRecords = records.Skip(pageIndex * PAGE_SIZE).Take(PAGE_SIZE).ToList();
 
                 if (pageIndex > 0)
                     wb.SetSheetName(wb.GetSheetIndex(sh), $"{templateSheet.SheetName}_{pageIndex + 1}");
 
-                var pageRecords = records.Skip(pageIndex * PAGE_SIZE).Take(PAGE_SIZE).ToList();
-
+                // 表头信息（每一页都要写，因为分页是 CloneSheet，各自独立）
                 SetPageHeader(sh, pageIndex + 1, totalPages);
-                SetCell(sh, 2, 2, DateTime.Now.ToString("yyyy-MM-dd"));
-                SetCell(sh, 2, 9, txtNumber.Text);
+                SetCell(sh, 2, 3, DateTime.Now.ToString("yyyy-MM-dd")); // D3 试验日期
+                SetCell(sh, 2, 7, headerInfo.TestProject);              // H3 试验项目
+                SetCell(sh, 2, 11, txtNumber.Text);                     // L3 柴油机出厂编号
+                SetCell(sh, 2, 15, headerInfo.SuperchargerModel);       // P3 增压器型号
+                SetCell(sh, 2, 20, headerInfo.SuperchargerSN);          // U3 增压器出厂编号
+                SetCell(sh, 3, 3, headerInfo.TestBenchNo);              // D4 试验台位号
+                SetCell(sh, 3, 7, headerInfo.MainGeneratorNo);          // H4 主发电机编号
+                SetCell(sh, 3, 11, headerInfo.AvgOutsideTemp);          // L4 平均外温
+                SetCell(sh, 3, 16, $"{headerInfo.AvgAtmPressure}Pa");   // Q4 平均大气压力
+                SetCell(sh, 3, 21, $"{headerInfo.Humidity}%");          // V4 相对湿度（同上，"数值+%"）
+                SetCell(sh, 3, 24, headerInfo.OilGrade);                // Y4 机油牌号
+                SetCell(sh, 3, 27, headerInfo.FuelGrade);               // AB4 燃油牌号
+                //SetCell(sh, 2, 23, headerInfo.SuperchargerSNFront);  // X3
+                //SetCell(sh, 2, 26, headerInfo.SuperchargerSNAfter);  // AA3
 
-                // 表1、表2填充逻辑完全不变
-                int dataStartRow1 = 11;
+                // 表1、表2填充逻辑
+                int dataStartRow1 = 12;
                 for (int i = 0; i < pageRecords.Count; i++)
                 {
                     var rec = pageRecords[i];
-                    int rowIdx = dataStartRow1 + i;
+                    int rowIdx = dataStartRow1 + i * 2;
                     var row = sh.GetRow(rowIdx) ?? sh.CreateRow(rowIdx);
                     SetCell(row, 0, (int)rec.Index + 1);
                     SetCell(row, 1, rec.TestHour);
@@ -1020,7 +1035,6 @@ namespace MainUI.Report
                     SetCell(row, 5, rec.RPM);
                     SetCell(row, 6, rec.NominalPower);
                     SetCell(row, 7, rec.Power);
-                    SetCell(row, 8, rec.ECOQuantity);
                     SetCell(row, 10, rec.ECORate);
                     SetCell(row, 11, ToUnit_0p1MPa(rec.PFuelInlet));
                     SetCell(row, 12, ToUnit_0p1MPa(rec.LPressureOut));
@@ -1036,12 +1050,14 @@ namespace MainUI.Report
                     SetCell(row, 22, rec.HWaterTempOut);
                     SetCell(row, 23, rec.LWaterTempIn);
                     SetCell(row, 24, rec.LWaterTempOut);
-                    SetCell(row, 25, rec.FrontTurbochargerRPM);
-                    SetCell(row, 26, rec.AfterTurbochargerRPM);
+                    // AA列(增压器转速)按上/下两行分别写前/后值；
+                    var rowBelow = sh.GetRow(rowIdx + 1) ?? sh.CreateRow(rowIdx + 1);
+                    SetCell(row, 26, rec.FrontTurbochargerRPM);       // 上半行 = 前
+                    SetCell(rowBelow, 26, rec.AfterTurbochargerRPM);  // 下半行 = 后
                     SetCell(row, 27, rec.Remark ?? "");
                 }
 
-                int dataStartRow2 = 31;
+                int dataStartRow2 = 32;
                 for (int i = 0; i < pageRecords.Count; i++)
                 {
                     var rec = pageRecords[i];
@@ -1076,6 +1092,40 @@ namespace MainUI.Report
             {
                 wb.Write(fsWrite);
             }
+        }
+
+        private ManualReportHeaderInfo LoadLastManualReportHeader()
+        {
+            var cfg = Var.SysConfig;
+            return new ManualReportHeaderInfo
+            {
+                TestProject = cfg.ManualReportTestProject,
+                SuperchargerModel = cfg.ManualReportSuperchargerModel,
+                SuperchargerSN = cfg.ManualReportSuperchargerSN,
+                TestBenchNo = cfg.ManualReportTestBenchNo,
+                MainGeneratorNo = cfg.ManualReportMainGeneratorNo,
+                AvgOutsideTemp = cfg.ManualReportAvgOutsideTemp,
+                AvgAtmPressure = cfg.ManualReportAvgAtmPressure,
+                Humidity = cfg.ManualReportHumidity,
+                OilGrade = cfg.ManualReportOilGrade,
+                FuelGrade = cfg.ManualReportFuelGrade,
+            };
+        }
+
+        private void SaveLastManualReportHeader(ManualReportHeaderInfo info)
+        {
+            var cfg = Var.SysConfig;
+            cfg.ManualReportTestProject = info.TestProject;
+            cfg.ManualReportSuperchargerModel = info.SuperchargerModel;
+            cfg.ManualReportSuperchargerSN = info.SuperchargerSN;
+            cfg.ManualReportTestBenchNo = info.TestBenchNo;
+            cfg.ManualReportMainGeneratorNo = info.MainGeneratorNo;
+            cfg.ManualReportAvgOutsideTemp = info.AvgOutsideTemp;
+            cfg.ManualReportAvgAtmPressure = info.AvgAtmPressure;
+            cfg.ManualReportHumidity = info.Humidity;
+            cfg.ManualReportOilGrade = info.OilGrade;
+            cfg.ManualReportFuelGrade = info.FuelGrade;
+            cfg.Save();
         }
 
         // NPOI 辅助方法
