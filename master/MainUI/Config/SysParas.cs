@@ -85,6 +85,20 @@ namespace MainUI.Config
         public string TestNo { get; set; }
 
         /// <summary>
+        /// 手动记录当前批次主表ID（断电续接用）。
+        /// 非空表示有未结束的批次，下次记录直接追加到该批次；
+        /// 为空表示需要新建批次。
+        /// </summary>
+        [IniKeyName("手动记录批次ID")]
+        public string ManualRecordMGid { get; set; } = "";
+
+        /// <summary>
+        /// 手动记录当前批次已记录条数（断电续接时从此值继续自增）。
+        /// </summary>
+        [IniKeyName("手动记录条数")]
+        public int ManualRecordIndex { get; set; } = 0;
+
+        /// <summary>
         /// 设备编号
         /// </summary>
         public string DeviceNo { get; set; }
@@ -173,6 +187,42 @@ namespace MainUI.Config
         /// </summary>
         [IniKeyName("燃油油耗率")]
         public double FOilNum { get; set; }
+
+
+
+        #region 手动出厂试验表头数据
+
+        [IniKeyName("出厂报表_试验项目")]
+        public string ManualReportTestProject { get; set; } = "";
+
+        [IniKeyName("出厂报表_增压器型号")]
+        public string ManualReportSuperchargerModel { get; set; } = "";
+
+        [IniKeyName("出厂报表_增压器出厂编号")]
+        public string ManualReportSuperchargerSN { get; set; } = "";
+
+        [IniKeyName("出厂报表_试验台位号")]
+        public string ManualReportTestBenchNo { get; set; } = "";
+
+        [IniKeyName("出厂报表_主发电机编号")]
+        public string ManualReportMainGeneratorNo { get; set; } = "";
+
+        [IniKeyName("出厂报表_平均外温")]
+        public double ManualReportAvgOutsideTemp { get; set; } = 0;
+
+        [IniKeyName("出厂报表_平均大气压力")]
+        public double ManualReportAvgAtmPressure { get; set; } = 0;
+
+        [IniKeyName("出厂报表_相对湿度")]
+        public double ManualReportHumidity { get; set; } = 0;
+
+        [IniKeyName("出厂报表_机油牌号")]
+        public string ManualReportOilGrade { get; set; } = "";
+
+        [IniKeyName("出厂报表_燃油牌号")]
+        public string ManualReportFuelGrade { get; set; } = "";
+
+        #endregion
     }
 
 

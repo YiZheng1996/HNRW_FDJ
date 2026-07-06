@@ -124,6 +124,7 @@ namespace MainUI.TestScreen
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.dsRunTime = new System.Windows.Forms.Label();
+            this.rButton4 = new RW.UI.Controls.RButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cboRadTrialType = new Sunny.UI.UIComboBox();
             this.txtSpeed = new Sunny.UI.UITextBox();
@@ -614,7 +615,6 @@ namespace MainUI.TestScreen
             this.uiLedBulb2.Color = System.Drawing.Color.Red;
             this.uiLedBulb2.Location = new System.Drawing.Point(323, 165);
             this.uiLedBulb2.Name = "uiLedBulb2";
-            this.uiLedBulb2.On = false;
             this.uiLedBulb2.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb2.TabIndex = 759;
             this.uiLedBulb2.Tag = "抽油泵过流";
@@ -664,7 +664,6 @@ namespace MainUI.TestScreen
             this.uiLedBulb1.Color = System.Drawing.Color.Red;
             this.uiLedBulb1.Location = new System.Drawing.Point(359, 116);
             this.uiLedBulb1.Name = "uiLedBulb1";
-            this.uiLedBulb1.On = false;
             this.uiLedBulb1.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb1.TabIndex = 759;
             this.uiLedBulb1.Tag = "主发通风机2过流";
@@ -714,6 +713,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb6.Color = System.Drawing.Color.Red;
             this.uiLedBulb6.Location = new System.Drawing.Point(359, 64);
             this.uiLedBulb6.Name = "uiLedBulb6";
+            this.uiLedBulb6.On = false;
             this.uiLedBulb6.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb6.TabIndex = 759;
             this.uiLedBulb6.Tag = "主发通风机1过流";
@@ -763,7 +763,6 @@ namespace MainUI.TestScreen
             this.uiLedBulb3.Color = System.Drawing.Color.Red;
             this.uiLedBulb3.Location = new System.Drawing.Point(360, 105);
             this.uiLedBulb3.Name = "uiLedBulb3";
-            this.uiLedBulb3.On = false;
             this.uiLedBulb3.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb3.TabIndex = 760;
             this.uiLedBulb3.Tag = "水阻升降电机过流";
@@ -1376,6 +1375,7 @@ namespace MainUI.TestScreen
             // 
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.dsRunTime);
+            this.groupBox4.Controls.Add(this.rButton4);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.lblRunTime);
             this.groupBox4.Controls.Add(this.uiLight1);
@@ -1418,6 +1418,20 @@ namespace MainUI.TestScreen
             this.dsRunTime.Tag = "水阻箱进水电动调节阀";
             this.dsRunTime.Text = "0.0";
             this.dsRunTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // rButton4
+            // 
+            this.rButton4.BackColor = System.Drawing.Color.Silver;
+            this.rButton4.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.rButton4.FalseColor = System.Drawing.Color.Silver;
+            this.rButton4.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rButton4.Location = new System.Drawing.Point(9, 499);
+            this.rButton4.Name = "rButton4";
+            this.rButton4.Size = new System.Drawing.Size(200, 40);
+            this.rButton4.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.rButton4.TabIndex = 796;
+            this.rButton4.Tag = "";
+            this.rButton4.Text = "手动数据记录";
+            this.rButton4.TrueColor = System.Drawing.Color.Lime;
             // 
             // groupBox3
             // 
@@ -1659,8 +1673,8 @@ namespace MainUI.TestScreen
             this.ucParamEngineOutP.Name = "ucParamEngineOutP";
             this.ucParamEngineOutP.Size = new System.Drawing.Size(299, 232);
             this.ucParamEngineOutP.TabIndex = 796;
-            this.ucParamEngineOutP.Tag = "P20机油泵出口压力";
-            this.ucParamEngineOutP.Title = "机油泵出口油压(kPa)";
+            this.ucParamEngineOutP.Tag = "有功功率";
+            this.ucParamEngineOutP.Title = "电参数功率(kw)";
             this.ucParamEngineOutP.TitleFont = new System.Drawing.Font("宋体", 17F);
             this.ucParamEngineOutP.TitleHeight = 35;
             this.ucParamEngineOutP.Unit = "";
@@ -1730,7 +1744,7 @@ namespace MainUI.TestScreen
             this.ucParamPower.Name = "ucParamPower";
             this.ucParamPower.Size = new System.Drawing.Size(299, 232);
             this.ucParamPower.TabIndex = 5;
-            this.ucParamPower.Title = "发动机功率(kW)";
+            this.ucParamPower.Title = "发动机扭矩功率(kW)";
             this.ucParamPower.TitleFont = new System.Drawing.Font("宋体", 18F);
             this.ucParamPower.TitleHeight = 35;
             this.ucParamPower.Unit = "";
@@ -1905,5 +1919,6 @@ namespace MainUI.TestScreen
         private Sunny.UI.UIComboBox cboRadTrialType;
         private System.Windows.Forms.Label dsRunTime;
         private System.Windows.Forms.Label label9;
+        private RW.UI.Controls.RButton rButton4;
     }
 }

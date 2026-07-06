@@ -6,7 +6,8 @@ using RW.Data;
 using System.Data;
 using RW.Components.Core.BLL;
 using RW.UI;
-using MainUI.Data;   // ← 新增
+using MainUI.Data;
+using MySql.Data.MySqlClient;   // ← 新增
 
 namespace MainUI.BLL
 {
@@ -30,16 +31,20 @@ namespace MainUI.BLL
 
         public bool Add(string detailInfo, string nowStr)
         {
-            int userid = RWUser.User.ID;
-            string uname = RWUser.User.Username;
-            string logtime = nowStr;
+            string uname = RWUser.User.Username ?? "";
 
-            // 去掉 [SysLog] 的方括号（其余字段名无括号，不用改）
-            string sql = string.Format(
-                "insert into SysLog(Uname,LogTime,DetailInfo,status) values('{0}','{1}','{2}','1')",
-                uname, logtime, detailInfo);
+            string sql = "insert into SysLog(Uname,LogTime,DetailInfo,status) " +
+                         "values(@uname,@logtime,@detail,'1')";
 
-            int cnt = base.Database.ExecuteNonQuery(sql);
+            var ps = new MySqlParameter[]
+            {
+                new MySqlParameter("@uname",   uname),
+                new MySqlParameter("@logtime", nowStr ?? ""),
+                new MySqlParameter("@detail",  detailInfo ?? ""),
+            };
+
+            var db = (MainUI.Data.MySqlAdoDb)base.Database;
+            int cnt = db.ExecuteNonQuery(sql, ps);   // 走 params DbParameter[] 重载
             return cnt > 0;
         }
 

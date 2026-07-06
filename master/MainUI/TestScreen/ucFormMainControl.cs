@@ -128,7 +128,8 @@ namespace MainUI.TestScreen
 
             ucParamFuelInletP.SetRand(0, 1100, 1000); //燃油进口压力
             ucParamEngineInP.SetRand(0, 1100, 1000); //机油进口压力
-            ucParamEngineOutP.SetRand(0, 1100, 1000); //机油进口压力
+            //ucParamEngineOutP.SetRand(0, 1100, 1000); //机油进口压力
+            ucParamEngineOutP.SetRand(0, 6000, 5500); // 有功功率
 
             // 添加进字典
             EachControl(grpFJKZ); // 主发通风机
@@ -1165,25 +1166,12 @@ namespace MainUI.TestScreen
         private void timerFast_Tick(object sender, EventArgs e)
         {
             this.ucParamSpeed.GaugeValue = MiddleData.instnce.EngineSpeed;
-
-            // 优先使用扭矩/转速计算功率；无效时回退到机组测量值有功功率
-            double enginePower = MiddleData.instnce.EnginePower;
-            if (enginePower > 0)
-            {
-                this.ucParamPower.GaugeValue = enginePower;
-            }
-            else
-            {
-                // 有功功率存在 DataValue["有功功率"]，Power 属性未赋值，不能用
-                double electricPower = 0;
-                Common.threePhaseElectric.DataValue.TryGetValue("有功功率", out electricPower);
-                this.ucParamPower.GaugeValue = electricPower;
-            }
-
+            this.ucParamPower.GaugeValue = MiddleData.instnce.EnginePower;
             this.ucParamTorque.GaugeValue = MiddleData.instnce.EngineTorque;
             this.ucParamFuelInletP.GaugeValue = Common.AI2Grp["P38燃油供油压力"];
             this.ucParamEngineInP.GaugeValue = Common.AI2Grp["P21主油道进口油压"];
-            this.ucParamEngineOutP.GaugeValue = Common.AI2Grp["P20机油泵出口压力"];
+            Common.threePhaseElectric.DataValue.TryGetValue("有功功率", out double electricPower);
+            this.ucParamEngineOutP.GaugeValue = electricPower;
         }
 
         /// <summary>

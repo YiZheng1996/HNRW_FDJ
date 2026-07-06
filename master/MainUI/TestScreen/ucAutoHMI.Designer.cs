@@ -33,6 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             MainUI.Wave.WaveInfo waveInfo1 = new MainUI.Wave.WaveInfo();
             MainUI.Wave.WaveInfo waveInfo2 = new MainUI.Wave.WaveInfo();
             MainUI.Wave.WaveInfo waveInfo3 = new MainUI.Wave.WaveInfo();
@@ -149,7 +150,8 @@
             this.dtpStartEnd = new Sunny.UI.UIDatePicker();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.panelManualRecord = new System.Windows.Forms.Panel();
-            this.btnToReport = new RW.UI.Controls.RButton();
+            this.lblRecordTip = new System.Windows.Forms.Label();
+            this.btnNewBatch = new RW.UI.Controls.RButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvManualRecord = new System.Windows.Forms.DataGridView();
             this.Column24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -231,8 +233,6 @@
             this.Column102 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnClearDataGridView = new RW.UI.Controls.RButton();
             this.btnRecord = new RW.UI.Controls.RButton();
-            this.nudRecordFrequency = new Sunny.UI.UIDoubleUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.ucFuelConsumptionMeasurement1 = new MainUI.HMI_Auto.ucFuelConsumptionMeasurement();
             this.rButton6 = new RW.UI.Controls.RButton();
@@ -1556,33 +1556,41 @@
             // panelManualRecord
             // 
             this.panelManualRecord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
-            this.panelManualRecord.Controls.Add(this.btnToReport);
+            this.panelManualRecord.Controls.Add(this.lblRecordTip);
+            this.panelManualRecord.Controls.Add(this.btnNewBatch);
             this.panelManualRecord.Controls.Add(this.panel1);
             this.panelManualRecord.Controls.Add(this.btnClearDataGridView);
             this.panelManualRecord.Controls.Add(this.btnRecord);
-            this.panelManualRecord.Controls.Add(this.nudRecordFrequency);
-            this.panelManualRecord.Controls.Add(this.label1);
             this.panelManualRecord.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelManualRecord.Location = new System.Drawing.Point(0, 0);
             this.panelManualRecord.Name = "panelManualRecord";
             this.panelManualRecord.Size = new System.Drawing.Size(1816, 574);
             this.panelManualRecord.TabIndex = 840;
             // 
-            // btnToReport
+            // lblRecordTip
             // 
-            this.btnToReport.BackColor = System.Drawing.Color.Silver;
-            this.btnToReport.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnToReport.FalseColor = System.Drawing.Color.Silver;
-            this.btnToReport.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnToReport.Location = new System.Drawing.Point(704, 10);
-            this.btnToReport.Name = "btnToReport";
-            this.btnToReport.Size = new System.Drawing.Size(141, 38);
-            this.btnToReport.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
-            this.btnToReport.TabIndex = 847;
-            this.btnToReport.Tag = "";
-            this.btnToReport.Text = "手动数据导出";
-            this.btnToReport.TrueColor = System.Drawing.Color.Lime;
-            this.btnToReport.Visible = false;
+            this.lblRecordTip.AutoSize = true;
+            this.lblRecordTip.Location = new System.Drawing.Point(17, 18);
+            this.lblRecordTip.Name = "lblRecordTip";
+            this.lblRecordTip.Size = new System.Drawing.Size(119, 20);
+            this.lblRecordTip.TabIndex = 849;
+            this.lblRecordTip.Text = "已记录 0 条";
+            // 
+            // btnNewBatch
+            // 
+            this.btnNewBatch.BackColor = System.Drawing.Color.Silver;
+            this.btnNewBatch.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnNewBatch.FalseColor = System.Drawing.Color.Silver;
+            this.btnNewBatch.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnNewBatch.Location = new System.Drawing.Point(586, 8);
+            this.btnNewBatch.Name = "btnNewBatch";
+            this.btnNewBatch.Size = new System.Drawing.Size(141, 38);
+            this.btnNewBatch.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.btnNewBatch.TabIndex = 848;
+            this.btnNewBatch.Tag = "";
+            this.btnNewBatch.Text = "开始新批次";
+            this.btnNewBatch.TrueColor = System.Drawing.Color.Lime;
+            this.btnNewBatch.Click += new System.EventHandler(this.btnNewBatch_Click);
             // 
             // panel1
             // 
@@ -1597,6 +1605,14 @@
             this.dgvManualRecord.AllowUserToAddRows = false;
             this.dgvManualRecord.AllowUserToDeleteRows = false;
             this.dgvManualRecord.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 15F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvManualRecord.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvManualRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvManualRecord.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column24,
@@ -1679,7 +1695,8 @@
             this.dgvManualRecord.EnableHeadersVisualStyles = false;
             this.dgvManualRecord.Location = new System.Drawing.Point(3, 3);
             this.dgvManualRecord.Name = "dgvManualRecord";
-            this.dgvManualRecord.RowTemplate.Height = 23;
+            this.dgvManualRecord.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvManualRecord.RowTemplate.Height = 30;
             this.dgvManualRecord.Size = new System.Drawing.Size(1800, 510);
             this.dgvManualRecord.TabIndex = 844;
             // 
@@ -2157,7 +2174,7 @@
             this.btnClearDataGridView.FalseColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.btnClearDataGridView.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnClearDataGridView.ForeColor = System.Drawing.Color.Black;
-            this.btnClearDataGridView.Location = new System.Drawing.Point(410, 10);
+            this.btnClearDataGridView.Location = new System.Drawing.Point(374, 8);
             this.btnClearDataGridView.Name = "btnClearDataGridView";
             this.btnClearDataGridView.Size = new System.Drawing.Size(194, 38);
             this.btnClearDataGridView.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -2173,45 +2190,15 @@
             this.btnRecord.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnRecord.FalseColor = System.Drawing.Color.Silver;
             this.btnRecord.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnRecord.Location = new System.Drawing.Point(274, 10);
+            this.btnRecord.Location = new System.Drawing.Point(210, 8);
             this.btnRecord.Name = "btnRecord";
-            this.btnRecord.Size = new System.Drawing.Size(116, 38);
+            this.btnRecord.Size = new System.Drawing.Size(141, 38);
             this.btnRecord.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.btnRecord.TabIndex = 843;
             this.btnRecord.Tag = "";
-            this.btnRecord.Text = "记录";
+            this.btnRecord.Text = "手动数据记录";
             this.btnRecord.TrueColor = System.Drawing.Color.Lime;
             this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
-            // 
-            // nudRecordFrequency
-            // 
-            this.nudRecordFrequency.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.nudRecordFrequency.DecimalPlaces = 0;
-            this.nudRecordFrequency.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nudRecordFrequency.Location = new System.Drawing.Point(129, 15);
-            this.nudRecordFrequency.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.nudRecordFrequency.Maximum = 60D;
-            this.nudRecordFrequency.Minimum = 1D;
-            this.nudRecordFrequency.MinimumSize = new System.Drawing.Size(100, 0);
-            this.nudRecordFrequency.Name = "nudRecordFrequency";
-            this.nudRecordFrequency.Padding = new System.Windows.Forms.Padding(5);
-            this.nudRecordFrequency.ShowText = false;
-            this.nudRecordFrequency.Size = new System.Drawing.Size(116, 29);
-            this.nudRecordFrequency.Step = 1D;
-            this.nudRecordFrequency.TabIndex = 841;
-            this.nudRecordFrequency.Text = "1";
-            this.nudRecordFrequency.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.nudRecordFrequency.Value = 1D;
-            this.nudRecordFrequency.ValueChanged += new Sunny.UI.UIDoubleUpDown.OnValueChanged(this.nudRecordFrequency_ValueChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 20);
-            this.label1.TabIndex = 840;
-            this.label1.Text = "记录频率(s)";
             // 
             // tabPage1
             // 
@@ -2893,7 +2880,6 @@
             this.button1.TabIndex = 812;
             this.button1.Text = "数据模拟";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ucAutoHMI
@@ -3107,8 +3093,6 @@
         private RW.UI.Controls.RButton btnNJ;
         private RW.UI.Controls.RButton btnXN;
         private System.Windows.Forms.Panel panel9;
-        private Sunny.UI.UIDoubleUpDown nudRecordFrequency;
-        private System.Windows.Forms.Label label1;
         private RW.UI.Controls.RButton btnRecord;
         private System.Windows.Forms.DataGridView dgvManualRecord;
         private RW.UI.Controls.RButton btnClearDataGridView;
@@ -3247,5 +3231,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private RW.UI.Controls.RButton btnNewBatch;
+        private System.Windows.Forms.Label lblRecordTip;
     }
 }

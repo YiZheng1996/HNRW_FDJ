@@ -1,39 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-using MainUI.Model;
-using MainUI.Modules;
-using MainUI.Config;
-using RW.UI.Controls;
-using MainUI.Procedure;
-using System.Threading;
-using System.Diagnostics;
-using RW.Fonts;
-using Sunny.UI;
-using RW.UI;
-using RW;
-using MainUI.Equip;
-using MainUI.Procedure.Test.Performance;
-using System.Linq;
-using MainUI.BLL;
-using System.Text;
-using System.Data;
-using System.Runtime.InteropServices;
-using System.Net.NetworkInformation;
-using System.Management;
-using MainUI.Widget;
-using System.Linq;
+﻿using MainUI.Config;
 using MainUI.Config.Test;
-using MainUI.Global;
-using System.Threading.Tasks;
 using MainUI.FSql;
-using System.Collections.Concurrent;
-using static MainUI.Modules.EventArgsModel;
-using MainUI.HMI_Auto;
+using MainUI.Global;
 using MainUI.Helper;
+using MainUI.HMI_Auto;
+using MainUI.Procedure;
+using MainUI.Procedure.Test.Performance;
 using MainUI.Wave;
+using MainUI.Widget;
+using RW;
+using RW.UI.Controls;
+using Sunny.UI;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static MainUI.Modules.EventArgsModel;
 
 namespace MainUI
 {
@@ -201,6 +193,10 @@ namespace MainUI
                 this.dataGridLoopCode.AllowUserToAddRows = false;
                 this.dataGridViewData.EditMode = DataGridViewEditMode.EditProgrammatically;
                 this.dataGridViewData.AllowUserToAddRows = false;
+
+                // 初始化出厂试验列
+                InitManualRecordGridColumns();
+
                 // 把控件添加到字典（数据刷新）
                 EachControl(this);
                 // 初始化默认选中性能试验
@@ -228,6 +224,9 @@ namespace MainUI
 
                 // 触发计时更新
                 EventTriggerModel.OnTimngChanged += EventTriggerModel_OnTimngChanged;
+
+                // 手动单条数据记录
+                manualRecordService.DataSaved += ManualRecordService_DataSaved;
 
                 // 注册模块事件
                 Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange;
@@ -533,97 +532,9 @@ namespace MainUI
             try
             {
                 //var record = DB.mysql.Select<ManualRecordPara>().Where(d => d.gid == gid).ToList();
-                //rmRpt.Write("RecordName", record[0].RecordName);
-
+                //rmRpt.Write("RecordName", record[0].RecordName);=
                 //frmRpt.sa
-                //frmRpt.Write("RecordDataTime", record[0].RecordDataTime);
-                //frmRpt.Write("AT", record[0].AT);
-                //frmRpt.Write("AP", record[0].AP);
-                //frmRpt.Write("AH", record[0].AH);
-                //frmRpt.Write("RPM", record[0].RPM);
-                //frmRpt.Write("Torque", record[0].Torque);
-                //frmRpt.Write("Power", record[0].Power);
-                //frmRpt.Write("LWaterTempIn", record[0].LWaterTempIn);
-                //frmRpt.Write("HWaterTempIn", record[0].HWaterTempIn);
-                //frmRpt.Write("LWaterTempOut", record[0].LWaterTempOut);
-                //frmRpt.Write("HWaterTempOut", record[0].HWaterTempOut);
-                //frmRpt.Write("EngineWaterTempIn", record[0].EngineWaterTempIn);
-                //frmRpt.Write("EngineWaterTempOut", record[0].EngineWaterTempOut);
-                //frmRpt.Write("LPressureIn", record[0].LPressureIn);
-                //frmRpt.Write("HPressureIn", record[0].HPressureIn);
-                //frmRpt.Write("LPressureOut", record[0].LPressureOut);
-                //frmRpt.Write("HPressureOut", record[0].HPressureOut);
-                //frmRpt.Write("LWaterPressureOut", record[0].LWaterPressureOut);
-                //frmRpt.Write("HWaterPressureOut", record[0].HWaterPressureOut);
-                //frmRpt.Write("HeatExchangerTempIn", record[0].HeatExchangerTempIn);
-                //frmRpt.Write("HeatExchangerTempOut", record[0].HeatExchangerTempOut);
-                //frmRpt.Write("EOPressure2", record[0].EOPressure2);
-                //frmRpt.Write("EOPressure1", record[0].EOPressure1);
-                //frmRpt.Write("EngineOilOutletTemp", record[0].EngineOilOutletTemp);
-                //frmRpt.Write("EOAnalysis", record[0].EOAnalysis);
-                //frmRpt.Write("EOConsumption", record[0].EOConsumption);
-                //frmRpt.Write("FrontAirTempIn", record[0].FrontAirTempIn);
-                //frmRpt.Write("AfterAirTempIn", record[0].AfterAirTempIn);
-                //frmRpt.Write("FrontAirTempOut", record[0].FrontAirTempOut);
-                //frmRpt.Write("AfterAirTempOut", record[0].AfterAirTempOut);
-                //frmRpt.Write("FrontAirPressureIn", record[0].FrontAirPressureIn);
-                //frmRpt.Write("AfterAirPressureIn", record[0].AfterAirPressureIn);
-                //frmRpt.Write("FrontAirPressureOut", record[0].FrontAirPressureOut);
-                //frmRpt.Write("AfterAirPressureOut", record[0].AfterAirPressureOut);
-                //frmRpt.Write("FrontTurbochargerRPM", record[0].FrontTurbochargerRPM);
-                //frmRpt.Write("AfterTurbochargerRPM", record[0].AfterTurbochargerRPM);
-                //frmRpt.Write("FrontTurbochargerPressureIn", record[0].FrontTurbochargerPressureIn);
-                //frmRpt.Write("AfterTurbochargerPressureIn", record[0].AfterTurbochargerPressureIn);
-                //frmRpt.Write("FrontTurbochargerPressureOut", record[0].FrontTurbochargerPressureOut);
-                //frmRpt.Write("AfterTurbochargerPressureOut", record[0].AfterTurbochargerPressureOut);
-                //frmRpt.Write("EGTempA1", record[0].EGTempA1);
-                //frmRpt.Write("EGTempA2", record[0].EGTempA2);
-                //frmRpt.Write("EGTempA3", record[0].EGTempA3);
-                //frmRpt.Write("EGTempA4", record[0].EGTempA4);
-                //frmRpt.Write("EGTempA5", record[0].EGTempA5);
-                //frmRpt.Write("EGTempA6", record[0].EGTempA6);
-                //frmRpt.Write("EGTempA7", record[0].EGTempA7);
-                //frmRpt.Write("EGTempA8", record[0].EGTempA8);
-                //frmRpt.Write("EGTempB1", record[0].EGTempB1);
-                //frmRpt.Write("EGTempB2", record[0].EGTempB2);
-                //frmRpt.Write("EGTempB3", record[0].EGTempB3);
-                //frmRpt.Write("EGTempB4", record[0].EGTempB4);
-                //frmRpt.Write("EGTempB5", record[0].EGTempB5);
-                //frmRpt.Write("EGTempB6", record[0].EGTempB6);
-                //frmRpt.Write("EGTempB7", record[0].EGTempB7);
-                //frmRpt.Write("EGTempB8", record[0].EGTempB8);
-                //frmRpt.Write("FrontTurbochargerTempIn", record[0].FrontTurbochargerTempIn);
-                //frmRpt.Write("AfterTurbochargerTempIn", record[0].AfterTurbochargerTempIn);
-                //frmRpt.Write("FrontTurbochargerTempOut", record[0].FrontTurbochargerTempOut);
-                //frmRpt.Write("AfterTurbochargerTempOut", record[0].AfterTurbochargerTempOut);
-                //frmRpt.Write("FrontTurbochargerPressureIn2", record[0].FrontTurbochargerPressureIn2);
-                //frmRpt.Write("AfterTurbochargerPressureIn2", record[0].AfterTurbochargerPressureIn2);
-                //frmRpt.Write("Smoke", record[0].Smoke);
-                //frmRpt.Write("ECOTime", record[0].ECOTime);
-                //frmRpt.Write("ECOQuantity", record[0].ECOQuantity);
-                //frmRpt.Write("ECORate", record[0].ECORate);
-                //frmRpt.Write("OilTempIn", record[0].OilTempIn);
-                //frmRpt.Write("InjectionParameter", record[0].InjectionParameter);
-
-
-                //frmRpt.Write("",record.)
-
-
-                //frmRpt.Write("xinghao", Common.mTestViewModel.ModelName);
-                //frmRpt.Write("proNo", txtChuchanghao.Text);
-                ////frmRpt.Write("factory", lblTips.Text);
-
-
-                //frmRpt.Write("tester", RWUser.User.Username);
-                //frmRpt.Write("testDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
-                //frmRpt.Write("yqxh", Var.SysConfig.DeviceModel);
-                //frmRpt.Write("yqbh", Var.SysConfig.DeviceNo);
-                //frmRpt.Write("yqyxq", Var.SysConfig.DeviceLimit);
-
-                //int rows = 6;
-                //if (Var.SysConfig.RowStart != 0)
-                //    rows = Var.SysConfig.RowStart;
-
+                //frmRpt.Write("RecordDataTime", record[0].RecordDataTime);=
             }
             catch (Exception ex)
             {
@@ -1552,8 +1463,6 @@ namespace MainUI
             }
         }
 
-
-        bool isRecording = false;   //记录状态
         /// <summary>
         /// 手动记录
         /// </summary>
@@ -1561,48 +1470,43 @@ namespace MainUI
         /// <param name="e"></param>
         private void btnRecord_Click(object sender, EventArgs e)
         {
-            isRecording = !isRecording;
-            if (isRecording)
+            btnRecord.Enabled = false;
+            try
             {
-                //开始记录
-                //改变按钮样式
-                this.btnRecord.Switch = true;
-                this.btnRecord.Text = "停止记录";
-                this.nudRecordFrequency.Enabled = false;
-
-                //传递柴油机试验数据
-                Dictionary<string, string> saveInfo = new Dictionary<string, string>
-                 {
-                    { "Model", Common.mTestViewModel.ModelName},       //柴油机型号
-                    { "No",this.txtChuchanghao.Text},    //柴油机编号
-                    { "MaxIndex",(this.dgvManualRecord.Rows.Count + 1).ToString()},  //下一个序号
-                    { "recordFrequency",this.nudRecordFrequency.Value.ToString() },     //记录频率
-                    { "TestName", this.btnXN.Switch ? "100h" : "360h" },     //试验项点 
-                 };
-
-                //BuildDgvManualRecord();
-
-                // 订阅数据保存事件
-                manualRecordService.DataSaved += ManualRecordService_DataSaved;
-                var result = manualRecordService.StartRecord(saveInfo);
-                if (!result)
+                var saveInfo = new Dictionary<string, string>
                 {
-                    Var.MsgBoxWarn(this, "记录数据出现异常！！");
+                    ["Model"] = Var.SysConfig.LastModel,
+                    ["No"] = Common.mTestViewModel?.ModelNo ?? "",
+                    ["TestName"] = "出厂试验"
+                };
+
+                bool ok = manualRecordService.SaveOneRecord(saveInfo, out var record, out var errMsg);
+
+                if (!ok)
+                {
+                    Var.MsgBoxWarn(this, "记录失败：" + errMsg);
                 }
+                // 成功时不需要手动刷新表格：SaveOneRecord 内部会触发 DataSaved 事件，
+                // 已订阅的 ManualRecordService_DataSaved 会自动调用现成的
+                // RefreshAddedRecord(e.manualRecord) 把这一行插入 dgvManualRecord。
             }
-            else
+            catch (Exception ex)
             {
-                //停止记录时取消订阅
-                manualRecordService.DataSaved -= ManualRecordService_DataSaved;
-                //停止记录
-                manualRecordService.StopRecord();
-                //改变按钮样式
-                this.btnRecord.Text = "记录";
-                this.btnRecord.Switch = false;
-                this.nudRecordFrequency.Enabled = true;
-                //更新表格
-                //BuildDgvManualRecord();
+                Var.MsgBoxWarn(this, "记录失败：" + ex.Message);
             }
+            finally
+            {
+                btnRecord.Enabled = true;
+            }
+        }
+        private void btnNewBatch_Click(object sender, EventArgs e)
+        {
+            bool confirm = Var.MsgBoxYesNo(this,
+         "确定要开始新批次记录吗？\n（旧数据不会删除，可在报表界面按批次查看历史记录）");
+            if (!confirm) return;
+
+            manualRecordService.StartNewBatch();
+            this.dgvManualRecord.Rows.Clear();
         }
 
         /// <summary>
@@ -1614,10 +1518,9 @@ namespace MainUI
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action<object, ManualRecordService.DataSavedEventArgs>(ManualRecordService_DataSaved), sender, e);
+                this.BeginInvoke(new Action(() => ManualRecordService_DataSaved(sender, e)));
                 return;
             }
-
             RefreshAddedRecord(e.manualRecord);
         }
 
@@ -1626,99 +1529,23 @@ namespace MainUI
         /// </summary>
         private void RefreshAddedRecord(ManualRecordPara addedRecord)
         {
-            //添加到手动记录表格中 倒叙
-            this.dgvManualRecord.Rows.Insert(0,
-                addedRecord.Index,
-                addedRecord.RecordName,
-                addedRecord.TestName,
-                addedRecord.TestStage,
-                addedRecord.TestCycle,
-                addedRecord.TestStep,
-                addedRecord.DataTime,
-                addedRecord.Time,
-                addedRecord.HourNum,
-                addedRecord.RecordDataTime,
-                addedRecord.AT,     // 1 环境温度
-                addedRecord.AP,     // 2 大气压力
-                addedRecord.AH,     // 3 空气湿度
-                addedRecord.RPM,    // 4 柴油机转速
-                addedRecord.Torque, // 5 柴油机有效扭矩
-                addedRecord.Power,  // 6 柴油机有效功率
+            this.dgvManualRecord.Rows.Insert(0);          // 在第0行插入一空行
+            var row = this.dgvManualRecord.Rows[0];       // 插入后直接取第0行
 
-                addedRecord.LWaterTempIn,      // 7 中冷水进机温度
-                addedRecord.HWaterTempIn,      // 8 高温水进机温度
-                addedRecord.LWaterTempOut,     // 9 中冷水出机温度
-                addedRecord.HWaterTempOut,     // 10 高温水出机温度
-                addedRecord.EngineWaterTempIn, // 11 机油热交换器进口水温
-                addedRecord.EngineWaterTempOut,// 12 机油热交换器出口水温
+            for (int i = 0; i < _manualRecordColumns.Count; i++)
+            {
+                var col = _manualRecordColumns[i];
+                object value = col.PropertyName == "Index"
+                    ? (object)(addedRecord.Index + 1)
+                    : col.PropertyInfo?.GetValue(addedRecord);
 
-                addedRecord.LPressureIn,  // 13 中冷水泵进口压力
-                addedRecord.HPressureIn,  // 14 高温水泵进口压力
-                addedRecord.LPressureOut, // 15 中冷水泵出口压力
-                addedRecord.HPressureOut, // 16 高温水泵出口压力
+                if (value is double d)
+                    value = Math.Round(d, 2);
 
-                addedRecord.LWaterPressureOut, // 17 中冷水出机压力
-                addedRecord.HWaterPressureOut, // 18 高温水出机压力
+                row.Cells[i].Value = value;
+            }
 
-                addedRecord.HeatExchangerTempIn,  // 19 机油热交换器进口油温
-                addedRecord.HeatExchangerTempOut, // 20 机油热交换器出口油温
-
-                addedRecord.EOPressure2,  // 21 主油道末端油压
-                addedRecord.EOPressure1,  // 22 机油泵出口油压
-                addedRecord.EngineOilOutletTemp, // 23 机油泵出口油温
-                addedRecord.EOAnalysis,   // 24 机油分析
-                addedRecord.EOConsumption,// 25 机油消耗
-
-                addedRecord.FrontAirTempIn,   // 26 前中冷前空气温度
-                addedRecord.AfterAirTempIn,   // 27 后中冷前空气温度
-                addedRecord.FrontAirTempOut,  // 28 前中冷后空气温度
-                addedRecord.AfterAirTempOut,  // 29 后中冷后空气温度
-
-                addedRecord.FrontAirPressureIn,   // 30 前中冷前空气压力
-                addedRecord.AfterAirPressureIn,   // 31 后中冷前空气压力
-                addedRecord.FrontAirPressureOut,  // 32 前中冷后空气压力
-                addedRecord.AfterAirPressureOut,  // 33 后中冷后空气压力
-
-                addedRecord.FrontTurbochargerRPM,    // 34 前增压器转速
-                addedRecord.AfterTurbochargerRPM,    // 35 后增压器转速
-                addedRecord.FrontTurbochargerPressureIn,  // 36 前增压器进气真空度
-                addedRecord.AfterTurbochargerPressureIn,  // 37 后增压器进气真空度
-                addedRecord.FrontTurbochargerPressureOut, // 38 前增压器排气背压
-                addedRecord.AfterTurbochargerPressureOut, // 39 后增压器排气背压
-
-                addedRecord.EGTempA1, // 40 A1缸排气温度
-                addedRecord.EGTempA2, // 41 A2缸排气温度
-                addedRecord.EGTempA3, // 42 A3缸排气温度
-                addedRecord.EGTempA4, // 43 A4缸排气温度
-                addedRecord.EGTempA5, // 44 A5缸排气温度
-                addedRecord.EGTempA6, // 45 A6缸排气温度
-                addedRecord.EGTempA7, // 46 A7缸排气温度
-                addedRecord.EGTempA8, // 47 A8缸排气温度
-
-                addedRecord.EGTempB1, // 48 B1缸排气温度
-                addedRecord.EGTempB2, // 49 B2缸排气温度
-                addedRecord.EGTempB3, // 50 B3缸排气温度
-                addedRecord.EGTempB4, // 51 B4缸排气温度
-                addedRecord.EGTempB5, // 52 B5缸排气温度
-                addedRecord.EGTempB6, // 53 B6缸排气温度
-                addedRecord.EGTempB7, // 54 B7缸排气温度
-                addedRecord.EGTempB8, // 55 B8缸排气温度
-
-                addedRecord.FrontTurbochargerTempIn,   // 56 前涡轮进口废气温度
-                addedRecord.AfterTurbochargerTempIn,   // 57 后涡轮进口废气温度
-                addedRecord.FrontTurbochargerTempOut,  // 58 前涡轮出口废气温度
-                addedRecord.AfterTurbochargerTempOut,  // 59 后涡轮出口废气温度
-
-                addedRecord.FrontTurbochargerPressureIn2,  // 60 前涡轮进口废气压力
-                addedRecord.AfterTurbochargerPressureIn2,  // 61 后涡轮进口废气压力
-
-                addedRecord.Smoke,           // 62 烟度
-                addedRecord.ECOTime,         // 63 燃油消耗时间
-                addedRecord.ECOQuantity,     // 64 燃油消耗量
-                addedRecord.ECORate,         // 65 燃油消耗率
-                addedRecord.OilTempIn,       // 66 燃油泵进口油温
-                addedRecord.InjectionParameter // 67 喷射参数
-            );
+            lblRecordTip.Text = $"已记录 {this.dgvManualRecord.Rows.Count} 条";
         }
 
         /// <summary>
@@ -1731,23 +1558,10 @@ namespace MainUI
             var result = Var.MsgBoxYesNo(this, "确定要清空数据吗？");
             if (!result) return;
 
-            if (this.btnRecord.Switch)
-            {
-                btnRecord_Click(null, null);
-            }
-
             this.dgvManualRecord.Rows.Clear();
-            manualRecordService.MGid = null;
-        }
-
-        /// <summary>
-        /// 间隔时间更改
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="value"></param>
-        private void nudRecordFrequency_ValueChanged(object sender, double value)
-        {
-            manualRecordService.Second = value.ToInt();
+            // 等价于原来的 MGid = null，但同时清空持久化的Index
+            manualRecordService.StartNewBatch();
+            lblRecordTip.Text = "已记录 0 条";
         }
 
         /// <summary>
@@ -2087,6 +1901,8 @@ namespace MainUI
             #endregion
         }
 
+
+        private const int MaxRealtimePoints = 7200;
         /// <summary>
         /// 添加实时数据到曲线（通用方法）
         /// </summary>
@@ -2173,18 +1989,55 @@ namespace MainUI
         private void btnHistoryWave_Click(object sender, EventArgs e)
         {
             var button = sender as Button;
-            waveReocrd.TryGetValue(button.Tag.ToString(), out var WRecord);
-            WRecord.CurrentType = false;
+            string waveName = button.Tag.ToString();
+            if (!waveReocrd.TryGetValue(waveName, out var WRecord)) return;
 
-            var chart = GetChartByWaveName(button.Tag.ToString());
-            var pts = WRecord.WaveDataPoints[0].DataPoints;
-            if (pts.Count > 0)
+            WRecord.CurrentType = false;
+            var chart = GetChartByWaveName(waveName);
+
+            // 弹出工况段选择
+            var segments = WRecord.HistorySegments;
+            if (segments.Count == 0)
             {
-                double minX = (pts[0].Timestamp - _waveStartTime).TotalMinutes;
-                double maxX = (pts[pts.Count - 1].Timestamp - _waveStartTime).TotalMinutes + 1d;
-                chart.Option.XAxis.SetRange(minX, maxX);
-                chart.Refresh();
+                // 没有历史段，回看当前工况
+                ShowCurrentSegment(chart, WRecord);
+                return;
             }
+
+            // 用简单 InputBox 或自制窗口让操作员选段
+            // 这里示例直接显示最后一段（可替换为选择弹窗）
+            var seg = segments[segments.Count - 1];
+            ShowHistorySegment(chart, seg);
+        }
+
+        private void ShowCurrentSegment(UILineChart chart, WaveReocrd rec)
+        {
+            var curveName = rec.ReocrdName == "扭矩曲线" ? "扭矩" : "转速";
+            var pts = rec.WaveDataPoints.FirstOrDefault(d => d.CurveName == curveName)?.DataPoints;
+            if (pts == null || pts.Count == 0) return;
+
+            double maxX = (pts[pts.Count - 1].Timestamp - rec.WaveStartTime).TotalMinutes + 1d;
+            chart.Option.XAxis.SetRange(0d, Math.Max(maxX, 1d));
+            chart.Refresh();
+        }
+
+        private void ShowHistorySegment(UILineChart chart, WaveSegment seg)
+        {
+            // 把历史段数据重新填回对应曲线（替换当前数据）
+            var seriesName = chart == LineChartTorque ? "扭矩" : "转速";
+            ClearSeriesData(chart, seriesName);
+
+            foreach (var pt in seg.DataPoints)
+            {
+                double x = (pt.Timestamp - seg.StartTime).TotalMinutes;
+                chart.Option.AddData(seriesName, x, pt.Value);
+            }
+
+            double totalMin = seg.DataPoints.Count > 0
+                ? (seg.DataPoints[seg.DataPoints.Count - 1].Timestamp - seg.StartTime).TotalMinutes + 1d
+                : 1d;
+            chart.Option.XAxis.SetRange(0d, Math.Max(totalMin, 1d));
+            chart.Refresh();
         }
 
         /// <summary>
@@ -2369,7 +2222,7 @@ namespace MainUI
             try
             {
                 if (string.IsNullOrEmpty(cycleCode)) return;
-                if (cycleCode == _lastOverlayCode) return; // 未切码，不重画（先在调用线程判断，避免无谓跨线程）
+                if (cycleCode == _lastOverlayCode) return;
 
                 if (this.InvokeRequired)
                 {
@@ -2377,24 +2230,55 @@ namespace MainUI
                     return;
                 }
 
-                // 重置实时线起点 + 清空实时线历史数据
+                // 切换前：把当前工况数据存档
+                ArchiveCurrentSegment(_lastOverlayCode);
+
+                // 重置实时线起点
                 _waveStartTime = cycleStart;
+
+                // 更新两个记录的 WaveStartTime
+                if (waveReocrd.TryGetValue("扭矩曲线", out var tRec)) tRec.WaveStartTime = cycleStart;
+                if (waveReocrd.TryGetValue("转速曲线", out var sRec)) sRec.WaveStartTime = cycleStart;
+
+                // 清空实时线当前数据
                 ClearSeriesData(LineChartTorque, "扭矩");
                 ClearSeriesData(LineChartSpeed, "转速");
-
-                // 同步清空内存里的数据点（历史/实时切换按钮依赖这个）
-                if (waveReocrd.TryGetValue("扭矩曲线", out var torqueRecord))
-                    torqueRecord.WaveDataPoints.FirstOrDefault(d => d.CurveName == "扭矩")?.DataPoints.Clear();
-                if (waveReocrd.TryGetValue("转速曲线", out var speedRecord))
-                    speedRecord.WaveDataPoints.FirstOrDefault(d => d.CurveName == "转速")?.DataPoints.Clear();
+                tRec?.WaveDataPoints.FirstOrDefault(d => d.CurveName == "扭矩")?.DataPoints.Clear();
+                sRec?.WaveDataPoints.FirstOrDefault(d => d.CurveName == "转速")?.DataPoints.Clear();
 
                 DrawStandardCycle(cycleCode, cycleStart, setXRange: true);
-                SetWaveFixedWindow();      // CurrentType=false，锁定整段窗口
+                SetWaveFixedWindow();
                 _lastOverlayCode = cycleCode;
             }
             catch (Exception ex)
             {
                 Var.LogInfo($"叠加标准工况[{cycleCode}]失败：" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 把当前实时数据快照到历史存档
+        /// </summary>
+        /// <param name="cycleCode"></param>
+        private void ArchiveCurrentSegment(string cycleCode)
+        {
+            if (string.IsNullOrEmpty(cycleCode)) return;
+
+            foreach (var waveName in new[] { "扭矩曲线", "转速曲线" })
+            {
+                if (!waveReocrd.TryGetValue(waveName, out var rec)) continue;
+
+                // 取第一条曲线（扭矩或转速的实时线）
+                var curveName = waveName == "扭矩曲线" ? "扭矩" : "转速";
+                var wdata = rec.WaveDataPoints.FirstOrDefault(d => d.CurveName == curveName);
+                if (wdata == null || wdata.DataPoints.Count == 0) continue;
+
+                rec.HistorySegments.Add(new WaveSegment
+                {
+                    CycleCode = cycleCode,
+                    StartTime = rec.WaveStartTime,
+                    DataPoints = wdata.DataPoints.ToList()  // 深拷贝
+                });
             }
         }
 
@@ -2904,13 +2788,129 @@ namespace MainUI
         }
 
 
-
-
-
         #region 模拟数据功能
         private void button1_Click(object sender, EventArgs e)
         {
             frmFullSimulator.ShowInstance();
+        }
+
+        #endregion
+
+        #region 出厂试验数据模块
+
+        private class ManualColumnDefinition
+        {
+            public string PropertyName { get; }
+            public string DisplayName { get; }
+            public bool Visible { get; set; }
+            public PropertyInfo PropertyInfo { get; set; }
+            public ManualColumnDefinition(string propertyName, string displayName, bool visible = true)
+            {
+                PropertyName = propertyName;
+                DisplayName = displayName;
+                Visible = visible;
+            }
+        }
+
+        // 字段名对齐 ManualRecordPara 实际采集/存储的属性，顺序对齐出厂试验记录表模板列号
+        private readonly List<ManualColumnDefinition> _manualRecordColumns = new List<ManualColumnDefinition>
+        {
+            // 基本参数：出厂表列1-27
+            new ManualColumnDefinition("Index",               "序号"),
+            new ManualColumnDefinition("TestHour",            "时"),
+            new ManualColumnDefinition("TestMinute",          "分"),
+            new ManualColumnDefinition("NominalRPM",          "名义转速 rpm"),
+            new ManualColumnDefinition("RPM",                 "实测转速 rpm"),
+            new ManualColumnDefinition("NominalPower",        "名义功率 kW"),
+            new ManualColumnDefinition("Power",               "实测功率 kW"),
+            new ManualColumnDefinition("ECOQuantity",         "测油耗量 g"),
+            new ManualColumnDefinition("ECORate",             "燃油消耗率 g/kWh"),
+            new ManualColumnDefinition("PFuelInlet",          "燃油进口压力 kPa"),
+            new ManualColumnDefinition("LPressureOut",        "中冷泵出口压力 kPa"),
+            new ManualColumnDefinition("HPressureOut",        "高温泵出口压力 kPa"),
+            new ManualColumnDefinition("EOPressure1",         "机油泵出口压力 kPa"),
+            new ManualColumnDefinition("POilInlet",           "机油进口压力 kPa"),
+            new ManualColumnDefinition("EOPressure2",         "机油总管末端压力 kPa"),
+            new ManualColumnDefinition("PTurboOilFront",      "前增压器油压 kPa"),
+            new ManualColumnDefinition("PTurboOilAfter",      "后增压器油压 kPa"),
+            new ManualColumnDefinition("HeatExchangerTempIn", "机油进口温度 ℃"),
+            new ManualColumnDefinition("HeatExchangerTempOut","机油出口温度 ℃"),
+            new ManualColumnDefinition("HWaterTempIn",        "高温水进口温度 ℃"),
+            new ManualColumnDefinition("HWaterTempOut",       "高温水出口温度 ℃"),
+            new ManualColumnDefinition("LWaterTempIn",        "中冷水进口温度 ℃"),
+            new ManualColumnDefinition("LWaterTempOut",       "中冷水出口温度 ℃"),
+            new ManualColumnDefinition("FrontTurbochargerRPM","前增压器转速 rpm"),
+            new ManualColumnDefinition("AfterTurbochargerRPM","后增压器转速 rpm"),
+        
+            // 增压器子表：出厂表列28-42
+            new ManualColumnDefinition("PCompressorFront",       "压气机前压力(前) Pa"),
+            new ManualColumnDefinition("PCompressorAfter",       "压气机前压力(后) Pa"),
+            new ManualColumnDefinition("PTurboOutPressureFront", "涡轮后压力(前) Pa"),
+            new ManualColumnDefinition("PTurboOutPressureAfter", "涡轮后压力(后) Pa"),
+            new ManualColumnDefinition("PCrankcase",             "曲轴箱压力 ×10Pa"),
+            new ManualColumnDefinition("PInterCoolerFrontFront", "中冷器前压力(前) ×100Pa"),
+            new ManualColumnDefinition("PInterCoolerFrontAfter", "中冷器前压力(后) ×100Pa"),
+            new ManualColumnDefinition("PInterCoolerAfterFront", "中冷器后压力(前) ×100Pa"),
+            new ManualColumnDefinition("PInterCoolerAfterAfter", "中冷器后压力(后) ×100Pa"),
+            new ManualColumnDefinition("FrontTurbochargerPressureIn2", "涡轮前压力(前) Pa"),
+            new ManualColumnDefinition("AfterTurbochargerPressureIn2", "涡轮前压力(后) Pa"),
+            new ManualColumnDefinition("TInterCoolerFrontFront", "中冷器前温度(前) ℃"),
+            new ManualColumnDefinition("TInterCoolerFrontAfter", "中冷器前温度(后) ℃"),
+            new ManualColumnDefinition("TInterCoolerAfterFront", "中冷器后温度(前) ℃"),
+            new ManualColumnDefinition("TInterCoolerAfterAfter", "中冷器后温度(后) ℃"),
+        
+            // 各缸排温 A1-A6 / B1-B6
+            new ManualColumnDefinition("EGTempA1", "A1缸排温 ℃"),
+            new ManualColumnDefinition("EGTempA2", "A2缸排温 ℃"),
+            new ManualColumnDefinition("EGTempA3", "A3缸排温 ℃"),
+            new ManualColumnDefinition("EGTempA4", "A4缸排温 ℃"),
+            new ManualColumnDefinition("EGTempA5", "A5缸排温 ℃"),
+            new ManualColumnDefinition("EGTempA6", "A6缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB1", "B1缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB2", "B2缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB3", "B3缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB4", "B4缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB5", "B5缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB6", "B6缸排温 ℃"),
+        
+            // 各缸爆发压力：软件不采集，人工打印后手填，此处显示占位（默认0）
+            new ManualColumnDefinition("BurstPA1", "A1爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPA2", "A2爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPA3", "A3爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPA4", "A4爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPA5", "A5爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPA6", "A6爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB1", "B1爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB2", "B2爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB3", "B3爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB4", "B4爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB5", "B5爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB6", "B6爆发压力", visible: false),
+
+            new ManualColumnDefinition("Remark", "备注", visible: false),
+        };
+
+        // 初始化列(Designer.cs 里原来的旧列直接清掉，不用去动 .Designer.cs 文件)
+        private void InitManualRecordGridColumns()
+        {
+            var type = typeof(ManualRecordPara);
+            foreach (var col in _manualRecordColumns)
+                col.PropertyInfo = type.GetProperty(col.PropertyName);
+
+            dgvManualRecord.AutoGenerateColumns = false;
+            dgvManualRecord.Columns.Clear();   // 清掉 Designer.cs 里原有的旧列
+
+            foreach (var col in _manualRecordColumns)
+            {
+                dgvManualRecord.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = col.PropertyName,
+                    HeaderText = col.DisplayName,
+                    SortMode = DataGridViewColumnSortMode.NotSortable,
+                    ReadOnly = true,
+                    Visible = col.Visible,
+                });
+            }
         }
 
         #endregion

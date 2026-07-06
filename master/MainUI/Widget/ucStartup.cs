@@ -253,7 +253,7 @@ namespace MainUI.Widget
             this.uiLightStart.State = (speed && status && status2 && status3 && status4 && status5 && status8 && status9 && lcStatus && speedStatus && status10 && statusStop) ? UILightState.On : UILightState.Off;
 
             // 甩机
-            this.uiLightShake.State = (speed && status && status2 && status3 && status4 && !status5 && status8 /*&& !status9*/ && lcStatus && speedStatus && statusStop2) ? UILightState.On : UILightState.Off;
+            this.uiLightShake.State = (speed && status && !status2 && status3 && status4 && !status5 && status8 /*&& !status9*/ && lcStatus && speedStatus && statusStop2) ? UILightState.On : UILightState.Off;
 
             this.uiLightWaterUP.State = status3 ? UILightState.On : UILightState.Off;
 
@@ -521,12 +521,6 @@ namespace MainUI.Widget
                     errorMessages.AppendLine($"{++msgIndex}. 盘车连锁开关未处于闭合状态。");
                 }
 
-                // 检查发动机启停预启动
-                if (!Common.DOgrp["发动机启停预启动"])
-                {
-                    errorMessages.AppendLine($"{++msgIndex}. 发动机启停预启动还未复位，请先等待发动机启停预启动信号复位。");
-                }
-
                 // 检查发电机就绪状态
                 if (Common.gd350_1.Ready == 0)
                 {
@@ -577,6 +571,13 @@ namespace MainUI.Widget
                     {
                         errorMessages.AppendLine($"{++msgIndex}. 桌面柴油机停止处于按下状态，请取消。");
                     }
+
+                    // 检查发动机启停预启动
+                    if (!Common.DOgrp["发动机启停预启动"])
+                    {
+                        errorMessages.AppendLine($"{++msgIndex}. 发动机启停预启动还未复位，请先等待发动机启停预启动信号复位。");
+                    }
+
                 }
                 else
                 {
@@ -588,6 +589,12 @@ namespace MainUI.Widget
                     if (Common.DIgrp["柴油机停止"] == false)
                     {
                         errorMessages.AppendLine($"{++msgIndex}. 甩车前请先按下桌面柴油机停止按钮。");
+                    }
+
+                    // 检查发动机启停预启动
+                    if (Common.DOgrp["发动机启停预启动"])
+                    {
+                        errorMessages.AppendLine($"{++msgIndex}. 发动机启停预启动还未复位，请先等待发动机启停预启动信号复位。");
                     }
 
                     // 厂家要求取消甩机前关闭控制盒电源
