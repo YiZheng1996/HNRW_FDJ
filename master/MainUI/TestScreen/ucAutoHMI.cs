@@ -227,6 +227,7 @@ namespace MainUI
 
                 // 手动单条数据记录
                 manualRecordService.DataSaved += ManualRecordService_DataSaved;
+                LoadCurrentBatchRecords();
 
                 // 注册模块事件
                 Common.DIgrp.KeyValueChange += DIgrp_KeyValueChange;
@@ -1546,6 +1547,27 @@ namespace MainUI
             }
 
             lblRecordTip.Text = $"已记录 {this.dgvManualRecord.Rows.Count} 条";
+        }
+
+        /// <summary>
+        /// 按当前批次mgid从数据库拉回已有记录，重建 dgvManualRecord 显示（解决重启后本地计数跟数据库脱节的问题）
+        /// </summary>
+        private void LoadCurrentBatchRecords()
+        {
+            this.dgvManualRecord.Rows.Clear();
+
+            string mgid = manualRecordService.MGid;
+            if (string.IsNullOrEmpty(mgid))
+            {
+                lblRecordTip.Text = "已记录 0 条";
+                return;
+            }
+
+            var existing = ManualRecordService.instnce.GetAllRecordByMGid(mgid);
+            foreach (var rec in existing.OrderBy(r => r.Index))
+            {
+                RefreshAddedRecord(rec);
+            }
         }
 
         /// <summary>

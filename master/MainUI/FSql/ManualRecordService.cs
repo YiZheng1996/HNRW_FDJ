@@ -297,5 +297,14 @@ namespace MainUI.FSql
                 .OrderBy(d => d.Index)
                 .ToList();
         }
+
+        public List<ManualRecordPara> GetAllRecordByMGid(string mgid)
+        {
+            if (string.IsNullOrEmpty(mgid)) return new List<ManualRecordPara>();
+            return DB.mysql.Select<ManualRecordPara>()
+                .Where(d => d.mgid == mgid)
+                .OrderBy(d => d.Index)
+                .ToList();
+        }
     }
 }
