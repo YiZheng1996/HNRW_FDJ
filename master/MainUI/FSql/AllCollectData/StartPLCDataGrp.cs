@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,49 +9,31 @@ namespace MainUI.FSql.AllCollectData
 {
     public class StartPLCDataGrp
     {
-        /// <summary>
-        /// 故障复位
-        /// </summary>
+        [JsonProperty("StartPLC_FaultReset")]
         public bool FaultReset { get; set; }
 
-        /// <summary>
-        /// 变频器运行中
-        /// </summary>
+        [JsonProperty("StartPLC_变频器运行中")]
         public bool InverterRunning { get; set; }
 
-        /// <summary>
-        /// 变频器输出检测
-        /// </summary>
+        [JsonProperty("StartPLC_变频器输出检测")]
         public bool InverterOutputDetect { get; set; }
 
-        /// <summary>
-        /// 变频器故障
-        /// </summary>
+        [JsonProperty("StartPLC_变频器故障")]
         public bool InverterFault { get; set; }
 
-        /// <summary>
-        /// 自动模式
-        /// </summary>
+        [JsonProperty("StartPLC_Auto")]
         public bool Auto { get; set; }
 
-        /// <summary>
-        /// 变频器输出合分闸
-        /// </summary>
+        [JsonProperty("StartPLC_变频器输出合分闸")]
         public bool InverterOutputSwitch { get; set; }
 
-        /// <summary>
-        /// 急停
-        /// </summary>
+        [JsonProperty("StartPLC_Scram")]
         public bool Scram { get; set; }
 
-        /// <summary>
-        /// 前门检测
-        /// </summary>
+        [JsonProperty("StartPLC_前门检测")]
         public bool FrontDoorDetect { get; set; }
 
-        /// <summary>
-        /// 后门检测
-        /// </summary>
+        [JsonProperty("StartPLC_后门检测")]
         public bool RearDoorDetect { get; set; }
     }
 }

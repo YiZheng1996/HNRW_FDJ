@@ -18,6 +18,8 @@ namespace MainUI.Report
         public string PropertyName { get; set; }
         public string DisplayName { get; set; }
         public string GroupName { get; set; }
+        //增加一个条件给列第一行加背景颜色，区分项点
+        public int Tag_num { get; set; }
         public Type SourceType { get; set; }
         public PropertyInfo PropertyInfo { get; set; }
 
@@ -25,6 +27,15 @@ namespace MainUI.Report
         {
             PropertyName = propertyName;
             DisplayName = displayName;
+            SourceType = typeof(TestParaAllData);
+        } 
+        
+
+        public ColumnDefinition(string propertyName, string displayName,int tag_num)
+        {
+            PropertyName = propertyName;
+            DisplayName = displayName;
+            Tag_num = tag_num;
             SourceType = typeof(TestParaAllData);
         }
     }

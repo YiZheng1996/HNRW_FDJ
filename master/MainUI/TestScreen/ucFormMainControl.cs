@@ -152,6 +152,11 @@ namespace MainUI.TestScreen
             var timer = Math.Round(Var.SysConfig.RunTime / 60, 1);
             this.lblRunTime.Text = timer.ToString();
 
+
+            // 柴油机怠速运行时间
+            var dsTimer = Math.Round(Var.SysConfig.dsRunTime / 60, 1);
+            this.dsRunTime.Text = dsTimer.ToString();
+
             int moveIndex = 0;
             // 打开另一个窗体
             if (Screen.AllScreens.Count() > 1)
@@ -1410,8 +1415,20 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void timeTiming_Tick(object sender, EventArgs e)
         {
+            //记录运行时间
             if (MiddleData.instnce.GetEngineSpeed() > 300)
             {
+                //记录怠速运行时间(按min)
+                if (MiddleData.instnce.TrialConfig.MinSpeed * 0.95 < MiddleData.instnce.GetEngineSpeed()
+                    && MiddleData.instnce.GetEngineSpeed() < MiddleData.instnce.TrialConfig.MinSpeed * 1.05)
+                {
+                    Var.SysConfig.dsRunTime = Var.SysConfig.dsRunTime + 1;
+                    Var.SysConfig.Save();
+
+                    var dsTimer = Math.Round(Var.SysConfig.dsRunTime / 60, 2);
+                    this.dsRunTime.Text = dsTimer.ToString();
+                }
+
                 Var.SysConfig.RunTime = Var.SysConfig.RunTime + 1;
                 Var.SysConfig.Save();
 

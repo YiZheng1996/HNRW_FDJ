@@ -275,54 +275,22 @@ namespace MainUI.Report
                     return;
                 }
 
-                List<Dictionary<string, object>> _allDataList = allDataRecordDB.jsonToDictionary(_allDataOld);
-                
-                if (_allDataList == null || _allDataList.Count == 0)
-                {
-                    Var.MsgBoxInfo(this, "没有对应采集参数。");
-                    // 更新总条数显示
-                    lblTotalNum.Text = $"共 {_allDataOld.Count} 条";
-
-                    // 计算总页数
-                    _totalPages = (int)Math.Ceiling((double)_allDataOld.Count / _pageSize);
-
-                    //显示页数
-                    pageNO.Text = $"第1页/{_totalPages}页";
-
-                    // 重置当前页
-                    _currentPage = 1;
-                    _allData = _allDataOld;
-
-                    // 根据数据量决定显示方式
-                    if (_allDataOld.Count <= _pageSize)
-                    {
-                        // 数据量小，直接显示全部
-                        DisplayData(_allDataOld, KeyNameList);
-                    }
-                    else
-                    {
-                        // 数据量大，显示第一页
-                        var pageData = _allDataOld.Take(_pageSize).ToList();
-                        DisplayData(pageData, KeyNameList);
-                        Var.MsgBoxInfo(this, $"查询到 {_allDataOld.Count} 条数据，超过 {_pageSize} 条，已启用分页显示。当前显示第 1 页，共 {_totalPages} 页。");
-                    }
-                    UpdatePaginationButtons();
-                    return;
-                }
-
-
                 //----------------------------------------------------------------------------------------------------------------------------------------
 
                 //获取复选框选中的对象的test集合
                 GetCheckBoxGroup();
 
                 //添加需要添加的列，清除原先初始化的列
-                _columnDefinitions = ucAllDataRecord_Method.AddtcolumnDefinitions(KeyNameList, _columnDefinitions);
-                TagModuleColumnDefinitions(KeyNameList);
+                if (KeyNameList != null || KeyNameList.Count != 0)
+                {
+                    _columnDefinitions = ucAllDataRecord_Method.AddtcolumnDefinitions(KeyNameList, _columnDefinitions);
+                    TagModuleColumnDefinitions(KeyNameList);
+                    
+                }
                 InitializeColumnDefinitions();
 
                 //给对应实体对象赋值
-                RowDictionary = ucAllDataRecord_Method.AddRowValue(_allDataList, KeyNameList, RowDictionary);
+                RowDictionary = ucAllDataRecord_Method.jsonToObject(_allDataOld, RowDictionary, KeyNameList);
 
                 _allData = _allDataOld;
 
@@ -340,6 +308,7 @@ namespace MainUI.Report
                 allDataRecord.RowTemplate.Height = 25;
 
                 //添加列
+                allDataRecord.EnableHeadersVisualStyles = false;
                 foreach (var column in _columnDefinitions)
                 {
                     var dataColumn = new DataGridViewTextBoxColumn
@@ -349,8 +318,20 @@ namespace MainUI.Report
                         SortMode = DataGridViewColumnSortMode.NotSortable,
                         AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
                         Width = GetOptimalColumnWidth(column.DisplayName),
-                        MinimumWidth = 80
+                        MinimumWidth = 80,
                     };
+                    if (column.Tag_num == 1)
+                    {
+                        dataColumn.HeaderCell.Style.BackColor = ColorTranslator.FromHtml("#DDFA5E");
+                    }
+                    else if (column.Tag_num == 2)
+                    {
+                        dataColumn.HeaderCell.Style.BackColor = ColorTranslator.FromHtml("#5EFA79");
+                    }
+                    else if (column.Tag_num == 3)
+                    {
+                        dataColumn.HeaderCell.Style.BackColor = ColorTranslator.FromHtml("#FA5E68");
+                    }
                     allDataRecord.Columns.Add(dataColumn);
                 }
                 // 标记列已初始化

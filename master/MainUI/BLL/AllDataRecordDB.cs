@@ -46,24 +46,25 @@ namespace MainUI.BLL
         }
 
 
-        public List<Dictionary<string, object>> jsonToDictionary(List<TestParaAllData> _allData)
-        {
-            List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
-            foreach (var item in _allData)
-            {
-                string json = item.MonitorData;
-                // 1. 反序列化为字典
-                var settings = new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    NullValueHandling = NullValueHandling.Ignore,
-                    DateFormatString = "yyyy-MM-dd HH:mm:ss.fff"
-                };
-                var raw = JsonConvert.DeserializeObject<Dictionary<string, object>>(json, settings);
-                list.Add(raw);
-            }
-            return list;
-        }
+        //public List<Dictionary<string, object>> jsonToDictionary(List<TestParaAllData> _allData)
+        //{
+        //    List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
+        //    foreach (var item in _allData)
+        //    {
+        //        string json = item.MonitorData;
+
+        //        // 1. 反序列化为字典
+        //        var settings = new JsonSerializerSettings
+        //        {
+        //            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+        //            NullValueHandling = NullValueHandling.Ignore,
+        //            DateFormatString = "yyyy-MM-dd HH:mm:ss.fff"
+        //        };
+        //        var raw = JsonConvert.DeserializeObject<Dictionary<string, object>>(json, settings);
+        //        list.Add(raw);
+        //    }
+        //    return list;
+        //}
 
     }
 }

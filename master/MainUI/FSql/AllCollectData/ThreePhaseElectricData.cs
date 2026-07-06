@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,67 +9,31 @@ namespace MainUI.FSql.AllCollectData
 {
     public class ThreePhaseElectricData
     {
-
-        //ThreePhaseElectric
-        /// <summary>
-        /// 有功功率
-        /// </summary>
+        [JsonProperty("Electric_有功功率")]
         public double ActivePower { get; set; }
 
-        /// <summary>
-        /// Ic
-        /// </summary>
+        [JsonProperty("Electric_Ic")]
         public double CurrentIc { get; set; }
 
-        /// <summary>
-        /// 电流
-        /// </summary>
+        [JsonProperty("Electric_电流")]
         public double TotalCurrent { get; set; }
 
-        /// <summary>
-        /// Ib
-        /// </summary>
+        [JsonProperty("Electric_Ib")]
         public double CurrentIb { get; set; }
 
-        /// <summary>
-        /// Uvw
-        /// </summary>
+        [JsonProperty("Electric_Uvw")]
         public double VoltageUvw { get; set; }
 
-        /// <summary>
-        /// 电压
-        /// </summary>
+        [JsonProperty("Electric_电压")]
         public double TotalVoltage { get; set; }
 
-        /// <summary>
-        /// Ia
-        /// </summary>
+        [JsonProperty("Electric_Ia")]
         public double CurrentIa { get; set; }
 
-        /// <summary>
-        /// Uuv
-        /// </summary>
+        [JsonProperty("Electric_Uuv")]
         public double VoltageUuv { get; set; }
 
-        /// <summary>
-        /// Uwu
-        /// </summary>
+        [JsonProperty("Electric_Uwu")]
         public double VoltageUwu { get; set; }
-
-        /// <summary>
-        /// 无功功率
-        /// </summary>
-        public double ReactivePower { get; set; }
-
-        /// <summary>
-        /// 视在功率
-        /// </summary>
-        public double ApparentPower { get; set; }
-
-        /// <summary>
-        /// 频率
-        /// </summary>
-        public double Frequency { get; set; }
-
     }
 }

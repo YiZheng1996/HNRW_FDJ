@@ -1,4 +1,6 @@
 ﻿
+using System.Drawing;
+
 namespace MainUI.TestScreen
 {
     partial class ucFormMainControl
@@ -120,6 +122,8 @@ namespace MainUI.TestScreen
             this.label17 = new System.Windows.Forms.Label();
             this.uiLight4 = new Sunny.UI.UILight();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.dsRunTime = new System.Windows.Forms.Label();
             this.rButton4 = new RW.UI.Controls.RButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cboRadTrialType = new Sunny.UI.UIComboBox();
@@ -1369,6 +1373,8 @@ namespace MainUI.TestScreen
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.dsRunTime);
             this.groupBox4.Controls.Add(this.rButton4);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.lblRunTime);
@@ -1388,6 +1394,30 @@ namespace MainUI.TestScreen
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "发动机状态";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("宋体", 14F);
+            this.label9.Location = new System.Drawing.Point(18, 480);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(191, 19);
+            this.label9.TabIndex = 797;
+            this.label9.Text = "累计怠速运行时间(h)\r\n";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dsRunTime
+            // 
+            this.dsRunTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dsRunTime.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dsRunTime.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dsRunTime.ForeColor = System.Drawing.Color.Black;
+            this.dsRunTime.Location = new System.Drawing.Point(9, 511);
+            this.dsRunTime.Name = "dsRunTime";
+            this.dsRunTime.Size = new System.Drawing.Size(200, 28);
+            this.dsRunTime.TabIndex = 796;
+            this.dsRunTime.Tag = "水阻箱进水电动调节阀";
+            this.dsRunTime.Text = "0.0";
+            this.dsRunTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // rButton4
             // 
             this.rButton4.BackColor = System.Drawing.Color.Silver;
@@ -1887,6 +1917,8 @@ namespace MainUI.TestScreen
         private RW.UI.Controls.RButton btnSetSpeedAdd20;
         private RW.UI.Controls.RButton btnSetSpeedReduce00;
         private Sunny.UI.UIComboBox cboRadTrialType;
+        private System.Windows.Forms.Label dsRunTime;
+        private System.Windows.Forms.Label label9;
         private RW.UI.Controls.RButton rButton4;
     }
 }
