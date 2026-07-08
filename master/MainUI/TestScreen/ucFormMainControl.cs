@@ -1794,6 +1794,13 @@ namespace MainUI.TestScreen
                 Var.MsgBoxWarn(this, "未找到试验主界面，记录失败。");
                 return;
             }
+
+            if (MiddleData.instnce.EngineSpeed >= MiddleData.instnce.TrialConfig.MinSpeed - 10)
+            {
+                Var.MsgBoxWarn(this, "发动机未启动，请勿点击手动保存数据");
+                return;
+            }
+
             autoHMI.DoManualRecord();
         }
          

@@ -1009,8 +1009,8 @@ namespace MainUI.Report
                     SetCell(rowA, 12, rec.EGTempA4); SetCell(rowB, 12, rec.EGTempB4);
                     SetCell(rowA, 13, rec.EGTempA5); SetCell(rowB, 13, rec.EGTempB5);
                     SetCell(rowA, 14, rec.EGTempA6); SetCell(rowB, 14, rec.EGTempB6);
-                    SetCell(rowA, 17, rec.FrontTurbochargerTempIn); SetCell(rowB, 17, rec.AfterTurbochargerTempIn);
-                    SetCell(rowA, 18, rec.FrontTurbochargerTempOut); SetCell(rowB, 18, rec.AfterTurbochargerTempOut);
+                    SetCell(rowA, 17, rec.FrontTurbochargerTempIn); SetCell(rowB, 17, rec.FrontTurbochargerTempOut);
+                    SetCell(rowA, 18, rec.AfterTurbochargerTempIn); SetCell(rowB, 18, rec.AfterTurbochargerTempOut);
                 }
             }
 
