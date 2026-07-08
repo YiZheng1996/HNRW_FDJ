@@ -2,6 +2,7 @@
 using MainUI.FSql.Model;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace MainUI.FSql
 {
@@ -151,14 +152,24 @@ namespace MainUI.FSql
             Index = 0;
         }
 
-        // 传感器快照采集
+        /// <summary>
+        /// 优先从 TRDP 取值；TRDP 没有这个信号（未配置或还没收到过推送）时，回退到原有数据源（OPC/AI2Grp等）。
+        /// </summary>
+        private static double GetValuePreferTRDP(string trdpKey, Func<double> fallback)
+        {
+            if (Var.TRDP != null && Var.TRDP.TryGetDicValue(trdpKey, out double v))
+                return v;
+            return SafeGet(fallback);
+        }
+
+        // 快照采集
         private ManualRecordPara CollectSnapshot()
         {
             var now = DateTime.Now;
 
             var r = new ManualRecordPara
             {
-                // ── 基类（IRecordData）通用字段 ─────────────────────────
+                // ══════════════════ 基类（IRecordData）通用字段 ══════════════════
                 gid = Guid.NewGuid().ToString("N"),
                 mgid = MGid,
                 Index = Index,
@@ -170,78 +181,84 @@ namespace MainUI.FSql
                 DataTime = now.ToString("yyyy-MM-dd"),
                 Time = now.ToString("HH:mm:ss"),
 
-                // ── 子类新增字段 ─────────────────────────────────────────
+                // ══════════════════ 出厂表 列1-10：基本参数 ══════════════════
                 TestHour = now.Hour,
                 TestMinute = now.Minute,
-
                 NominalRPM = MiddleData.instnce.SelectModelConfig?.RatedSpeed ?? 0,
+                RPM = MiddleData.instnce.EngineSpeed,
                 NominalPower = MiddleData.instnce.SelectModelConfig?.RatedPower ?? 0,
+                Power = MiddleData.instnce.EnginePower,
+                ECOQuantity = SafeGet(() => Equip.ET4500.Instance.fuelConsumption), // 串口油耗仪（ET4500）
+                //TODO: ECORate 具体计算方式待定，暂不赋值
 
-                PFuelInlet = SafeGet(() => Common.AI2Grp["燃油精滤器后油压"]),
-                POilInlet = SafeGet(() => Common.AI2Grp["主油道进口油压"]),
-                PTurboOilFront = SafeGet(() => Common.AI2Grp["前增压器进油压"]),
-                PTurboOilAfter = SafeGet(() => Common.AI2Grp["后增压器进油压"]),
+                // ══════════════════ 出厂表 列11-18：油压/水压 ══════════════════
+                PFuelInlet = GetValuePreferTRDP("燃油精滤器前油压", () => Common.AI2Grp["P38燃油供油压力"]),
+                LPressureOut = GetValuePreferTRDP("中冷水泵出口压力", () => Common.AI2Grp["P3中冷水泵进口压力"]),
+                HPressureOut = GetValuePreferTRDP("高温水泵出口压力", () => Common.AI2Grp["P1高温水出机压力"]),
+                EOPressure1 = GetValuePreferTRDP("机油泵出口油压", () => Common.AI2Grp["P20机油泵出口压力"]),
+                POilInlet = GetValuePreferTRDP("主油道进口油压", () => Common.AI2Grp["主油道进口油压"]), // OPC不知道是哪个点位
+                EOPressure2 = GetValuePreferTRDP("主油道末端油压", () => Common.AI2Grp["主油道末端油压"]),// OPC不知道是哪个点位
+                PTurboOilFront = GetValuePreferTRDP("前增压器进口油压", () => Common.AI2Grp["前增压器进油压"]),// opc 是燃油还是机油
+                PTurboOilAfter = GetValuePreferTRDP("后增压器进口油压", () => Common.AI2Grp["后增压器进油压"]),// opc 是燃油还是机油
 
-                PCompressorFront = SafeGet(() => Common.AI2Grp["前压气机前空气压力"]),
-                PCompressorAfter = SafeGet(() => Common.AI2Grp["后压气机前空气压力"]),
-                PTurboOutPressureFront = SafeGet(() => Common.AI2Grp["前涡轮后废气压力"]),
-                PTurboOutPressureAfter = SafeGet(() => Common.AI2Grp["后涡轮后废气压力"]),
+                // ══════════════════ 出厂表 列19-26：油温/水温 + 增压器转速 ══════════════════
+                // 协议表用"机油泵出口油温/主油道进口油温"命名（无"热交换器"字样），按油路走向对应：
+                // 泵出口(未冷却) = 热交换器进口，主油道进口(已冷却) = 热交换器出口
+                HeatExchangerTempIn = GetValuePreferTRDP("主油道进口油温", () => Common.AI2Grp["机油热交换器进口油温"]),
+                HeatExchangerTempOut = GetValuePreferTRDP("机油泵出口油温", () => Common.AI2Grp["机油热交换器出口油温"]),
+                HWaterTempIn = SafeGet(() => Common.waterGrp.NewDataValue["T2高温水进机温度"]),
+                HWaterTempOut = GetValuePreferTRDP("高温水出水温度", () => Common.waterGrp.NewDataValue["T1高温水出机温度"]),
+                LWaterTempIn = GetValuePreferTRDP("中冷水进水温度", () => Common.waterGrp.NewDataValue["T3中冷水进机温度"]),
+                LWaterTempOut = GetValuePreferTRDP("中冷水出水温度", () => Common.waterGrp.NewDataValue["T5中冷水出机温度"]),
+                FrontTurbochargerRPM = GetValuePreferTRDP("转速传感器1#", () => 0),
+                AfterTurbochargerRPM = GetValuePreferTRDP("转速传感器2#", () => 0),
+
+                // ══════════════════ 出厂表 列27-37：增压器子表（压力） ══════════════════
+                // 以下4个协议表里搜不到对应信号（只有"压气机出口空气温度""增压器回油温度"，没有"压气机出口空气压力"，没有涡轮)
+                PCompressorFront = SafeGet(() => Common.AI2Grp[""]), // ??
+                PCompressorAfter = SafeGet(() => Common.AI2Grp[""]),  //??
+                PTurboOutPressureFront = SafeGet(() => Common.AI2Grp[""]),// ??
+                PTurboOutPressureAfter = SafeGet(() => Common.AI2Grp[""]),// ??
                 PCrankcase = SafeGet(() => Common.AI2Grp["曲轴箱压力"]),
+                // 协议表只有"后中冷后空气压力"，没有"前中冷"系列，这两个维持OPC
                 PInterCoolerFrontFront = SafeGet(() => Common.AI2Grp["前中冷前空气压力"]),
                 PInterCoolerFrontAfter = SafeGet(() => Common.AI2Grp["后中冷前空气压力"]),
                 PInterCoolerAfterFront = SafeGet(() => Common.AI2Grp["前中冷后空气压力"]),
-                PInterCoolerAfterAfter = SafeGet(() => Common.AI2Grp["后中冷后空气压力"]),
+                PInterCoolerAfterAfter = GetValuePreferTRDP("后中冷后空气压力", () => Common.AI2Grp["后中冷后空气压力"]),
+                // 协议表没有"涡轮进口废气压力"，维持OPC
+                FrontTurbochargerPressureIn2 = SafeGet(() => Common.AI2Grp["前涡轮进口废气压力"]),
+                AfterTurbochargerPressureIn2 = SafeGet(() => Common.AI2Grp["后涡轮进口废气压力"]),
+
+                // ══════════════════ 出厂表 列38-41：增压器子表（温度） ══════════════════
+                // 协议表只有"后中冷器后空气温度"，没有"前中冷"系列，这三个维持OPC
                 TInterCoolerFrontFront = SafeGet(() => Common.AI2Grp["前中冷前空气温度"]),
                 TInterCoolerFrontAfter = SafeGet(() => Common.AI2Grp["后中冷前空气温度"]),
                 TInterCoolerAfterFront = SafeGet(() => Common.AI2Grp["前中冷后空气温度"]),
-                TInterCoolerAfterAfter = SafeGet(() => Common.AI2Grp["后中冷后空气温度"]),
+                TInterCoolerAfterAfter = GetValuePreferTRDP("后中冷器后空气温度", () => Common.AI2Grp["后中冷后空气温度"]),
 
-                // 各缸爆发压力：人工打印纸质表后手动填写，软件不采集。
-                // 字段保留（预留），此处不赋值（保持默认0，导出时该列留空）。
+                // ══════════════════ 报表模板未收录字段（涡轮进/出口废气温度） ══════════════════
+                // A排=前增压器、B排=后增压器 是否正确？
+                FrontTurbochargerTempIn = GetValuePreferTRDP("A涡前排气温度", () => Common.AI2Grp[""]),
+                AfterTurbochargerTempIn = GetValuePreferTRDP("B涡前排气温度", () => Common.AI2Grp[""]),
+                // 协议表没有"涡轮出口废气温度"（只有压气机出口空气温度，不是同一个测点）
+                FrontTurbochargerTempOut = SafeGet(() => Common.AI2Grp[""]),
+                AfterTurbochargerTempOut = SafeGet(() => Common.AI2Grp[""]),
 
-                // 基类已有字段，直接赋值
-                RPM = MiddleData.instnce.EngineSpeed,
-                Power = MiddleData.instnce.EnginePower,
+                // ══════════════════ 出厂表 各缸排气温度，已确认无需改动 ══════════════════
+                EGTempA1 = GetValuePreferTRDP("A1缸排气温度", () => Common.AI2Grp["A1缸排气温度"]),
+                EGTempA2 = GetValuePreferTRDP("A2缸排气温度", () => Common.AI2Grp["A2缸排气温度"]),
+                EGTempA3 = GetValuePreferTRDP("A3缸排气温度", () => Common.AI2Grp["A3缸排气温度"]),
+                EGTempA4 = GetValuePreferTRDP("A4缸排气温度", () => Common.AI2Grp["A4缸排气温度"]),
+                EGTempA5 = GetValuePreferTRDP("A5缸排气温度", () => Common.AI2Grp["A5缸排气温度"]),
+                EGTempA6 = GetValuePreferTRDP("A6缸排气温度", () => Common.AI2Grp["A6缸排气温度"]),
+                EGTempB1 = GetValuePreferTRDP("B1缸排气温度", () => Common.AI2Grp["B1缸排气温度"]),
+                EGTempB2 = GetValuePreferTRDP("B2缸排气温度", () => Common.AI2Grp["B2缸排气温度"]),
+                EGTempB3 = GetValuePreferTRDP("B3缸排气温度", () => Common.AI2Grp["B3缸排气温度"]),
+                EGTempB4 = GetValuePreferTRDP("B4缸排气温度", () => Common.AI2Grp["B4缸排气温度"]),
+                EGTempB5 = GetValuePreferTRDP("B5缸排气温度", () => Common.AI2Grp["B5缸排气温度"]),
+                EGTempB6 = GetValuePreferTRDP("B6缸排气温度", () => Common.AI2Grp["B6缸排气温度"]),
 
-                ECOQuantity = SafeGet(() => Equip.ET4500.Instance.fuelConsumption),
-                //TODO:油耗具体如何计算 待优化
-                //ECORate = SafeGet(() => MiddleData.instnce.FuelConsumptionRate),
-
-                LPressureOut = SafeGet(() => Common.AI2Grp["中冷水泵出口压力"]),
-                HPressureOut = SafeGet(() => Common.AI2Grp["高温水泵出口压力"]),
-                EOPressure1 = SafeGet(() => Common.AI2Grp["机油泵出口油压"]),
-                EOPressure2 = SafeGet(() => Common.AI2Grp["主油道末端油压"]),
-
-                HeatExchangerTempIn = SafeGet(() => Common.AI2Grp["机油热交换器进口油温"]),
-                HeatExchangerTempOut = SafeGet(() => Common.AI2Grp["机油热交换器出口油温"]),
-                HWaterTempIn = SafeGet(() => Common.waterGrp.NewDataValue["高温水进机温度"]),
-                HWaterTempOut = SafeGet(() => Common.waterGrp.NewDataValue["高温水出机温度"]),
-                LWaterTempIn = SafeGet(() => Common.waterGrp.NewDataValue["中冷水进机温度"]),
-                LWaterTempOut = SafeGet(() => Common.waterGrp.NewDataValue["中冷水出机温度"]),
-
-                FrontTurbochargerRPM = SafeGet(() => (double)Var.TRDP.GetDicValue("前增压器转速")),
-                AfterTurbochargerRPM = SafeGet(() => (double)Var.TRDP.GetDicValue("后增压器转速")),
-
-                EGTempA1 = SafeGet(() => Common.AI2Grp["A1缸排气温度"]),
-                EGTempA2 = SafeGet(() => Common.AI2Grp["A2缸排气温度"]),
-                EGTempA3 = SafeGet(() => Common.AI2Grp["A3缸排气温度"]),
-                EGTempA4 = SafeGet(() => Common.AI2Grp["A4缸排气温度"]),
-                EGTempA5 = SafeGet(() => Common.AI2Grp["A5缸排气温度"]),
-                EGTempA6 = SafeGet(() => Common.AI2Grp["A6缸排气温度"]),
-                EGTempB1 = SafeGet(() => Common.AI2Grp["B1缸排气温度"]),
-                EGTempB2 = SafeGet(() => Common.AI2Grp["B2缸排气温度"]),
-                EGTempB3 = SafeGet(() => Common.AI2Grp["B3缸排气温度"]),
-                EGTempB4 = SafeGet(() => Common.AI2Grp["B4缸排气温度"]),
-                EGTempB5 = SafeGet(() => Common.AI2Grp["B5缸排气温度"]),
-                EGTempB6 = SafeGet(() => Common.AI2Grp["B6缸排气温度"]),
-
-                FrontTurbochargerTempIn = SafeGet(() => Common.AI2Grp["前涡轮进口废气温度"]),
-                AfterTurbochargerTempIn = SafeGet(() => Common.AI2Grp["后涡轮进口废气温度"]),
-                FrontTurbochargerTempOut = SafeGet(() => Common.AI2Grp["前涡轮出口废气温度"]),
-                AfterTurbochargerTempOut = SafeGet(() => Common.AI2Grp["后涡轮出口废气温度"]),
-
-                FrontTurbochargerPressureIn2 = SafeGet(() => Common.AI2Grp["前涡轮进口废气压力"]),
-                AfterTurbochargerPressureIn2 = SafeGet(() => Common.AI2Grp["后涡轮进口废气压力"]),
+                // 各缸爆发压力：人工打印纸质表后手动填写，软件不采集、TRDP也没有，字段保留不赋值（默认0，导出留空）
             };
 
             return r;
@@ -253,7 +270,7 @@ namespace MainUI.FSql
             catch { return 0; }
         }
 
-        
+
         // 数据库操作
         public int Save(ManualRecordPara record)
         {
@@ -305,6 +322,104 @@ namespace MainUI.FSql
                 .Where(d => d.mgid == mgid)
                 .OrderBy(d => d.Index)
                 .ToList();
+        }
+
+
+
+        /// <summary>
+        /// 手动出厂记录的统一列定义。
+        /// 供 ucAutoHMI（实时记录表格）与 ucAutoRecord（报表查询表格）共用，
+        /// 避免两处各维护一份、字段增删时漏改。
+        /// Visible 语义：仅供"实时记录表格"参考是否默认隐藏；
+        /// 报表查询表格一律全部显示（含人工事后手填列），不读取该标志。
+        /// </summary>
+        public static readonly List<ManualColumnDefinition> ManualColumns = new List<ManualColumnDefinition>
+        {
+            new ManualColumnDefinition("Index",               "序号"),
+            new ManualColumnDefinition("RecordDataTime",      "采集时间", visible: false), // 实时表格不需要，报表查询表格会显示
+            new ManualColumnDefinition("TestHour",            "时"),
+            new ManualColumnDefinition("TestMinute",          "分"),
+            new ManualColumnDefinition("NominalRPM",          "名义转速 rpm"),
+            new ManualColumnDefinition("RPM",                 "实测转速 rpm"),
+            new ManualColumnDefinition("NominalPower",        "名义功率 kW"),
+            new ManualColumnDefinition("Power",               "实测功率 kW"),
+            new ManualColumnDefinition("ECOQuantity",         "测油耗量 g"),
+            new ManualColumnDefinition("ECORate",             "燃油消耗率 g/kWh"),
+            new ManualColumnDefinition("PFuelInlet",          "燃油进口压力 kPa"),
+            new ManualColumnDefinition("LPressureOut",        "中冷泵出口压力 kPa"),
+            new ManualColumnDefinition("HPressureOut",        "高温泵出口压力 kPa"),
+            new ManualColumnDefinition("EOPressure1",         "机油泵出口压力 kPa"),
+            new ManualColumnDefinition("POilInlet",           "机油进口压力 kPa"),
+            new ManualColumnDefinition("EOPressure2",         "机油总管末端压力 kPa"),
+            new ManualColumnDefinition("PTurboOilFront",      "前增压器油压 kPa"),
+            new ManualColumnDefinition("PTurboOilAfter",      "后增压器油压 kPa"),
+            new ManualColumnDefinition("HeatExchangerTempIn", "机油进口温度 ℃"),
+            new ManualColumnDefinition("HeatExchangerTempOut","机油出口温度 ℃"),
+            new ManualColumnDefinition("HWaterTempIn",        "高温水进口温度 ℃"),
+            new ManualColumnDefinition("HWaterTempOut",       "高温水出口温度 ℃"),
+            new ManualColumnDefinition("LWaterTempIn",        "中冷水进口温度 ℃"),
+            new ManualColumnDefinition("LWaterTempOut",       "中冷水出口温度 ℃"),
+            new ManualColumnDefinition("FrontTurbochargerRPM","前增压器转速 rpm"),
+            new ManualColumnDefinition("AfterTurbochargerRPM","后增压器转速 rpm"),
+
+            new ManualColumnDefinition("PCompressorFront",       "压气机前压力(前) Pa"),
+            new ManualColumnDefinition("PCompressorAfter",       "压气机前压力(后) Pa"),
+            new ManualColumnDefinition("PTurboOutPressureFront", "涡轮后压力(前) Pa"),
+            new ManualColumnDefinition("PTurboOutPressureAfter", "涡轮后压力(后) Pa"),
+            new ManualColumnDefinition("PCrankcase",             "曲轴箱压力 ×10Pa"),
+            new ManualColumnDefinition("PInterCoolerFrontFront", "中冷器前压力(前) ×100Pa"),
+            new ManualColumnDefinition("PInterCoolerFrontAfter", "中冷器前压力(后) ×100Pa"),
+            new ManualColumnDefinition("PInterCoolerAfterFront", "中冷器后压力(前) ×100Pa"),
+            new ManualColumnDefinition("PInterCoolerAfterAfter", "中冷器后压力(后) ×100Pa"),
+            new ManualColumnDefinition("FrontTurbochargerPressureIn2", "涡轮前压力(前) Pa"),
+            new ManualColumnDefinition("AfterTurbochargerPressureIn2", "涡轮前压力(后) Pa"),
+            new ManualColumnDefinition("TInterCoolerFrontFront", "中冷器前温度(前) ℃"),
+            new ManualColumnDefinition("TInterCoolerFrontAfter", "中冷器前温度(后) ℃"),
+            new ManualColumnDefinition("TInterCoolerAfterFront", "中冷器后温度(前) ℃"),
+            new ManualColumnDefinition("TInterCoolerAfterAfter", "中冷器后温度(后) ℃"),
+
+            new ManualColumnDefinition("EGTempA1", "A1缸排温 ℃"),
+            new ManualColumnDefinition("EGTempA2", "A2缸排温 ℃"),
+            new ManualColumnDefinition("EGTempA3", "A3缸排温 ℃"),
+            new ManualColumnDefinition("EGTempA4", "A4缸排温 ℃"),
+            new ManualColumnDefinition("EGTempA5", "A5缸排温 ℃"),
+            new ManualColumnDefinition("EGTempA6", "A6缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB1", "B1缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB2", "B2缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB3", "B3缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB4", "B4缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB5", "B5缸排温 ℃"),
+            new ManualColumnDefinition("EGTempB6", "B6缸排温 ℃"),
+        
+            // 各缸爆发压力：软件不采集，人工打印后手填；实时表格默认隐藏，报表查询表格始终显示
+            new ManualColumnDefinition("BurstPA1", "A1爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPA2", "A2爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPA3", "A3爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPA4", "A4爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPA5", "A5爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPA6", "A6爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB1", "B1爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB2", "B2爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB3", "B3爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB4", "B4爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB5", "B5爆发压力", visible: false),
+            new ManualColumnDefinition("BurstPB6", "B6爆发压力", visible: false),
+
+            new ManualColumnDefinition("Remark", "备注", visible: false),
+        };
+    }
+
+    public class ManualColumnDefinition
+    {
+        public string PropertyName { get; }
+        public string DisplayName { get; }
+        public bool Visible { get; set; }
+        public PropertyInfo PropertyInfo { get; set; }
+        public ManualColumnDefinition(string propertyName, string displayName, bool visible = true)
+        {
+            PropertyName = propertyName;
+            DisplayName = displayName;
+            Visible = visible;
         }
     }
 }

@@ -194,6 +194,31 @@ namespace MainUI
                 Var.SysConfig.LastModelType = "";
             }
 
+            // 密码校验通过之后，写入 Var.SysConfig.TestNo 之前
+            string newNo = txtTestNo.Text.Trim();
+            bool hasOpenManualBatch = !string.IsNullOrEmpty(Var.SysConfig.ManualRecordMGid);
+            bool numberChanged = hasOpenManualBatch
+                               && !string.IsNullOrEmpty(Var.SysConfig.TestNo)
+                               && Var.SysConfig.TestNo != newNo;
+
+            if (numberChanged)
+            {
+                bool keepOld = Var.MsgBoxYesNo(this,
+                    $"存在尚未开启新批次的手动记录（编号：{Var.SysConfig.TestNo}）。\n" +
+                    $"本次登录填写的编号（{newNo}）与之不同。\n\n" +
+                    "是否仍沿用旧编号继续该批次记录？\n" +
+                    "选择\"否\"将按新编号开始新批次（旧批次数据不受影响，可在报表界面查看）。");
+
+                if (keepOld)
+                {
+                    txtTestNo.Text = Var.SysConfig.TestNo; // 沿用旧编号，忽略这次的修改
+                }
+                else
+                {
+                    new MainUI.FSql.ManualRecordService().StartNewBatch(); // 清 MGid/Index，允许用新编号
+                }
+            }
+
             Var.SysConfig.LastTrialTypeEnum = (TrialTypeEnum)(cboTrialType.SelectedIndex - 1);
             Var.SysConfig.TestNo = txtTestNo.Text.Trim();
             Var.SysConfig.Save();

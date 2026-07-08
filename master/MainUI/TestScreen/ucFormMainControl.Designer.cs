@@ -32,8 +32,8 @@ namespace MainUI.TestScreen
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label12 = new System.Windows.Forms.Label();
             this.LCCurrentValue = new System.Windows.Forms.Label();
             this.LCVoltageValue = new System.Windows.Forms.Label();
@@ -615,6 +615,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb2.Color = System.Drawing.Color.Red;
             this.uiLedBulb2.Location = new System.Drawing.Point(323, 165);
             this.uiLedBulb2.Name = "uiLedBulb2";
+            this.uiLedBulb2.On = false;
             this.uiLedBulb2.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb2.TabIndex = 759;
             this.uiLedBulb2.Tag = "抽油泵过流";
@@ -664,6 +665,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb1.Color = System.Drawing.Color.Red;
             this.uiLedBulb1.Location = new System.Drawing.Point(359, 116);
             this.uiLedBulb1.Name = "uiLedBulb1";
+            this.uiLedBulb1.On = false;
             this.uiLedBulb1.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb1.TabIndex = 759;
             this.uiLedBulb1.Tag = "主发通风机2过流";
@@ -713,7 +715,6 @@ namespace MainUI.TestScreen
             this.uiLedBulb6.Color = System.Drawing.Color.Red;
             this.uiLedBulb6.Location = new System.Drawing.Point(359, 64);
             this.uiLedBulb6.Name = "uiLedBulb6";
-            this.uiLedBulb6.On = false;
             this.uiLedBulb6.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb6.TabIndex = 759;
             this.uiLedBulb6.Tag = "主发通风机1过流";
@@ -763,6 +764,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb3.Color = System.Drawing.Color.Red;
             this.uiLedBulb3.Location = new System.Drawing.Point(360, 105);
             this.uiLedBulb3.Name = "uiLedBulb3";
+            this.uiLedBulb3.On = false;
             this.uiLedBulb3.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb3.TabIndex = 760;
             this.uiLedBulb3.Tag = "水阻升降电机过流";
@@ -1047,15 +1049,15 @@ namespace MainUI.TestScreen
             this.dataGridStartup.AllowUserToResizeRows = false;
             this.dataGridStartup.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridStartup.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(4);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridStartup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(4);
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridStartup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridStartup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridStartup.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index,
@@ -1071,14 +1073,14 @@ namespace MainUI.TestScreen
             this.Column5,
             this.Column7,
             this.Column11});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridStartup.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridStartup.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridStartup.EnableHeadersVisualStyles = false;
             this.dataGridStartup.Location = new System.Drawing.Point(4, 4);
             this.dataGridStartup.Margin = new System.Windows.Forms.Padding(4);
@@ -1418,13 +1420,14 @@ namespace MainUI.TestScreen
             this.dsRunTime.Tag = "水阻箱进水电动调节阀";
             this.dsRunTime.Text = "0.0";
             this.dsRunTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // rButton4
             // 
             this.rButton4.BackColor = System.Drawing.Color.Silver;
             this.rButton4.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.rButton4.FalseColor = System.Drawing.Color.Silver;
             this.rButton4.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rButton4.Location = new System.Drawing.Point(9, 499);
+            this.rButton4.Location = new System.Drawing.Point(9, 431);
             this.rButton4.Name = "rButton4";
             this.rButton4.Size = new System.Drawing.Size(200, 40);
             this.rButton4.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -1432,6 +1435,7 @@ namespace MainUI.TestScreen
             this.rButton4.Tag = "";
             this.rButton4.Text = "手动数据记录";
             this.rButton4.TrueColor = System.Drawing.Color.Lime;
+            this.rButton4.Click += new System.EventHandler(this.rButton4_Click);
             // 
             // groupBox3
             // 
@@ -1458,7 +1462,7 @@ namespace MainUI.TestScreen
             // 
             this.cboRadTrialType.DataSource = null;
             this.cboRadTrialType.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
-            this.cboRadTrialType.FillColor = System.Drawing.Color.White;
+            this.cboRadTrialType.FillColor = System.Drawing.Color.WhiteSmoke;
             this.cboRadTrialType.FilterMaxCount = 50;
             this.cboRadTrialType.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.cboRadTrialType.ItemHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
@@ -1577,6 +1581,7 @@ namespace MainUI.TestScreen
             // 
             this.txtChuchanghao.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtChuchanghao.DecimalPlaces = 0;
+            this.txtChuchanghao.Enabled = false;
             this.txtChuchanghao.Font = new System.Drawing.Font("宋体", 14F);
             this.txtChuchanghao.Location = new System.Drawing.Point(211, 99);
             this.txtChuchanghao.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1587,6 +1592,9 @@ namespace MainUI.TestScreen
             this.txtChuchanghao.Multiline = true;
             this.txtChuchanghao.Name = "txtChuchanghao";
             this.txtChuchanghao.Padding = new System.Windows.Forms.Padding(5);
+            this.txtChuchanghao.ReadOnly = true;
+            this.txtChuchanghao.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.txtChuchanghao.RectReadOnlyColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             this.txtChuchanghao.ShowText = false;
             this.txtChuchanghao.Size = new System.Drawing.Size(171, 29);
             this.txtChuchanghao.TabIndex = 612;

@@ -821,82 +821,10 @@ namespace MainUI.Report
 
         #region 磨合试验数据改造
 
-        private readonly List<ColumnDefinition> _manualColumnDefinitions = new List<ColumnDefinition>
-        {
-            // 基本参数：出厂表列1-27
-            new ColumnDefinition("Index",          "序号"),
-            new ColumnDefinition("RecordDataTime", "采集时间"),
-            new ColumnDefinition("TestHour",       "时"),
-            new ColumnDefinition("TestMinute",     "分"),
-            new ColumnDefinition("NominalRPM",     "名义转速 rpm"),
-            new ColumnDefinition("RPM",            "实测转速 rpm"),
-            new ColumnDefinition("NominalPower",   "名义功率 kW"),
-            new ColumnDefinition("Power",          "实测功率 kW"),
-            new ColumnDefinition("ECOQuantity",    "测油耗量 g"),
-            new ColumnDefinition("ECORate",        "燃油消耗率 g/kWh"),
-            new ColumnDefinition("PFuelInlet",          "燃油进口压力 kPa"),
-            new ColumnDefinition("LPressureOut",        "中冷泵出口压力 kPa"),
-            new ColumnDefinition("HPressureOut",        "高温泵出口压力 kPa"),
-            new ColumnDefinition("EOPressure1",         "机油泵出口压力 kPa"),
-            new ColumnDefinition("POilInlet",           "机油进口压力 kPa"),
-            new ColumnDefinition("EOPressure2",         "机油总管末端压力 kPa"),
-            new ColumnDefinition("PTurboOilFront",      "前增压器油压 kPa"),
-            new ColumnDefinition("PTurboOilAfter",      "后增压器油压 kPa"),
-            new ColumnDefinition("HeatExchangerTempIn",  "机油进口温度 ℃"),
-            new ColumnDefinition("HeatExchangerTempOut", "机油出口温度 ℃"),
-            new ColumnDefinition("HWaterTempIn",   "高温水进口温度 ℃"),
-            new ColumnDefinition("HWaterTempOut",  "高温水出口温度 ℃"),
-            new ColumnDefinition("LWaterTempIn",   "中冷水进口温度 ℃"),
-            new ColumnDefinition("LWaterTempOut",  "中冷水出口温度 ℃"),
-            new ColumnDefinition("FrontTurbochargerRPM", "前增压器转速 rpm"),
-            new ColumnDefinition("AfterTurbochargerRPM", "后增压器转速 rpm"),
-        
-            // 增压器子表：出厂表列28-42
-            new ColumnDefinition("PCompressorFront",       "压气机前压力(前) Pa"),
-            new ColumnDefinition("PCompressorAfter",       "压气机前压力(后) Pa"),
-            new ColumnDefinition("PTurboOutPressureFront", "涡轮后压力(前) Pa"),
-            new ColumnDefinition("PTurboOutPressureAfter", "涡轮后压力(后) Pa"),
-            new ColumnDefinition("PCrankcase",             "曲轴箱压力 ×10Pa"),
-            new ColumnDefinition("PInterCoolerFrontFront", "中冷器前压力(前) ×100Pa"),
-            new ColumnDefinition("PInterCoolerFrontAfter", "中冷器前压力(后) ×100Pa"),
-            new ColumnDefinition("PInterCoolerAfterFront", "中冷器后压力(前) ×100Pa"),
-            new ColumnDefinition("PInterCoolerAfterAfter", "中冷器后压力(后) ×100Pa"),
-            new ColumnDefinition("FrontTurbochargerPressureIn2", "涡轮前压力(前) Pa"),
-            new ColumnDefinition("AfterTurbochargerPressureIn2", "涡轮前压力(后) Pa"),
-            new ColumnDefinition("TInterCoolerFrontFront", "中冷器前温度(前) ℃"),
-            new ColumnDefinition("TInterCoolerFrontAfter", "中冷器前温度(后) ℃"),
-            new ColumnDefinition("TInterCoolerAfterFront", "中冷器后温度(前) ℃"),
-            new ColumnDefinition("TInterCoolerAfterAfter", "中冷器后温度(后) ℃"),
-        
-            // 各缸排温 A1-A6 / B1-B6
-            new ColumnDefinition("EGTempA1", "A1缸排温 ℃"),
-            new ColumnDefinition("EGTempA2", "A2缸排温 ℃"),
-            new ColumnDefinition("EGTempA3", "A3缸排温 ℃"),
-            new ColumnDefinition("EGTempA4", "A4缸排温 ℃"),
-            new ColumnDefinition("EGTempA5", "A5缸排温 ℃"),
-            new ColumnDefinition("EGTempA6", "A6缸排温 ℃"),
-            new ColumnDefinition("EGTempB1", "B1缸排温 ℃"),
-            new ColumnDefinition("EGTempB2", "B2缸排温 ℃"),
-            new ColumnDefinition("EGTempB3", "B3缸排温 ℃"),
-            new ColumnDefinition("EGTempB4", "B4缸排温 ℃"),
-            new ColumnDefinition("EGTempB5", "B5缸排温 ℃"),
-            new ColumnDefinition("EGTempB6", "B6缸排温 ℃"),
-        
-            // 各缸爆发压力：人工手填，软件不采集，显示占位（默认0）
-            new ColumnDefinition("BurstPA1", "A1爆发压力"),
-            new ColumnDefinition("BurstPA2", "A2爆发压力"),
-            new ColumnDefinition("BurstPA3", "A3爆发压力"),
-            new ColumnDefinition("BurstPA4", "A4爆发压力"),
-            new ColumnDefinition("BurstPA5", "A5爆发压力"),
-            new ColumnDefinition("BurstPA6", "A6爆发压力"),
-            new ColumnDefinition("BurstPB1", "B1爆发压力"),
-            new ColumnDefinition("BurstPB2", "B2爆发压力"),
-            new ColumnDefinition("BurstPB3", "B3爆发压力"),
-            new ColumnDefinition("BurstPB4", "B4爆发压力"),
-            new ColumnDefinition("BurstPB5", "B5爆发压力"),
-            new ColumnDefinition("BurstPB6", "B6爆发压力"),
-            new ColumnDefinition("Remark", "备注"),
-        };
+        private readonly List<ColumnDefinition> _manualColumnDefinitions =
+         MainUI.FSql.ManualRecordService.ManualColumns
+             .Select(c => new ColumnDefinition(c.PropertyName, c.DisplayName))
+             .ToList();
 
         private List<ColumnDefinition> CurrentColumnDefinitions =>
             rdoManual.Checked ? _manualColumnDefinitions : _columnDefinitions;

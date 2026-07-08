@@ -1590,6 +1590,7 @@
             this.btnNewBatch.Tag = "";
             this.btnNewBatch.Text = "开始新批次";
             this.btnNewBatch.TrueColor = System.Drawing.Color.Lime;
+            this.btnNewBatch.Visible = false;
             this.btnNewBatch.Click += new System.EventHandler(this.btnNewBatch_Click);
             // 
             // panel1
@@ -2182,6 +2183,7 @@
             this.btnClearDataGridView.Tag = "";
             this.btnClearDataGridView.Text = "清空表格并停止记录";
             this.btnClearDataGridView.TrueColor = System.Drawing.Color.Lime;
+            this.btnClearDataGridView.Visible = false;
             this.btnClearDataGridView.Click += new System.EventHandler(this.btnClearDataGridView_Click);
             // 
             // btnRecord

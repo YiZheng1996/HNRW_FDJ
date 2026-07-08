@@ -456,6 +456,23 @@ namespace BogieIdling.UI.TRDP
             }
         }
 
+
+        /// <summary>
+        /// 尝试获取 TRDP 实时值。区别于 GetDicValue（找不到时也返回0，无法分辨"没有"和"值是0"），
+        /// 这个方法明确返回"这个 key 在 TRDP 里有没有收到过值"
+        /// </summary>
+        public bool TryGetDicValue(string key, out double value)
+        {
+            if (trdpValue.TryGetValue(key, out var d))
+            {
+                value = d.ToDouble();
+                return true;
+            }
+            value = 0;
+            return false;
+        }
+
+
         /// <summary>
         /// TRDP读取值
         /// </summary>
@@ -623,7 +640,6 @@ namespace BogieIdling.UI.TRDP
             rt.Name = "TRDP_Read_Time";
             rt.Start();
         }
-
     }
 
     public class TRDPValueChangedEventArgs : EventArgs

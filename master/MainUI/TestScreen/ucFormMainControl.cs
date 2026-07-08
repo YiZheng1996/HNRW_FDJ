@@ -1770,6 +1770,33 @@ namespace MainUI.TestScreen
 
             EventTriggerModel.RaiseOnTrialTypeChanged(newType);
         }
+
+        /// <summary>
+        /// 递归查找指定类型控件（与 ucStartup.cs 中的实现保持一致）
+        /// </summary>
+        private T FindControlOfType<T>(Control parent) where T : Control
+        {
+            if (parent == null) return null;
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is T match) return match;
+                var child = FindControlOfType<T>(ctrl);
+                if (child != null) return child;
+            }
+            return null;
+        }
+
+        private void rButton4_Click(object sender, EventArgs e)
+        {
+            var autoHMI = FindControlOfType<MainUI.ucAutoHMI>(this.FindForm());
+            if (autoHMI == null)
+            {
+                Var.MsgBoxWarn(this, "未找到试验主界面，记录失败。");
+                return;
+            }
+            autoHMI.DoManualRecord();
+        }
+         
     }
 
 

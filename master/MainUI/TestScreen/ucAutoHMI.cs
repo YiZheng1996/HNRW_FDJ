@@ -1465,11 +1465,9 @@ namespace MainUI
         }
 
         /// <summary>
-        /// 手动记录
+        /// 手动记录（供本界面按钮和其他界面复用的统一入口）
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnRecord_Click(object sender, EventArgs e)
+        public void DoManualRecord()
         {
             btnRecord.Enabled = false;
             try
@@ -1482,14 +1480,12 @@ namespace MainUI
                 };
 
                 bool ok = manualRecordService.SaveOneRecord(saveInfo, out var record, out var errMsg);
-
                 if (!ok)
                 {
                     Var.MsgBoxWarn(this, "记录失败：" + errMsg);
                 }
-                // 成功时不需要手动刷新表格：SaveOneRecord 内部会触发 DataSaved 事件，
-                // 已订阅的 ManualRecordService_DataSaved 会自动调用现成的
-                // RefreshAddedRecord(e.manualRecord) 把这一行插入 dgvManualRecord。
+                // 成功时 SaveOneRecord 内部会触发 DataSaved 事件，
+                // 已订阅的 ManualRecordService_DataSaved 会自动刷新 dgvManualRecord
             }
             catch (Exception ex)
             {
@@ -1500,6 +1496,12 @@ namespace MainUI
                 btnRecord.Enabled = true;
             }
         }
+
+        private void btnRecord_Click(object sender, EventArgs e)
+        {
+            DoManualRecord();
+        }
+
         private void btnNewBatch_Click(object sender, EventArgs e)
         {
             bool confirm = Var.MsgBoxYesNo(this,
@@ -1533,15 +1535,15 @@ namespace MainUI
             this.dgvManualRecord.Rows.Insert(0);          // 在第0行插入一空行
             var row = this.dgvManualRecord.Rows[0];       // 插入后直接取第0行
 
-            for (int i = 0; i < _manualRecordColumns.Count; i++)
+            for (int i = 0; i < ManualRecordService.ManualColumns.Count; i++)
             {
-                var col = _manualRecordColumns[i];
+                var col = ManualRecordService.ManualColumns[i];
                 object value = col.PropertyName == "Index"
                     ? (object)(addedRecord.Index + 1)
                     : col.PropertyInfo?.GetValue(addedRecord);
 
                 if (value is double d)
-                    value = Math.Round(d, 2);
+                    value = Math.Round(d, 1);
 
                 row.Cells[i].Value = value;
             }
@@ -2820,109 +2822,17 @@ namespace MainUI
 
         #region 出厂试验数据模块
 
-        private class ManualColumnDefinition
-        {
-            public string PropertyName { get; }
-            public string DisplayName { get; }
-            public bool Visible { get; set; }
-            public PropertyInfo PropertyInfo { get; set; }
-            public ManualColumnDefinition(string propertyName, string displayName, bool visible = true)
-            {
-                PropertyName = propertyName;
-                DisplayName = displayName;
-                Visible = visible;
-            }
-        }
-
-        // 字段名对齐 ManualRecordPara 实际采集/存储的属性，顺序对齐出厂试验记录表模板列号
-        private readonly List<ManualColumnDefinition> _manualRecordColumns = new List<ManualColumnDefinition>
-        {
-            // 基本参数：出厂表列1-27
-            new ManualColumnDefinition("Index",               "序号"),
-            new ManualColumnDefinition("TestHour",            "时"),
-            new ManualColumnDefinition("TestMinute",          "分"),
-            new ManualColumnDefinition("NominalRPM",          "名义转速 rpm"),
-            new ManualColumnDefinition("RPM",                 "实测转速 rpm"),
-            new ManualColumnDefinition("NominalPower",        "名义功率 kW"),
-            new ManualColumnDefinition("Power",               "实测功率 kW"),
-            new ManualColumnDefinition("ECOQuantity",         "测油耗量 g"),
-            new ManualColumnDefinition("ECORate",             "燃油消耗率 g/kWh"),
-            new ManualColumnDefinition("PFuelInlet",          "燃油进口压力 kPa"),
-            new ManualColumnDefinition("LPressureOut",        "中冷泵出口压力 kPa"),
-            new ManualColumnDefinition("HPressureOut",        "高温泵出口压力 kPa"),
-            new ManualColumnDefinition("EOPressure1",         "机油泵出口压力 kPa"),
-            new ManualColumnDefinition("POilInlet",           "机油进口压力 kPa"),
-            new ManualColumnDefinition("EOPressure2",         "机油总管末端压力 kPa"),
-            new ManualColumnDefinition("PTurboOilFront",      "前增压器油压 kPa"),
-            new ManualColumnDefinition("PTurboOilAfter",      "后增压器油压 kPa"),
-            new ManualColumnDefinition("HeatExchangerTempIn", "机油进口温度 ℃"),
-            new ManualColumnDefinition("HeatExchangerTempOut","机油出口温度 ℃"),
-            new ManualColumnDefinition("HWaterTempIn",        "高温水进口温度 ℃"),
-            new ManualColumnDefinition("HWaterTempOut",       "高温水出口温度 ℃"),
-            new ManualColumnDefinition("LWaterTempIn",        "中冷水进口温度 ℃"),
-            new ManualColumnDefinition("LWaterTempOut",       "中冷水出口温度 ℃"),
-            new ManualColumnDefinition("FrontTurbochargerRPM","前增压器转速 rpm"),
-            new ManualColumnDefinition("AfterTurbochargerRPM","后增压器转速 rpm"),
-        
-            // 增压器子表：出厂表列28-42
-            new ManualColumnDefinition("PCompressorFront",       "压气机前压力(前) Pa"),
-            new ManualColumnDefinition("PCompressorAfter",       "压气机前压力(后) Pa"),
-            new ManualColumnDefinition("PTurboOutPressureFront", "涡轮后压力(前) Pa"),
-            new ManualColumnDefinition("PTurboOutPressureAfter", "涡轮后压力(后) Pa"),
-            new ManualColumnDefinition("PCrankcase",             "曲轴箱压力 ×10Pa"),
-            new ManualColumnDefinition("PInterCoolerFrontFront", "中冷器前压力(前) ×100Pa"),
-            new ManualColumnDefinition("PInterCoolerFrontAfter", "中冷器前压力(后) ×100Pa"),
-            new ManualColumnDefinition("PInterCoolerAfterFront", "中冷器后压力(前) ×100Pa"),
-            new ManualColumnDefinition("PInterCoolerAfterAfter", "中冷器后压力(后) ×100Pa"),
-            new ManualColumnDefinition("FrontTurbochargerPressureIn2", "涡轮前压力(前) Pa"),
-            new ManualColumnDefinition("AfterTurbochargerPressureIn2", "涡轮前压力(后) Pa"),
-            new ManualColumnDefinition("TInterCoolerFrontFront", "中冷器前温度(前) ℃"),
-            new ManualColumnDefinition("TInterCoolerFrontAfter", "中冷器前温度(后) ℃"),
-            new ManualColumnDefinition("TInterCoolerAfterFront", "中冷器后温度(前) ℃"),
-            new ManualColumnDefinition("TInterCoolerAfterAfter", "中冷器后温度(后) ℃"),
-        
-            // 各缸排温 A1-A6 / B1-B6
-            new ManualColumnDefinition("EGTempA1", "A1缸排温 ℃"),
-            new ManualColumnDefinition("EGTempA2", "A2缸排温 ℃"),
-            new ManualColumnDefinition("EGTempA3", "A3缸排温 ℃"),
-            new ManualColumnDefinition("EGTempA4", "A4缸排温 ℃"),
-            new ManualColumnDefinition("EGTempA5", "A5缸排温 ℃"),
-            new ManualColumnDefinition("EGTempA6", "A6缸排温 ℃"),
-            new ManualColumnDefinition("EGTempB1", "B1缸排温 ℃"),
-            new ManualColumnDefinition("EGTempB2", "B2缸排温 ℃"),
-            new ManualColumnDefinition("EGTempB3", "B3缸排温 ℃"),
-            new ManualColumnDefinition("EGTempB4", "B4缸排温 ℃"),
-            new ManualColumnDefinition("EGTempB5", "B5缸排温 ℃"),
-            new ManualColumnDefinition("EGTempB6", "B6缸排温 ℃"),
-        
-            // 各缸爆发压力：软件不采集，人工打印后手填，此处显示占位（默认0）
-            new ManualColumnDefinition("BurstPA1", "A1爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPA2", "A2爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPA3", "A3爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPA4", "A4爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPA5", "A5爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPA6", "A6爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPB1", "B1爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPB2", "B2爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPB3", "B3爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPB4", "B4爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPB5", "B5爆发压力", visible: false),
-            new ManualColumnDefinition("BurstPB6", "B6爆发压力", visible: false),
-
-            new ManualColumnDefinition("Remark", "备注", visible: false),
-        };
-
         // 初始化列(Designer.cs 里原来的旧列直接清掉，不用去动 .Designer.cs 文件)
         private void InitManualRecordGridColumns()
         {
             var type = typeof(ManualRecordPara);
-            foreach (var col in _manualRecordColumns)
+            foreach (var col in MainUI.FSql.ManualRecordService.ManualColumns)
                 col.PropertyInfo = type.GetProperty(col.PropertyName);
 
             dgvManualRecord.AutoGenerateColumns = false;
-            dgvManualRecord.Columns.Clear();   // 清掉 Designer.cs 里原有的旧列
+            dgvManualRecord.Columns.Clear();
 
-            foreach (var col in _manualRecordColumns)
+            foreach (var col in MainUI.FSql.ManualRecordService.ManualColumns)
             {
                 dgvManualRecord.Columns.Add(new DataGridViewTextBoxColumn
                 {
@@ -2934,7 +2844,6 @@ namespace MainUI
                 });
             }
         }
-
         #endregion
 
     }
