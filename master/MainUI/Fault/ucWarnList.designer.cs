@@ -449,32 +449,20 @@
             // ucWarn15
             // 
             this.ucWarn15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ucWarn15.Key = "A1-A6缸排气温度";
+            this.ucWarn15.Key = "A1-B6缸排气温度";
             this.ucWarn15.Location = new System.Drawing.Point(5, 1180);
             this.ucWarn15.Margin = new System.Windows.Forms.Padding(5);
             this.ucWarn15.Name = "ucWarn15";
             this.ucWarn15.ShowStopButton = false;
             this.ucWarn15.Size = new System.Drawing.Size(561, 37);
             this.ucWarn15.TabIndex = 17;
-            this.ucWarn15.Title = "A1-A6缸排气温度";
-            // 
-            // ucWarn16
-            // 
-            this.ucWarn16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ucWarn16.Key = "B1-B6缸排气温度";
-            this.ucWarn16.Location = new System.Drawing.Point(5, 1227);
-            this.ucWarn16.Margin = new System.Windows.Forms.Padding(5);
-            this.ucWarn16.Name = "ucWarn16";
-            this.ucWarn16.ShowStopButton = false;
-            this.ucWarn16.Size = new System.Drawing.Size(561, 37);
-            this.ucWarn16.TabIndex = 18;
-            this.ucWarn16.Title = "B1-B6缸排气温度";
+            this.ucWarn15.Title = "A1-B6缸排气温度";
             // 
             // ucWarn19
             // 
             this.ucWarn19.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucWarn19.Key = "1-7档轴温";
-            this.ucWarn19.Location = new System.Drawing.Point(5, 1274);
+            this.ucWarn19.Location = new System.Drawing.Point(5, 1227);
             this.ucWarn19.Margin = new System.Windows.Forms.Padding(5);
             this.ucWarn19.Name = "ucWarn19";
             this.ucWarn19.ShowAlarmButton = false;
@@ -486,7 +474,7 @@
             // 
             this.ucWarn29.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucWarn29.Key = "燃油精滤器后油压2";
-            this.ucWarn29.Location = new System.Drawing.Point(5, 1321);
+            this.ucWarn29.Location = new System.Drawing.Point(5, 1274);
             this.ucWarn29.Margin = new System.Windows.Forms.Padding(5);
             this.ucWarn29.Name = "ucWarn29";
             this.ucWarn29.ShowSheddingButton = false;
@@ -499,7 +487,7 @@
             // 
             this.lblFaultDesECM.Font = new System.Drawing.Font("宋体", 15F);
             this.lblFaultDesECM.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblFaultDesECM.Location = new System.Drawing.Point(3, 1363);
+            this.lblFaultDesECM.Location = new System.Drawing.Point(3, 1321);
             this.lblFaultDesECM.Name = "lblFaultDesECM";
             this.lblFaultDesECM.Size = new System.Drawing.Size(578, 96);
             this.lblFaultDesECM.TabIndex = 504;

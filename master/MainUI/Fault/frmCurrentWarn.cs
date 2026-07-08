@@ -79,6 +79,7 @@ namespace MainUI.Fault
 
             if (_faultWarnMap.TryGetValue(faultId, out var warnControl))
             {
+                warnControl.RestartSwitch();
                 warnControl.CurrentFault = warnType;
             }
         }

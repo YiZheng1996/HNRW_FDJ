@@ -103,17 +103,11 @@ namespace MainUI.Fault
             this.F23V1.Value = data.F23V1;
             this.F23V2.Value = data.F23V2;
 
-            // 故障24: AI-A6缸排气温度
+            // 故障24: AI-B6缸排气温度
             this.F24V1.Value = data.F24V1;
             this.F24V2.Value = data.F24V2;
             this.F24V3.Value = data.F24V3;
             this.F24V4.Value = data.F24V4;
-
-            // 故障25: BI-B6缸排气温度
-            this.F25V1.Value = data.F25V1;
-            this.F25V2.Value = data.F25V2;
-            this.F25V3.Value = data.F25V3;
-            this.F25V4.Value = data.F25V4;
 
             // 故障26: A涡前排气温度
             this.F26V1.Value = data.F26V1;
@@ -216,10 +210,6 @@ namespace MainUI.Fault
                     F24V2 = this.F24V2.Value.ToInt(),
                     F24V3 = this.F24V3.Value.ToInt(),
                     F24V4 = this.F24V4.Value.ToInt(),
-                    F25V1 = this.F25V1.Value.ToInt(),
-                    F25V2 = this.F25V2.Value.ToInt(),
-                    F25V3 = this.F25V3.Value.ToInt(),
-                    F25V4 = this.F25V4.Value.ToInt(),
                     F26V1 = this.F26V1.Value.ToInt(),
                     F27V1 = this.F27V1.Value.ToInt(),
                     F28V1 = this.F28V1.Value.ToInt(),

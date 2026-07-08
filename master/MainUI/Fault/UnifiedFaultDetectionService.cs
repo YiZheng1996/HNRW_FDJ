@@ -375,17 +375,17 @@ namespace MainUI.Services
                 CheckStop = null,
             };
 
-            // 故障24: A1-A6缸排气温度
-            conditions["A1-A6缸排气温度"] = new FaultCondition
+            // 故障24: A1-B6缸排气温度
+            conditions["A1-B6缸排气温度"] = new FaultCondition
             {
-                Name = "A1-A6缸排气温度",
-                CheckAlarm = (data) => data.A1A6缸排气温度.Max() >= currentFaultData.F24V1,
+                Name = "A1-B6缸排气温度",
+                CheckAlarm = (data) => data.A1B6缸排气温度.Max() >= currentFaultData.F24V1,
                 CheckShedding = (data) =>
                 {
                     // todo 发动机功率需要计算
                     var result = data.发动机功率 >= currentFaultData.F24V2;
-                    var max = data.A1A6缸排气温度.Max();
-                    var min = data.A1A6缸排气温度.Min();
+                    var max = data.A1B6缸排气温度.Max();
+                    var min = data.A1B6缸排气温度.Min();
                     return (max - min) > currentFaultData.F24V3 && result;
                 },
                 SheddingDuration = currentFaultData.F24V4,
@@ -393,22 +393,7 @@ namespace MainUI.Services
                 StopDuration = 0
             };
 
-            // 故障25: B1-B6缸排气温度
-            conditions["B1-B6缸排气温度"] = new FaultCondition
-            {
-                Name = "B1-B6缸排气温度",
-                CheckAlarm = (data) => data.B1B6缸排气温度.Max() >= currentFaultData.F25V1,
-                CheckShedding = (data) =>
-                {
-                    var result = data.发动机功率 >= currentFaultData.F25V2;
-                    var max = data.B1B6缸排气温度.Max();
-                    var min = data.B1B6缸排气温度.Min();
-                    return (max - min) > currentFaultData.F25V3 && result;
-                },
-                SheddingDuration = currentFaultData.F25V4,
-                CheckStop = null,
-                StopDuration = 0
-            };
+           
 
             // 故障26: A涡前排气温度
             conditions["A涡前排气温度"] = new FaultCondition
@@ -1059,6 +1044,10 @@ namespace MainUI.Services
 
             // 按照优先级检测：停机 -> 降载 -> 报警
             // 停机报警 
+            if (condition.CheckStop != null)
+            {
+                bool a = condition.CheckStop(CurrentData);
+            }
             if (condition.CheckStop != null && condition.CheckStop(CurrentData))
             {
                 lock (_lock)

@@ -38,7 +38,6 @@ namespace MainUI.Fault
             this.ucWarn29 = new MainUI.Fault.ucWarn();
             this.ucWarn18 = new MainUI.Fault.ucWarn();
             this.ucWarn19 = new MainUI.Fault.ucWarn();
-            this.ucWarn16 = new MainUI.Fault.ucWarn();
             this.ucWarn15 = new MainUI.Fault.ucWarn();
             this.ucWarn14 = new MainUI.Fault.ucWarn();
             this.ucWarn17 = new MainUI.Fault.ucWarn();
@@ -117,7 +116,6 @@ namespace MainUI.Fault
             this.gpWarn1.Controls.Add(this.ucWarn29);
             this.gpWarn1.Controls.Add(this.ucWarn18);
             this.gpWarn1.Controls.Add(this.ucWarn19);
-            this.gpWarn1.Controls.Add(this.ucWarn16);
             this.gpWarn1.Controls.Add(this.label7);
             this.gpWarn1.Controls.Add(this.ucWarn15);
             this.gpWarn1.Controls.Add(this.label9);
@@ -160,7 +158,6 @@ namespace MainUI.Fault
             this.gpWarn1.TabIndex = 505;
             this.gpWarn1.Text = "故障状态详情列表";
             this.gpWarn1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.gpWarn1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // btnExit
             // 
@@ -173,7 +170,6 @@ namespace MainUI.Fault
             this.btnExit.TabIndex = 502;
             this.btnExit.Text = "返回";
             this.btnExit.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnExit.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // ucWarn29
@@ -206,7 +202,7 @@ namespace MainUI.Fault
             // 
             this.ucWarn19.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucWarn19.Key = "1-7档轴温";
-            this.ucWarn19.Location = new System.Drawing.Point(11, 756);
+            this.ucWarn19.Location = new System.Drawing.Point(11, 715);
             this.ucWarn19.Margin = new System.Windows.Forms.Padding(5);
             this.ucWarn19.Name = "ucWarn19";
             this.ucWarn19.ShowAlarmButton = false;
@@ -214,29 +210,17 @@ namespace MainUI.Fault
             this.ucWarn19.TabIndex = 21;
             this.ucWarn19.Title = "1-7档轴温";
             // 
-            // ucWarn16
-            // 
-            this.ucWarn16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ucWarn16.Key = "B1-B6缸排气温度";
-            this.ucWarn16.Location = new System.Drawing.Point(11, 715);
-            this.ucWarn16.Margin = new System.Windows.Forms.Padding(5);
-            this.ucWarn16.Name = "ucWarn16";
-            this.ucWarn16.ShowStopButton = false;
-            this.ucWarn16.Size = new System.Drawing.Size(561, 37);
-            this.ucWarn16.TabIndex = 18;
-            this.ucWarn16.Title = "B1-B6缸排气温度";
-            // 
             // ucWarn15
             // 
             this.ucWarn15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ucWarn15.Key = "A1-A6缸排气温度";
+            this.ucWarn15.Key = "A1-B6缸排气温度";
             this.ucWarn15.Location = new System.Drawing.Point(11, 674);
             this.ucWarn15.Margin = new System.Windows.Forms.Padding(5);
             this.ucWarn15.Name = "ucWarn15";
             this.ucWarn15.ShowStopButton = false;
             this.ucWarn15.Size = new System.Drawing.Size(561, 37);
             this.ucWarn15.TabIndex = 17;
-            this.ucWarn15.Title = "A1-A6缸排气温度";
+            this.ucWarn15.Title = "A1-B6缸排气温度";
             // 
             // ucWarn14
             // 

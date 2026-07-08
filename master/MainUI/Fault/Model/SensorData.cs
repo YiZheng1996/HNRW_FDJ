@@ -38,6 +38,9 @@ namespace MainUI.Fault.Model
 
         public double[] A1A6缸排气温度 { get; set; }
         public double[] B1B6缸排气温度 { get; set; }
+
+        public double[] A1B6缸排气温度 { get; set; }
+
         public double A涡前排气温度 { get; set; }
         public double B涡前排气温度 { get; set; }
         public double[] _1_7档轴温 { get; set; }

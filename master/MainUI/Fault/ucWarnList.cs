@@ -213,7 +213,17 @@ namespace MainUI.Widget
                         {
                             // 控制器
                             data.发动机转速 = Var.TRDP.GetDicValue("柴油机转速");
-                            data.发动机功率 = MiddleData.instnce.EnginePower;
+
+                            if (MiddleData.instnce.EnginePower != 0)
+                            {
+                                data.发动机功率 = MiddleData.instnce.EnginePower;
+
+                            }
+                            else
+                            {
+                                data.发动机功率 = Common.threePhaseElectric.DataValue["有功功率"];
+                            }
+                            
                             data.高温水出水温度 = Var.TRDP.GetDicValue("高温水出水温度");
                             data.中冷水进水温度 = Var.TRDP.GetDicValue("中冷水进水温度");
                             data.中冷水出水温度 = Var.TRDP.GetDicValue("中冷水出水温度");
@@ -230,29 +240,26 @@ namespace MainUI.Widget
                             data.前增压器转速 = Var.TRDP.GetDicValue("前增压器转速");
                             data.后增压器转速 = Var.TRDP.GetDicValue("后增压器转速");
 
-                            // A1-A6缸排气温度
-                            if (data.A1A6缸排气温度 == null || data.A1A6缸排气温度.Length != 6)
-                                data.A1A6缸排气温度 = new double[6];
-
-                            data.A1A6缸排气温度[0] = Convert.ToDouble(Var.TRDP.GetDicValue("A1缸排气温度"));
-                            data.A1A6缸排气温度[1] = Convert.ToDouble(Var.TRDP.GetDicValue("A2缸排气温度"));
-                            data.A1A6缸排气温度[2] = Convert.ToDouble(Var.TRDP.GetDicValue("A3缸排气温度"));
-                            data.A1A6缸排气温度[3] = Convert.ToDouble(Var.TRDP.GetDicValue("A4缸排气温度"));
-                            data.A1A6缸排气温度[4] = Convert.ToDouble(Var.TRDP.GetDicValue("A5缸排气温度"));
-                            data.A1A6缸排气温度[5] = Convert.ToDouble(Var.TRDP.GetDicValue("A6缸排气温度"));
                             data.A涡前排气温度 = Var.TRDP.GetDicValue("A涡前排气温度");
 
-                            // B1-B6缸排气温度
-                            if (data.B1B6缸排气温度 == null || data.B1B6缸排气温度.Length != 6)
-                                data.B1B6缸排气温度 = new double[6];
-
-                            data.B1B6缸排气温度[0] = Convert.ToDouble(Var.TRDP.GetDicValue("B1缸排气温度"));
-                            data.B1B6缸排气温度[1] = Convert.ToDouble(Var.TRDP.GetDicValue("B2缸排气温度"));
-                            data.B1B6缸排气温度[2] = Convert.ToDouble(Var.TRDP.GetDicValue("B3缸排气温度"));
-                            data.B1B6缸排气温度[3] = Convert.ToDouble(Var.TRDP.GetDicValue("B4缸排气温度"));
-                            data.B1B6缸排气温度[4] = Convert.ToDouble(Var.TRDP.GetDicValue("B5缸排气温度"));
-                            data.B1B6缸排气温度[5] = Convert.ToDouble(Var.TRDP.GetDicValue("B6缸排气温度"));
                             data.B涡前排气温度 = Var.TRDP.GetDicValue("B涡前排气温度");
+
+                            // A1-A6缸排气温度
+                            if (data.A1B6缸排气温度 == null || data.A1B6缸排气温度.Length != 6)
+                                data.A1B6缸排气温度 = new double[12];
+
+                            data.A1B6缸排气温度[0] = Convert.ToDouble(Var.TRDP.GetDicValue("A1缸排气温度"));
+                            data.A1B6缸排气温度[1] = Convert.ToDouble(Var.TRDP.GetDicValue("A2缸排气温度"));
+                            data.A1B6缸排气温度[2] = Convert.ToDouble(Var.TRDP.GetDicValue("A3缸排气温度"));
+                            data.A1B6缸排气温度[3] = Convert.ToDouble(Var.TRDP.GetDicValue("A4缸排气温度"));
+                            data.A1B6缸排气温度[4] = Convert.ToDouble(Var.TRDP.GetDicValue("A5缸排气温度"));
+                            data.A1B6缸排气温度[5] = Convert.ToDouble(Var.TRDP.GetDicValue("A6缸排气温度"));
+                            data.A1B6缸排气温度[6] = Convert.ToDouble(Var.TRDP.GetDicValue("B1缸排气温度"));
+                            data.A1B6缸排气温度[7] = Convert.ToDouble(Var.TRDP.GetDicValue("B2缸排气温度"));
+                            data.A1B6缸排气温度[8] = Convert.ToDouble(Var.TRDP.GetDicValue("B3缸排气温度"));
+                            data.A1B6缸排气温度[9] = Convert.ToDouble(Var.TRDP.GetDicValue("B4缸排气温度"));
+                            data.A1B6缸排气温度[10] = Convert.ToDouble(Var.TRDP.GetDicValue("B5缸排气温度"));
+                            data.A1B6缸排气温度[11] = Convert.ToDouble(Var.TRDP.GetDicValue("B6缸排气温度"));
 
                             // 1-7缸排气温度
                             if (data._1_7档轴温 == null || data._1_7档轴温.Length != 7)
@@ -291,33 +298,30 @@ namespace MainUI.Widget
                             //data.前增压器转速 = Common.speedGrp["转速2"];
                             //data.后增压器转速 = Common.speedGrp["转速3"];
 
-                            // A1-A6缸排气温度
-                            if (data.A1A6缸排气温度 == null || data.A1A6缸排气温度.Length != 8)
-                                data.A1A6缸排气温度 = new double[8];
-
-                            data.A1A6缸排气温度[0] = Common.AI2Grp["A1缸排气温度"];
-                            data.A1A6缸排气温度[1] = Common.AI2Grp["A2缸排气温度"];
-                            data.A1A6缸排气温度[2] = Common.AI2Grp["A3缸排气温度"];
-                            data.A1A6缸排气温度[3] = Common.AI2Grp["A4缸排气温度"];
-                            data.A1A6缸排气温度[4] = Common.AI2Grp["A5缸排气温度"];
-                            data.A1A6缸排气温度[5] = Common.AI2Grp["A6缸排气温度"];
-                            data.A1A6缸排气温度[6] = Common.AI2Grp["A7缸排气温度"];
-                            data.A1A6缸排气温度[7] = Common.AI2Grp["A8缸排气温度"];
+                            data.B涡前排气温度 = Common.AI2Grp["后涡轮进口废气温度"];
                             data.A涡前排气温度 = Common.AI2Grp["前涡轮进口废气温度"];
 
-                            // B1-B6缸排气温度
-                            if (data.B1B6缸排气温度 == null || data.B1B6缸排气温度.Length != 8)
-                                data.B1B6缸排气温度 = new double[8];
+                            // A1-A6缸排气温度
+                            if (data.A1B6缸排气温度 == null || data.A1B6缸排气温度.Length != 8)
+                                data.A1B6缸排气温度 = new double[16];
 
-                            data.B1B6缸排气温度[0] = Common.AI2Grp["B1缸排气温度"];
-                            data.B1B6缸排气温度[1] = Common.AI2Grp["B2缸排气温度"];
-                            data.B1B6缸排气温度[2] = Common.AI2Grp["B3缸排气温度"];
-                            data.B1B6缸排气温度[3] = Common.AI2Grp["B4缸排气温度"];
-                            data.B1B6缸排气温度[4] = Common.AI2Grp["B5缸排气温度"];
-                            data.B1B6缸排气温度[5] = Common.AI2Grp["B6缸排气温度"];
-                            data.B1B6缸排气温度[6] = Common.AI2Grp["B7缸排气温度"];
-                            data.B1B6缸排气温度[7] = Common.AI2Grp["B8缸排气温度"];
-                            data.B涡前排气温度 = Common.AI2Grp["后涡轮进口废气温度"];
+                            data.A1B6缸排气温度[0] = Common.AI2Grp["A1缸排气温度"];
+                            data.A1B6缸排气温度[1] = Common.AI2Grp["A2缸排气温度"];
+                            data.A1B6缸排气温度[2] = Common.AI2Grp["A3缸排气温度"];
+                            data.A1B6缸排气温度[3] = Common.AI2Grp["A4缸排气温度"];
+                            data.A1B6缸排气温度[4] = Common.AI2Grp["A5缸排气温度"];
+                            data.A1B6缸排气温度[5] = Common.AI2Grp["A6缸排气温度"];
+                            data.A1B6缸排气温度[6] = Common.AI2Grp["A7缸排气温度"];
+                            data.A1B6缸排气温度[7] = Common.AI2Grp["A8缸排气温度"];
+                            data.A1B6缸排气温度[8] = Common.AI2Grp["B1缸排气温度"];
+                            data.A1B6缸排气温度[9] = Common.AI2Grp["B2缸排气温度"];
+                            data.A1B6缸排气温度[10] = Common.AI2Grp["B3缸排气温度"];
+                            data.A1B6缸排气温度[11] = Common.AI2Grp["B4缸排气温度"];
+                            data.A1B6缸排气温度[12] = Common.AI2Grp["B5缸排气温度"];
+                            data.A1B6缸排气温度[13] = Common.AI2Grp["B6缸排气温度"];
+                            data.A1B6缸排气温度[14] = Common.AI2Grp["B7缸排气温度"];
+                            data.A1B6缸排气温度[15] = Common.AI2Grp["B8缸排气温度"];
+                            
                         }
 
                         data.飞轮发动机转速1 = Common.speedGrp["转速2"];
