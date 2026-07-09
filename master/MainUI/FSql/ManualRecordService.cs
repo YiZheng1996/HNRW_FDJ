@@ -196,14 +196,12 @@ namespace MainUI.FSql
                 LPressureOut = GetValuePreferTRDP("中冷水泵出口压力", () => Common.AI2Grp["P3中冷水泵进口压力"]),
                 HPressureOut = GetValuePreferTRDP("高温水泵出口压力", () => Common.AI2Grp["P1高温水出机压力"]),
                 EOPressure1 = GetValuePreferTRDP("机油泵出口油压", () => Common.AI2Grp["P20机油泵出口压力"]),
-                POilInlet = GetValuePreferTRDP("主油道进口油压", () => Common.AI2Grp["主油道进口油压"]), // OPC不知道是哪个点位 ✅
-                EOPressure2 = GetValuePreferTRDP("主油道末端油压", () => Common.AI2Grp["主油道末端油压"]),// OPC不知道是哪个点位 ✅
-                PTurboOilFront = GetValuePreferTRDP("前增压器进口油压", () => Common.AI2Grp["前增压器进油压"]),// opc 是燃油还是机油✅
-                PTurboOilAfter = GetValuePreferTRDP("后增压器进口油压", () => Common.AI2Grp["后增压器进油压"]),// opc 是燃油还是机油✅
+                POilInlet = GetValuePreferTRDP("主油道进口油压", () => Common.AI2Grp["主油道进口油压"]),
+                EOPressure2 = GetValuePreferTRDP("主油道末端油压", () => Common.AI2Grp["主油道末端油压"]),
+                PTurboOilFront = GetValuePreferTRDP("前增压器进口油压", () => Common.AI2Grp["前增压器进油压"]),
+                PTurboOilAfter = GetValuePreferTRDP("后增压器进口油压", () => Common.AI2Grp["后增压器进油压"]),
 
                 // ══════════════════ 出厂表 列19-26：油温/水温 + 增压器转速 ══════════════════
-                // 协议表用"机油泵出口油温/主油道进口油温"命名（无"热交换器"字样），按油路走向对应：
-                // 泵出口(未冷却) = 热交换器进口，主油道进口(已冷却) = 热交换器出口
                 HeatExchangerTempIn = GetValuePreferTRDP("主油道进口油温", () => Common.AI2Grp["机油热交换器进口油温"]),
                 HeatExchangerTempOut = GetValuePreferTRDP("机油泵出口油温", () => Common.AI2Grp["机油热交换器出口油温"]),
                 HWaterTempIn = SafeGet(() => Common.waterGrp.NewDataValue["T2高温水进机温度"]),
@@ -214,35 +212,29 @@ namespace MainUI.FSql
                 AfterTurbochargerRPM = GetValuePreferTRDP("后增压器转速", () => 0),
 
                 // ══════════════════ 出厂表 列27-37：增压器子表（压力） ══════════════════
-                // 以下4个协议表里搜不到对应信号（只有"压气机出口空气温度""增压器回油温度"，没有"压气机出口空气压力"，没有涡轮)
-                PCompressorFront = SafeGet(() => Common.AI2Grp["前增压器进气真空度"]), // ??✅
-                PCompressorAfter = SafeGet(() => Common.AI2Grp["后增压器进气真空度"]),  //??✅
-                PTurboOutPressureFront = SafeGet(() => Common.AI2Grp["前增压器排气背压"]),// ??✅
-                PTurboOutPressureAfter = SafeGet(() => Common.AI2Grp["后增压器排气背压"]),// ??✅
-                PCrankcase = SafeGet(() => Common.AI2Grp["曲轴箱压力"]),//??
-                // 协议表只有"后中冷后空气压力"，没有"前中冷"系列，这两个维持OPC
+                PCompressorFront = SafeGet(() => Common.AI2Grp["前增压器进气真空度"]),
+                PCompressorAfter = SafeGet(() => Common.AI2Grp["后增压器进气真空度"]), 
+                PTurboOutPressureFront = SafeGet(() => Common.AI2Grp["前增压器排气背压"]),
+                PTurboOutPressureAfter = SafeGet(() => Common.AI2Grp["后增压器排气背压"]),
+                PCrankcase = SafeGet(() => Common.AI2Grp["曲轴箱压力"]),
                 PInterCoolerFrontFront = SafeGet(() => Common.AI2Grp["前中冷前空气压力"]),
                 PInterCoolerFrontAfter = SafeGet(() => Common.AI2Grp["前中冷后空气压力"]),
                 PInterCoolerAfterFront = SafeGet(() => Common.AI2Grp["后中冷前空气压力"]),
                 PInterCoolerAfterAfter = GetValuePreferTRDP("后中冷后空气压力", () => Common.AI2Grp["后中冷后空气压力"]),
-                // 协议表没有"涡轮进口废气压力"，维持OPC
                 FrontTurbochargerPressureIn2 = SafeGet(() => Common.AI2Grp["前涡轮进口废气压力"]),
                 AfterTurbochargerPressureIn2 = SafeGet(() => Common.AI2Grp["后涡轮进口废气压力"]),
 
                 // ══════════════════ 出厂表 列38-41：增压器子表（温度） ══════════════════
-                // 协议表只有"后中冷器后空气温度"，没有"前中冷"系列，这三个维持OPC
-                TInterCoolerFrontFront = GetValuePreferTRDP("前压气机出口空气温度",() => Common.AI2Grp["前中冷前空气温度"]),
+                TInterCoolerFrontFront = GetValuePreferTRDP("前压气机出口空气温度", () => Common.AI2Grp["前中冷前空气温度"]),
                 TInterCoolerFrontAfter = GetValuePreferTRDP("后压气机出口空气温度", () => Common.AI2Grp["前中冷后空气温度"]),
                 TInterCoolerAfterFront = SafeGet(() => Common.AI2Grp["后中冷前空气温度"]),
                 TInterCoolerAfterAfter = GetValuePreferTRDP("后中冷器后空气温度", () => Common.AI2Grp["后中冷后空气温度"]),
 
                 // ══════════════════ 报表模板未收录字段（涡轮进/出口废气温度） ══════════════════
-                // A排=前增压器、B排=后增压器 是否正确？
                 FrontTurbochargerTempIn = GetValuePreferTRDP("A涡前排气温度", () => Common.AI2Grp[""]),
                 AfterTurbochargerTempIn = GetValuePreferTRDP("B涡前排气温度", () => Common.AI2Grp[""]),
-                // 协议表没有"涡轮出口废气温度"（只有压气机出口空气温度，不是同一个测点）
-                FrontTurbochargerTempOut = SafeGet(() => Common.AI2Grp[""]),//??
-                AfterTurbochargerTempOut = SafeGet(() => Common.AI2Grp[""]),//??
+                FrontTurbochargerTempOut = SafeGet(() => Common.AI2Grp[""]),
+                AfterTurbochargerTempOut = SafeGet(() => Common.AI2Grp[""]),
 
                 // ══════════════════ 出厂表 各缸排气温度，已确认无需改动 ══════════════════
                 EGTempA1 = GetValuePreferTRDP("A1缸排气温度", () => Common.AI2Grp["A1缸排气温度"]),
