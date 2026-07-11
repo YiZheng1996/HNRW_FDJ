@@ -765,124 +765,111 @@ namespace MainUI.Report
             {
                 string json = item.MonitorData;
                 RowDictionary[index] = new Dictionary<string, object>();
-                if (json.Contains("BaseGrp") &&  KeyNameList.Any(key => key == "BaseDataGrp"))
+                if (!string.IsNullOrEmpty(json))
                 {
-                    BaseDataGrp BaseGrp = JsonConvert.DeserializeObject<BaseDataGrp>(json);
-                    RowDictionary[index]["BaseDataGrp"] = CloneRowEntity(BaseGrp);
-                }
+                    var root = JObject.Parse(json);
 
+                    if (json.Contains("BaseGrp") && KeyNameList.Any(key => key == "BaseDataGrp"))
+                    {
+                        BaseDataGrp BaseGrp = root["BaseGrp"].ToObject<BaseDataGrp>();
+                        RowDictionary[index]["BaseDataGrp"] = CloneRowEntity(BaseGrp);
+                    }
 
-                if (json.Contains("TRDP") && KeyNameList.Any(key => key == "TRDPDataGrp"))
-                {
-                    TRDPDataGrp TRDPGrp = JsonConvert.DeserializeObject<TRDPDataGrp>(json);
-                    RowDictionary[index]["TRDPDataGrp"] = CloneRowEntity(TRDPGrp);
-                }
+                    if (json.Contains("TRDP") && KeyNameList.Any(key => key == "TRDPDataGrp"))
+                    {
+                        TRDPDataGrp TRDPGrp = root["TRDP"].ToObject<TRDPDataGrp>();
+                        RowDictionary[index]["TRDPDataGrp"] = CloneRowEntity(TRDPGrp);
+                    }
 
+                    if (json.Contains("AIGrp") && KeyNameList.Any(key => key == "AIDataGrp"))
+                    {
+                        AIDataGrp AIGrp = root["AIGrp"].ToObject<AIDataGrp>();
+                        RowDictionary[index]["AIDataGrp"] = CloneRowEntity(AIGrp);
+                    }
 
-                if (json.Contains("AIGrp") && KeyNameList.Any(key => key == "AIDataGrp"))
-                {
-                    AIDataGrp AIGrp = JsonConvert.DeserializeObject<AIDataGrp>(json);
-                    RowDictionary[index]["AIDataGrp"] = CloneRowEntity(AIGrp);
-                }
+                    if (json.Contains("AOGrp") && KeyNameList.Any(key => key == "AODataGrp"))
+                    {
+                        AODataGrp AOGrp = root["AOGrp"].ToObject<AODataGrp>();
+                        RowDictionary[index]["AODataGrp"] = CloneRowEntity(AOGrp);
+                    }
 
+                    if (json.Contains("DIGrp") && KeyNameList.Any(key => key == "DIDataGrp"))
+                    {
+                        DIDataGrp DIGrp = root["DIGrp"].ToObject<DIDataGrp>();
+                        RowDictionary[index]["DIDataGrp"] = CloneRowEntity(DIGrp);
+                    }
 
-                if (json.Contains("AOGrp") && KeyNameList.Any(key => key == "AODataGrp"))
-                {
-                    AODataGrp AOGrp = JsonConvert.DeserializeObject<AODataGrp>(json);
-                    RowDictionary[index]["AODataGrp"] = CloneRowEntity(AOGrp);
-                }
+                    if (json.Contains("DOGrp") && KeyNameList.Any(key => key == "DODataGrp"))
+                    {
+                        DODataGrp DOGrp = root["DOGrp"].ToObject<DODataGrp>();
+                        RowDictionary[index]["DODataGrp"] = CloneRowEntity(DOGrp);
+                    }
 
+                    if (json.Contains("ExChangeGrpDouble") && KeyNameList.Any(key => key == "ExChangeDataGrpDouble"))
+                    {
+                        ExChangeDataGrpDouble ExChangeGrpDouble = root["ExChangeGrpDouble"].ToObject<ExChangeDataGrpDouble>();
+                        RowDictionary[index]["ExChangeDataGrpDouble"] = CloneRowEntity(ExChangeGrpDouble);
+                    }
 
-                if (json.Contains("DIGrp") && KeyNameList.Any(key => key == "DIDataGrp"))
-                {
-                    DIDataGrp DIGrp = JsonConvert.DeserializeObject<DIDataGrp>(json);
-                    RowDictionary[index]["DIDataGrp"] = CloneRowEntity(DIGrp);
-                }
+                    if (json.Contains("ExChangeGrpBool") && KeyNameList.Any(key => key == "ExChangeDataGrpBool"))
+                    {
+                        ExChangeDataGrpBool ExChangeGrpBool = root["ExChangeGrpBool"].ToObject<ExChangeDataGrpBool>();
+                        RowDictionary[index]["ExChangeDataGrpBool"] = CloneRowEntity(ExChangeGrpBool);
+                    }
 
+                    if (json.Contains("PipelineFaultGrp") && KeyNameList.Any(key => key == "PipelineFaultDataGrp"))
+                    {
+                        PipelineFaultDataGrp PipelineFaultGrp = root["PipelineFaultGrp"].ToObject<PipelineFaultDataGrp>();
+                        RowDictionary[index]["PipelineFaultDataGrp"] = CloneRowEntity(PipelineFaultGrp);
+                    }
 
-                if (json.Contains("DOGrp") && KeyNameList.Any(key => key == "DODataGrp"))
-                {
-                    DODataGrp DOGrp = JsonConvert.DeserializeObject<DODataGrp>(json);
-                    RowDictionary[index]["DODataGrp"] = CloneRowEntity(DOGrp);
-                }
+                    if (json.Contains("EngineOilGrp") && KeyNameList.Any(key => key == "EngineOilDataGrp"))
+                    {
+                        EngineOilDataGrp EngineOilGrp = root["EngineOilGrp"].ToObject<EngineOilDataGrp>();
+                        RowDictionary[index]["EngineOilDataGrp"] = CloneRowEntity(EngineOilGrp);
+                    }
 
+                    if (json.Contains("FuelGrp") && KeyNameList.Any(key => key == "FuelDataGrp"))
+                    {
+                        FuelDataGrp FuelGrp = root["FuelGrp"].ToObject<FuelDataGrp>();
+                        RowDictionary[index]["FuelDataGrp"] = CloneRowEntity(FuelGrp);
+                    }
 
-                if (json.Contains("ExChangeGrpDouble") && KeyNameList.Any(key => key == "ExChangeDataGrpDouble"))
-                {
-                    ExChangeDataGrpDouble ExChangeGrpDouble = JsonConvert.DeserializeObject<ExChangeDataGrpDouble>(json);
-                    RowDictionary[index]["ExChangeDataGrpDouble"] = CloneRowEntity(ExChangeGrpDouble);
-                }
+                    if (json.Contains("ThreePhaseElectric") && KeyNameList.Any(key => key == "ThreePhaseElectricData"))
+                    {
+                        ThreePhaseElectricData ThreePhaseElectric = root["ThreePhaseElectric"].ToObject<ThreePhaseElectricData>();
+                        RowDictionary[index]["ThreePhaseElectricData"] = CloneRowEntity(ThreePhaseElectric);
+                    }
 
+                    if (json.Contains("WaterGrp") && KeyNameList.Any(key => key == "WaterDataGrp"))
+                    {
+                        WaterDataGrp WaterGrp = root["WaterGrp"].ToObject<WaterDataGrp>();
+                        RowDictionary[index]["WaterDataGrp"] = CloneRowEntity(WaterGrp);
+                    }
 
-                if (json.Contains("ExChangeGrpBool") && KeyNameList.Any(key => key == "ExChangeDataGrpBool"))
-                {
-                    ExChangeDataGrpBool ExChangeGrpBool = JsonConvert.DeserializeObject<ExChangeDataGrpBool>(json);
-                    RowDictionary[index]["ExChangeDataGrpBool"] = CloneRowEntity(ExChangeGrpBool);
-                }
+                    if (json.Contains("PLC2AIGrp") && KeyNameList.Any(key => key == "PLC2AIDataGrp"))
+                    {
+                        PLC2AIDataGrp PLC2AIGrp = root["PLC2AIGrp"].ToObject<PLC2AIDataGrp>();
+                        RowDictionary[index]["PLC2AIDataGrp"] = CloneRowEntity(PLC2AIGrp);
+                    }
 
+                    if (json.Contains("StartPLCGrp") && KeyNameList.Any(key => key == "StartPLCDataGrp"))
+                    {
+                        StartPLCDataGrp StartPLCGrp = root["StartPLCGrp"].ToObject<StartPLCDataGrp>();
+                        RowDictionary[index]["StartPLCDataGrp"] = CloneRowEntity(StartPLCGrp);
+                    }
 
-                if (json.Contains("PipelineFaultGrp") && KeyNameList.Any(key => key == "PipelineFaultDataGrp"))
-                {
-                    PipelineFaultDataGrp PipelineFaultGrp = JsonConvert.DeserializeObject<PipelineFaultDataGrp>(json);
-                    RowDictionary[index]["PipelineFaultDataGrp"] = CloneRowEntity(PipelineFaultGrp);
-                }
+                    if (json.Contains("SpeedGrp") && KeyNameList.Any(key => key == "SpeedDataGrp"))
+                    {
+                        SpeedDataGrp SpeedGrp = root["SpeedGrp"].ToObject<SpeedDataGrp>();
+                        RowDictionary[index]["SpeedDataGrp"] = CloneRowEntity(SpeedGrp);
+                    }
 
-
-                if (json.Contains("EngineOilGrp") && KeyNameList.Any(key => key == "EngineOilDataGrp"))
-                {
-                    EngineOilDataGrp EngineOilGrp = JsonConvert.DeserializeObject<EngineOilDataGrp>(json);
-                    RowDictionary[index]["EngineOilDataGrp"] = CloneRowEntity(EngineOilGrp);
-                }
-
-                if (json.Contains("FuelGrp") && KeyNameList.Any(key => key == "FuelDataGrp"))
-                {
-                    FuelDataGrp FuelGrp = JsonConvert.DeserializeObject<FuelDataGrp>(json);
-                    RowDictionary[index]["FuelDataGrp"] = CloneRowEntity(FuelGrp);
-                }
-
-
-                if (json.Contains("ThreePhaseElectric") && KeyNameList.Any(key => key == "ThreePhaseElectricData"))
-                {
-                    ThreePhaseElectricData ThreePhaseElectric = JsonConvert.DeserializeObject<ThreePhaseElectricData>(json);
-                    RowDictionary[index]["ThreePhaseElectricData"] = CloneRowEntity(ThreePhaseElectric);
-                }
-
-
-                if (json.Contains("WaterGrp") && KeyNameList.Any(key => key == "WaterDataGrp"))
-                {
-                    WaterDataGrp WaterGrp = JsonConvert.DeserializeObject<WaterDataGrp>(json);
-                    RowDictionary[index]["WaterDataGrp"] = CloneRowEntity(WaterGrp);
-                }
-
-
-
-                if (json.Contains("PLC2AIGrp") && KeyNameList.Any(key => key == "PLC2AIDataGrp"))
-                {
-                    PLC2AIDataGrp PLC2AIGrp = JsonConvert.DeserializeObject<PLC2AIDataGrp>(json);
-                    RowDictionary[index]["PLC2AIDataGrp"] = CloneRowEntity(PLC2AIGrp);
-                }
-
-
-
-                if (json.Contains("StartPLCGrp") && KeyNameList.Any(key => key == "StartPLCDataGrp"))
-                {
-                    StartPLCDataGrp StartPLCGrp = JsonConvert.DeserializeObject<StartPLCDataGrp>(json);
-                    RowDictionary[index]["StartPLCDataGrp"] = CloneRowEntity(StartPLCGrp);
-                }
-
-
-
-                if (json.Contains("SpeedGrp") && KeyNameList.Any(key => key == "SpeedDataGrp"))
-                {
-                    SpeedDataGrp SpeedGrp = JsonConvert.DeserializeObject<SpeedDataGrp>(json);
-                    RowDictionary[index]["SpeedDataGrp"] = CloneRowEntity(SpeedGrp);
-                }
-
-
-                if (json.Contains("GD350") && KeyNameList.Any(key => key == "GD350_1Data"))
-                {
-                    GD350_1Data GD350 = JsonConvert.DeserializeObject<GD350_1Data>(json);
-                    RowDictionary[index]["GD350_1Data"] = CloneRowEntity(GD350);
+                    if (json.Contains("GD350_1") && KeyNameList.Any(key => key == "GD350_1Data"))
+                    {
+                        GD350_1Data GD350 = root["GD350_1"].ToObject<GD350_1Data>();
+                        RowDictionary[index]["GD350_1Data"] = CloneRowEntity(GD350);
+                    }
                 }
 
                 //累加行
