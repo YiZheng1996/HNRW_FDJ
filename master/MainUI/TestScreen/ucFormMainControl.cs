@@ -1795,7 +1795,7 @@ namespace MainUI.TestScreen
                 return;
             }
 
-            if (MiddleData.instnce.EngineSpeed >= MiddleData.instnce.TrialConfig.MinSpeed - 10)
+            if (MiddleData.instnce.EngineSpeed <= MiddleData.instnce.TrialConfig.MinSpeed - 20)
             {
                 Var.MsgBoxWarn(this, "发动机未启动，请勿点击手动保存数据");
                 return;

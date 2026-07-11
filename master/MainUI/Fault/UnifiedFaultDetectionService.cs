@@ -193,8 +193,7 @@ namespace MainUI.Services
             CurrentData = new SensorData();
 
             // 初始化数组
-            CurrentData.A1A6缸排气温度 = new double[6];
-            CurrentData.B1B6缸排气温度 = new double[6];
+            CurrentData.A1B6缸排气温度 = new double[12];
             CurrentData._1_7档轴温 = new double[7];
 
             // 加载 FaultProfiles/{model}.faults.json。不存在或解析失败返回 false（调用方回退老逻辑）
