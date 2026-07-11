@@ -230,11 +230,11 @@ namespace MainUI.FSql
                 TInterCoolerAfterFront = SafeGet(() => Common.AI2Grp["后中冷前空气温度"]),
                 TInterCoolerAfterAfter = GetValuePreferTRDP("后中冷器后空气温度", () => Common.AI2Grp["后中冷后空气温度"]),
 
-                // ══════════════════ 报表模板未收录字段（涡轮进/出口废气温度） ══════════════════
-                FrontTurbochargerTempIn = GetValuePreferTRDP("A涡前排气温度", () => Common.AI2Grp[""]),
-                AfterTurbochargerTempIn = GetValuePreferTRDP("B涡前排气温度", () => Common.AI2Grp[""]),
-                FrontTurbochargerTempOut = SafeGet(() => Common.AI2Grp[""]),
-                AfterTurbochargerTempOut = SafeGet(() => Common.AI2Grp[""]),
+                // ══════════════════ 出厂表 列59-62：涡轮前/后废气温度 ══════════════════
+                FrontTurbochargerTempIn = GetValuePreferTRDP("A涡前排气温度", () => Common.AI2Grp["前涡轮进口废气温度"]),
+                AfterTurbochargerTempIn = GetValuePreferTRDP("B涡前排气温度", () => Common.AI2Grp["后涡轮进口废气温度"]),
+                FrontTurbochargerTempOut = SafeGet(() => Common.AI2Grp["前涡轮出口废气温度"]),
+                AfterTurbochargerTempOut = SafeGet(() => Common.AI2Grp["后涡轮出口废气温度"]),
 
                 // ══════════════════ 出厂表 各缸排气温度，已确认无需改动 ══════════════════
                 EGTempA1 = GetValuePreferTRDP("A1缸排气温度", () => Common.AI2Grp["A1缸排气温度"]),
@@ -382,6 +382,11 @@ namespace MainUI.FSql
             new ManualColumnDefinition("EGTempB4", "B4缸排温 ℃"),
             new ManualColumnDefinition("EGTempB5", "B5缸排温 ℃"),
             new ManualColumnDefinition("EGTempB6", "B6缸排温 ℃"),
+
+            new ManualColumnDefinition("FrontTurbochargerTempIn",  "涡轮前温度(前) ℃"),
+            new ManualColumnDefinition("AfterTurbochargerTempIn",  "涡轮前温度(后) ℃"),
+            new ManualColumnDefinition("FrontTurbochargerTempOut", "涡轮后温度(前) ℃"),
+            new ManualColumnDefinition("AfterTurbochargerTempOut", "涡轮后温度(后) ℃"),
         
             // 各缸爆发压力：软件不采集，人工打印后手填；实时表格默认隐藏，报表查询表格始终显示
             new ManualColumnDefinition("BurstPA1", "A1爆发压力", visible: false),

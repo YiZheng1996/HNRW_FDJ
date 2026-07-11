@@ -21,6 +21,7 @@ namespace MainUI.BLL
                 .Where((d, m) => beginTime <= d.RecordDataTime && d.RecordDataTime <= endTime)
                 .WhereIf(!string.IsNullOrEmpty(DieselEngineModel), (d, m) => m.DieselEngineModel == DieselEngineModel)
                 .WhereIf(!string.IsNullOrEmpty(DieselEngineNo), (d, m) => m.DieselEngineNo == DieselEngineNo)
+                .CommandTimeout(120)  // 兜底：把本查询超时放宽到120秒
                 .OrderByDescending((d, m) => d.RecordDataTime)
                 .ToList((d, m) => new TestParaAllData
                 {
