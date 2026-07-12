@@ -495,15 +495,6 @@ namespace MainUI
                 Var.SysConfig.Save();
                 this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString("f1");
             }
-            else if (MiddleData.instnce.EnginePower == 0 && Common.threePhaseElectric.DataValue["有功功率"] != 0)
-            {
-                // 油耗仪 * 1000 / 功率
-                this.lblOilCoast2.Text = Math.Round(ET4500.Instance.fuelConsumption * 1000 / Common.threePhaseElectric.DataValue["有功功率"], 1).ToString();
-
-                Var.SysConfig.FOilNum += Math.Round(MassFlowCC * 1000 / Common.threePhaseElectric.DataValue["有功功率"], 1);
-                Var.SysConfig.Save();
-                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString("f1");
-            }
             else
             {
                 this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString("f1");

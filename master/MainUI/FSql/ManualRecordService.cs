@@ -204,10 +204,10 @@ namespace MainUI.FSql
                 // ══════════════════ 出厂表 列19-26：油温/水温 + 增压器转速 ══════════════════
                 HeatExchangerTempIn = GetValuePreferTRDP("主油道进口油温", () => Common.AI2Grp["机油热交换器进口油温"]),
                 HeatExchangerTempOut = GetValuePreferTRDP("机油泵出口油温", () => Common.AI2Grp["机油热交换器出口油温"]),
-                HWaterTempIn = SafeGet(() => Common.waterGrp.NewDataValue["T2高温水进机温度"]),
-                HWaterTempOut = GetValuePreferTRDP("高温水出水温度", () => Common.waterGrp.NewDataValue["T1高温水出机温度"]),
-                LWaterTempIn = GetValuePreferTRDP("中冷水进水温度", () => Common.waterGrp.NewDataValue["T3中冷水进机温度"]),
-                LWaterTempOut = GetValuePreferTRDP("中冷水出水温度", () => Common.waterGrp.NewDataValue["T5中冷水出机温度"]),
+                HWaterTempIn = SafeGet(() => Common.AI2Grp["T2高温水进机温度"]),
+                HWaterTempOut = GetValuePreferTRDP("高温水出水温度", () => Common.AI2Grp["T1高温水出机温度"]),
+                LWaterTempIn = GetValuePreferTRDP("中冷水进水温度", () => Common.AI2Grp["T3中冷水进机温度"]),
+                LWaterTempOut = GetValuePreferTRDP("中冷水出水温度", () => Common.AI2Grp["T5中冷水出机温度"]),
                 FrontTurbochargerRPM = GetValuePreferTRDP("前增压器转速", () => 0),
                 AfterTurbochargerRPM = GetValuePreferTRDP("后增压器转速", () => 0),
 
