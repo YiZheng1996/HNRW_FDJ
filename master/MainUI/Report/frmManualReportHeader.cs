@@ -17,6 +17,8 @@ namespace MainUI.Report
                 txtTestProject.Text = lastValues.TestProject;
                 txtSuperchargerModel.Text = lastValues.SuperchargerModel;
                 txtSuperchargerSN.Text = lastValues.SuperchargerSN;
+                txtSuperchargerSNFront.Text = lastValues.SuperchargerSNFront;
+                txtSuperchargerSNAfter.Text = lastValues.SuperchargerSNAfter;
                 txtTestBenchNo.Text = lastValues.TestBenchNo;
                 txtMainGeneratorNo.Text = lastValues.MainGeneratorNo;
                 txtAvgOutsideTemp.Text = lastValues.AvgOutsideTemp.ToString();
@@ -32,6 +34,8 @@ namespace MainUI.Report
             if (string.IsNullOrWhiteSpace(txtTestProject.Text) ||
                 string.IsNullOrWhiteSpace(txtSuperchargerModel.Text) ||
                 string.IsNullOrWhiteSpace(txtSuperchargerSN.Text) ||
+                string.IsNullOrWhiteSpace(txtSuperchargerSNFront.Text) ||
+                string.IsNullOrWhiteSpace(txtSuperchargerSNAfter.Text) ||
                 string.IsNullOrWhiteSpace(txtTestBenchNo.Text) ||
                 string.IsNullOrWhiteSpace(txtMainGeneratorNo.Text) ||
                 string.IsNullOrWhiteSpace(txtOilGrade.Text) ||
@@ -63,6 +67,8 @@ namespace MainUI.Report
                 TestProject = txtTestProject.Text.Trim(),
                 SuperchargerModel = txtSuperchargerModel.Text.Trim(),
                 SuperchargerSN = txtSuperchargerSN.Text.Trim(),
+                SuperchargerSNFront = txtSuperchargerSNFront.Text.Trim(),
+                SuperchargerSNAfter = txtSuperchargerSNAfter.Text.Trim(),
                 TestBenchNo = txtTestBenchNo.Text.Trim(),
                 MainGeneratorNo = txtMainGeneratorNo.Text.Trim(),
                 AvgOutsideTemp = outTemp,

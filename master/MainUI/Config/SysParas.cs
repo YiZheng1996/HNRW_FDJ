@@ -1,10 +1,6 @@
 ﻿using MainUI.Global;
 using RW.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MainUI.Config
@@ -221,6 +217,12 @@ namespace MainUI.Config
 
         [IniKeyName("出厂报表_燃油牌号")]
         public string ManualReportFuelGrade { get; set; } = "";
+
+        [IniKeyName("出厂报表_前增压器编号")]
+        public string ManualReportSuperchargerSNFront { get; set; } = "";
+
+        [IniKeyName("出厂报表_后增压器编号")]
+        public string ManualReportSuperchargerSNAfter { get; set; } = "";
 
         #endregion
     }

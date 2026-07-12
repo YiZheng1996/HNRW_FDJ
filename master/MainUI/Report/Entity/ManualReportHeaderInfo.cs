@@ -5,6 +5,8 @@
         public string TestProject { get; set; }        // 试验项目
         public string SuperchargerModel { get; set; }   // 增压器型号
         public string SuperchargerSN { get; set; }       // 增压器出厂编号
+        public string SuperchargerSNFront { get; set; }  // 前增压器编号
+        public string SuperchargerSNAfter { get; set; }  // 后增压器编号
         public string TestBenchNo { get; set; }          // 试验台位号
         public string MainGeneratorNo { get; set; }       // 主发电机编号
         public double AvgOutsideTemp { get; set; }        // 平均外温
@@ -12,5 +14,14 @@
         public double Humidity { get; set; }               // 相对湿度
         public string OilGrade { get; set; }                 // 机油牌号
         public string FuelGrade { get; set; }                 // 燃油牌号
+    }
+
+    /// <summary>
+    /// 手动记录 - 本阶段名义值（人工输入）
+    /// </summary>
+    public class NominalValueInfo
+    {
+        public double NominalRPM { get; set; }
+        public double NominalPower { get; set; }
     }
 }

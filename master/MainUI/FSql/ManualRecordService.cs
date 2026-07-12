@@ -85,7 +85,7 @@ namespace MainUI.FSql
                 }
 
                 // 采集快照
-                record = CollectSnapshot();
+                record = CollectSnapshot(saveInfo);
 
                 // 写库
                 int rows = Save(record);
@@ -163,7 +163,7 @@ namespace MainUI.FSql
         }
 
         // 快照采集
-        private ManualRecordPara CollectSnapshot()
+        private ManualRecordPara CollectSnapshot(Dictionary<string, string> saveInfo)
         {
             var now = DateTime.Now;
 
@@ -184,12 +184,12 @@ namespace MainUI.FSql
                 // ══════════════════ 出厂表 列1-10：基本参数 ══════════════════
                 TestHour = now.Hour,
                 TestMinute = now.Minute,
-                NominalRPM = MiddleData.instnce.SelectModelConfig?.RatedSpeed ?? 0,
+                NominalRPM = ParseDoubleOrZero(saveInfo, "NominalRPM"),
                 RPM = MiddleData.instnce.EngineSpeed,
-                NominalPower = MiddleData.instnce.SelectModelConfig?.RatedPower ?? 0,
+                NominalPower = ParseDoubleOrZero(saveInfo, "NominalPower"),
                 Power = MiddleData.instnce.EnginePower,
                 ECOQuantity = SafeGet(() => Equip.ET4500.Instance.fuelConsumption), // 串口油耗仪（ET4500）
-                //TODO: ECORate 具体计算方式待定，暂不赋值
+                ECORate = SafeGet(() => CalcFuelRate()),
 
                 // ══════════════════ 出厂表 列11-18：油压/水压 ══════════════════
                 PFuelInlet = GetValuePreferTRDP("燃油精滤器后油压", () => Common.AI2Grp["P38燃油供油压力"]),
@@ -256,12 +256,42 @@ namespace MainUI.FSql
             return r;
         }
 
+        /// <summary>
+        /// 燃油消耗率 g/kWh。优先用进/回油流量传感器差值(质量流量法)；
+        /// 传感器差值为0(未接入/无读数)时，退回油耗仪(ET4500)读数。
+        /// </summary>
+        private static double CalcFuelRate()
+        {
+            double power = MiddleData.instnce.EnginePower;
+            if (power == 0) return 0;
+
+            // 方式一：传感器差值法（进油流量 - 回油流量）
+            double massFlow = SafeGet(() => Common.AIgrp["燃油进油流量测量-L30"] - Common.AIgrp["燃油回油流量测量-L31"]);
+            if (massFlow != 0)
+                return Math.Round(massFlow * 1000 / power, 1);
+
+            // 方式二：传感器没值，退回油耗仪
+            return Math.Round(SafeGet(() => Equip.ET4500.Instance.fuelConsumption) * 1000 / power, 1);
+        }
+
         private static double SafeGet(Func<double> func)
         {
             try { return func(); }
             catch { return 0; }
         }
 
+        /// <summary>
+        /// 从 saveInfo 里取一个数值型字段，取不到或解析失败返回0
+        /// </summary>
+        /// <param name="saveInfo"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private static double ParseDoubleOrZero(Dictionary<string, string> saveInfo, string key)
+        {
+            if (saveInfo != null && saveInfo.TryGetValue(key, out var s) && double.TryParse(s, out var v))
+                return v;
+            return 0;
+        }
 
         // 数据库操作
         public int Save(ManualRecordPara record)

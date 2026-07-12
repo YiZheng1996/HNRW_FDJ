@@ -6,6 +6,8 @@ using MainUI.Helper;
 using MainUI.HMI_Auto;
 using MainUI.Procedure;
 using MainUI.Procedure.Test.Performance;
+using MainUI.Report;
+using MainUI.Report.Entity;
 using MainUI.Wave;
 using MainUI.Widget;
 using RW;
@@ -1472,11 +1474,21 @@ namespace MainUI
             btnRecord.Enabled = false;
             try
             {
+                // 弹窗收集本次记录的名义转速/名义功率，每次都要重新填，取消则不记录
+                NominalValueInfo nominal;
+                using (var dlg = new frmNominalValueInput())
+                {
+                    if (dlg.ShowDialog(this) != DialogResult.OK) return;   // 取消，不记录
+                    nominal = dlg.Result;
+                }
+
                 var saveInfo = new Dictionary<string, string>
                 {
                     ["Model"] = Var.SysConfig.LastModel,
                     ["No"] = Common.mTestViewModel?.ModelNo ?? "",
-                    ["TestName"] = "出厂试验"
+                    ["TestName"] = "出厂试验",
+                    ["NominalRPM"] = nominal.NominalRPM.ToString(),
+                    ["NominalPower"] = nominal.NominalPower.ToString(),
                 };
 
                 bool ok = manualRecordService.SaveOneRecord(saveInfo, out var record, out var errMsg);
@@ -1484,8 +1496,6 @@ namespace MainUI
                 {
                     Var.MsgBoxWarn(this, "记录失败：" + errMsg);
                 }
-                // 成功时 SaveOneRecord 内部会触发 DataSaved 事件，
-                // 已订阅的 ManualRecordService_DataSaved 会自动刷新 dgvManualRecord
             }
             catch (Exception ex)
             {

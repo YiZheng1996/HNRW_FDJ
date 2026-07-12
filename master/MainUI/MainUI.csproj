@@ -381,6 +381,12 @@
     <Compile Include="Report\frmManualReportHeader.Designer.cs">
       <DependentUpon>frmManualReportHeader.cs</DependentUpon>
     </Compile>
+    <Compile Include="Report\frmNominalValueInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\frmNominalValueInput.Designer.cs">
+      <DependentUpon>frmNominalValueInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Report\ucAllDataRecord.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1038,6 +1044,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Report\frmManualReportHeader.resx">
       <DependentUpon>frmManualReportHeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\frmNominalValueInput.resx">
+      <DependentUpon>frmNominalValueInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\ucAllDataRecord.resx">
       <DependentUpon>ucAllDataRecord.cs</DependentUpon>

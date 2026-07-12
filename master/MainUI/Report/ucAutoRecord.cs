@@ -934,6 +934,7 @@ namespace MainUI.Report
 
                 // 表头信息（每一页都要写，因为分页是 CloneSheet，各自独立）
                 SetPageHeader(sh, pageIndex + 1, totalPages);
+                SetCell(sh, 0, 7, cboModel.Text);                       // H1 当前型号名称
                 SetCell(sh, 2, 3, DateTime.Now.ToString("yyyy-MM-dd")); // D3 试验日期
                 SetCell(sh, 2, 7, headerInfo.TestProject);              // H3 试验项目
                 SetCell(sh, 2, 11, txtNumber.Text);                     // L3 柴油机出厂编号
@@ -946,8 +947,8 @@ namespace MainUI.Report
                 SetCell(sh, 3, 21, $"{headerInfo.Humidity}%");          // V4 相对湿度（同上，"数值+%"）
                 SetCell(sh, 3, 24, headerInfo.OilGrade);                // Y4 机油牌号
                 SetCell(sh, 3, 27, headerInfo.FuelGrade);               // AB4 燃油牌号
-                //SetCell(sh, 2, 23, headerInfo.SuperchargerSNFront);  // X3
-                //SetCell(sh, 2, 26, headerInfo.SuperchargerSNAfter);  // AA3
+                SetCell(sh, 2, 23, headerInfo.SuperchargerSNFront);     // X3 前增压器编号
+                SetCell(sh, 2, 26, headerInfo.SuperchargerSNAfter);     // AA3 后增压器编号
 
                 // 表1、表2填充逻辑
                 int dataStartRow1 = 12;
@@ -1032,6 +1033,8 @@ namespace MainUI.Report
                 TestProject = cfg.ManualReportTestProject,
                 SuperchargerModel = cfg.ManualReportSuperchargerModel,
                 SuperchargerSN = cfg.ManualReportSuperchargerSN,
+                SuperchargerSNFront = cfg.ManualReportSuperchargerSNFront,
+                SuperchargerSNAfter = cfg.ManualReportSuperchargerSNAfter,
                 TestBenchNo = cfg.ManualReportTestBenchNo,
                 MainGeneratorNo = cfg.ManualReportMainGeneratorNo,
                 AvgOutsideTemp = cfg.ManualReportAvgOutsideTemp,
@@ -1048,6 +1051,8 @@ namespace MainUI.Report
             cfg.ManualReportTestProject = info.TestProject;
             cfg.ManualReportSuperchargerModel = info.SuperchargerModel;
             cfg.ManualReportSuperchargerSN = info.SuperchargerSN;
+            cfg.ManualReportSuperchargerSNFront = info.SuperchargerSNFront;
+            cfg.ManualReportSuperchargerSNAfter = info.SuperchargerSNAfter;
             cfg.ManualReportTestBenchNo = info.TestBenchNo;
             cfg.ManualReportMainGeneratorNo = info.MainGeneratorNo;
             cfg.ManualReportAvgOutsideTemp = info.AvgOutsideTemp;

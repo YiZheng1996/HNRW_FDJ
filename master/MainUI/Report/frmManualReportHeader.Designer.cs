@@ -16,6 +16,10 @@
         private System.Windows.Forms.TextBox txtSuperchargerModel;
         private System.Windows.Forms.Label lblSuperchargerSN;
         private System.Windows.Forms.TextBox txtSuperchargerSN;
+        private System.Windows.Forms.Label lblSuperchargerSNFront;
+        private System.Windows.Forms.TextBox txtSuperchargerSNFront;
+        private System.Windows.Forms.Label lblSuperchargerSNAfter;
+        private System.Windows.Forms.TextBox txtSuperchargerSNAfter;
         private System.Windows.Forms.Label lblTestBenchNo;
         private System.Windows.Forms.TextBox txtTestBenchNo;
         private System.Windows.Forms.Label lblMainGeneratorNo;
@@ -41,6 +45,10 @@
             this.txtSuperchargerModel = new System.Windows.Forms.TextBox();
             this.lblSuperchargerSN = new System.Windows.Forms.Label();
             this.txtSuperchargerSN = new System.Windows.Forms.TextBox();
+            this.lblSuperchargerSNFront = new System.Windows.Forms.Label();
+            this.txtSuperchargerSNFront = new System.Windows.Forms.TextBox();
+            this.lblSuperchargerSNAfter = new System.Windows.Forms.Label();
+            this.txtSuperchargerSNAfter = new System.Windows.Forms.TextBox();
             this.lblTestBenchNo = new System.Windows.Forms.Label();
             this.txtTestBenchNo = new System.Windows.Forms.TextBox();
             this.lblMainGeneratorNo = new System.Windows.Forms.Label();
@@ -113,140 +121,176 @@
             this.txtSuperchargerSN.Size = new System.Drawing.Size(320, 29);
             this.txtSuperchargerSN.TabIndex = 5;
             // 
+            // lblSuperchargerSNFront
+            // 
+            this.lblSuperchargerSNFront.AutoSize = true;
+            this.lblSuperchargerSNFront.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.lblSuperchargerSNFront.Location = new System.Drawing.Point(30, 180);
+            this.lblSuperchargerSNFront.Name = "lblSuperchargerSNFront";
+            this.lblSuperchargerSNFront.Size = new System.Drawing.Size(106, 21);
+            this.lblSuperchargerSNFront.TabIndex = 6;
+            this.lblSuperchargerSNFront.Text = "前增压器编号";
+            // 
+            // txtSuperchargerSNFront
+            // 
+            this.txtSuperchargerSNFront.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.txtSuperchargerSNFront.Location = new System.Drawing.Point(200, 174);
+            this.txtSuperchargerSNFront.Name = "txtSuperchargerSNFront";
+            this.txtSuperchargerSNFront.Size = new System.Drawing.Size(320, 29);
+            this.txtSuperchargerSNFront.TabIndex = 7;
+            // 
+            // lblSuperchargerSNAfter
+            // 
+            this.lblSuperchargerSNAfter.AutoSize = true;
+            this.lblSuperchargerSNAfter.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.lblSuperchargerSNAfter.Location = new System.Drawing.Point(30, 228);
+            this.lblSuperchargerSNAfter.Name = "lblSuperchargerSNAfter";
+            this.lblSuperchargerSNAfter.Size = new System.Drawing.Size(106, 21);
+            this.lblSuperchargerSNAfter.TabIndex = 8;
+            this.lblSuperchargerSNAfter.Text = "后增压器编号";
+            // 
+            // txtSuperchargerSNAfter
+            // 
+            this.txtSuperchargerSNAfter.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.txtSuperchargerSNAfter.Location = new System.Drawing.Point(200, 222);
+            this.txtSuperchargerSNAfter.Name = "txtSuperchargerSNAfter";
+            this.txtSuperchargerSNAfter.Size = new System.Drawing.Size(320, 29);
+            this.txtSuperchargerSNAfter.TabIndex = 9;
+            // 
             // lblTestBenchNo
             // 
             this.lblTestBenchNo.AutoSize = true;
             this.lblTestBenchNo.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lblTestBenchNo.Location = new System.Drawing.Point(30, 180);
+            this.lblTestBenchNo.Location = new System.Drawing.Point(30, 276);
             this.lblTestBenchNo.Name = "lblTestBenchNo";
             this.lblTestBenchNo.Size = new System.Drawing.Size(90, 21);
-            this.lblTestBenchNo.TabIndex = 6;
+            this.lblTestBenchNo.TabIndex = 10;
             this.lblTestBenchNo.Text = "试验台位号";
             // 
             // txtTestBenchNo
             // 
             this.txtTestBenchNo.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.txtTestBenchNo.Location = new System.Drawing.Point(200, 174);
+            this.txtTestBenchNo.Location = new System.Drawing.Point(200, 270);
             this.txtTestBenchNo.Name = "txtTestBenchNo";
             this.txtTestBenchNo.Size = new System.Drawing.Size(320, 29);
-            this.txtTestBenchNo.TabIndex = 7;
+            this.txtTestBenchNo.TabIndex = 11;
             // 
             // lblMainGeneratorNo
             // 
             this.lblMainGeneratorNo.AutoSize = true;
             this.lblMainGeneratorNo.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lblMainGeneratorNo.Location = new System.Drawing.Point(30, 228);
+            this.lblMainGeneratorNo.Location = new System.Drawing.Point(30, 324);
             this.lblMainGeneratorNo.Name = "lblMainGeneratorNo";
             this.lblMainGeneratorNo.Size = new System.Drawing.Size(106, 21);
-            this.lblMainGeneratorNo.TabIndex = 8;
+            this.lblMainGeneratorNo.TabIndex = 12;
             this.lblMainGeneratorNo.Text = "主发电机编号";
             // 
             // txtMainGeneratorNo
             // 
             this.txtMainGeneratorNo.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.txtMainGeneratorNo.Location = new System.Drawing.Point(200, 222);
+            this.txtMainGeneratorNo.Location = new System.Drawing.Point(200, 318);
             this.txtMainGeneratorNo.Name = "txtMainGeneratorNo";
             this.txtMainGeneratorNo.Size = new System.Drawing.Size(320, 29);
-            this.txtMainGeneratorNo.TabIndex = 9;
+            this.txtMainGeneratorNo.TabIndex = 13;
             // 
             // lblAvgOutsideTemp
             // 
             this.lblAvgOutsideTemp.AutoSize = true;
             this.lblAvgOutsideTemp.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lblAvgOutsideTemp.Location = new System.Drawing.Point(30, 276);
+            this.lblAvgOutsideTemp.Location = new System.Drawing.Point(30, 372);
             this.lblAvgOutsideTemp.Name = "lblAvgOutsideTemp";
             this.lblAvgOutsideTemp.Size = new System.Drawing.Size(105, 21);
-            this.lblAvgOutsideTemp.TabIndex = 10;
+            this.lblAvgOutsideTemp.TabIndex = 14;
             this.lblAvgOutsideTemp.Text = "平均外温 (℃)";
             // 
             // txtAvgOutsideTemp
             // 
             this.txtAvgOutsideTemp.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.txtAvgOutsideTemp.Location = new System.Drawing.Point(200, 270);
+            this.txtAvgOutsideTemp.Location = new System.Drawing.Point(200, 366);
             this.txtAvgOutsideTemp.Name = "txtAvgOutsideTemp";
             this.txtAvgOutsideTemp.Size = new System.Drawing.Size(320, 29);
-            this.txtAvgOutsideTemp.TabIndex = 11;
+            this.txtAvgOutsideTemp.TabIndex = 15;
             // 
             // lblAvgAtmPressure
             // 
             this.lblAvgAtmPressure.AutoSize = true;
             this.lblAvgAtmPressure.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lblAvgAtmPressure.Location = new System.Drawing.Point(30, 324);
+            this.lblAvgAtmPressure.Location = new System.Drawing.Point(30, 420);
             this.lblAvgAtmPressure.Name = "lblAvgAtmPressure";
             this.lblAvgAtmPressure.Size = new System.Drawing.Size(140, 21);
-            this.lblAvgAtmPressure.TabIndex = 12;
+            this.lblAvgAtmPressure.TabIndex = 16;
             this.lblAvgAtmPressure.Text = "平均大气压力 (Pa)";
             // 
             // txtAvgAtmPressure
             // 
             this.txtAvgAtmPressure.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.txtAvgAtmPressure.Location = new System.Drawing.Point(200, 318);
+            this.txtAvgAtmPressure.Location = new System.Drawing.Point(200, 414);
             this.txtAvgAtmPressure.Name = "txtAvgAtmPressure";
             this.txtAvgAtmPressure.Size = new System.Drawing.Size(320, 29);
-            this.txtAvgAtmPressure.TabIndex = 13;
+            this.txtAvgAtmPressure.TabIndex = 17;
             // 
             // lblHumidity
             // 
             this.lblHumidity.AutoSize = true;
             this.lblHumidity.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lblHumidity.Location = new System.Drawing.Point(30, 372);
+            this.lblHumidity.Location = new System.Drawing.Point(30, 468);
             this.lblHumidity.Name = "lblHumidity";
             this.lblHumidity.Size = new System.Drawing.Size(103, 21);
-            this.lblHumidity.TabIndex = 14;
+            this.lblHumidity.TabIndex = 18;
             this.lblHumidity.Text = "相对湿度 (%)";
             // 
             // txtHumidity
             // 
             this.txtHumidity.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.txtHumidity.Location = new System.Drawing.Point(200, 366);
+            this.txtHumidity.Location = new System.Drawing.Point(200, 462);
             this.txtHumidity.Name = "txtHumidity";
             this.txtHumidity.Size = new System.Drawing.Size(320, 29);
-            this.txtHumidity.TabIndex = 15;
+            this.txtHumidity.TabIndex = 19;
             // 
             // lblOilGrade
             // 
             this.lblOilGrade.AutoSize = true;
             this.lblOilGrade.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lblOilGrade.Location = new System.Drawing.Point(30, 420);
+            this.lblOilGrade.Location = new System.Drawing.Point(30, 516);
             this.lblOilGrade.Name = "lblOilGrade";
             this.lblOilGrade.Size = new System.Drawing.Size(74, 21);
-            this.lblOilGrade.TabIndex = 16;
+            this.lblOilGrade.TabIndex = 20;
             this.lblOilGrade.Text = "机油牌号";
             // 
             // txtOilGrade
             // 
             this.txtOilGrade.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.txtOilGrade.Location = new System.Drawing.Point(200, 414);
+            this.txtOilGrade.Location = new System.Drawing.Point(200, 510);
             this.txtOilGrade.Name = "txtOilGrade";
             this.txtOilGrade.Size = new System.Drawing.Size(320, 29);
-            this.txtOilGrade.TabIndex = 17;
+            this.txtOilGrade.TabIndex = 21;
             // 
             // lblFuelGrade
             // 
             this.lblFuelGrade.AutoSize = true;
             this.lblFuelGrade.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lblFuelGrade.Location = new System.Drawing.Point(30, 468);
+            this.lblFuelGrade.Location = new System.Drawing.Point(30, 564);
             this.lblFuelGrade.Name = "lblFuelGrade";
             this.lblFuelGrade.Size = new System.Drawing.Size(74, 21);
-            this.lblFuelGrade.TabIndex = 18;
+            this.lblFuelGrade.TabIndex = 22;
             this.lblFuelGrade.Text = "燃油牌号";
             // 
             // txtFuelGrade
             // 
             this.txtFuelGrade.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.txtFuelGrade.Location = new System.Drawing.Point(200, 462);
+            this.txtFuelGrade.Location = new System.Drawing.Point(200, 558);
             this.txtFuelGrade.Name = "txtFuelGrade";
             this.txtFuelGrade.Size = new System.Drawing.Size(320, 29);
-            this.txtFuelGrade.TabIndex = 19;
+            this.txtFuelGrade.TabIndex = 23;
             // 
             // btnOk
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnOk.Location = new System.Drawing.Point(160, 530);
+            this.btnOk.Location = new System.Drawing.Point(160, 626);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(140, 44);
-            this.btnOk.TabIndex = 20;
+            this.btnOk.TabIndex = 24;
             this.btnOk.Text = "确定导出";
             this.btnOk.Click += new System.EventHandler(this.BtnOk_Click);
             // 
@@ -254,10 +298,10 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnCancel.Location = new System.Drawing.Point(320, 530);
+            this.btnCancel.Location = new System.Drawing.Point(320, 626);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(140, 44);
-            this.btnCancel.TabIndex = 21;
+            this.btnCancel.TabIndex = 25;
             this.btnCancel.Text = "取消";
             // 
             // frmManualReportHeader
@@ -266,7 +310,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(560, 610);
+            this.ClientSize = new System.Drawing.Size(560, 706);
             this.ControlBox = false;
             this.Controls.Add(this.lblTestProject);
             this.Controls.Add(this.txtTestProject);
@@ -274,6 +318,10 @@
             this.Controls.Add(this.txtSuperchargerModel);
             this.Controls.Add(this.lblSuperchargerSN);
             this.Controls.Add(this.txtSuperchargerSN);
+            this.Controls.Add(this.lblSuperchargerSNFront);
+            this.Controls.Add(this.txtSuperchargerSNFront);
+            this.Controls.Add(this.lblSuperchargerSNAfter);
+            this.Controls.Add(this.txtSuperchargerSNAfter);
             this.Controls.Add(this.lblTestBenchNo);
             this.Controls.Add(this.txtTestBenchNo);
             this.Controls.Add(this.lblMainGeneratorNo);
