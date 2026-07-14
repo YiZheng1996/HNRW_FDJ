@@ -484,21 +484,11 @@ namespace MainUI
             // 油耗仪燃油流量计油耗
             flowDiff.Text = Math.Round(MassFlowCC, 1).ToString();
 
-            //计算燃油油耗率，无限累加
             //因为重量断开连接之后，值无穷大，所以当发动机功率为零的时候换电功率计算
-            if (MiddleData.instnce.EnginePower != 0)
-            {
-                // 油耗仪 * 1000 / 功率
-                this.lblOilCoast2.Text = Math.Round(ET4500.Instance.fuelConsumption * 1000 / MiddleData.instnce.EnginePower, 1).ToString();
+            // 油耗仪 * 1000 / 功率
+            this.lblOilCoast2.Text = Math.Round(ET4500.Instance.fuelConsumption * 1000 / MiddleData.instnce.EnginePower, 1).ToString();
 
-                Var.SysConfig.FOilNum += Math.Round(MassFlowCC * 1000 / MiddleData.instnce.EnginePower, 1);
-                Var.SysConfig.Save();
-                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString("f1");
-            }
-            else
-            {
-                this.lblOilCoast.Text = Var.SysConfig.FOilNum.ToString("f1");
-            }
+            this.lblOilCoast.Text = Math.Round(MassFlowCC * 1000 / MiddleData.instnce.EnginePower, 1).ToString("f1");
 
         }
 
