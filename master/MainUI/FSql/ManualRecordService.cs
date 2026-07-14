@@ -198,12 +198,12 @@ namespace MainUI.FSql
                 EOPressure1 = GetValuePreferTRDP("机油泵出口油压", () => Common.AI2Grp["P20机油泵出口压力"]),
                 POilInlet = GetValuePreferTRDP("主油道进口油压", () => Common.AI2Grp["主油道进口油压"]),
                 EOPressure2 = GetValuePreferTRDP("主油道末端油压", () => Common.AI2Grp["主油道末端油压"]),
-                PTurboOilFront = GetValuePreferTRDP("前增压器进口油压", () => Common.AI2Grp["前增压器进油压"]),
-                PTurboOilAfter = GetValuePreferTRDP("后增压器进口油压", () => Common.AI2Grp["后增压器进油压"]),
+                PTurboOilFront = GetValuePreferTRDP("前增压器进口油压", () => Common.AI2Grp["前增压器机油进口压力"]),
+                PTurboOilAfter = GetValuePreferTRDP("后增压器进口油压", () => Common.AI2Grp["前增压器机油进口压力"]),
 
                 // ══════════════════ 出厂表 列19-26：油温/水温 + 增压器转速 ══════════════════
-                HeatExchangerTempIn = GetValuePreferTRDP("主油道进口油温", () => Common.AI2Grp["机油热交换器进口油温"]),
-                HeatExchangerTempOut = GetValuePreferTRDP("机油泵出口油温", () => Common.AI2Grp["机油热交换器出口油温"]),
+                HeatExchangerTempIn = GetValuePreferTRDP("主油道进口油温", () => Common.AI2Grp["T21主油道进口油温"]),
+                HeatExchangerTempOut = GetValuePreferTRDP("机油泵出口油温", () => Common.AI2Grp["T20机油泵出口油温"]),
                 HWaterTempIn = SafeGet(() => Common.AI2Grp["T2高温水进机温度"]),
                 HWaterTempOut = GetValuePreferTRDP("高温水出水温度", () => Common.AI2Grp["T1高温水出机温度"]),
                 LWaterTempIn = GetValuePreferTRDP("中冷水进水温度", () => Common.AI2Grp["T3中冷水进机温度"]),
@@ -216,7 +216,7 @@ namespace MainUI.FSql
                 PCompressorAfter = SafeGet(() => Common.AI2Grp["后增压器进气真空度"]), 
                 PTurboOutPressureFront = SafeGet(() => Common.AI2Grp["前增压器排气背压"]),
                 PTurboOutPressureAfter = SafeGet(() => Common.AI2Grp["后增压器排气背压"]),
-                PCrankcase = SafeGet(() => Common.AI2Grp["曲轴箱压力"]),
+                PCrankcase = SafeGet(() => Common.AI2Grp["曲轴箱压力"]),//??没有这个值
                 PInterCoolerFrontFront = SafeGet(() => Common.AI2Grp["前中冷前空气压力"]),
                 PInterCoolerFrontAfter = SafeGet(() => Common.AI2Grp["前中冷后空气压力"]),
                 PInterCoolerAfterFront = SafeGet(() => Common.AI2Grp["后中冷前空气压力"]),
