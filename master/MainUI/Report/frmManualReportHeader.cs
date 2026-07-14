@@ -31,20 +31,20 @@ namespace MainUI.Report
 
         private void BtnOk_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTestProject.Text) ||
-                string.IsNullOrWhiteSpace(txtSuperchargerModel.Text) ||
-                string.IsNullOrWhiteSpace(txtSuperchargerSN.Text) ||
-                string.IsNullOrWhiteSpace(txtSuperchargerSNFront.Text) ||
-                string.IsNullOrWhiteSpace(txtSuperchargerSNAfter.Text) ||
-                string.IsNullOrWhiteSpace(txtTestBenchNo.Text) ||
-                string.IsNullOrWhiteSpace(txtMainGeneratorNo.Text) ||
-                string.IsNullOrWhiteSpace(txtOilGrade.Text) ||
-                string.IsNullOrWhiteSpace(txtFuelGrade.Text))
-            {
-                MessageBox.Show("请把所有字段填写完整。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.DialogResult = DialogResult.None;
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(txtTestProject.Text) ||
+            //    string.IsNullOrWhiteSpace(txtSuperchargerModel.Text) ||
+            //    string.IsNullOrWhiteSpace(txtSuperchargerSN.Text) ||
+            //    string.IsNullOrWhiteSpace(txtSuperchargerSNFront.Text) ||
+            //    string.IsNullOrWhiteSpace(txtSuperchargerSNAfter.Text) ||
+            //    string.IsNullOrWhiteSpace(txtTestBenchNo.Text) ||
+            //    string.IsNullOrWhiteSpace(txtMainGeneratorNo.Text) ||
+            //    string.IsNullOrWhiteSpace(txtOilGrade.Text) ||
+            //    string.IsNullOrWhiteSpace(txtFuelGrade.Text))
+            //{
+            //    MessageBox.Show("请把所有字段填写完整。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    this.DialogResult = DialogResult.None;
+            //    return;
+            //}
 
             if (!double.TryParse(txtAvgOutsideTemp.Text, out double outTemp))
             {

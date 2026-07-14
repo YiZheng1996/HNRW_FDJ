@@ -15,6 +15,7 @@ namespace MainUI.Services
     /// <summary>
     /// ECM模块故障检测（发动机控制器）
     /// </summary>
+    [Obsolete("已废弃")]
     public class ECMFaultDetectionService
     {
         FaultEventService faultEventService = new FaultEventService();
