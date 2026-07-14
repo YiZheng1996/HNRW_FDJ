@@ -21,9 +21,9 @@ namespace MainUI.Report
                 this.DialogResult = DialogResult.None;
                 return;
             }
-            if (!double.TryParse(txtNominalPower.Text, out double power) || power <= 0)
+            if (!double.TryParse(txtNominalPower.Text, out double power) || power < 0)
             {
-                MessageBox.Show("请输入有效的名义功率（大于0）。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("请输入有效的名义功率（大于等于0）。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.DialogResult = DialogResult.None;
                 return;
             }
