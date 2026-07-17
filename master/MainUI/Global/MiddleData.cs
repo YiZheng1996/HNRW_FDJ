@@ -57,22 +57,46 @@ namespace MainUI.Global
         public DateTime? StartupReleaseTime { get; set; } = null;
 
         /// <summary>
-        /// 获取发动机数据(使用485与trdp数据进行对比)
+        /// 型式试验下转速模块通道1异常的一次性日志标志
         /// </summary>
-        /// <returns></returns>
+        private static bool _typeTestSpeedErrLogged = false;
+
+        /// <summary>
+        /// 获取发动机数据。
+        /// 例行试验：TRDP 优先（>10）回退 485（原逻辑不动）。
+        /// 型式试验：直读台位 485 硬线 speedGrp["转速1"]，登录时硬分支，
+        /// 禁止运行时探测/回退，避免 TRDP 缓存陈旧值泄漏进判断链路。
+        /// </summary>
         public double GetEngineSpeed()
         {
             try
             {
+                // 新增：型式试验硬分支
+                if (Var.SysConfig != null && Var.SysConfig.LastTrialTypeEnum == TrialTypeEnum.TypeTest)
+                {
+                    // 转速模块通道1通讯异常：返回0并写一次性日志
+                    //（转速模块通讯故障报警由现有通讯故障体系覆盖，此处不重复报）
+                    if (!Common.speedGrp.NoError[0])
+                    {
+                        if (!_typeTestSpeedErrLogged)
+                        {
+                            _typeTestSpeedErrLogged = true;
+                            Var.LogInfo("[型式试验] 转速模块通道1通讯异常，发动机转速按 0 处理，相关判断挂起。");
+                        }
+                        return 0;
+                    }
+                    _typeTestSpeedErrLogged = false;
+                    return Common.speedGrp["转速1"];
+                }
+
+                // 例行试验：原逻辑一字不动
                 var speed1 = Var.TRDP.GetDicValue("柴油机转速");
                 var speed2 = Common.speedGrp["转速1"];
 
-                // trdp有转速
                 if (speed1 > 10)
                 {
                     return speed1;
                 }
-                // 485有转速
                 else if (speed2 > 10)
                 {
                     return speed2;
@@ -82,7 +106,7 @@ namespace MainUI.Global
                     return 0;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 0;
             }
@@ -161,7 +185,7 @@ namespace MainUI.Global
                 if (EngineSpeed <= 0) return 0;
 
                 //当发动机扭矩为0时，使用电功率
-                if (EngineTorque < 1 && Common.threePhaseElectric.DataValue["有功功率"] != 0)
+                if (EngineTorque < 1)
                 {
                     return Common.threePhaseElectric.DataValue["有功功率"];
                 }

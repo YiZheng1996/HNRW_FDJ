@@ -161,8 +161,7 @@ namespace MainUI.Fault.Engine
         /// <summary>取某条规则的降载元数据（执行降载时读取百分比/卸载延时）。无则返回 null。</summary>
         public DerateMeta GetDerate(string ruleName)
         {
-            DerateMeta m;
-            return _derate.TryGetValue(ruleName, out m) ? m : null;
+            return _derate.TryGetValue(ruleName, out DerateMeta m) ? m : null;
         }
 
         /// <summary>
@@ -395,6 +394,115 @@ namespace MainUI.Fault.Engine
                 case "tip": return "Alarm";
                 default: return level.Trim();
             }
+        }
+
+        /// <summary>
+        /// 新增：型式试验启动映射自检（方案②）。
+        /// 在型式试验模式、profile 加载成功后调用一次，输出四段日志：
+        ///   TRDP保留清单 / 已映射清单 / 休眠清单（含所属规则） / 健康门控挂接清单。
+        /// 休眠清单非空且 showPopup=true 时弹一次性提示，配合工艺确认留痕。
+        /// 例行试验或无 profile 时不做任何事。
+        /// </summary>
+        public void LogTypeTestMappingSelfCheck(bool showPopup)
+        {
+            try
+            {
+                if (_profile == null || _profile.Signals == null) return;
+                if (Var.SysConfig == null || Var.SysConfig.LastTrialType != 1) return;
+
+                var trdpKept = new List<string>();
+                var mapped = new List<string>();
+                var dormant = new List<string>();
+
+                foreach (var sig in _profile.Signals)
+                {
+                    if (sig == null) continue;
+                    string src = (sig.Source ?? "").Trim().ToUpperInvariant();
+                    if (src != "TRDP") continue;
+
+                    string opcSrc = (sig.OpcSource ?? "").Trim().ToUpperInvariant();
+                    if (opcSrc == "TRDP")
+                    {
+                        trdpKept.Add(sig.Name + "（TRDP:" + sig.Label + "，ECM仍发送）");
+                    }
+                    else if (!string.IsNullOrEmpty(sig.OpcLabel))
+                    {
+                        mapped.Add(sig.Name + " → " + (opcSrc == "" ? "AI2" : opcSrc) + ":" + sig.OpcLabel);
+                    }
+                    else
+                    {
+                        var rules = FindRulesReferencing(sig.Name);
+                        dormant.Add(sig.Name + "（所属规则：" +
+                            (rules.Count > 0 ? string.Join("、", rules.ToArray()) : "未检索到") + "）");
+                    }
+                }
+
+                Var.LogInfo("[型式试验自检] TRDP保留清单(" + trdpKept.Count + ")：" + string.Join("；", trdpKept.ToArray()));
+                Var.LogInfo("[型式试验自检] 已映射清单(" + mapped.Count + ")：" + string.Join("；", mapped.ToArray()));
+                Var.LogInfo("[型式试验自检] 休眠清单(" + dormant.Count + ")：" + string.Join("；", dormant.ToArray()));
+                Var.LogInfo("[型式试验自检] 健康门控：AI2 重定向挂 AI2Grp.NoError；SPEED 重定向挂 speedGrp.IsNoError；转速取值挂 speedGrp.NoError[0]。");
+
+                if (showPopup && dormant.Count > 0)
+                {
+                    System.Windows.Forms.MessageBox.Show(
+                        "型式试验模式下，以下信号无台位点位、ECM 亦停发，本次试验期间其保护规则休眠（值恒为 0）：\r\n\r\n" +
+                        string.Join("\r\n", dormant.ToArray()) +
+                        "\r\n\r\n请确认已按工艺规程落实替代监护。",
+                        "型式试验信号休眠清单",
+                        System.Windows.Forms.MessageBoxButtons.OK,
+                        System.Windows.Forms.MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                Var.LogInfo("[型式试验自检] 执行异常：" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 新增：检索引用了指定信号（含经由信号组）的规则名，用于休眠清单显性化。
+        /// </summary>
+        /// <param name="sigName"></param>
+        /// <returns></returns>
+        private List<string> FindRulesReferencing(string sigName)
+        {
+            var result = new List<string>();
+            if (_profile == null || _profile.Rules == null || string.IsNullOrEmpty(sigName)) return result;
+
+            // 该信号所属的组名
+            var groupNames = new List<string>();
+            foreach (var g in _groups)
+                if (g.Value != null && g.Value.Contains(sigName))
+                    groupNames.Add(g.Key);
+
+            foreach (var rule in _profile.Rules)
+            {
+                if (rule == null || string.IsNullOrEmpty(rule.Name)) continue;
+                bool hit = false;
+
+                if (rule.Vote != null && rule.Vote.Sensors != null && rule.Vote.Sensors.Contains(sigName))
+                    hit = true;
+
+                if (!hit && rule.Checks != null)
+                {
+                    foreach (var c in rule.Checks)
+                    {
+                        if (c == null || c.Terms == null) continue;
+                        foreach (var t in c.Terms)
+                        {
+                            if (t == null || string.IsNullOrEmpty(t.Left)) continue;
+                            if (t.Left.Contains(sigName)) { hit = true; break; }
+                            foreach (var gn in groupNames)
+                                if (t.Left.Contains(gn)) { hit = true; break; }
+                            if (hit) break;
+                        }
+                        if (hit) break;
+                    }
+                }
+
+                if (hit && !result.Contains(rule.Name)) result.Add(rule.Name);
+            }
+            return result;
         }
     }
 }

@@ -198,18 +198,29 @@ namespace MainUI.Services
 
             // 加载 FaultProfiles/{model}.faults.json。不存在或解析失败返回 false（调用方回退老逻辑）
             if (_ecmEngine.LoadProfile(Var.SysConfig.LastModel))
+            {
                 _ecmFaultConditions = _ecmEngine.BuildConditions();
+
+                // 新增：型式试验启动映射自检（仅主控端弹窗，监控端只写日志）
+                _ecmEngine.LogTypeTestMappingSelfCheck(Var.SysConfig.ExeType == 1);
+            }
             else
                 _ecmFaultConditions = CreateECMFaultConditions();
 
             // 初始化所有故障
             InitializeAllFaults();
 
-            // 启动故障检测线程
-            StartFaultDetectionThread();
+            // 仅主控端启动主动检测/停机线程。
+            // 监控端(ExeType=2)不含 ucWarnList，CurrentData 无灌入，240 的 ==0 型判据恒真存在误停机风险，
+            // 280 JSON 路径则重复入库。状态字典/判据/事件订阅照常初始化，保证被动查询方拿到完整结构。
+            if (Var.SysConfig.ExeType == 1)
+            {
+                // 启动故障检测线程
+                StartFaultDetectionThread();
 
-            // 启动需要停机线程
-            StartFaultTestBedStopThread();
+                // 启动需要停机线程
+                StartFaultTestBedStopThread();
+            }
         }
 
         /// <summary>
@@ -392,7 +403,7 @@ namespace MainUI.Services
                 StopDuration = 0
             };
 
-           
+
 
             // 故障26: A涡前排气温度
             conditions["A涡前排气温度"] = new FaultCondition
@@ -681,7 +692,7 @@ namespace MainUI.Services
                            faultName.Contains("精滤器") ? $"{faultName}，精滤器堵塞。" :
                            faultName.Contains("机滤器") ? $"{faultName}，机滤器堵塞。" :
                            faultName == "急停按钮已按下" ? "急停按钮已按下！请确认现场安全后复位急停按钮。" :
-                           $"{faultName}",  
+                           $"{faultName}",
                     FaultType = FaultTypeEnum.calculate,
                 };
             }
@@ -1603,9 +1614,12 @@ namespace MainUI.Services
         {
             try
             {
-                Var.FaultConfig = new FaultConfig(model);
                 if (_ecmEngine.LoadProfile(model))
+                {
                     _ecmFaultConditions = _ecmEngine.BuildConditions();
+                    // 新增：型号切换后同样自检（型式试验会话内切换型号的场景）
+                    _ecmEngine.LogTypeTestMappingSelfCheck(Var.SysConfig.ExeType == 1);
+                }
                 else
                     _ecmFaultConditions = CreateECMFaultConditions(); // 重新初始化ECM故障条件
 
@@ -1616,6 +1630,7 @@ namespace MainUI.Services
             {
                 // 创建默认配置
                 Var.FaultConfig = new FaultConfig();
+                Var.LogInfo("型号改变时错误：" + ex.Message);
             }
 
         }

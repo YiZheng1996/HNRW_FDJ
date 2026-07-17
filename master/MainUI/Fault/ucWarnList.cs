@@ -51,6 +51,11 @@ namespace MainUI.Widget
         {
             if (this.DesignMode) return;
 
+            // 新增：按登录选择的试验类型初始化检测模式（0=例行→控制器，1=型式→台位），
+            // 替代设计器写死的 true。btnType 手动切换能力保留。
+            FaultType = Var.SysConfig.LastTrialType == 0;
+            Var.LogInfo("[试验类型] 240路径检测模式初始化为：" + (FaultType ? "发动机控制器(例行)" : "台位(型式)"));
+
             frmCurrent = new frmCurrentWarn();
 
             // 初始化加载 故障控件
@@ -82,6 +87,13 @@ namespace MainUI.Widget
 
             // 初始化加油状态专用显示标签
             InitFuelingLevelLabel();
+
+            // 新增：240路径型式模式下的休眠清单日志
+            if (Var.SysConfig.LastTrialType == 1)
+            {
+                Var.LogInfo("[型式试验][240路径] 休眠信号：前/后增压器转速（485无剩余通道）、燃油精滤器前/后油压（无台位映射）；" +
+                    "TRDP保留：轴温[7]、轴温监控通讯故障、电喷转速1/2、电喷状态、前/后压气机出口空气温度（ECM仍发送，停发则恒0安全）。");
+            }
         }
 
         private void btnFaultLog_Click(object sender, EventArgs e)
@@ -213,17 +225,7 @@ namespace MainUI.Widget
                         {
                             // 控制器
                             data.发动机转速 = Var.TRDP.GetDicValue("柴油机转速");
-
-                            if (MiddleData.instnce.EnginePower != 0)
-                            {
-                                data.发动机功率 = MiddleData.instnce.EnginePower;
-
-                            }
-                            else
-                            {
-                                data.发动机功率 = Common.threePhaseElectric.DataValue["有功功率"];
-                            }
-                            
+                            data.发动机功率 = MiddleData.instnce.EnginePower;
                             data.高温水出水温度 = Var.TRDP.GetDicValue("高温水出水温度");
                             data.中冷水进水温度 = Var.TRDP.GetDicValue("中冷水进水温度");
                             data.中冷水出水温度 = Var.TRDP.GetDicValue("中冷水出水温度");
@@ -245,7 +247,7 @@ namespace MainUI.Widget
                             data.B涡前排气温度 = Var.TRDP.GetDicValue("B涡前排气温度");
 
                             // A1-A6缸排气温度
-                            if (data.A1B6缸排气温度 == null || data.A1B6缸排气温度.Length != 6)
+                            if (data.A1B6缸排气温度 == null || data.A1B6缸排气温度.Length != 12)
                                 data.A1B6缸排气温度 = new double[12];
 
                             data.A1B6缸排气温度[0] = Convert.ToDouble(Var.TRDP.GetDicValue("A1缸排气温度"));
@@ -287,22 +289,22 @@ namespace MainUI.Widget
                             data.中冷水出水温度 = Common.AI2Grp["T5中冷水出机温度"];
                             data.后中冷后空气温度 = Common.AI2Grp["后中冷后空气温度"];
                             data.主油道进口油温 = Common.AI2Grp["T21主油道进口油温"];
-                            data.前压气机出口空气温度 = Var.TRDP.GetDicValue("后压气机出口空气温度");
-                            data.后压气机出口空气温度 = Var.TRDP.GetDicValue("后压气机出口空气温度");
+                            data.前压气机出口空气温度 = Var.TRDP.GetDicValue("前压气机出口空气温度"); //？
+                            data.后压气机出口空气温度 = Var.TRDP.GetDicValue("后压气机出口空气温度"); //？
                             data.主油道进口油压 = Common.AI2Grp["P21主油道进口油压"];
-                            //data.燃油精滤器前油压 = Var.TRDP.GetDicValue("燃油精滤器前油压");
-                            //data.燃油精滤器后油压 = Var.TRDP.GetDicValue("燃油精滤器后油压");
+                            data.燃油精滤器前油压 = Common.fuelGrp["粗滤器1前压力检测-P30"];
+                            data.燃油精滤器后油压 = Common.fuelGrp["粗滤器1后压力检测-P31"];
                             data.机油泵出口油温 = Common.AI2Grp["T20机油泵出口油温"];
                             data.主油道末端油压 = Common.AI2Grp["主油道末端油压"];
                             data.后增压器进口油压 = Common.AI2Grp["后增压器机油进口压力"];
-                            //data.前增压器转速 = Common.speedGrp["转速2"];
-                            //data.后增压器转速 = Common.speedGrp["转速3"];
+                            data.前增压器转速 = Var.TRDP.GetDicValue("前增压器转速");
+                            data.后增压器转速 = Var.TRDP.GetDicValue("后增压器转速");
 
-                            data.B涡前排气温度 = Common.AI2Grp["后涡轮进口废气温度"];
                             data.A涡前排气温度 = Common.AI2Grp["前涡轮进口废气温度"];
+                            data.B涡前排气温度 = Common.AI2Grp["后涡轮进口废气温度"];
 
                             // A1-A6缸排气温度
-                            if (data.A1B6缸排气温度 == null || data.A1B6缸排气温度.Length != 8)
+                            if (data.A1B6缸排气温度 == null || data.A1B6缸排气温度.Length != 16)
                                 data.A1B6缸排气温度 = new double[16];
 
                             data.A1B6缸排气温度[0] = Common.AI2Grp["A1缸排气温度"];
@@ -321,7 +323,22 @@ namespace MainUI.Widget
                             data.A1B6缸排气温度[13] = Common.AI2Grp["B6缸排气温度"];
                             data.A1B6缸排气温度[14] = Common.AI2Grp["B7缸排气温度"];
                             data.A1B6缸排气温度[15] = Common.AI2Grp["B8缸排气温度"];
-                            
+
+                            // 1-7缸排气温度
+                            if (data._1_7档轴温 == null || data._1_7档轴温.Length != 7)
+                                data._1_7档轴温 = new double[7];
+                            data._1_7档轴温[0] = Convert.ToDouble(Var.TRDP.GetDicValue("一档轴温"));
+                            data._1_7档轴温[1] = Convert.ToDouble(Var.TRDP.GetDicValue("二档轴温"));
+                            data._1_7档轴温[2] = Convert.ToDouble(Var.TRDP.GetDicValue("三档轴温"));
+                            data._1_7档轴温[3] = Convert.ToDouble(Var.TRDP.GetDicValue("四档轴温"));
+                            data._1_7档轴温[4] = Convert.ToDouble(Var.TRDP.GetDicValue("五档轴温"));
+                            data._1_7档轴温[5] = Convert.ToDouble(Var.TRDP.GetDicValue("六档轴温"));
+                            data._1_7档轴温[6] = Convert.ToDouble(Var.TRDP.GetDicValue("七档轴温"));
+
+                            data.轴温监控装置通讯故障 = Var.TRDP.GetDicValue("从站6串口故障");
+                            data.电喷转速1 = Var.TRDP.GetDicValue("转速传感器1#");
+                            data.电喷转速2 = Var.TRDP.GetDicValue("转速传感器2#");
+                            data.电喷状态 = Var.TRDP.GetDicValue("从站1串口故障");
                         }
 
                         data.飞轮发动机转速1 = Common.speedGrp["转速2"];

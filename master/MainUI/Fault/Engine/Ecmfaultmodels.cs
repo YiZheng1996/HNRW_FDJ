@@ -43,6 +43,22 @@ namespace MainUI.Fault.Engine
 
         /// <summary>Source=Const 时使用的常量值</summary>
         public double Const { get; set; }
+
+        /// <summary>
+        /// 新增（型式试验分流）：
+        /// 型式试验下的重定向数据源：TRDP / AI2 / AI / SPEED / DI / DO / FUEL / WATER。
+        /// - 填 "TRDP"：该信号型式下 ECM 仍发送，保持 TRDP 读取（如 轴温、曲轴箱压力、电喷转速/状态）。
+        /// - 填其他源：按 OpcLabel 重定向到台位点位（默认 AI2，可省略）。
+        /// - 与 OpcLabel 均为空：型式下该信号休眠（恒 0），启动自检显性化。
+        /// 例行试验下本字段完全忽略。
+        /// </summary>
+        public string OpcSource { get; set; }
+
+        /// <summary>
+        /// 新增（型式试验分流）：型式试验下在重定向数据源里的键名。
+        /// OpcSource="TRDP" 时可省略（沿用 Label）。
+        /// </summary>
+        public string OpcLabel { get; set; }
     }
 
     /// <summary>信号组（聚合用）</summary>
