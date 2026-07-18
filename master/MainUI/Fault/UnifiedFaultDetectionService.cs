@@ -177,7 +177,7 @@ namespace MainUI.Services
         public void Init()
         {
             // 确保 FaultConfig 不为空
-            if (Var.FaultConfig == null)
+            if (Var.FaultConfig == null || Var.FaultConfig.FaultDataLists.Count == 0)
             {
                 // 使用最后一个型号或默认配置
                 Var.FaultConfig = new FaultConfig(Var.SysConfig.LastModel);

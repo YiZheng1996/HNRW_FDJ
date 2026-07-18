@@ -196,10 +196,10 @@ namespace MainUI.FSql
                 LPressureOut = GetValuePreferTRDP("中冷水泵出口压力", () => Common.AI2Grp["P3中冷水泵进口压力"]),
                 HPressureOut = GetValuePreferTRDP("高温水泵出口压力", () => Common.AI2Grp["P1高温水出机压力"]),
                 EOPressure1 = GetValuePreferTRDP("机油泵出口油压", () => Common.AI2Grp["P20机油泵出口压力"]),
-                POilInlet = GetValuePreferTRDP("主油道进口油压", () => Common.AI2Grp["T21主油道进口油温"]),
+                POilInlet = GetValuePreferTRDP("主油道进口油压", () => Common.AI2Grp["P21主油道进口油压"]),
                 EOPressure2 = GetValuePreferTRDP("主油道末端油压", () => Common.AI2Grp["主油道末端油压"]),
                 PTurboOilFront = GetValuePreferTRDP("前增压器进口油压", () => Common.AI2Grp["前增压器机油进口压力"]),
-                PTurboOilAfter = GetValuePreferTRDP("后增压器进口油压", () => Common.AI2Grp["前增压器机油进口压力"]),
+                PTurboOilAfter = GetValuePreferTRDP("后增压器进口油压", () => Common.AI2Grp["后增压器机油进口压力"]),
 
                 // ══════════════════ 出厂表 列19-26：油温/水温 + 增压器转速 ══════════════════
                 HeatExchangerTempIn = GetValuePreferTRDP("主油道进口油温", () => Common.AI2Grp["T21主油道进口油温"]),
