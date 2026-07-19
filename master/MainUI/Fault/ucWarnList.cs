@@ -54,7 +54,7 @@ namespace MainUI.Widget
             // 新增：按登录选择的试验类型初始化检测模式（0=例行→控制器，1=型式→台位），
             // 替代设计器写死的 true。btnType 手动切换能力保留。
             FaultType = Var.SysConfig.LastTrialType == 0;
-            Var.LogInfo("[试验类型] 240路径检测模式初始化为：" + (FaultType ? "发动机控制器(例行)" : "台位(型式)"));
+            Var.LogInfo("[试验类型] 报警数据检测模式初始化为：" + (FaultType ? "发动机控制器(例行)" : "台位(型式)"));
 
             frmCurrent = new frmCurrentWarn();
 
@@ -88,11 +88,12 @@ namespace MainUI.Widget
             // 初始化加油状态专用显示标签
             InitFuelingLevelLabel();
 
-            // 新增：240路径型式模式下的休眠清单日志
-            if (Var.SysConfig.LastTrialType == 1)
+            // 240路径型式模式下的信号处置日志（JSON型号不打，避免误导）
+            if (Var.SysConfig.LastTrialType == 1 && !Var.FaultService.HasJsonProfile)
             {
-                Var.LogInfo("[型式试验][240路径] 休眠信号：前/后增压器转速（485无剩余通道）、燃油精滤器前/后油压（无台位映射）；" +
-                    "TRDP保留：轴温[7]、轴温监控通讯故障、电喷转速1/2、电喷状态、前/后压气机出口空气温度（ECM仍发送，停发则恒0安全）。");
+                Var.LogInfo("[型式试验][240路径] TRDP保留（ECM仍发送）：轴温[7]、轴温监控通讯故障、电喷转速1/2、电喷状态、前/后增压器转速；" +
+                    "台位映射：燃油精滤器前/后油压（fuelGrp P34/P35）及其余AI2点位；" +
+                    "前/后压气机出口空气温度仍读TRDP（型式下若停发恒0，方向安全）。");
             }
         }
 
@@ -224,7 +225,7 @@ namespace MainUI.Widget
                         if (FaultType)
                         {
                             // 控制器
-                            data.发动机转速 = Var.TRDP.GetDicValue("柴油机转速");
+                            data.发动机转速 = MiddleData.instnce.GetEngineSpeed();   // 原：Var.TRDP.GetDicValue("柴油机转速")
                             data.发动机功率 = MiddleData.instnce.EnginePower;
                             data.高温水出水温度 = Var.TRDP.GetDicValue("高温水出水温度");
                             data.中冷水进水温度 = Var.TRDP.GetDicValue("中冷水进水温度");
@@ -282,7 +283,7 @@ namespace MainUI.Widget
                         else
                         {
                             // 台位
-                            data.发动机转速 = Common.speedGrp["转速1"];
+                            data.发动机转速 = MiddleData.instnce.GetEngineSpeed();   // 原：Common.speedGrp["转速1"]
                             data.发动机功率 = MiddleData.instnce.EnginePower;
                             data.高温水出水温度 = Common.AI2Grp["T1高温水出机温度"];
                             data.中冷水进水温度 = Common.AI2Grp["T3中冷水进机温度"];
@@ -292,8 +293,8 @@ namespace MainUI.Widget
                             data.前压气机出口空气温度 = Var.TRDP.GetDicValue("前压气机出口空气温度"); //？
                             data.后压气机出口空气温度 = Var.TRDP.GetDicValue("后压气机出口空气温度"); //？
                             data.主油道进口油压 = Common.AI2Grp["P21主油道进口油压"];
-                            data.燃油精滤器前油压 = Common.fuelGrp["粗滤器1前压力检测-P30"];
-                            data.燃油精滤器后油压 = Common.fuelGrp["粗滤器1后压力检测-P31"];
+                            data.燃油精滤器前油压 = Common.fuelGrp["精滤器1前压力检测-P34"];
+                            data.燃油精滤器后油压 = Common.fuelGrp["精滤器1后压力检测-P35"];
                             data.机油泵出口油温 = Common.AI2Grp["T20机油泵出口油温"];
                             data.主油道末端油压 = Common.AI2Grp["主油道末端油压"];
                             data.后增压器进口油压 = Common.AI2Grp["后增压器机油进口压力"];

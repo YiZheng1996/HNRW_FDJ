@@ -46,6 +46,9 @@ namespace MainUI.Fault.Engine
         public bool HasProfile { get { return _profile != null; } }
         public string CurrentModel { get { return _profile != null ? _profile.Model : null; } }
 
+        /// <summary>已执行过型式自检的型号（防止启动流程重复触发 LoadProfile 导致自检/弹窗打两遍）</summary>
+        private static string _selfCheckedModel = null;
+
         /// <summary>
         /// 加载 FaultProfiles/{model}.faults.json。不存在或解析失败返回 false（调用方回退老逻辑）。
         /// </summary>
@@ -409,6 +412,10 @@ namespace MainUI.Fault.Engine
             {
                 if (_profile == null || _profile.Signals == null) return;
                 if (Var.SysConfig == null || Var.SysConfig.LastTrialType != 1) return;
+
+                // 同一型号只自检一次
+                if (_selfCheckedModel == _profile.Model) return;
+                _selfCheckedModel = _profile.Model;
 
                 var trdpKept = new List<string>();
                 var mapped = new List<string>();

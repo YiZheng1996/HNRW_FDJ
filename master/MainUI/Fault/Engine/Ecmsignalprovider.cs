@@ -54,7 +54,7 @@ namespace MainUI.Fault.Engine
                     // c) 重定向到台位源（默认 AI2）
                     return ReadRedirected(opcSrc, sig.OpcLabel);
                 }
-                // <<< 新增结束
+                // 新增结束
 
                 switch (src)
                 {

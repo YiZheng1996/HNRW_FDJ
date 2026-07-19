@@ -69,6 +69,11 @@ namespace MainUI.Services
 
         public object locked = new object();
 
+        /// <summary>
+        /// 当前型号是否由 JSON 判据引擎接管（false = 走240硬编码路径）
+        /// </summary>
+        public bool HasJsonProfile { get { return _ecmEngine.HasProfile; } }
+
 
         /// <summary>
         /// ECM模块当前是否存在故障

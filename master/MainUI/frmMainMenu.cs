@@ -101,8 +101,8 @@ namespace MainUI
                 // 试验状态刷新后的事件
                 BaseTest.TestStateChanged += BaseTest_TestStateChanged;
 
-                // 初始化设备状态处理器
-                _statusProcessor = new DeviceStatusProcessor(true);
+                // 初始化设备状态处理器（仅主控端入库，监控端只刷新状态栏显示，消通讯故障重复入库）
+                _statusProcessor = new DeviceStatusProcessor(Var.SysConfig.ExeType == 1);
 
                 // 工艺界面显示管路或者控制工艺界面
                 var ExeType = Var.SysConfig.ExeType;
