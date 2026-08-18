@@ -81,8 +81,8 @@ namespace MainUI.FSql
                     BeginTime = DateTime.Now,
                     UserName = RW.UI.RWUser.User.Username,
                     DieselEngineModel = Common.mTestViewModel.ModelName ?? "-",
-                    DieselEngineNo = "-",
-                    TestName = "-"
+                    DieselEngineNo = Var.SysConfig.TestNo ?? "-",
+                    TestName =TrialTypeExtensions.SectionSuffix(Var.SysConfig.LastTrialTypeEnum) ?? "-"
                 };
                 var result = SaveMain(manualRecordMain);
                 if (result == 0)
@@ -149,7 +149,7 @@ namespace MainUI.FSql
         /// 保存所有模块数据到TestParaALL表
         /// </summary>
         /// <param name="allModuleData">所有模块数据字典</param>
-        private void SaveAllModuleDataToTestParaALL(Dictionary<string, object> allModuleData)
+        public void SaveAllModuleDataToTestParaALL(Dictionary<string, object> allModuleData)
         {
             // 将字典序列化为JSON字符串
             string monitorDataJson = SerializeModuleData(allModuleData);
@@ -160,7 +160,7 @@ namespace MainUI.FSql
                 gid = Guid.NewGuid().ToString("N"),
                 Index = Index++, // 使用与TestPara相同的Index
                 RecordName = "",
-                mgid = MGid,
+                mgid = MGid ?? instnce.MGid,
                 TestName = "",
                 TestStage = "",
                 TestCycle = "",
@@ -205,7 +205,7 @@ namespace MainUI.FSql
         /// 采集所有模块的实时数据
         /// </summary>
         /// <returns>包含所有模块数据的字典</returns>
-        private Dictionary<string, object> CollectAllModuleData()
+        public Dictionary<string, object> CollectAllModuleData()
         {
             var allData = new Dictionary<string, object>();
             var timestamp = DateTime.Now;

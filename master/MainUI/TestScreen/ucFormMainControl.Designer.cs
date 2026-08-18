@@ -32,8 +32,8 @@ namespace MainUI.TestScreen
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label12 = new System.Windows.Forms.Label();
             this.LCCurrentValue = new System.Windows.Forms.Label();
             this.LCVoltageValue = new System.Windows.Forms.Label();
@@ -615,7 +615,6 @@ namespace MainUI.TestScreen
             this.uiLedBulb2.Color = System.Drawing.Color.Red;
             this.uiLedBulb2.Location = new System.Drawing.Point(323, 165);
             this.uiLedBulb2.Name = "uiLedBulb2";
-            this.uiLedBulb2.On = false;
             this.uiLedBulb2.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb2.TabIndex = 759;
             this.uiLedBulb2.Tag = "抽油泵过流";
@@ -665,7 +664,6 @@ namespace MainUI.TestScreen
             this.uiLedBulb1.Color = System.Drawing.Color.Red;
             this.uiLedBulb1.Location = new System.Drawing.Point(359, 116);
             this.uiLedBulb1.Name = "uiLedBulb1";
-            this.uiLedBulb1.On = false;
             this.uiLedBulb1.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb1.TabIndex = 759;
             this.uiLedBulb1.Tag = "主发通风机2过流";
@@ -715,6 +713,7 @@ namespace MainUI.TestScreen
             this.uiLedBulb6.Color = System.Drawing.Color.Red;
             this.uiLedBulb6.Location = new System.Drawing.Point(359, 64);
             this.uiLedBulb6.Name = "uiLedBulb6";
+            this.uiLedBulb6.On = false;
             this.uiLedBulb6.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb6.TabIndex = 759;
             this.uiLedBulb6.Tag = "主发通风机1过流";
@@ -764,7 +763,6 @@ namespace MainUI.TestScreen
             this.uiLedBulb3.Color = System.Drawing.Color.Red;
             this.uiLedBulb3.Location = new System.Drawing.Point(360, 105);
             this.uiLedBulb3.Name = "uiLedBulb3";
-            this.uiLedBulb3.On = false;
             this.uiLedBulb3.Size = new System.Drawing.Size(20, 20);
             this.uiLedBulb3.TabIndex = 760;
             this.uiLedBulb3.Tag = "水阻升降电机过流";
@@ -1049,15 +1047,15 @@ namespace MainUI.TestScreen
             this.dataGridStartup.AllowUserToResizeRows = false;
             this.dataGridStartup.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridStartup.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(4);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridStartup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(4);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridStartup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridStartup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridStartup.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index,
@@ -1073,14 +1071,14 @@ namespace MainUI.TestScreen
             this.Column5,
             this.Column7,
             this.Column11});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridStartup.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridStartup.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridStartup.EnableHeadersVisualStyles = false;
             this.dataGridStartup.Location = new System.Drawing.Point(4, 4);
             this.dataGridStartup.Margin = new System.Windows.Forms.Padding(4);

@@ -1,6 +1,7 @@
 ﻿using MainUI.Config;
 using MainUI.FSql;
 using MainUI.Global;
+using MainUI.Modules;
 using MainUI.Widget;
 using RW;
 using RW.UI.Controls;
@@ -27,6 +28,9 @@ namespace MainUI.TestScreen
 
         // 记录数据View状态类
         ManaulData manaulData = new ManaulData();
+
+        //启动柜数据存储
+        TestParaService testParaService = new TestParaService();
 
         private FrmScarmOpen _scarmForm;
         /// <summary>
@@ -1309,6 +1313,26 @@ namespace MainUI.TestScreen
                         if (MiddleData.instnce.isStartupRecording)
                         {
                             InsertStartupData();
+
+                            //采集启动柜数据
+                            //加入一条甩车还是启机的字段
+                            var allModuleData = testParaService.CollectAllModuleData();
+
+                            if (MiddleData.instnce.StartupName == "甩车"
+                                && allModuleData.TryGetValue("GD350_1", out var obj)
+                                && obj is Dictionary<string, object> gd350)
+                            {
+                                gd350["Inverter_启动类型"] = MiddleData.instnce.StartupName;
+                            }
+                            if (MiddleData.instnce.StartupName == "启机"
+                                && allModuleData.TryGetValue("GD350_1", out var obj2)
+                                && obj2 is Dictionary<string, object> gd3502)
+                            {
+                                gd3502["Inverter_启动类型"] = MiddleData.instnce.StartupName;
+                            }
+
+                            // 保存所有模块的实时数据到TestParaALL表
+                            testParaService.SaveAllModuleDataToTestParaALL(allModuleData);
                         }
                         // 如果已经松手（isRecording为false），并且记录了松手时间
                         else if (MiddleData.instnce.StartupReleaseTime.HasValue)
@@ -1322,6 +1346,26 @@ namespace MainUI.TestScreen
                             else
                             {
                                 InsertStartupData();
+
+                                //采集启动柜数据
+                                //加入一条甩车还是启机的字段
+                                var allModuleData = testParaService.CollectAllModuleData();
+
+                                if (MiddleData.instnce.StartupName == "甩车"
+                                    && allModuleData.TryGetValue("GD350_1", out var obj1)
+                                    && obj1 is Dictionary<string, object> gd350_1)
+                                {
+                                    gd350_1["Inverter_启动类型"] = MiddleData.instnce.StartupName;
+                                }
+                                if (MiddleData.instnce.StartupName == "启机"
+                                    && allModuleData.TryGetValue("GD350_1", out var obj2)
+                                    && obj2 is Dictionary<string, object> gd350_2)
+                                {
+                                    gd350_2["Inverter_启动类型"] = MiddleData.instnce.StartupName;
+                                }
+
+                                // 保存所有模块的实时数据到TestParaALL表
+                                testParaService.SaveAllModuleDataToTestParaALL(allModuleData);
                             }
                         }
 

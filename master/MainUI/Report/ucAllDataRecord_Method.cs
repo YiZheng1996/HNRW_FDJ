@@ -734,6 +734,7 @@ namespace MainUI.Report
                 if (keyNameList.Any(key => key == "GD350_1Data"))
                 {
                     // GD350_1变频器分组列定义
+                    _columnDefinitions.Add(new ColumnDefinition("StartType", "启动类型", 2));
                     _columnDefinitions.Add(new ColumnDefinition("OutputPowerDetect", "输出功率检测", 2));
                     _columnDefinitions.Add(new ColumnDefinition("StartStop", "启动_停止", 2));
                     _columnDefinitions.Add(new ColumnDefinition("RunTimeout", "运行超时时间", 2));
