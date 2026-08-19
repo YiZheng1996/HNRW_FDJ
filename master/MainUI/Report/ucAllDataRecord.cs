@@ -49,6 +49,18 @@ namespace MainUI.Report
 
         List<string> KeyNameList = new List<string>();
 
+        /// <summary>
+        /// 项点表头区分色板（按本次勾选模块顺序轮询）
+        /// </summary>
+        private static readonly string[] HeaderColorPalette =
+        {
+            "#DDFA5E", "#5EFA79", "#FA5E68", "#5EB8FA",
+            "#FA9E5E", "#C05EFA", "#5EFAE8", "#FA5EC8",
+            "#A8FA5E", "#5E7AFA", "#FAD45E", "#FA7A5E",
+            "#5EFAAF", "#E05EFA", "#5ED0FA", "#FA5E9A",
+            "#7AFA5E", "#8A5EFA"
+        };
+
         ucAllDataRecord_Method ucAllDataRecord_Method = new ucAllDataRecord_Method();
 
         Dictionary<int,Dictionary<string, object>> RowDictionary = new Dictionary<int, Dictionary<string, object>>();
@@ -156,6 +168,8 @@ namespace MainUI.Report
                 { "StartPLCDataGrp", typeof(StartPLCDataGrp) },
                 { "SpeedDataGrp", typeof(SpeedDataGrp) },
                 { "GD350_1Data", typeof(GD350_1Data) },
+                { "AirDuctData1Grp", typeof(AirDuctData1Grp) },
+                { "AirDuctData2Grp", typeof(AirDuctData2Grp) },
             };
 
             foreach (var column in _columnDefinitions)
@@ -213,6 +227,32 @@ namespace MainUI.Report
 
             // 标记列已初始化
             _columnsInitialized = true;
+        }
+
+        /// <summary>
+        /// 按本次勾选模块的出现顺序重新分配表头颜色编号，避免跳选时写死的 1/2/3 撞色。
+        /// </summary>
+        private void AssignDynamicHeaderColorTags()
+        {
+            var groupColorMap = new Dictionary<string, int>();
+            int nextTag = 1;
+
+            foreach (var column in _columnDefinitions)
+            {
+                if (string.IsNullOrEmpty(column.GroupName))
+                {
+                    column.Tag_num = 0;
+                    continue;
+                }
+
+                if (!groupColorMap.TryGetValue(column.GroupName, out int tag))
+                {
+                    tag = nextTag++;
+                    groupColorMap[column.GroupName] = tag;
+                }
+
+                column.Tag_num = tag;
+            }
         }
 
         /// <summary>
@@ -285,7 +325,7 @@ namespace MainUI.Report
                 {
                     _columnDefinitions = ucAllDataRecord_Method.AddtcolumnDefinitions(KeyNameList, _columnDefinitions);
                     TagModuleColumnDefinitions(KeyNameList);
-                    
+                    AssignDynamicHeaderColorTags(); 
                 }
                 InitializeColumnDefinitions();
 
@@ -320,17 +360,10 @@ namespace MainUI.Report
                         Width = GetOptimalColumnWidth(column.DisplayName),
                         MinimumWidth = 80,
                     };
-                    if (column.Tag_num == 1)
+                    if (column.Tag_num > 0)
                     {
-                        dataColumn.HeaderCell.Style.BackColor = ColorTranslator.FromHtml("#DDFA5E");
-                    }
-                    else if (column.Tag_num == 2)
-                    {
-                        dataColumn.HeaderCell.Style.BackColor = ColorTranslator.FromHtml("#5EFA79");
-                    }
-                    else if (column.Tag_num == 3)
-                    {
-                        dataColumn.HeaderCell.Style.BackColor = ColorTranslator.FromHtml("#FA5E68");
+                        int colorIndex = (column.Tag_num - 1) % HeaderColorPalette.Length;
+                        dataColumn.HeaderCell.Style.BackColor = ColorTranslator.FromHtml(HeaderColorPalette[colorIndex]);
                     }
                     allDataRecord.Columns.Add(dataColumn);
                 }
@@ -584,10 +617,10 @@ namespace MainUI.Report
             //pym
             else if (value is Boolean booleanValue)
             {
-                string state = "关";
+                string state = "0";
                 if (booleanValue is true)
                 {
-                    state = "开";
+                    state = "1";
                 }
                 return state;
             }

@@ -50,6 +50,8 @@ namespace MainUI.Report
             this.ChoiceAll = new System.Windows.Forms.CheckBox();
             this.EngineOilDataGrp = new System.Windows.Forms.CheckBox();
             this.GD350_1Data = new System.Windows.Forms.CheckBox();
+            this.AirDuctData1Grp = new System.Windows.Forms.CheckBox();
+            this.AirDuctData2Grp = new System.Windows.Forms.CheckBox();
             this.PipelineFaultDataGrp = new System.Windows.Forms.CheckBox();
             this.ExChangeDataGrpBool = new System.Windows.Forms.CheckBox();
             this.ExChangeDataGrpDouble = new System.Windows.Forms.CheckBox();
@@ -286,6 +288,8 @@ namespace MainUI.Report
             this.groupBox1.Controls.Add(this.ChoiceAll);
             this.groupBox1.Controls.Add(this.EngineOilDataGrp);
             this.groupBox1.Controls.Add(this.GD350_1Data);
+            this.groupBox1.Controls.Add(this.AirDuctData1Grp);
+            this.groupBox1.Controls.Add(this.AirDuctData2Grp);
             this.groupBox1.Controls.Add(this.PipelineFaultDataGrp);
             this.groupBox1.Controls.Add(this.ExChangeDataGrpBool);
             this.groupBox1.Controls.Add(this.ExChangeDataGrpDouble);
@@ -302,7 +306,7 @@ namespace MainUI.Report
             this.groupBox1.Controls.Add(this.FuelDataGrp);
             this.groupBox1.Location = new System.Drawing.Point(10, 918);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1612, 79);
+            this.groupBox1.Size = new System.Drawing.Size(1860, 79);
             this.groupBox1.TabIndex = 852;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "选择项点";
@@ -312,7 +316,7 @@ namespace MainUI.Report
             this.BaseDataGrp.AutoSize = true;
             this.BaseDataGrp.Location = new System.Drawing.Point(6, 23);
             this.BaseDataGrp.Name = "BaseDataGrp";
-            this.BaseDataGrp.Size = new System.Drawing.Size(136, 35);
+            this.BaseDataGrp.Size = new System.Drawing.Size(93, 25);
             this.BaseDataGrp.TabIndex = 18;
             this.BaseDataGrp.Text = "基础数据";
             this.BaseDataGrp.UseVisualStyleBackColor = true;
@@ -320,9 +324,9 @@ namespace MainUI.Report
             // ChoiceAll
             // 
             this.ChoiceAll.AutoSize = true;
-            this.ChoiceAll.Location = new System.Drawing.Point(1340, 54);
+            this.ChoiceAll.Location = new System.Drawing.Point(1514, 51);
             this.ChoiceAll.Name = "ChoiceAll";
-            this.ChoiceAll.Size = new System.Drawing.Size(88, 35);
+            this.ChoiceAll.Size = new System.Drawing.Size(61, 25);
             this.ChoiceAll.TabIndex = 17;
             this.ChoiceAll.Text = "全选";
             this.ChoiceAll.UseVisualStyleBackColor = true;
@@ -333,7 +337,7 @@ namespace MainUI.Report
             this.EngineOilDataGrp.AutoSize = true;
             this.EngineOilDataGrp.Location = new System.Drawing.Point(6, 54);
             this.EngineOilDataGrp.Name = "EngineOilDataGrp";
-            this.EngineOilDataGrp.Size = new System.Drawing.Size(208, 35);
+            this.EngineOilDataGrp.Size = new System.Drawing.Size(141, 25);
             this.EngineOilDataGrp.TabIndex = 16;
             this.EngineOilDataGrp.Text = "发动机机油数据";
             this.EngineOilDataGrp.UseVisualStyleBackColor = true;
@@ -343,17 +347,37 @@ namespace MainUI.Report
             this.GD350_1Data.AutoSize = true;
             this.GD350_1Data.Location = new System.Drawing.Point(1193, 54);
             this.GD350_1Data.Name = "GD350_1Data";
-            this.GD350_1Data.Size = new System.Drawing.Size(160, 35);
+            this.GD350_1Data.Size = new System.Drawing.Size(109, 25);
             this.GD350_1Data.TabIndex = 15;
             this.GD350_1Data.Text = "启动柜数据";
             this.GD350_1Data.UseVisualStyleBackColor = true;
             // 
+            // AirDuctData1Grp
+            // 
+            this.AirDuctData1Grp.AutoSize = true;
+            this.AirDuctData1Grp.Location = new System.Drawing.Point(1340, 23);
+            this.AirDuctData1Grp.Name = "AirDuctData1Grp";
+            this.AirDuctData1Grp.Size = new System.Drawing.Size(157, 25);
+            this.AirDuctData1Grp.TabIndex = 19;
+            this.AirDuctData1Grp.Text = "一号风道加热数据";
+            this.AirDuctData1Grp.UseVisualStyleBackColor = true;
+            // 
+            // AirDuctData2Grp
+            // 
+            this.AirDuctData2Grp.AutoSize = true;
+            this.AirDuctData2Grp.Location = new System.Drawing.Point(1340, 51);
+            this.AirDuctData2Grp.Name = "AirDuctData2Grp";
+            this.AirDuctData2Grp.Size = new System.Drawing.Size(157, 25);
+            this.AirDuctData2Grp.TabIndex = 20;
+            this.AirDuctData2Grp.Text = "二号风道加热数据";
+            this.AirDuctData2Grp.UseVisualStyleBackColor = true;
+            // 
             // PipelineFaultDataGrp
             // 
             this.PipelineFaultDataGrp.AutoSize = true;
-            this.PipelineFaultDataGrp.Location = new System.Drawing.Point(1340, 23);
+            this.PipelineFaultDataGrp.Location = new System.Drawing.Point(1514, 23);
             this.PipelineFaultDataGrp.Name = "PipelineFaultDataGrp";
-            this.PipelineFaultDataGrp.Size = new System.Drawing.Size(88, 35);
+            this.PipelineFaultDataGrp.Size = new System.Drawing.Size(61, 25);
             this.PipelineFaultDataGrp.TabIndex = 14;
             this.PipelineFaultDataGrp.Text = "故障";
             this.PipelineFaultDataGrp.UseVisualStyleBackColor = true;
@@ -363,7 +387,7 @@ namespace MainUI.Report
             this.ExChangeDataGrpBool.AutoSize = true;
             this.ExChangeDataGrpBool.Location = new System.Drawing.Point(1193, 23);
             this.ExChangeDataGrpBool.Name = "ExChangeDataGrpBool";
-            this.ExChangeDataGrpBool.Size = new System.Drawing.Size(208, 35);
+            this.ExChangeDataGrpBool.Size = new System.Drawing.Size(141, 25);
             this.ExChangeDataGrpBool.TabIndex = 13;
             this.ExChangeDataGrpBool.Text = "交互开关量输入";
             this.ExChangeDataGrpBool.UseVisualStyleBackColor = true;
@@ -373,7 +397,7 @@ namespace MainUI.Report
             this.ExChangeDataGrpDouble.AutoSize = true;
             this.ExChangeDataGrpDouble.Location = new System.Drawing.Point(1032, 23);
             this.ExChangeDataGrpDouble.Name = "ExChangeDataGrpDouble";
-            this.ExChangeDataGrpDouble.Size = new System.Drawing.Size(208, 35);
+            this.ExChangeDataGrpDouble.Size = new System.Drawing.Size(141, 25);
             this.ExChangeDataGrpDouble.TabIndex = 12;
             this.ExChangeDataGrpDouble.Text = "交互模拟量输入";
             this.ExChangeDataGrpDouble.UseVisualStyleBackColor = true;
@@ -383,7 +407,7 @@ namespace MainUI.Report
             this.SpeedDataGrp.AutoSize = true;
             this.SpeedDataGrp.Location = new System.Drawing.Point(1032, 54);
             this.SpeedDataGrp.Name = "SpeedDataGrp";
-            this.SpeedDataGrp.Size = new System.Drawing.Size(184, 35);
+            this.SpeedDataGrp.Size = new System.Drawing.Size(125, 25);
             this.SpeedDataGrp.TabIndex = 11;
             this.SpeedDataGrp.Text = "转速模块数据";
             this.SpeedDataGrp.UseVisualStyleBackColor = true;
@@ -393,7 +417,7 @@ namespace MainUI.Report
             this.DODataGrp.AutoSize = true;
             this.DODataGrp.Location = new System.Drawing.Point(851, 23);
             this.DODataGrp.Name = "DODataGrp";
-            this.DODataGrp.Size = new System.Drawing.Size(232, 35);
+            this.DODataGrp.Size = new System.Drawing.Size(157, 25);
             this.DODataGrp.TabIndex = 10;
             this.DODataGrp.Text = "实验台开关量输出";
             this.DODataGrp.UseVisualStyleBackColor = true;
@@ -403,7 +427,7 @@ namespace MainUI.Report
             this.StartPLCDataGrp.AutoSize = true;
             this.StartPLCDataGrp.Location = new System.Drawing.Point(851, 54);
             this.StartPLCDataGrp.Name = "StartPLCDataGrp";
-            this.StartPLCDataGrp.Size = new System.Drawing.Size(160, 35);
+            this.StartPLCDataGrp.Size = new System.Drawing.Size(109, 25);
             this.StartPLCDataGrp.TabIndex = 9;
             this.StartPLCDataGrp.Text = "变频器数据";
             this.StartPLCDataGrp.UseVisualStyleBackColor = true;
@@ -413,7 +437,7 @@ namespace MainUI.Report
             this.DIDataGrp.AutoSize = true;
             this.DIDataGrp.Location = new System.Drawing.Point(666, 23);
             this.DIDataGrp.Name = "DIDataGrp";
-            this.DIDataGrp.Size = new System.Drawing.Size(232, 35);
+            this.DIDataGrp.Size = new System.Drawing.Size(157, 25);
             this.DIDataGrp.TabIndex = 8;
             this.DIDataGrp.Text = "实验台开关量输入";
             this.DIDataGrp.UseVisualStyleBackColor = true;
@@ -423,7 +447,7 @@ namespace MainUI.Report
             this.PLC2AIDataGrp.AutoSize = true;
             this.PLC2AIDataGrp.Location = new System.Drawing.Point(666, 54);
             this.PLC2AIDataGrp.Name = "PLC2AIDataGrp";
-            this.PLC2AIDataGrp.Size = new System.Drawing.Size(246, 35);
+            this.PLC2AIDataGrp.Size = new System.Drawing.Size(166, 25);
             this.PLC2AIDataGrp.TabIndex = 7;
             this.PLC2AIDataGrp.Text = "实验台模拟量输出2";
             this.PLC2AIDataGrp.UseVisualStyleBackColor = true;
@@ -433,7 +457,7 @@ namespace MainUI.Report
             this.AODataGrp.AutoSize = true;
             this.AODataGrp.Location = new System.Drawing.Point(483, 23);
             this.AODataGrp.Name = "AODataGrp";
-            this.AODataGrp.Size = new System.Drawing.Size(246, 35);
+            this.AODataGrp.Size = new System.Drawing.Size(166, 25);
             this.AODataGrp.TabIndex = 6;
             this.AODataGrp.Text = "实验台模拟量输出1";
             this.AODataGrp.UseVisualStyleBackColor = true;
@@ -443,7 +467,7 @@ namespace MainUI.Report
             this.WaterDataGrp.AutoSize = true;
             this.WaterDataGrp.Location = new System.Drawing.Point(483, 51);
             this.WaterDataGrp.Name = "WaterDataGrp";
-            this.WaterDataGrp.Size = new System.Drawing.Size(160, 35);
+            this.WaterDataGrp.Size = new System.Drawing.Size(109, 25);
             this.WaterDataGrp.TabIndex = 5;
             this.WaterDataGrp.Text = "水系统数据";
             this.WaterDataGrp.UseVisualStyleBackColor = true;
@@ -453,7 +477,7 @@ namespace MainUI.Report
             this.AIDataGrp.AutoSize = true;
             this.AIDataGrp.Location = new System.Drawing.Point(308, 23);
             this.AIDataGrp.Name = "AIDataGrp";
-            this.AIDataGrp.Size = new System.Drawing.Size(232, 35);
+            this.AIDataGrp.Size = new System.Drawing.Size(157, 25);
             this.AIDataGrp.TabIndex = 4;
             this.AIDataGrp.Text = "实验台模拟量输入";
             this.AIDataGrp.UseVisualStyleBackColor = true;
@@ -463,7 +487,7 @@ namespace MainUI.Report
             this.ThreePhaseElectricData.AutoSize = true;
             this.ThreePhaseElectricData.Location = new System.Drawing.Point(308, 54);
             this.ThreePhaseElectricData.Name = "ThreePhaseElectricData";
-            this.ThreePhaseElectricData.Size = new System.Drawing.Size(184, 35);
+            this.ThreePhaseElectricData.Size = new System.Drawing.Size(125, 25);
             this.ThreePhaseElectricData.TabIndex = 3;
             this.ThreePhaseElectricData.Text = "发动机电数据";
             this.ThreePhaseElectricData.UseVisualStyleBackColor = true;
@@ -473,7 +497,7 @@ namespace MainUI.Report
             this.TRDPDataGrp.AutoSize = true;
             this.TRDPDataGrp.Location = new System.Drawing.Point(153, 23);
             this.TRDPDataGrp.Name = "TRDPDataGrp";
-            this.TRDPDataGrp.Size = new System.Drawing.Size(208, 35);
+            this.TRDPDataGrp.Size = new System.Drawing.Size(141, 25);
             this.TRDPDataGrp.TabIndex = 2;
             this.TRDPDataGrp.Text = "发动机数据输出";
             this.TRDPDataGrp.UseVisualStyleBackColor = true;
@@ -483,7 +507,7 @@ namespace MainUI.Report
             this.FuelDataGrp.AutoSize = true;
             this.FuelDataGrp.Location = new System.Drawing.Point(153, 54);
             this.FuelDataGrp.Name = "FuelDataGrp";
-            this.FuelDataGrp.Size = new System.Drawing.Size(136, 35);
+            this.FuelDataGrp.Size = new System.Drawing.Size(93, 25);
             this.FuelDataGrp.TabIndex = 1;
             this.FuelDataGrp.Text = "燃油数据";
             this.FuelDataGrp.UseVisualStyleBackColor = true;
@@ -567,7 +591,7 @@ namespace MainUI.Report
             // 
             // ucAllDataRecord
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.Controls.Add(this.reportSave);
@@ -592,7 +616,7 @@ namespace MainUI.Report
             this.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ucAllDataRecord";
-            this.Size = new System.Drawing.Size(1828, 997);
+            this.Size = new System.Drawing.Size(1990, 997);
             this.Load += new System.EventHandler(this.ucAutoRecord_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.allDataRecord)).EndInit();
@@ -629,6 +653,8 @@ namespace MainUI.Report
         private CheckBox ThreePhaseElectricData;
         private CheckBox TRDPDataGrp;
         private CheckBox GD350_1Data;
+        private CheckBox AirDuctData1Grp;
+        private CheckBox AirDuctData2Grp;
         private CheckBox PipelineFaultDataGrp;
         private CheckBox ExChangeDataGrpBool;
         private CheckBox ExChangeDataGrpDouble;

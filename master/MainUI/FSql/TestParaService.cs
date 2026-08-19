@@ -110,6 +110,13 @@ namespace MainUI.FSql
                                 // 同步采集所有模块数据
                                 var allModuleData = CollectAllModuleData();
 
+                                //当不是甩车或启机的时候记录数据为无动作
+                               if (allModuleData.TryGetValue("GD350_1", out var obj3)
+                                && obj3 is Dictionary<string, object> gd3503)
+                                {
+                                    gd3503["Inverter_启动类型"] = "无动作";
+                                }
+
                                 // 保存所有模块的实时数据到TestParaALL表
                                 SaveAllModuleDataToTestParaALL(allModuleData);
                             }
@@ -344,6 +351,23 @@ namespace MainUI.FSql
                 {
                     var inverterData = Common.gd350_1.DataValue.ToDictionary(kv => $"Inverter_{kv.Key}", kv => (object)kv.Value);
                     allData["GD350_1"] = inverterData;
+                }
+
+                // 风道加热模块：一号 / 二号分别落库
+                if (Common.AirDuctGrp != null)
+                {
+                    var airDuctData = Common.AirDuctGrp._doubles.ToDictionary(kv => $"AirDuct_{kv.Key}", kv => (object)kv.Value);
+                    foreach (var kv in Common.AirDuctGrp._bools)
+                    {
+                        airDuctData[$"AirDuct_{kv.Key}"] = kv.Value;
+                    }
+
+                    allData["AirDuct1Grp"] = airDuctData
+                        .Where(kv => kv.Key.Contains("一号"))
+                        .ToDictionary(kv => kv.Key, kv => kv.Value);
+                    allData["AirDuct2Grp"] = airDuctData
+                        .Where(kv => kv.Key.Contains("二号"))
+                        .ToDictionary(kv => kv.Key, kv => kv.Value);
                 }
 
                 // 添加时间戳

@@ -1,10 +1,6 @@
 ﻿using MainUI.FSql.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MainUI.Report
 {
@@ -18,7 +14,9 @@ namespace MainUI.Report
         public string PropertyName { get; set; }
         public string DisplayName { get; set; }
         public string GroupName { get; set; }
-        //增加一个条件给列第一行加背景颜色，区分项点
+        /// <summary>
+        /// 查询时按勾选模块顺序动态赋值，用于表头着色
+        /// </summary>
         public int Tag_num { get; set; }
         public Type SourceType { get; set; }
         public PropertyInfo PropertyInfo { get; set; }
@@ -27,15 +25,6 @@ namespace MainUI.Report
         {
             PropertyName = propertyName;
             DisplayName = displayName;
-            SourceType = typeof(TestParaAllData);
-        } 
-        
-
-        public ColumnDefinition(string propertyName, string displayName,int tag_num)
-        {
-            PropertyName = propertyName;
-            DisplayName = displayName;
-            Tag_num = tag_num;
             SourceType = typeof(TestParaAllData);
         }
     }
