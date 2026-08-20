@@ -198,6 +198,7 @@ namespace MainUI.Modules
             }
             DataValue.AddOrUpdate("启动柜启动", 0, (k, oldValue) => 0);
             DataValue.AddOrUpdate("启动柜运行状态", 0, (k, oldValue) => 0);
+            DataValue.AddOrUpdate("启动类型", 0, (k, oldValue) => 0);
 
             for (int i = 0; i < lstTag.Count; i++)
             {

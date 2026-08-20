@@ -283,6 +283,8 @@
     <Compile Include="FSql\AllCollectData\ExChangeDataGrpDouble.cs" />
     <Compile Include="FSql\AllCollectData\FuelDataGrp.cs" />
     <Compile Include="FSql\AllCollectData\GD350_1Data.cs" />
+    <Compile Include="FSql\AllCollectData\AirDuctData1Grp.cs" />
+    <Compile Include="FSql\AllCollectData\AirDuctData2Grp.cs" />
     <Compile Include="FSql\AllCollectData\PipelineFaultDataGrp.cs" />
     <Compile Include="FSql\AllCollectData\PLC2AIDataGrp.cs" />
     <Compile Include="FSql\AllCollectData\SpeedDataGrp.cs" />
@@ -1006,6 +1008,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\AIGrp.resx">
       <DependentUpon>AIGrp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AirDuctGrp.resx">
+      <DependentUpon>AirDuctGrp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\AOGrp.resx">
       <DependentUpon>AOGrp.cs</DependentUpon>
