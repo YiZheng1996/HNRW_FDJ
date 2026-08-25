@@ -44,25 +44,25 @@ namespace MainUI.Widget
                     {
                         this.Invoke(new Action(() =>
                         {
-                            if (_title == "设备生命信号" || _title == "ECU运行时间")
-                            {
-                                lblValue.Text = value.ToString();
-                                return;
-                            }
-                            lblValue.Text = value.ToString("F1");
+                            lblValue.Text = FormatValueText(value);
                         }));
                     }
                     else
                     {
-                        if (_title == "设备生命信号" || _title == "ECU运行时间")
-                        {
-                            lblValue.Text = value.ToString();
-                            return;
-                        }
-                        lblValue.Text = value.ToString("F1");
+                        lblValue.Text = FormatValueText(value);
                     }
                 }
             }
+        }
+
+        private string FormatValueText(double value)
+        {
+            if (_title == "设备生命信号" || _title == "ECU运行时间")
+                return value.ToString();
+            // 曲轴箱压力已放大100倍，界面保留两位小数
+            if (_title == "曲轴箱压力1" || _title == "曲轴箱压力2")
+                return value.ToString("F2");
+            return value.ToString("F1");
         }
 
         private string _unit = "℃";
