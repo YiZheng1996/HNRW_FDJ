@@ -9,9 +9,6 @@ namespace MainUI.FSql.AllCollectData
 {
     public class GD350_1Data
     {
-        [JsonProperty("Inverter_启动类型")]
-        public string StartType { get; set; }
-
         [JsonProperty("Inverter_输出功率检测")]
         public double OutputPowerDetect { get; set; }
 

@@ -1,4 +1,4 @@
-﻿using MainUI.Fault;
+using MainUI.Fault;
 using MainUI.Fault.Engine;
 using MainUI.Fault.Model;
 using MainUI.Global;
@@ -288,7 +288,7 @@ namespace MainUI.Widget
                             data.高温水出水温度 = Common.AI2Grp["T1高温水出机温度"];
                             data.中冷水进水温度 = Common.AI2Grp["T3中冷水进机温度"];
                             data.中冷水出水温度 = Common.AI2Grp["T5中冷水出机温度"];
-                            data.后中冷后空气温度 = Common.AI2Grp["后中冷后空气温度"];
+                            data.后中冷后空气温度 = Common.AI2Grp["台位_后中冷后空气温度"];
                             data.主油道进口油温 = Common.AI2Grp["T21主油道进口油温"];
                             data.前压气机出口空气温度 = Var.TRDP.GetDicValue("前压气机出口空气温度"); //？
                             data.后压气机出口空气温度 = Var.TRDP.GetDicValue("后压气机出口空气温度"); //？
@@ -296,7 +296,7 @@ namespace MainUI.Widget
                             data.燃油精滤器前油压 = Common.fuelGrp["精滤器1前压力检测-P34"];
                             data.燃油精滤器后油压 = Common.fuelGrp["精滤器1后压力检测-P35"];
                             data.机油泵出口油温 = Common.AI2Grp["T20机油泵出口油温"];
-                            data.主油道末端油压 = Common.AI2Grp["主油道末端油压"];
+                            data.主油道末端油压 = Common.AI2Grp["台位_主油道末端油压"];
                             data.后增压器进口油压 = Common.AI2Grp["后增压器机油进口压力"];
                             data.前增压器转速 = Var.TRDP.GetDicValue("前增压器转速");
                             data.后增压器转速 = Var.TRDP.GetDicValue("后增压器转速");
@@ -308,22 +308,22 @@ namespace MainUI.Widget
                             if (data.A1B6缸排气温度 == null || data.A1B6缸排气温度.Length != 16)
                                 data.A1B6缸排气温度 = new double[16];
 
-                            data.A1B6缸排气温度[0] = Common.AI2Grp["A1缸排气温度"];
-                            data.A1B6缸排气温度[1] = Common.AI2Grp["A2缸排气温度"];
-                            data.A1B6缸排气温度[2] = Common.AI2Grp["A3缸排气温度"];
-                            data.A1B6缸排气温度[3] = Common.AI2Grp["A4缸排气温度"];
-                            data.A1B6缸排气温度[4] = Common.AI2Grp["A5缸排气温度"];
-                            data.A1B6缸排气温度[5] = Common.AI2Grp["A6缸排气温度"];
-                            data.A1B6缸排气温度[6] = Common.AI2Grp["A7缸排气温度"];
-                            data.A1B6缸排气温度[7] = Common.AI2Grp["A8缸排气温度"];
-                            data.A1B6缸排气温度[8] = Common.AI2Grp["B1缸排气温度"];
-                            data.A1B6缸排气温度[9] = Common.AI2Grp["B2缸排气温度"];
-                            data.A1B6缸排气温度[10] = Common.AI2Grp["B3缸排气温度"];
-                            data.A1B6缸排气温度[11] = Common.AI2Grp["B4缸排气温度"];
-                            data.A1B6缸排气温度[12] = Common.AI2Grp["B5缸排气温度"];
-                            data.A1B6缸排气温度[13] = Common.AI2Grp["B6缸排气温度"];
-                            data.A1B6缸排气温度[14] = Common.AI2Grp["B7缸排气温度"];
-                            data.A1B6缸排气温度[15] = Common.AI2Grp["B8缸排气温度"];
+                            data.A1B6缸排气温度[0] = Common.AI2Grp["台位_A1缸排气温度"];
+                            data.A1B6缸排气温度[1] = Common.AI2Grp["台位_A2缸排气温度"];
+                            data.A1B6缸排气温度[2] = Common.AI2Grp["台位_A3缸排气温度"];
+                            data.A1B6缸排气温度[3] = Common.AI2Grp["台位_A4缸排气温度"];
+                            data.A1B6缸排气温度[4] = Common.AI2Grp["台位_A5缸排气温度"];
+                            data.A1B6缸排气温度[5] = Common.AI2Grp["台位_A6缸排气温度"];
+                            data.A1B6缸排气温度[6] = Common.AI2Grp["台位_A7缸排气温度"];
+                            data.A1B6缸排气温度[7] = Common.AI2Grp["台位_A8缸排气温度"];
+                            data.A1B6缸排气温度[8] = Common.AI2Grp["台位_B1缸排气温度"];
+                            data.A1B6缸排气温度[9] = Common.AI2Grp["台位_B2缸排气温度"];
+                            data.A1B6缸排气温度[10] = Common.AI2Grp["台位_B3缸排气温度"];
+                            data.A1B6缸排气温度[11] = Common.AI2Grp["台位_B4缸排气温度"];
+                            data.A1B6缸排气温度[12] = Common.AI2Grp["台位_B5缸排气温度"];
+                            data.A1B6缸排气温度[13] = Common.AI2Grp["台位_B6缸排气温度"];
+                            data.A1B6缸排气温度[14] = Common.AI2Grp["台位_B7缸排气温度"];
+                            data.A1B6缸排气温度[15] = Common.AI2Grp["台位_B8缸排气温度"];
 
                             // 1-7缸排气温度
                             if (data._1_7档轴温 == null || data._1_7档轴温.Length != 7)

@@ -1,4 +1,4 @@
-﻿using MainUI.Global;
+using MainUI.Global;
 using MainUI.FSql.Model;
 using System;
 using System.Collections.Generic;
@@ -197,7 +197,7 @@ namespace MainUI.FSql
                 HPressureOut = GetValuePreferTRDP("高温水泵出口压力", () => Common.AI2Grp["P1高温水出机压力"]),
                 EOPressure1 = GetValuePreferTRDP("机油泵出口油压", () => Common.AI2Grp["P20机油泵出口压力"]),
                 POilInlet = GetValuePreferTRDP("主油道进口油压", () => Common.AI2Grp["P21主油道进口油压"]),
-                EOPressure2 = GetValuePreferTRDP("主油道末端油压", () => Common.AI2Grp["主油道末端油压"]),
+                EOPressure2 = GetValuePreferTRDP("主油道末端油压", () => Common.AI2Grp["台位_主油道末端油压"]),
                 PTurboOilFront = GetValuePreferTRDP("前增压器进口油压", () => Common.AI2Grp["前增压器机油进口压力"]),
                 PTurboOilAfter = GetValuePreferTRDP("后增压器进口油压", () => Common.AI2Grp["后增压器机油进口压力"]),
 
@@ -220,7 +220,7 @@ namespace MainUI.FSql
                 PInterCoolerFrontFront = SafeGet(() => Common.AI2Grp["前中冷前空气压力"]),
                 PInterCoolerFrontAfter = SafeGet(() => Common.AI2Grp["前中冷后空气压力"]),
                 PInterCoolerAfterFront = SafeGet(() => Common.AI2Grp["后中冷前空气压力"]),
-                PInterCoolerAfterAfter = GetValuePreferTRDP("后中冷后空气压力", () => Common.AI2Grp["后中冷后空气压力"]),
+                PInterCoolerAfterAfter = GetValuePreferTRDP("后中冷后空气压力", () => Common.AI2Grp["台位_后中冷后空气压力"]),
                 FrontTurbochargerPressureIn2 = SafeGet(() => Common.AI2Grp["前涡轮进口废气压力"]),
                 AfterTurbochargerPressureIn2 = SafeGet(() => Common.AI2Grp["后涡轮进口废气压力"]),
 
@@ -228,7 +228,7 @@ namespace MainUI.FSql
                 TInterCoolerFrontFront = GetValuePreferTRDP("前压气机出口空气温度", () => Common.AI2Grp["前中冷前空气温度"]),
                 TInterCoolerFrontAfter = GetValuePreferTRDP("后压气机出口空气温度", () => Common.AI2Grp["前中冷后空气温度"]),
                 TInterCoolerAfterFront = SafeGet(() => Common.AI2Grp["后中冷前空气温度"]),
-                TInterCoolerAfterAfter = GetValuePreferTRDP("后中冷器后空气温度", () => Common.AI2Grp["后中冷后空气温度"]),
+                TInterCoolerAfterAfter = GetValuePreferTRDP("后中冷器后空气温度", () => Common.AI2Grp["台位_后中冷后空气温度"]),
 
                 // ══════════════════ 出厂表 列59-62：涡轮前/后废气温度 ══════════════════
                 FrontTurbochargerTempIn = GetValuePreferTRDP("A涡前排气温度", () => Common.AI2Grp["前涡轮进口废气温度"]),
@@ -237,18 +237,18 @@ namespace MainUI.FSql
                 AfterTurbochargerTempOut = SafeGet(() => Common.AI2Grp["后涡轮出口废气温度"]),
 
                 // ══════════════════ 出厂表 各缸排气温度，已确认无需改动 ══════════════════
-                EGTempA1 = GetValuePreferTRDP("A1缸排气温度", () => Common.AI2Grp["A1缸排气温度"]),
-                EGTempA2 = GetValuePreferTRDP("A2缸排气温度", () => Common.AI2Grp["A2缸排气温度"]),
-                EGTempA3 = GetValuePreferTRDP("A3缸排气温度", () => Common.AI2Grp["A3缸排气温度"]),
-                EGTempA4 = GetValuePreferTRDP("A4缸排气温度", () => Common.AI2Grp["A4缸排气温度"]),
-                EGTempA5 = GetValuePreferTRDP("A5缸排气温度", () => Common.AI2Grp["A5缸排气温度"]),
-                EGTempA6 = GetValuePreferTRDP("A6缸排气温度", () => Common.AI2Grp["A6缸排气温度"]),
-                EGTempB1 = GetValuePreferTRDP("B1缸排气温度", () => Common.AI2Grp["B1缸排气温度"]),
-                EGTempB2 = GetValuePreferTRDP("B2缸排气温度", () => Common.AI2Grp["B2缸排气温度"]),
-                EGTempB3 = GetValuePreferTRDP("B3缸排气温度", () => Common.AI2Grp["B3缸排气温度"]),
-                EGTempB4 = GetValuePreferTRDP("B4缸排气温度", () => Common.AI2Grp["B4缸排气温度"]),
-                EGTempB5 = GetValuePreferTRDP("B5缸排气温度", () => Common.AI2Grp["B5缸排气温度"]),
-                EGTempB6 = GetValuePreferTRDP("B6缸排气温度", () => Common.AI2Grp["B6缸排气温度"]),
+                EGTempA1 = GetValuePreferTRDP("A1缸排气温度", () => Common.AI2Grp["台位_A1缸排气温度"]),
+                EGTempA2 = GetValuePreferTRDP("A2缸排气温度", () => Common.AI2Grp["台位_A2缸排气温度"]),
+                EGTempA3 = GetValuePreferTRDP("A3缸排气温度", () => Common.AI2Grp["台位_A3缸排气温度"]),
+                EGTempA4 = GetValuePreferTRDP("A4缸排气温度", () => Common.AI2Grp["台位_A4缸排气温度"]),
+                EGTempA5 = GetValuePreferTRDP("A5缸排气温度", () => Common.AI2Grp["台位_A5缸排气温度"]),
+                EGTempA6 = GetValuePreferTRDP("A6缸排气温度", () => Common.AI2Grp["台位_A6缸排气温度"]),
+                EGTempB1 = GetValuePreferTRDP("B1缸排气温度", () => Common.AI2Grp["台位_B1缸排气温度"]),
+                EGTempB2 = GetValuePreferTRDP("B2缸排气温度", () => Common.AI2Grp["台位_B2缸排气温度"]),
+                EGTempB3 = GetValuePreferTRDP("B3缸排气温度", () => Common.AI2Grp["台位_B3缸排气温度"]),
+                EGTempB4 = GetValuePreferTRDP("B4缸排气温度", () => Common.AI2Grp["台位_B4缸排气温度"]),
+                EGTempB5 = GetValuePreferTRDP("B5缸排气温度", () => Common.AI2Grp["台位_B5缸排气温度"]),
+                EGTempB6 = GetValuePreferTRDP("B6缸排气温度", () => Common.AI2Grp["台位_B6缸排气温度"]),
 
                 // 各缸爆发压力：人工打印纸质表后手动填写，软件不采集、TRDP也没有，字段保留不赋值（默认0，导出留空）
             };

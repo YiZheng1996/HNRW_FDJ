@@ -1,4 +1,4 @@
-﻿using MainUI.Global;
+using MainUI.Global;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -63,7 +63,7 @@ namespace MainUI.FSql
 
                 // 进气压降
                 var frontPressure = Common.AI2Grp["前中冷前空气压力"] - Common.AI2Grp["前中冷后空气压力"];
-                var afterPressure = Common.AI2Grp["后中冷前空气压力"] - Common.AI2Grp["后中冷后空气压力"];
+                var afterPressure = Common.AI2Grp["后中冷前空气压力"] - Common.AI2Grp["台位_后中冷后空气压力"];
                 var testData = new AutoRecordPara
                 {
                     gid = Guid.NewGuid().ToString("N"), // 生成正整数ID
@@ -107,7 +107,7 @@ namespace MainUI.FSql
                     // 机油温度
                     HeatExchangerTempIn = Common.engineOilGrp["冷却器进口油温-T25"],   // 19 机油热交换器进口油温
                     HeatExchangerTempOut = Common.engineOilGrp["机油温度实时PID"],    // 20 机油热交换器出口油温
-                    EOPressure2 = Common.AI2Grp["主油道末端油压"],               // 21 主油道末端油压        
+                    EOPressure2 = Common.AI2Grp["台位_主油道末端油压"],               // 21 主油道末端油压        
                     EOPressure1 = Common.AI2Grp["P20机油泵出口压力"],            // 22 机油泵出口油压
                     EngineOilOutletTemp = Common.AI2Grp["T20机油泵出口油温"],  // 23 机油泵出口油温
 
@@ -119,13 +119,13 @@ namespace MainUI.FSql
                     FrontAirTempIn = Common.AI2Grp["前中冷前空气温度"],     // 26 前中冷前空气温度   
                     AfterAirTempIn = Common.AI2Grp["后中冷前空气温度"],     // 27 后中冷前空气温度
                     FrontAirTempOut = Common.AI2Grp["前中冷后空气温度"],    // 28 前中冷后空气温度
-                    AfterAirTempOut = Common.AI2Grp["后中冷后空气温度"],    // 29 后中冷后空气温度
+                    AfterAirTempOut = Common.AI2Grp["台位_后中冷后空气温度"],    // 29 后中冷后空气温度
 
                     //空气压力
                     FrontAirPressureIn = Common.AI2Grp["前中冷前空气压力"], // 30 前中冷前空气压力
                     AfterAirPressureIn = Common.AI2Grp["后中冷前空气压力"], // 31 后中冷前空气压力
                     FrontAirPressureOut = Common.AI2Grp["前中冷后空气压力"],// 32 前中冷后空气压力
-                    AfterAirPressureOut = Common.AI2Grp["后中冷后空气压力"],// 33 后中冷后空气压力
+                    AfterAirPressureOut = Common.AI2Grp["台位_后中冷后空气压力"],// 33 后中冷后空气压力
 
                     //增压器转速
                     FrontTurbochargerRPM = Var.TRDP.GetDicValue("前增压器转速"),  // 34 前增压器转速
@@ -138,22 +138,22 @@ namespace MainUI.FSql
                     AfterTurbochargerPressureOut = Common.AI2Grp["后增压器排气背压"],       // 39 后增压器排气背压
 
                     //缸体温度
-                    EGTempA1 = Common.AI2Grp["A1缸排气温度"],      // 40 A1缸排气温度
-                    EGTempA2 = Common.AI2Grp["A2缸排气温度"],      // 41 A2缸排气温度
-                    EGTempA3 = Common.AI2Grp["A3缸排气温度"],      // 42 A3缸排气温度
-                    EGTempA4 = Common.AI2Grp["A4缸排气温度"],      // 43 A4缸排气温度
-                    EGTempA5 = Common.AI2Grp["A5缸排气温度"],      // 44 A5缸排气温度
-                    EGTempA6 = Common.AI2Grp["A6缸排气温度"],      // 45 A6缸排气温度
-                    EGTempA7 = Common.AI2Grp["A7缸排气温度"],      // 46 A7缸排气温度
-                    EGTempA8 = Common.AI2Grp["A8缸排气温度"],      // 47 A8缸排气温度
-                    EGTempB1 = Common.AI2Grp["B1缸排气温度"],      // 48 B1缸排气温度
-                    EGTempB2 = Common.AI2Grp["B2缸排气温度"],      // 49 B2缸排气温度
-                    EGTempB3 = Common.AI2Grp["B3缸排气温度"],      // 50 B3缸排气温度
-                    EGTempB4 = Common.AI2Grp["B4缸排气温度"],      // 51 B4缸排气温度
-                    EGTempB5 = Common.AI2Grp["B5缸排气温度"],      // 52 B5缸排气温度
-                    EGTempB6 = Common.AI2Grp["B6缸排气温度"],      // 53 B6缸排气温度
-                    EGTempB7 = Common.AI2Grp["B7缸排气温度"],      // 54 B7缸排气温度
-                    EGTempB8 = Common.AI2Grp["B8缸排气温度"],      // 55 B8缸排气温度
+                    EGTempA1 = Common.AI2Grp["台位_A1缸排气温度"],      // 40 A1缸排气温度
+                    EGTempA2 = Common.AI2Grp["台位_A2缸排气温度"],      // 41 A2缸排气温度
+                    EGTempA3 = Common.AI2Grp["台位_A3缸排气温度"],      // 42 A3缸排气温度
+                    EGTempA4 = Common.AI2Grp["台位_A4缸排气温度"],      // 43 A4缸排气温度
+                    EGTempA5 = Common.AI2Grp["台位_A5缸排气温度"],      // 44 A5缸排气温度
+                    EGTempA6 = Common.AI2Grp["台位_A6缸排气温度"],      // 45 A6缸排气温度
+                    EGTempA7 = Common.AI2Grp["台位_A7缸排气温度"],      // 46 A7缸排气温度
+                    EGTempA8 = Common.AI2Grp["台位_A8缸排气温度"],      // 47 A8缸排气温度
+                    EGTempB1 = Common.AI2Grp["台位_B1缸排气温度"],      // 48 B1缸排气温度
+                    EGTempB2 = Common.AI2Grp["台位_B2缸排气温度"],      // 49 B2缸排气温度
+                    EGTempB3 = Common.AI2Grp["台位_B3缸排气温度"],      // 50 B3缸排气温度
+                    EGTempB4 = Common.AI2Grp["台位_B4缸排气温度"],      // 51 B4缸排气温度
+                    EGTempB5 = Common.AI2Grp["台位_B5缸排气温度"],      // 52 B5缸排气温度
+                    EGTempB6 = Common.AI2Grp["台位_B6缸排气温度"],      // 53 B6缸排气温度
+                    EGTempB7 = Common.AI2Grp["台位_B7缸排气温度"],      // 54 B7缸排气温度
+                    EGTempB8 = Common.AI2Grp["台位_B8缸排气温度"],      // 55 B8缸排气温度
 
                     // 排气温度
                     FrontTurbochargerTempIn = Common.AI2Grp["前涡轮进口废气温度"],       // 56 前涡轮进口废气温度

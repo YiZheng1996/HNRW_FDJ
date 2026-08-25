@@ -1,4 +1,4 @@
-﻿
+
 namespace MainUI.TestScreen
 {
     partial class ucForm1
@@ -857,8 +857,8 @@ namespace MainUI.TestScreen
             this.ucValueFrom1Label28.Name = "ucValueFrom1Label28";
             this.ucValueFrom1Label28.Size = new System.Drawing.Size(333, 22);
             this.ucValueFrom1Label28.TabIndex = 48;
-            this.ucValueFrom1Label28.Tag = "中冷水泵出口压力";
-            this.ucValueFrom1Label28.Title = "中冷水泵出口压力";
+            this.ucValueFrom1Label28.Tag = "台位_中冷水泵出口压力";
+            this.ucValueFrom1Label28.Title = "台位_中冷水泵出口压力";
             this.ucValueFrom1Label28.TitleColor = System.Drawing.Color.Black;
             this.ucValueFrom1Label28.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueFrom1Label28.TitleWidth = 200;
@@ -923,8 +923,8 @@ namespace MainUI.TestScreen
             this.ucValueFrom1Label25.Name = "ucValueFrom1Label25";
             this.ucValueFrom1Label25.Size = new System.Drawing.Size(333, 22);
             this.ucValueFrom1Label25.TabIndex = 44;
-            this.ucValueFrom1Label25.Tag = "高温水泵出口压力";
-            this.ucValueFrom1Label25.Title = "高温水泵出口压力";
+            this.ucValueFrom1Label25.Tag = "台位_高温水泵出口压力";
+            this.ucValueFrom1Label25.Title = "台位_高温水泵出口压力";
             this.ucValueFrom1Label25.TitleColor = System.Drawing.Color.Black;
             this.ucValueFrom1Label25.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueFrom1Label25.TitleWidth = 200;
@@ -967,8 +967,8 @@ namespace MainUI.TestScreen
             this.ucValueFrom1Label23.Name = "ucValueFrom1Label23";
             this.ucValueFrom1Label23.Size = new System.Drawing.Size(333, 22);
             this.ucValueFrom1Label23.TabIndex = 41;
-            this.ucValueFrom1Label23.Tag = "主油道末端油压";
-            this.ucValueFrom1Label23.Title = "主油道末端油压";
+            this.ucValueFrom1Label23.Tag = "台位_主油道末端油压";
+            this.ucValueFrom1Label23.Title = "台位_主油道末端油压";
             this.ucValueFrom1Label23.TitleColor = System.Drawing.Color.Black;
             this.ucValueFrom1Label23.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueFrom1Label23.TitleWidth = 200;
@@ -1495,8 +1495,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel38.Name = "ucValueLabel38";
             this.ucValueLabel38.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel38.TabIndex = 1;
-            this.ucValueLabel38.Tag = "B4缸排气温度";
-            this.ucValueLabel38.Title = "B4缸排气温度";
+            this.ucValueLabel38.Tag = "台位_B4缸排气温度";
+            this.ucValueLabel38.Title = "台位_B4缸排气温度";
             this.ucValueLabel38.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel38.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel38.TitleWidth = 150;
@@ -1517,8 +1517,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel32.Name = "ucValueLabel32";
             this.ucValueLabel32.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel32.TabIndex = 1;
-            this.ucValueLabel32.Tag = "A6缸排气温度";
-            this.ucValueLabel32.Title = "A6缸排气温度";
+            this.ucValueLabel32.Tag = "台位_A6缸排气温度";
+            this.ucValueLabel32.Title = "台位_A6缸排气温度";
             this.ucValueLabel32.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel32.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel32.TitleWidth = 150;
@@ -1561,8 +1561,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel37.Name = "ucValueLabel37";
             this.ucValueLabel37.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel37.TabIndex = 1;
-            this.ucValueLabel37.Tag = "B3缸排气温度";
-            this.ucValueLabel37.Title = "B3缸排气温度";
+            this.ucValueLabel37.Tag = "台位_B3缸排气温度";
+            this.ucValueLabel37.Title = "台位_B3缸排气温度";
             this.ucValueLabel37.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel37.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel37.TitleWidth = 150;
@@ -1605,8 +1605,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel31.Name = "ucValueLabel31";
             this.ucValueLabel31.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel31.TabIndex = 1;
-            this.ucValueLabel31.Tag = "A5缸排气温度";
-            this.ucValueLabel31.Title = "A5缸排气温度";
+            this.ucValueLabel31.Tag = "台位_A5缸排气温度";
+            this.ucValueLabel31.Title = "台位_A5缸排气温度";
             this.ucValueLabel31.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel31.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel31.TitleWidth = 150;
@@ -1627,8 +1627,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel42.Name = "ucValueLabel42";
             this.ucValueLabel42.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel42.TabIndex = 1;
-            this.ucValueLabel42.Tag = "B8缸排气温度";
-            this.ucValueLabel42.Title = "B8缸排气温度";
+            this.ucValueLabel42.Tag = "台位_B8缸排气温度";
+            this.ucValueLabel42.Title = "台位_B8缸排气温度";
             this.ucValueLabel42.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel42.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel42.TitleWidth = 150;
@@ -1671,8 +1671,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel36.Name = "ucValueLabel36";
             this.ucValueLabel36.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel36.TabIndex = 1;
-            this.ucValueLabel36.Tag = "B2缸排气温度";
-            this.ucValueLabel36.Title = "B2缸排气温度";
+            this.ucValueLabel36.Tag = "台位_B2缸排气温度";
+            this.ucValueLabel36.Title = "台位_B2缸排气温度";
             this.ucValueLabel36.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel36.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel36.TitleWidth = 150;
@@ -1715,8 +1715,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel30.Name = "ucValueLabel30";
             this.ucValueLabel30.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel30.TabIndex = 1;
-            this.ucValueLabel30.Tag = "A4缸排气温度";
-            this.ucValueLabel30.Title = "A4缸排气温度";
+            this.ucValueLabel30.Tag = "台位_A4缸排气温度";
+            this.ucValueLabel30.Title = "台位_A4缸排气温度";
             this.ucValueLabel30.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel30.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel30.TitleWidth = 150;
@@ -1803,8 +1803,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel26.Name = "ucValueLabel26";
             this.ucValueLabel26.Size = new System.Drawing.Size(333, 22);
             this.ucValueLabel26.TabIndex = 1;
-            this.ucValueLabel26.Tag = "后中冷后空气温度";
-            this.ucValueLabel26.Title = "后中冷后空气温度";
+            this.ucValueLabel26.Tag = "台位_后中冷后空气温度";
+            this.ucValueLabel26.Title = "台位_后中冷后空气温度";
             this.ucValueLabel26.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel26.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel26.TitleWidth = 180;
@@ -1825,8 +1825,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel22.Name = "ucValueLabel22";
             this.ucValueLabel22.Size = new System.Drawing.Size(333, 22);
             this.ucValueLabel22.TabIndex = 1;
-            this.ucValueLabel22.Tag = "后中冷后空气压力";
-            this.ucValueLabel22.Title = "后中冷后空气压力";
+            this.ucValueLabel22.Tag = "台位_后中冷后空气压力";
+            this.ucValueLabel22.Title = "台位_后中冷后空气压力";
             this.ucValueLabel22.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel22.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel22.TitleWidth = 200;
@@ -1891,8 +1891,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel41.Name = "ucValueLabel41";
             this.ucValueLabel41.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel41.TabIndex = 1;
-            this.ucValueLabel41.Tag = "B7缸排气温度";
-            this.ucValueLabel41.Title = "B7缸排气温度";
+            this.ucValueLabel41.Tag = "台位_B7缸排气温度";
+            this.ucValueLabel41.Title = "台位_B7缸排气温度";
             this.ucValueLabel41.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel41.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel41.TitleWidth = 150;
@@ -1935,8 +1935,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel35.Name = "ucValueLabel35";
             this.ucValueLabel35.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel35.TabIndex = 1;
-            this.ucValueLabel35.Tag = "B1缸排气温度";
-            this.ucValueLabel35.Title = "B1缸排气温度";
+            this.ucValueLabel35.Tag = "台位_B1缸排气温度";
+            this.ucValueLabel35.Title = "台位_B1缸排气温度";
             this.ucValueLabel35.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel35.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel35.TitleWidth = 150;
@@ -1970,8 +1970,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel29.Name = "ucValueLabel29";
             this.ucValueLabel29.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel29.TabIndex = 1;
-            this.ucValueLabel29.Tag = "A3缸排气温度";
-            this.ucValueLabel29.Title = "A3缸排气温度";
+            this.ucValueLabel29.Tag = "台位_A3缸排气温度";
+            this.ucValueLabel29.Title = "台位_A3缸排气温度";
             this.ucValueLabel29.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel29.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel29.TitleWidth = 150;
@@ -2080,8 +2080,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel40.Name = "ucValueLabel40";
             this.ucValueLabel40.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel40.TabIndex = 1;
-            this.ucValueLabel40.Tag = "B6缸排气温度";
-            this.ucValueLabel40.Title = "B6缸排气温度";
+            this.ucValueLabel40.Tag = "台位_B6缸排气温度";
+            this.ucValueLabel40.Title = "台位_B6缸排气温度";
             this.ucValueLabel40.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel40.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel40.TitleWidth = 150;
@@ -2124,8 +2124,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel34.Name = "ucValueLabel34";
             this.ucValueLabel34.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel34.TabIndex = 1;
-            this.ucValueLabel34.Tag = "A8缸排气温度";
-            this.ucValueLabel34.Title = "A8缸排气温度";
+            this.ucValueLabel34.Tag = "台位_A8缸排气温度";
+            this.ucValueLabel34.Title = "台位_A8缸排气温度";
             this.ucValueLabel34.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel34.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel34.TitleWidth = 150;
@@ -2168,8 +2168,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel46.Name = "ucValueLabel46";
             this.ucValueLabel46.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel46.TabIndex = 1;
-            this.ucValueLabel46.Tag = "A2缸排气温度";
-            this.ucValueLabel46.Title = "A2缸排气温度";
+            this.ucValueLabel46.Tag = "台位_A2缸排气温度";
+            this.ucValueLabel46.Title = "台位_A2缸排气温度";
             this.ucValueLabel46.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel46.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel46.TitleWidth = 150;
@@ -2344,8 +2344,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel39.Name = "ucValueLabel39";
             this.ucValueLabel39.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel39.TabIndex = 1;
-            this.ucValueLabel39.Tag = "B5缸排气温度";
-            this.ucValueLabel39.Title = "B5缸排气温度";
+            this.ucValueLabel39.Tag = "台位_B5缸排气温度";
+            this.ucValueLabel39.Title = "台位_B5缸排气温度";
             this.ucValueLabel39.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel39.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel39.TitleWidth = 150;
@@ -2388,8 +2388,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel33.Name = "ucValueLabel33";
             this.ucValueLabel33.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel33.TabIndex = 1;
-            this.ucValueLabel33.Tag = "A7缸排气温度";
-            this.ucValueLabel33.Title = "A7缸排气温度";
+            this.ucValueLabel33.Tag = "台位_A7缸排气温度";
+            this.ucValueLabel33.Title = "台位_A7缸排气温度";
             this.ucValueLabel33.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel33.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel33.TitleWidth = 150;
@@ -2432,8 +2432,8 @@ namespace MainUI.TestScreen
             this.ucValueLabel45.Name = "ucValueLabel45";
             this.ucValueLabel45.Size = new System.Drawing.Size(330, 22);
             this.ucValueLabel45.TabIndex = 1;
-            this.ucValueLabel45.Tag = "A1缸排气温度";
-            this.ucValueLabel45.Title = "A1缸排气温度";
+            this.ucValueLabel45.Tag = "台位_A1缸排气温度";
+            this.ucValueLabel45.Title = "台位_A1缸排气温度";
             this.ucValueLabel45.TitleColor = System.Drawing.Color.Black;
             this.ucValueLabel45.TitleFont = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.ucValueLabel45.TitleWidth = 150;
@@ -2736,7 +2736,7 @@ namespace MainUI.TestScreen
             this.ucParamEngineOutP.Name = "ucParamEngineOutP";
             this.ucParamEngineOutP.Size = new System.Drawing.Size(191, 231);
             this.ucParamEngineOutP.TabIndex = 38;
-            this.ucParamEngineOutP.Tag = "主油道末端油压";
+            this.ucParamEngineOutP.Tag = "台位_主油道末端油压";
             this.ucParamEngineOutP.Title = "机油末端压力(kPa)";
             this.ucParamEngineOutP.TitleFont = new System.Drawing.Font("宋体", 15F);
             this.ucParamEngineOutP.TitleHeight = 51;

@@ -71,9 +71,43 @@ namespace MainUI.Report
             this.pageSize = new Sunny.UI.UITextBox();
             this.uiLabel5 = new Sunny.UI.UILabel();
             this.reportSave = new RW.UI.Controls.RButton();
+            this.reportSaveAll = new RW.UI.Controls.RButton();
+            this.tabDataRecord = new System.Windows.Forms.TabControl();
+            this.tabPageAllData = new System.Windows.Forms.TabPage();
+            this.panelPagingAllData = new System.Windows.Forms.Panel();
+            this.tabPageStartup = new System.Windows.Forms.TabPage();
+            this.panelStartup = new System.Windows.Forms.Panel();
+            this.dgvStartupRecord = new System.Windows.Forms.DataGridView();
+            this.colStartupIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupRecordTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupRPM = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupTorque = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupExcitationVoltage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupExcitationCurrent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupInvertVoltage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupInvertCurrent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupInvertRPM = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupInvertPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStartupInvertFaultCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panelPagingStartup = new System.Windows.Forms.Panel();
+            this.pageSize1 = new Sunny.UI.UITextBox();
+            this.uiLabel6 = new Sunny.UI.UILabel();
+            this.lblTotalNum1 = new Sunny.UI.UITextBox();
+            this.pageNO1 = new Sunny.UI.UITextBox();
+            this.btnUpPage1 = new RW.UI.Controls.RButton();
+            this.btnDownPag1 = new RW.UI.Controls.RButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.allDataRecord)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.tabDataRecord.SuspendLayout();
+            this.tabPageAllData.SuspendLayout();
+            this.panelPagingAllData.SuspendLayout();
+            this.tabPageStartup.SuspendLayout();
+            this.panelStartup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStartupRecord)).BeginInit();
+            this.panelPagingStartup.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtNumber
@@ -117,9 +151,10 @@ namespace MainUI.Report
             // panel1
             // 
             this.panel1.Controls.Add(this.allDataRecord);
-            this.panel1.Location = new System.Drawing.Point(10, 92);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1815, 821);
+            this.panel1.Size = new System.Drawing.Size(1786, 724);
             this.panel1.TabIndex = 393;
             // 
             // allDataRecord
@@ -134,7 +169,7 @@ namespace MainUI.Report
             this.allDataRecord.Name = "allDataRecord";
             this.allDataRecord.ReadOnly = true;
             this.allDataRecord.RowTemplate.Height = 23;
-            this.allDataRecord.Size = new System.Drawing.Size(1815, 821);
+            this.allDataRecord.Size = new System.Drawing.Size(1786, 724);
             this.allDataRecord.TabIndex = 849;
             // 
             // uiLabel4
@@ -240,7 +275,7 @@ namespace MainUI.Report
             this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSearch.FalseColor = System.Drawing.Color.Silver;
             this.btnSearch.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSearch.Location = new System.Drawing.Point(727, 9);
+            this.btnSearch.Location = new System.Drawing.Point(686, 9);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(120, 72);
             this.btnSearch.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
@@ -252,13 +287,14 @@ namespace MainUI.Report
             // 
             // btnUpPage
             // 
+            this.btnUpPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpPage.BackColor = System.Drawing.Color.Silver;
             this.btnUpPage.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnUpPage.FalseColor = System.Drawing.Color.Silver;
             this.btnUpPage.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnUpPage.Location = new System.Drawing.Point(1547, 6);
+            this.btnUpPage.Location = new System.Drawing.Point(1553, 9);
             this.btnUpPage.Name = "btnUpPage";
-            this.btnUpPage.Size = new System.Drawing.Size(106, 72);
+            this.btnUpPage.Size = new System.Drawing.Size(106, 30);
             this.btnUpPage.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.btnUpPage.TabIndex = 851;
             this.btnUpPage.Tag = "";
@@ -268,13 +304,14 @@ namespace MainUI.Report
             // 
             // btnNextPage
             // 
+            this.btnNextPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNextPage.BackColor = System.Drawing.Color.Silver;
             this.btnNextPage.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnNextPage.FalseColor = System.Drawing.Color.Silver;
             this.btnNextPage.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnNextPage.Location = new System.Drawing.Point(1685, 6);
+            this.btnNextPage.Location = new System.Drawing.Point(1671, 9);
             this.btnNextPage.Name = "btnNextPage";
-            this.btnNextPage.Size = new System.Drawing.Size(106, 72);
+            this.btnNextPage.Size = new System.Drawing.Size(106, 30);
             this.btnNextPage.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.btnNextPage.TabIndex = 850;
             this.btnNextPage.Tag = "";
@@ -324,7 +361,7 @@ namespace MainUI.Report
             // ChoiceAll
             // 
             this.ChoiceAll.AutoSize = true;
-            this.ChoiceAll.Location = new System.Drawing.Point(1514, 51);
+            this.ChoiceAll.Location = new System.Drawing.Point(1723, 51);
             this.ChoiceAll.Name = "ChoiceAll";
             this.ChoiceAll.Size = new System.Drawing.Size(61, 25);
             this.ChoiceAll.TabIndex = 17;
@@ -345,7 +382,7 @@ namespace MainUI.Report
             // GD350_1Data
             // 
             this.GD350_1Data.AutoSize = true;
-            this.GD350_1Data.Location = new System.Drawing.Point(1193, 54);
+            this.GD350_1Data.Location = new System.Drawing.Point(1330, 54);
             this.GD350_1Data.Name = "GD350_1Data";
             this.GD350_1Data.Size = new System.Drawing.Size(109, 25);
             this.GD350_1Data.TabIndex = 15;
@@ -355,7 +392,7 @@ namespace MainUI.Report
             // AirDuctData1Grp
             // 
             this.AirDuctData1Grp.AutoSize = true;
-            this.AirDuctData1Grp.Location = new System.Drawing.Point(1340, 23);
+            this.AirDuctData1Grp.Location = new System.Drawing.Point(1519, 23);
             this.AirDuctData1Grp.Name = "AirDuctData1Grp";
             this.AirDuctData1Grp.Size = new System.Drawing.Size(157, 25);
             this.AirDuctData1Grp.TabIndex = 19;
@@ -365,7 +402,7 @@ namespace MainUI.Report
             // AirDuctData2Grp
             // 
             this.AirDuctData2Grp.AutoSize = true;
-            this.AirDuctData2Grp.Location = new System.Drawing.Point(1340, 51);
+            this.AirDuctData2Grp.Location = new System.Drawing.Point(1519, 51);
             this.AirDuctData2Grp.Name = "AirDuctData2Grp";
             this.AirDuctData2Grp.Size = new System.Drawing.Size(157, 25);
             this.AirDuctData2Grp.TabIndex = 20;
@@ -375,7 +412,7 @@ namespace MainUI.Report
             // PipelineFaultDataGrp
             // 
             this.PipelineFaultDataGrp.AutoSize = true;
-            this.PipelineFaultDataGrp.Location = new System.Drawing.Point(1514, 23);
+            this.PipelineFaultDataGrp.Location = new System.Drawing.Point(1723, 23);
             this.PipelineFaultDataGrp.Name = "PipelineFaultDataGrp";
             this.PipelineFaultDataGrp.Size = new System.Drawing.Size(61, 25);
             this.PipelineFaultDataGrp.TabIndex = 14;
@@ -385,7 +422,7 @@ namespace MainUI.Report
             // ExChangeDataGrpBool
             // 
             this.ExChangeDataGrpBool.AutoSize = true;
-            this.ExChangeDataGrpBool.Location = new System.Drawing.Point(1193, 23);
+            this.ExChangeDataGrpBool.Location = new System.Drawing.Point(1330, 23);
             this.ExChangeDataGrpBool.Name = "ExChangeDataGrpBool";
             this.ExChangeDataGrpBool.Size = new System.Drawing.Size(141, 25);
             this.ExChangeDataGrpBool.TabIndex = 13;
@@ -395,7 +432,7 @@ namespace MainUI.Report
             // ExChangeDataGrpDouble
             // 
             this.ExChangeDataGrpDouble.AutoSize = true;
-            this.ExChangeDataGrpDouble.Location = new System.Drawing.Point(1032, 23);
+            this.ExChangeDataGrpDouble.Location = new System.Drawing.Point(1136, 23);
             this.ExChangeDataGrpDouble.Name = "ExChangeDataGrpDouble";
             this.ExChangeDataGrpDouble.Size = new System.Drawing.Size(141, 25);
             this.ExChangeDataGrpDouble.TabIndex = 12;
@@ -405,7 +442,7 @@ namespace MainUI.Report
             // SpeedDataGrp
             // 
             this.SpeedDataGrp.AutoSize = true;
-            this.SpeedDataGrp.Location = new System.Drawing.Point(1032, 54);
+            this.SpeedDataGrp.Location = new System.Drawing.Point(1136, 54);
             this.SpeedDataGrp.Name = "SpeedDataGrp";
             this.SpeedDataGrp.Size = new System.Drawing.Size(125, 25);
             this.SpeedDataGrp.TabIndex = 11;
@@ -415,7 +452,7 @@ namespace MainUI.Report
             // DODataGrp
             // 
             this.DODataGrp.AutoSize = true;
-            this.DODataGrp.Location = new System.Drawing.Point(851, 23);
+            this.DODataGrp.Location = new System.Drawing.Point(942, 23);
             this.DODataGrp.Name = "DODataGrp";
             this.DODataGrp.Size = new System.Drawing.Size(157, 25);
             this.DODataGrp.TabIndex = 10;
@@ -425,7 +462,7 @@ namespace MainUI.Report
             // StartPLCDataGrp
             // 
             this.StartPLCDataGrp.AutoSize = true;
-            this.StartPLCDataGrp.Location = new System.Drawing.Point(851, 54);
+            this.StartPLCDataGrp.Location = new System.Drawing.Point(942, 54);
             this.StartPLCDataGrp.Name = "StartPLCDataGrp";
             this.StartPLCDataGrp.Size = new System.Drawing.Size(109, 25);
             this.StartPLCDataGrp.TabIndex = 9;
@@ -435,7 +472,7 @@ namespace MainUI.Report
             // DIDataGrp
             // 
             this.DIDataGrp.AutoSize = true;
-            this.DIDataGrp.Location = new System.Drawing.Point(666, 23);
+            this.DIDataGrp.Location = new System.Drawing.Point(736, 23);
             this.DIDataGrp.Name = "DIDataGrp";
             this.DIDataGrp.Size = new System.Drawing.Size(157, 25);
             this.DIDataGrp.TabIndex = 8;
@@ -445,7 +482,7 @@ namespace MainUI.Report
             // PLC2AIDataGrp
             // 
             this.PLC2AIDataGrp.AutoSize = true;
-            this.PLC2AIDataGrp.Location = new System.Drawing.Point(666, 54);
+            this.PLC2AIDataGrp.Location = new System.Drawing.Point(736, 54);
             this.PLC2AIDataGrp.Name = "PLC2AIDataGrp";
             this.PLC2AIDataGrp.Size = new System.Drawing.Size(166, 25);
             this.PLC2AIDataGrp.TabIndex = 7;
@@ -455,7 +492,7 @@ namespace MainUI.Report
             // AODataGrp
             // 
             this.AODataGrp.AutoSize = true;
-            this.AODataGrp.Location = new System.Drawing.Point(483, 23);
+            this.AODataGrp.Location = new System.Drawing.Point(535, 23);
             this.AODataGrp.Name = "AODataGrp";
             this.AODataGrp.Size = new System.Drawing.Size(166, 25);
             this.AODataGrp.TabIndex = 6;
@@ -465,7 +502,7 @@ namespace MainUI.Report
             // WaterDataGrp
             // 
             this.WaterDataGrp.AutoSize = true;
-            this.WaterDataGrp.Location = new System.Drawing.Point(483, 51);
+            this.WaterDataGrp.Location = new System.Drawing.Point(535, 51);
             this.WaterDataGrp.Name = "WaterDataGrp";
             this.WaterDataGrp.Size = new System.Drawing.Size(109, 25);
             this.WaterDataGrp.TabIndex = 5;
@@ -475,7 +512,7 @@ namespace MainUI.Report
             // AIDataGrp
             // 
             this.AIDataGrp.AutoSize = true;
-            this.AIDataGrp.Location = new System.Drawing.Point(308, 23);
+            this.AIDataGrp.Location = new System.Drawing.Point(347, 23);
             this.AIDataGrp.Name = "AIDataGrp";
             this.AIDataGrp.Size = new System.Drawing.Size(157, 25);
             this.AIDataGrp.TabIndex = 4;
@@ -485,7 +522,7 @@ namespace MainUI.Report
             // ThreePhaseElectricData
             // 
             this.ThreePhaseElectricData.AutoSize = true;
-            this.ThreePhaseElectricData.Location = new System.Drawing.Point(308, 54);
+            this.ThreePhaseElectricData.Location = new System.Drawing.Point(347, 54);
             this.ThreePhaseElectricData.Name = "ThreePhaseElectricData";
             this.ThreePhaseElectricData.Size = new System.Drawing.Size(125, 25);
             this.ThreePhaseElectricData.TabIndex = 3;
@@ -495,7 +532,7 @@ namespace MainUI.Report
             // TRDPDataGrp
             // 
             this.TRDPDataGrp.AutoSize = true;
-            this.TRDPDataGrp.Location = new System.Drawing.Point(153, 23);
+            this.TRDPDataGrp.Location = new System.Drawing.Point(181, 23);
             this.TRDPDataGrp.Name = "TRDPDataGrp";
             this.TRDPDataGrp.Size = new System.Drawing.Size(141, 25);
             this.TRDPDataGrp.TabIndex = 2;
@@ -505,7 +542,7 @@ namespace MainUI.Report
             // FuelDataGrp
             // 
             this.FuelDataGrp.AutoSize = true;
-            this.FuelDataGrp.Location = new System.Drawing.Point(153, 54);
+            this.FuelDataGrp.Location = new System.Drawing.Point(181, 54);
             this.FuelDataGrp.Name = "FuelDataGrp";
             this.FuelDataGrp.Size = new System.Drawing.Size(93, 25);
             this.FuelDataGrp.TabIndex = 1;
@@ -514,15 +551,16 @@ namespace MainUI.Report
             // 
             // lblTotalNum
             // 
+            this.lblTotalNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotalNum.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblTotalNum.Location = new System.Drawing.Point(1685, 941);
+            this.lblTotalNum.Location = new System.Drawing.Point(1301, 9);
             this.lblTotalNum.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lblTotalNum.MinimumSize = new System.Drawing.Size(1, 16);
             this.lblTotalNum.Name = "lblTotalNum";
             this.lblTotalNum.Padding = new System.Windows.Forms.Padding(5);
             this.lblTotalNum.ReadOnly = true;
             this.lblTotalNum.ShowText = false;
-            this.lblTotalNum.Size = new System.Drawing.Size(105, 40);
+            this.lblTotalNum.Size = new System.Drawing.Size(112, 30);
             this.lblTotalNum.TabIndex = 853;
             this.lblTotalNum.Text = "共0条";
             this.lblTotalNum.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -530,8 +568,9 @@ namespace MainUI.Report
             // 
             // pageNO
             // 
+            this.pageNO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pageNO.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.pageNO.Location = new System.Drawing.Point(1411, 49);
+            this.pageNO.Location = new System.Drawing.Point(1429, 9);
             this.pageNO.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pageNO.MinimumSize = new System.Drawing.Size(1, 16);
             this.pageNO.Name = "pageNO";
@@ -546,10 +585,11 @@ namespace MainUI.Report
             // 
             // pageSize
             // 
+            this.pageSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pageSize.DoubleValue = 200D;
             this.pageSize.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.pageSize.IntValue = 200;
-            this.pageSize.Location = new System.Drawing.Point(1411, 8);
+            this.pageSize.Location = new System.Drawing.Point(1182, 9);
             this.pageSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pageSize.MinimumSize = new System.Drawing.Size(1, 16);
             this.pageSize.Name = "pageSize";
@@ -564,9 +604,10 @@ namespace MainUI.Report
             // 
             // uiLabel5
             // 
+            this.uiLabel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uiLabel5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.uiLabel5.Location = new System.Drawing.Point(1461, 4);
+            this.uiLabel5.Location = new System.Drawing.Point(1232, 5);
             this.uiLabel5.Name = "uiLabel5";
             this.uiLabel5.Size = new System.Drawing.Size(62, 38);
             this.uiLabel5.TabIndex = 856;
@@ -579,32 +620,328 @@ namespace MainUI.Report
             this.reportSave.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.reportSave.FalseColor = System.Drawing.Color.Silver;
             this.reportSave.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.reportSave.Location = new System.Drawing.Point(898, 9);
+            this.reportSave.Location = new System.Drawing.Point(1481, 10);
             this.reportSave.Name = "reportSave";
-            this.reportSave.Size = new System.Drawing.Size(152, 72);
+            this.reportSave.Size = new System.Drawing.Size(120, 72);
             this.reportSave.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
             this.reportSave.TabIndex = 857;
             this.reportSave.Tag = "";
-            this.reportSave.Text = "导出excel文件";
+            this.reportSave.Text = "导出本页";
             this.reportSave.TrueColor = System.Drawing.Color.Lime;
             this.reportSave.Click += new System.EventHandler(this.Report_Save);
+            // 
+            // reportSaveAll
+            // 
+            this.reportSaveAll.BackColor = System.Drawing.Color.Silver;
+            this.reportSaveAll.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.reportSaveAll.FalseColor = System.Drawing.Color.Silver;
+            this.reportSaveAll.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.reportSaveAll.Location = new System.Drawing.Point(1638, 10);
+            this.reportSaveAll.Name = "reportSaveAll";
+            this.reportSaveAll.Size = new System.Drawing.Size(120, 72);
+            this.reportSaveAll.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.reportSaveAll.TabIndex = 858;
+            this.reportSaveAll.Tag = "";
+            this.reportSaveAll.Text = "导出全部";
+            this.reportSaveAll.TrueColor = System.Drawing.Color.Lime;
+            this.reportSaveAll.Click += new System.EventHandler(this.Report_Save_All);
+            // 
+            // tabDataRecord
+            // 
+            this.tabDataRecord.Controls.Add(this.tabPageAllData);
+            this.tabDataRecord.Controls.Add(this.tabPageStartup);
+            this.tabDataRecord.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabDataRecord.ItemSize = new System.Drawing.Size(160, 36);
+            this.tabDataRecord.Location = new System.Drawing.Point(10, 92);
+            this.tabDataRecord.Name = "tabDataRecord";
+            this.tabDataRecord.SelectedIndex = 0;
+            this.tabDataRecord.Size = new System.Drawing.Size(1800, 820);
+            this.tabDataRecord.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabDataRecord.TabIndex = 859;
+            // 
+            // tabPageAllData
+            // 
+            this.tabPageAllData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.tabPageAllData.Controls.Add(this.panel1);
+            this.tabPageAllData.Controls.Add(this.panelPagingAllData);
+            this.tabPageAllData.Location = new System.Drawing.Point(4, 40);
+            this.tabPageAllData.Name = "tabPageAllData";
+            this.tabPageAllData.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAllData.Size = new System.Drawing.Size(1792, 776);
+            this.tabPageAllData.TabIndex = 0;
+            this.tabPageAllData.Text = "总数据记录表";
+            // 
+            // panelPagingAllData
+            // 
+            this.panelPagingAllData.Controls.Add(this.pageSize);
+            this.panelPagingAllData.Controls.Add(this.uiLabel5);
+            this.panelPagingAllData.Controls.Add(this.lblTotalNum);
+            this.panelPagingAllData.Controls.Add(this.pageNO);
+            this.panelPagingAllData.Controls.Add(this.btnUpPage);
+            this.panelPagingAllData.Controls.Add(this.btnNextPage);
+            this.panelPagingAllData.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelPagingAllData.Location = new System.Drawing.Point(3, 727);
+            this.panelPagingAllData.Name = "panelPagingAllData";
+            this.panelPagingAllData.Size = new System.Drawing.Size(1786, 46);
+            this.panelPagingAllData.TabIndex = 860;
+            // 
+            // tabPageStartup
+            // 
+            this.tabPageStartup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.tabPageStartup.Controls.Add(this.panelStartup);
+            this.tabPageStartup.Controls.Add(this.panelPagingStartup);
+            this.tabPageStartup.Location = new System.Drawing.Point(4, 40);
+            this.tabPageStartup.Name = "tabPageStartup";
+            this.tabPageStartup.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageStartup.Size = new System.Drawing.Size(1792, 776);
+            this.tabPageStartup.TabIndex = 1;
+            this.tabPageStartup.Text = "启动柜数据表";
+            // 
+            // panelStartup
+            // 
+            this.panelStartup.Controls.Add(this.dgvStartupRecord);
+            this.panelStartup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelStartup.Location = new System.Drawing.Point(3, 3);
+            this.panelStartup.Name = "panelStartup";
+            this.panelStartup.Size = new System.Drawing.Size(1786, 724);
+            this.panelStartup.TabIndex = 0;
+            // 
+            // dgvStartupRecord
+            // 
+            this.dgvStartupRecord.AllowUserToAddRows = false;
+            this.dgvStartupRecord.AllowUserToDeleteRows = false;
+            this.dgvStartupRecord.BackgroundColor = System.Drawing.Color.White;
+            this.dgvStartupRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStartupRecord.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colStartupIndex,
+            this.colStartupRecordTime,
+            this.colStartupType,
+            this.colStartupRPM,
+            this.colStartupTorque,
+            this.colStartupPower,
+            this.colStartupExcitationVoltage,
+            this.colStartupExcitationCurrent,
+            this.colStartupInvertVoltage,
+            this.colStartupInvertCurrent,
+            this.colStartupInvertRPM,
+            this.colStartupInvertPower,
+            this.colStartupInvertFaultCode});
+            this.dgvStartupRecord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvStartupRecord.EnableHeadersVisualStyles = false;
+            this.dgvStartupRecord.Location = new System.Drawing.Point(0, 0);
+            this.dgvStartupRecord.Name = "dgvStartupRecord";
+            this.dgvStartupRecord.ReadOnly = true;
+            this.dgvStartupRecord.RowHeadersVisible = false;
+            this.dgvStartupRecord.RowTemplate.Height = 23;
+            this.dgvStartupRecord.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvStartupRecord.Size = new System.Drawing.Size(1786, 724);
+            this.dgvStartupRecord.TabIndex = 0;
+            // 
+            // colStartupIndex
+            // 
+            this.colStartupIndex.HeaderText = "序号";
+            this.colStartupIndex.Name = "colStartupIndex";
+            this.colStartupIndex.ReadOnly = true;
+            this.colStartupIndex.Width = 70;
+            // 
+            // colStartupRecordTime
+            // 
+            this.colStartupRecordTime.HeaderText = "记录时间";
+            this.colStartupRecordTime.Name = "colStartupRecordTime";
+            this.colStartupRecordTime.ReadOnly = true;
+            this.colStartupRecordTime.Width = 160;
+            // 
+            // colStartupType
+            // 
+            this.colStartupType.HeaderText = "类型";
+            this.colStartupType.Name = "colStartupType";
+            this.colStartupType.ReadOnly = true;
+            this.colStartupType.Width = 80;
+            // 
+            // colStartupRPM
+            // 
+            this.colStartupRPM.HeaderText = "转速";
+            this.colStartupRPM.Name = "colStartupRPM";
+            this.colStartupRPM.ReadOnly = true;
+            // 
+            // colStartupTorque
+            // 
+            this.colStartupTorque.HeaderText = "扭矩";
+            this.colStartupTorque.Name = "colStartupTorque";
+            this.colStartupTorque.ReadOnly = true;
+            // 
+            // colStartupPower
+            // 
+            this.colStartupPower.HeaderText = "功率";
+            this.colStartupPower.Name = "colStartupPower";
+            this.colStartupPower.ReadOnly = true;
+            // 
+            // colStartupExcitationVoltage
+            // 
+            this.colStartupExcitationVoltage.HeaderText = "励磁电压";
+            this.colStartupExcitationVoltage.Name = "colStartupExcitationVoltage";
+            this.colStartupExcitationVoltage.ReadOnly = true;
+            // 
+            // colStartupExcitationCurrent
+            // 
+            this.colStartupExcitationCurrent.HeaderText = "励磁电流";
+            this.colStartupExcitationCurrent.Name = "colStartupExcitationCurrent";
+            this.colStartupExcitationCurrent.ReadOnly = true;
+            // 
+            // colStartupInvertVoltage
+            // 
+            this.colStartupInvertVoltage.HeaderText = "变频电压";
+            this.colStartupInvertVoltage.Name = "colStartupInvertVoltage";
+            this.colStartupInvertVoltage.ReadOnly = true;
+            // 
+            // colStartupInvertCurrent
+            // 
+            this.colStartupInvertCurrent.HeaderText = "变频电流";
+            this.colStartupInvertCurrent.Name = "colStartupInvertCurrent";
+            this.colStartupInvertCurrent.ReadOnly = true;
+            // 
+            // colStartupInvertRPM
+            // 
+            this.colStartupInvertRPM.HeaderText = "变频转速";
+            this.colStartupInvertRPM.Name = "colStartupInvertRPM";
+            this.colStartupInvertRPM.ReadOnly = true;
+            // 
+            // colStartupInvertPower
+            // 
+            this.colStartupInvertPower.HeaderText = "变频功率";
+            this.colStartupInvertPower.Name = "colStartupInvertPower";
+            this.colStartupInvertPower.ReadOnly = true;
+            // 
+            // colStartupInvertFaultCode
+            // 
+            this.colStartupInvertFaultCode.HeaderText = "故障代码";
+            this.colStartupInvertFaultCode.Name = "colStartupInvertFaultCode";
+            this.colStartupInvertFaultCode.ReadOnly = true;
+            // 
+            // panelPagingStartup
+            // 
+            this.panelPagingStartup.Controls.Add(this.pageSize1);
+            this.panelPagingStartup.Controls.Add(this.uiLabel6);
+            this.panelPagingStartup.Controls.Add(this.lblTotalNum1);
+            this.panelPagingStartup.Controls.Add(this.pageNO1);
+            this.panelPagingStartup.Controls.Add(this.btnUpPage1);
+            this.panelPagingStartup.Controls.Add(this.btnDownPag1);
+            this.panelPagingStartup.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelPagingStartup.Location = new System.Drawing.Point(3, 727);
+            this.panelPagingStartup.Name = "panelPagingStartup";
+            this.panelPagingStartup.Size = new System.Drawing.Size(1786, 46);
+            this.panelPagingStartup.TabIndex = 861;
+            // 
+            // pageSize1
+            // 
+            this.pageSize1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pageSize1.DoubleValue = 200D;
+            this.pageSize1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.pageSize1.IntValue = 200;
+            this.pageSize1.Location = new System.Drawing.Point(1182, 8);
+            this.pageSize1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pageSize1.MinimumSize = new System.Drawing.Size(1, 16);
+            this.pageSize1.Name = "pageSize1";
+            this.pageSize1.Padding = new System.Windows.Forms.Padding(5);
+            this.pageSize1.ShowText = false;
+            this.pageSize1.Size = new System.Drawing.Size(43, 30);
+            this.pageSize1.TabIndex = 861;
+            this.pageSize1.Text = "200";
+            this.pageSize1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pageSize1.Watermark = "";
+            this.pageSize1.TextChanged += new System.EventHandler(this.pageSize1_Change);
+            // 
+            // uiLabel6
+            // 
+            this.uiLabel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.uiLabel6.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.uiLabel6.Location = new System.Drawing.Point(1232, 4);
+            this.uiLabel6.Name = "uiLabel6";
+            this.uiLabel6.Size = new System.Drawing.Size(62, 38);
+            this.uiLabel6.TabIndex = 862;
+            this.uiLabel6.Text = "条/页";
+            this.uiLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTotalNum1
+            // 
+            this.lblTotalNum1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalNum1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblTotalNum1.Location = new System.Drawing.Point(1301, 8);
+            this.lblTotalNum1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblTotalNum1.MinimumSize = new System.Drawing.Size(1, 16);
+            this.lblTotalNum1.Name = "lblTotalNum1";
+            this.lblTotalNum1.Padding = new System.Windows.Forms.Padding(5);
+            this.lblTotalNum1.ReadOnly = true;
+            this.lblTotalNum1.ShowText = false;
+            this.lblTotalNum1.Size = new System.Drawing.Size(112, 30);
+            this.lblTotalNum1.TabIndex = 859;
+            this.lblTotalNum1.Text = "共0条";
+            this.lblTotalNum1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTotalNum1.Watermark = "";
+            // 
+            // pageNO1
+            // 
+            this.pageNO1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pageNO1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.pageNO1.Location = new System.Drawing.Point(1429, 8);
+            this.pageNO1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pageNO1.MinimumSize = new System.Drawing.Size(1, 16);
+            this.pageNO1.Name = "pageNO1";
+            this.pageNO1.Padding = new System.Windows.Forms.Padding(5);
+            this.pageNO1.ReadOnly = true;
+            this.pageNO1.ShowText = false;
+            this.pageNO1.Size = new System.Drawing.Size(112, 30);
+            this.pageNO1.TabIndex = 860;
+            this.pageNO1.Text = "第0页/共0页";
+            this.pageNO1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pageNO1.Watermark = "";
+            // 
+            // btnUpPage1
+            // 
+            this.btnUpPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpPage1.BackColor = System.Drawing.Color.Silver;
+            this.btnUpPage1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnUpPage1.FalseColor = System.Drawing.Color.Silver;
+            this.btnUpPage1.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnUpPage1.Location = new System.Drawing.Point(1553, 8);
+            this.btnUpPage1.Name = "btnUpPage1";
+            this.btnUpPage1.Size = new System.Drawing.Size(106, 30);
+            this.btnUpPage1.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.btnUpPage1.TabIndex = 858;
+            this.btnUpPage1.Tag = "";
+            this.btnUpPage1.Text = "上一页";
+            this.btnUpPage1.TrueColor = System.Drawing.Color.Lime;
+            this.btnUpPage1.Click += new System.EventHandler(this.btnUpPage1_Click);
+            // 
+            // btnDownPag1
+            // 
+            this.btnDownPag1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDownPag1.BackColor = System.Drawing.Color.Silver;
+            this.btnDownPag1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnDownPag1.FalseColor = System.Drawing.Color.Silver;
+            this.btnDownPag1.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnDownPag1.Location = new System.Drawing.Point(1671, 8);
+            this.btnDownPag1.Name = "btnDownPag1";
+            this.btnDownPag1.Size = new System.Drawing.Size(106, 30);
+            this.btnDownPag1.SwitchType = RW.UI.Controls.SwitchStyleEnums.Switch;
+            this.btnDownPag1.TabIndex = 857;
+            this.btnDownPag1.Tag = "";
+            this.btnDownPag1.Text = "下一页";
+            this.btnDownPag1.TrueColor = System.Drawing.Color.Lime;
+            this.btnDownPag1.Click += new System.EventHandler(this.btnDownPag1_Click);
             // 
             // ucAllDataRecord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
+            this.Controls.Add(this.reportSaveAll);
             this.Controls.Add(this.reportSave);
-            this.Controls.Add(this.uiLabel5);
-            this.Controls.Add(this.pageSize);
-            this.Controls.Add(this.pageNO);
-            this.Controls.Add(this.lblTotalNum);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnNextPage);
-            this.Controls.Add(this.btnUpPage);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnSelctModel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tabDataRecord);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dtpEndTime);
             this.Controls.Add(this.uiLabel1);
             this.Controls.Add(this.dtpStartTime);
@@ -616,12 +953,19 @@ namespace MainUI.Report
             this.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ucAllDataRecord";
-            this.Size = new System.Drawing.Size(1990, 997);
+            this.Size = new System.Drawing.Size(1828, 997);
             this.Load += new System.EventHandler(this.ucAutoRecord_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.allDataRecord)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabDataRecord.ResumeLayout(false);
+            this.tabPageAllData.ResumeLayout(false);
+            this.panelPagingAllData.ResumeLayout(false);
+            this.tabPageStartup.ResumeLayout(false);
+            this.panelStartup.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStartupRecord)).EndInit();
+            this.panelPagingStartup.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -670,5 +1014,32 @@ namespace MainUI.Report
         private Sunny.UI.UITextBox pageSize;
         private Sunny.UI.UILabel uiLabel5;
         private RW.UI.Controls.RButton reportSave;
+        private RW.UI.Controls.RButton reportSaveAll;
+        private System.Windows.Forms.TabControl tabDataRecord;
+        private System.Windows.Forms.TabPage tabPageAllData;
+        private System.Windows.Forms.Panel panelPagingAllData;
+        private System.Windows.Forms.TabPage tabPageStartup;
+        private System.Windows.Forms.Panel panelPagingStartup;
+        private System.Windows.Forms.Panel panelStartup;
+        private DataGridView dgvStartupRecord;
+        private DataGridViewTextBoxColumn colStartupIndex;
+        private DataGridViewTextBoxColumn colStartupRecordTime;
+        private DataGridViewTextBoxColumn colStartupType;
+        private DataGridViewTextBoxColumn colStartupRPM;
+        private DataGridViewTextBoxColumn colStartupTorque;
+        private DataGridViewTextBoxColumn colStartupPower;
+        private DataGridViewTextBoxColumn colStartupExcitationVoltage;
+        private DataGridViewTextBoxColumn colStartupExcitationCurrent;
+        private DataGridViewTextBoxColumn colStartupInvertVoltage;
+        private DataGridViewTextBoxColumn colStartupInvertCurrent;
+        private DataGridViewTextBoxColumn colStartupInvertRPM;
+        private DataGridViewTextBoxColumn colStartupInvertPower;
+        private DataGridViewTextBoxColumn colStartupInvertFaultCode;
+        private Sunny.UI.UITextBox pageSize1;
+        private Sunny.UI.UILabel uiLabel6;
+        private Sunny.UI.UITextBox lblTotalNum1;
+        private Sunny.UI.UITextBox pageNO1;
+        private RW.UI.Controls.RButton btnUpPage1;
+        private RW.UI.Controls.RButton btnDownPag1;
     }
 }

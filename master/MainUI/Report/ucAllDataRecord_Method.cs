@@ -1,4 +1,5 @@
-﻿using MainUI.FSql.AllCollectData;
+﻿using MainUI.FSql;
+using MainUI.FSql.AllCollectData;
 using MainUI.FSql.Model;
 using MiniExcelLibs;
 using Newtonsoft.Json;
@@ -638,77 +639,90 @@ namespace MainUI.Report
                 }
                 if (keyNameList.Any(key => key == "PLC2AIDataGrp"))
                 {
-                    _columnDefinitions.Add(new ColumnDefinition("OilConsumptionMeasurePressure", "机油耗测量压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("T21MainOilChannelInletOilTemperature", "T21主油道进口油温"));
-                    _columnDefinitions.Add(new ColumnDefinition("T5CoolWaterOutletTemperature", "T5中冷水出机温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("B8CylinderExhaustTemperature", "B8缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("DynamometerUPhaseTemperature", "测功机U相温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("HighTempWaterPumpOutletPressure", "高温水泵出口压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerIntakeVacuumDegree", "后增压器进气真空度"));
-                    _columnDefinitions.Add(new ColumnDefinition("B4CylinderExhaustTemperature", "B4缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("InterCoolerInletWaterTemperature", "中冷器进口水温"));
-                    _columnDefinitions.Add(new ColumnDefinition("DynamometerDPhaseTemperature", "测功机D相温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("A8CylinderExhaustTemperature", "A8缸排气温度"));
+                    // 励磁
                     _columnDefinitions.Add(new ColumnDefinition("ExcitationVoltageDetect", "励磁电压检测"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerIntakeVacuumDegree", "前增压器进气真空度"));
-                    _columnDefinitions.Add(new ColumnDefinition("P20OilPumpOutletPressure", "P20机油泵出口压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("B7CylinderExhaustTemperature", "B7缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontInterCoolerRearAirPressure", "前中冷后空气压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("B2CylinderExhaustTemperature", "B2缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("MainOilChannelEndOilPressure", "主油道末端油压"));
-                    _columnDefinitions.Add(new ColumnDefinition("A4CylinderExhaustTemperature", "A4缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("DynamometerWPhaseTemperature", "测功机W相温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("T31FuelPumpInletOilTemperature", "T31燃油泵进口油温"));
-                    _columnDefinitions.Add(new ColumnDefinition("P21MainOilChannelInletOilPressure", "P21主油道进口油压"));
-                    _columnDefinitions.Add(new ColumnDefinition("DynamometerNPhaseTemperature", "测功机N相温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontInterCoolerFrontAirTemperature", "前中冷前空气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("A7CylinderExhaustTemperature", "A7缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerOilInletPressure", "前增压器机油进口压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("A2CylinderExhaustTemperature", "A2缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("InterCoolerOutletWaterTemperature", "中冷器出口水温"));
-                    _columnDefinitions.Add(new ColumnDefinition("B6CylinderExhaustTemperature", "B6缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerOilInletTemperature", "前增压器机油进口温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerOilInletTemperature", "后增压器机油进口温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerExhaustBackPressure", "后增压器排气背压"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearTurboOutletExhaustGasTemperature", "后涡轮出口废气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("P38FuelSupplyPressure", "P38燃油供油压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontTurboInletExhaustGasPressure", "前涡轮进口废气压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerOilInletPressure", "后增压器机油进口压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("P2HighTempWaterPumpInletPressure", "P2高温水泵进口压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearInterCoolerRearAirPressure", "后中冷后空气压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerIntakeTemperature", "后增压器进气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontInterCoolerRearAirTemperature", "前中冷后空气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("A6CylinderExhaustTemperature", "A6缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerExhaustBackPressure", "前增压器排气背压"));
-                    _columnDefinitions.Add(new ColumnDefinition("T20OilPumpOutletOilTemperature", "T20机油泵出口油温"));
-                    _columnDefinitions.Add(new ColumnDefinition("T1HighTempWaterOutletTemperature", "T1高温水出机温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearTurboInletExhaustGasTemperature", "后涡轮进口废气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearInterCoolerFrontAirTemperature", "后中冷前空气温度"));
                     _columnDefinitions.Add(new ColumnDefinition("ExcitationCurrentDetect", "励磁电流检测"));
-                    _columnDefinitions.Add(new ColumnDefinition("T2HighTempWaterInletTemperature", "T2高温水进机温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("T3CoolWaterInletTemperature", "T3中冷水进机温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("OilConsumptionMeasureLevel", "机油耗测量液位"));
-                    _columnDefinitions.Add(new ColumnDefinition("T30FuelReturnOilTemperature", "T30燃油回油温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("B3CylinderExhaustTemperature", "B3缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearTurboInletExhaustGasPressure", "后涡轮进口废气压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("RearInterCoolerRearAirTemperature", "后中冷后空气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("CoolWaterPumpOutletPressure", "中冷水泵出口压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontInterCoolerFrontAirPressure", "前中冷前空气压力"));
+                    // 测功机相温
+                    _columnDefinitions.Add(new ColumnDefinition("DynamometerUPhaseTemperature", "测功机U相温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("DynamometerDPhaseTemperature", "测功机D相温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("DynamometerWPhaseTemperature", "测功机W相温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("DynamometerNPhaseTemperature", "测功机N相温度"));
                     _columnDefinitions.Add(new ColumnDefinition("DynamometerVPhaseTemperature", "测功机V相温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("B1CylinderExhaustTemperature", "B1缸排气温度"));
+                    // A 列缸排气温度
+                    _columnDefinitions.Add(new ColumnDefinition("台位_A1CylinderExhaustTemperature", "台位_A1缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_A2CylinderExhaustTemperature", "台位_A2缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_A3CylinderExhaustTemperature", "台位_A3缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_A4CylinderExhaustTemperature", "台位_A4缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_A5CylinderExhaustTemperature", "台位_A5缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_A6CylinderExhaustTemperature", "台位_A6缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_A7CylinderExhaustTemperature", "台位_A7缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_A8CylinderExhaustTemperature", "台位_A8缸排气温度"));
+                    // B 列缸排气温度
+                    _columnDefinitions.Add(new ColumnDefinition("台位_B1CylinderExhaustTemperature", "台位_B1缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_B2CylinderExhaustTemperature", "台位_B2缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_B3CylinderExhaustTemperature", "台位_B3缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_B4CylinderExhaustTemperature", "台位_B4缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_B5CylinderExhaustTemperature", "台位_B5缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_B6CylinderExhaustTemperature", "台位_B6缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_B7CylinderExhaustTemperature", "台位_B7缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_B8CylinderExhaustTemperature", "台位_B8缸排气温度"));
+                    // 机油 / 主油道
+                    _columnDefinitions.Add(new ColumnDefinition("T21MainOilChannelInletOilTemperature", "T21主油道进口油温"));
+                    _columnDefinitions.Add(new ColumnDefinition("T20OilPumpOutletOilTemperature", "T20机油泵出口油温"));
+                    _columnDefinitions.Add(new ColumnDefinition("P20OilPumpOutletPressure", "P20机油泵出口压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("P21MainOilChannelInletOilPressure", "P21主油道进口油压"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_MainOilChannelEndOilPressure", "台位_主油道末端油压"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerOilInletPressure", "前增压器机油进口压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerOilInletTemperature", "前增压器机油进口温度"));
                     _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerOilOutletTemperature", "前增压器机油出口温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerOilInletPressure", "后增压器机油进口压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerOilInletTemperature", "后增压器机油进口温度"));
                     _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerOilOutletTemperature", "后增压器机油出口温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("A3CylinderExhaustTemperature", "A3缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("P3CoolWaterPumpInletPressure", "P3中冷水泵进口压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontTurboOutletExhaustGasTemperature", "前涡轮出口废气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("A1CylinderExhaustTemperature", "A1缸排气温度"));
-                    _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerIntakeTemperature", "前增压器进气温度"));
+                    // 燃油
+                    _columnDefinitions.Add(new ColumnDefinition("T31FuelPumpInletOilTemperature", "T31燃油泵进口油温"));
+                    _columnDefinitions.Add(new ColumnDefinition("P38FuelSupplyPressure", "P38燃油供油压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("T30FuelReturnOilTemperature", "T30燃油回油温度"));
+                    // 机油耗测量
+                    _columnDefinitions.Add(new ColumnDefinition("OilConsumptionMeasurePressure", "机油耗测量压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("OilConsumptionMeasureLevel", "机油耗测量液位"));
+                    // 高温水
+                    _columnDefinitions.Add(new ColumnDefinition("T1HighTempWaterOutletTemperature", "T1高温水出机温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("T2HighTempWaterInletTemperature", "T2高温水进机温度"));
                     _columnDefinitions.Add(new ColumnDefinition("P1HighTempWaterOutletPressure", "P1高温水出机压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("B5CylinderExhaustTemperature", "B5缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("P2HighTempWaterPumpInletPressure", "P2高温水泵进口压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_HighTempWaterPumpOutletPressure", "台位_高温水泵出口压力"));
+                    // 中冷水
+                    _columnDefinitions.Add(new ColumnDefinition("T3CoolWaterInletTemperature", "T3中冷水进机温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("T5CoolWaterOutletTemperature", "T5中冷水出机温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("P3CoolWaterPumpInletPressure", "P3中冷水泵进口压力"));
                     _columnDefinitions.Add(new ColumnDefinition("P5CoolWaterOutletPressure", "P5中冷水出机压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_CoolWaterPumpOutletPressure", "台位_中冷水泵出口压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("InterCoolerInletWaterTemperature", "中冷器进口水温"));
+                    _columnDefinitions.Add(new ColumnDefinition("InterCoolerOutletWaterTemperature", "中冷器出口水温"));
+                    // 前增压器 / 涡轮
+                    _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerIntakeVacuumDegree", "前增压器进气真空度"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerIntakeTemperature", "前增压器进气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontSuperchargerExhaustBackPressure", "前增压器排气背压"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontTurboInletExhaustGasPressure", "前涡轮进口废气压力"));
                     _columnDefinitions.Add(new ColumnDefinition("FrontTurboInletExhaustGasTemperature", "前涡轮进口废气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontTurboOutletExhaustGasTemperature", "前涡轮出口废气温度"));
+                    // 后增压器 / 涡轮
+                    _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerIntakeVacuumDegree", "后增压器进气真空度"));
+                    _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerIntakeTemperature", "后增压器进气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("RearSuperchargerExhaustBackPressure", "后增压器排气背压"));
+                    _columnDefinitions.Add(new ColumnDefinition("RearTurboInletExhaustGasPressure", "后涡轮进口废气压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("RearTurboInletExhaustGasTemperature", "后涡轮进口废气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("RearTurboOutletExhaustGasTemperature", "后涡轮出口废气温度"));
+                    // 前中冷空气
+                    _columnDefinitions.Add(new ColumnDefinition("FrontInterCoolerFrontAirPressure", "前中冷前空气压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontInterCoolerFrontAirTemperature", "前中冷前空气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontInterCoolerRearAirPressure", "前中冷后空气压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontInterCoolerRearAirTemperature", "前中冷后空气温度"));
+                    // 后中冷空气
                     _columnDefinitions.Add(new ColumnDefinition("RearInterCoolerFrontAirPressure", "后中冷前空气压力"));
-                    _columnDefinitions.Add(new ColumnDefinition("A5CylinderExhaustTemperature", "A5缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("RearInterCoolerFrontAirTemperature", "后中冷前空气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_RearInterCoolerRearAirPressure", "台位_后中冷后空气压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("台位_RearInterCoolerRearAirTemperature", "台位_后中冷后空气温度"));
                     //_columnDefinitions.Add(new ColumnDefinition("RearCoolerFrontAirTemperature", "后冷前空气温度"));
                 }
                 if (keyNameList.Any(key => key == "StartPLCDataGrp"))
@@ -734,7 +748,6 @@ namespace MainUI.Report
                 if (keyNameList.Any(key => key == "GD350_1Data"))
                 {
                     // GD350_1变频器分组列定义
-                    _columnDefinitions.Add(new ColumnDefinition("StartType", "启动类型"));
                     _columnDefinitions.Add(new ColumnDefinition("OutputPowerDetect", "输出功率检测"));
                     _columnDefinitions.Add(new ColumnDefinition("StartStop", "启动_停止"));
                     _columnDefinitions.Add(new ColumnDefinition("RunTimeout", "运行超时时间"));
@@ -819,9 +832,13 @@ namespace MainUI.Report
         }
 
 
-        public Dictionary<int, Dictionary<string, object>> jsonToObject(List<TestParaAllData> _allData, 
-                                                                                            Dictionary<int, Dictionary<string, object>> RowDictionary, 
-                                                                                            List<string> KeyNameList)
+        /// <summary>
+        /// 将 MonitorData JSON 按勾选模块解析为行字典。
+        /// 返回的 key 为数据列表中的行索引，value 中再按模块名存放对应实体对象。
+        /// </summary>
+        public Dictionary<int, Dictionary<string, object>> jsonToObject(List<TestParaAllData> _allData,
+                          Dictionary<int, Dictionary<string, object>> RowDictionary, 
+                          List<string> KeyNameList)
         {
             List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
             int index = 0;
@@ -1001,50 +1018,230 @@ namespace MainUI.Report
 
 
 
+        private const string AllDataSheetName = "Sheet1";
+        private const string StartupSheetName = "Sheet2";
+
         /// <summary>
-        /// 导出excel
+        /// 导出本页：总数据写入 Sheet1，启动柜数据写入 Sheet2
         /// </summary>
-        /// <param name="dgv"></param>
-        public void Report_Excel(DataGridView dgv)
+        public void Report_Excel(DataGridView allDataGrid, DataGridView startupGrid)
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
                 saveFileDialog.Title = "请选择保存路径";
                 saveFileDialog.Filter = "Excel 文件 (*.xlsx)|*.xlsx|CSV 文件 (*.csv)|*.csv|所有文件 (*.*)|*.*";
                 saveFileDialog.FilterIndex = 1;
-                saveFileDialog.FileName = $"数据分析_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+                saveFileDialog.FileName = $"数据分析_本页_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string filePath = saveFileDialog.FileName;  // 用户自选的路径
-
-                    var exportColumns = dgv.Columns  // 取要导出的列（跳过隐藏列）
-                        .Cast<DataGridViewColumn>()
-                        .Where(c => c.Visible)
-                        .OrderBy(c => c.DisplayIndex)
-                        .ToList();
-                    // 2. 组装数据：每行一个 Dictionary，key 用列标题
-                    var rows = new List<Dictionary<string, object>>();
-                    foreach (DataGridViewRow row in dgv.Rows)
+                    var sheets = new Dictionary<string, object>
                     {
-                        if (row.IsNewRow) continue;   // 跳过最后一行空白行
-                        var dict = new Dictionary<string, object>();
-                        foreach (var col in exportColumns)
-                        {
-                            string header = string.IsNullOrEmpty(col.HeaderText)
-                                ? col.Name
-                                : col.HeaderText;
-                            // FormattedValue = 界面上看到的；Value = 原始值
-                            object cellValue = row.Cells[col.Index].FormattedValue ?? "";
-                            dict[header] = cellValue;
-                        }
-                        rows.Add(dict);
-                    }
-                    MiniExcel.SaveAs(filePath, rows);           // 3. 写 Excel
+                        [AllDataSheetName] = BuildRowsFromGrid(allDataGrid),
+                        [StartupSheetName] = BuildRowsFromGrid(startupGrid),
+                    };
+                    MiniExcel.SaveAs(saveFileDialog.FileName, sheets);
                 }
             }
+        }
 
+        /// <summary>
+        /// 导出全部：总数据写入 Sheet1，启动柜数据写入 Sheet2
+        /// </summary>
+        public void Report_Excel_All(
+            List<ColumnDefinition> columnDefinitions,
+            List<TestParaAllData> allData,
+            Dictionary<int, Dictionary<string, object>> rowDictionary,
+            List<StartupTestPara> startupData)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Title = "请选择保存路径";
+                saveFileDialog.Filter = "Excel 文件 (*.xlsx)|*.xlsx|CSV 文件 (*.csv)|*.csv|所有文件 (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.FileName = $"数据分析_全部_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                var sheets = new Dictionary<string, object>
+                {
+                    [AllDataSheetName] = BuildAllDataExportRows(columnDefinitions, allData, rowDictionary),
+                    [StartupSheetName] = BuildStartupExportRows(startupData),
+                };
+                MiniExcel.SaveAs(saveFileDialog.FileName, sheets);
+            }
+        }
+
+        /// <summary>
+        /// 从 DataGridView 读取可见列，组装导出行
+        /// </summary>
+        private static List<Dictionary<string, object>> BuildRowsFromGrid(DataGridView dgv)
+        {
+            var rows = new List<Dictionary<string, object>>();
+            if (dgv == null)
+            {
+                return rows;
+            }
+
+            var exportColumns = dgv.Columns
+                .Cast<DataGridViewColumn>()
+                .Where(c => c.Visible)
+                .OrderBy(c => c.DisplayIndex)
+                .ToList();
+
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.IsNewRow)
+                {
+                    continue;
+                }
+
+                var dict = new Dictionary<string, object>();
+                foreach (var col in exportColumns)
+                {
+                    string header = string.IsNullOrEmpty(col.HeaderText)
+                        ? col.Name
+                        : col.HeaderText;
+                    object cellValue = row.Cells[col.Index].FormattedValue ?? "";
+                    dict[header] = cellValue;
+                }
+                rows.Add(dict);
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// 组装总数据全量导出行
+        /// </summary>
+        private static List<Dictionary<string, object>> BuildAllDataExportRows(
+            List<ColumnDefinition> columnDefinitions,
+            List<TestParaAllData> allData,
+            Dictionary<int, Dictionary<string, object>> rowDictionary)
+        {
+            var rows = new List<Dictionary<string, object>>();
+            if (columnDefinitions == null || allData == null || allData.Count == 0)
+            {
+                return rows;
+            }
+
+            for (int i = 0; i < allData.Count; i++)
+            {
+                var record = allData[i];
+                var dict = new Dictionary<string, object>();
+                int recordNumber = i + 1;
+
+                foreach (var column in columnDefinitions)
+                {
+                    object value = GetExportCellValue(column, record, recordNumber, rowDictionary, i);
+                    dict[column.DisplayName] = FormatExportValue(value);
+                }
+
+                rows.Add(dict);
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// 组装启动柜全量导出行，列头与界面表格保持一致
+        /// </summary>
+        private static List<Dictionary<string, object>> BuildStartupExportRows(List<StartupTestPara> startupData)
+        {
+            var rows = new List<Dictionary<string, object>>();
+            if (startupData == null || startupData.Count == 0)
+            {
+                return rows;
+            }
+
+            for (int i = 0; i < startupData.Count; i++)
+            {
+                var record = startupData[i];
+                rows.Add(new Dictionary<string, object>
+                {
+                    ["序号"] = i + 1,
+                    ["记录时间"] = record.RecordDataTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                    ["类型"] = record.TestName,
+                    ["转速"] = record.RPM,
+                    ["扭矩"] = record.Torque,
+                    ["功率"] = record.Power,
+                    ["励磁电压"] = record.ExcitationVoltage,
+                    ["励磁电流"] = record.ExcitationCurrent,
+                    ["变频电压"] = record.InvertVoltage,
+                    ["变频电流"] = record.InvertCurrent,
+                    ["变频转速"] = record.InvertRPM,
+                    ["变频功率"] = record.InvertPower,
+                    ["故障代码"] = record.InvertFaultCode,
+                });
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// 按列定义从基础字段或 MonitorData 解析出的模块对象中取值
+        /// </summary>
+        private static object GetExportCellValue(
+            ColumnDefinition column,
+            TestParaAllData record,
+            int recordNumber,
+            Dictionary<int, Dictionary<string, object>> rowDictionary,
+            int rowIndex)
+        {
+            if (column.PropertyName == "Index")
+            {
+                return recordNumber;
+            }
+
+            if (string.IsNullOrEmpty(column.GroupName))
+            {
+                return column.PropertyInfo?.GetValue(record);
+            }
+
+            if (rowDictionary != null
+                && rowDictionary.TryGetValue(rowIndex, out var modules)
+                && modules != null
+                && modules.TryGetValue(column.GroupName, out object moduleObj)
+                && moduleObj != null
+                && column.PropertyInfo != null)
+            {
+                return column.PropertyInfo.GetValue(moduleObj);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 将单元格值格式化为与界面显示一致的字符串
+        /// </summary>
+        private static object FormatExportValue(object value)
+        {
+            if (value == null)
+            {
+                return "";
+            }
+
+            if (value is double doubleValue)
+            {
+                return doubleValue.ToString();
+            }
+
+            if (value is DateTime dateTimeValue)
+            {
+                return dateTimeValue.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+
+            if (value is bool booleanValue)
+            {
+                return booleanValue ? "1" : "0";
+            }
+
+            return value;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -212,7 +212,9 @@ namespace MainUI.Modules
         /// <param name="value"></param>
         public void SetAIZero(string key, double value)
         {
-            string opcTag = "AI." + key + "零点";
+            // 软件侧台位_键名映射回 OPC 原名
+            string opcKey = key.StartsWith("台位_") ? key.Substring("台位_".Length) : key;
+            string opcTag = "AI." + opcKey + "零点";
             this.Write(opcTag, value);
             try { MainUI.Fault.OpcOperationLog.LogWrite(opcTag, value); } catch { }
         }
@@ -225,7 +227,9 @@ namespace MainUI.Modules
         /// <param name="value"></param>
         public void SetAIGain(string key, double value)
         {
-            string opcTag = "AI." + key + "增益";
+            // 软件侧台位_键名映射回 OPC 原名
+            string opcKey = key.StartsWith("台位_") ? key.Substring("台位_".Length) : key;
+            string opcTag = "AI." + opcKey + "增益";
             this.Write(opcTag, value);
             try { MainUI.Fault.OpcOperationLog.LogWrite(opcTag, value); } catch { }
         }

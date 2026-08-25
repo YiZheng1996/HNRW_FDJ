@@ -110,20 +110,13 @@ namespace MainUI.FSql
                                 // 同步采集所有模块数据
                                 var allModuleData = CollectAllModuleData();
 
-                                //当不是甩车或启机的时候记录数据为无动作
-                               if (allModuleData.TryGetValue("GD350_1", out var obj3)
-                                && obj3 is Dictionary<string, object> gd3503)
-                                {
-                                    gd3503["Inverter_启动类型"] = "无动作";
-                                }
-
                                 // 保存所有模块的实时数据到TestParaALL表
                                 SaveAllModuleDataToTestParaALL(allModuleData);
                             }
 
                             long endTime = stopwatch.ElapsedMilliseconds;
                             long elapsed = endTime - startTime;
-                            long sleepTime = Second * 10000 - elapsed - 1;
+                            long sleepTime = Second * 1000 - elapsed - 1;
 
                             // 10秒备份记录一条
                             if (sleepTime > 0)
