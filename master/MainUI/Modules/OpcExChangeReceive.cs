@@ -96,6 +96,8 @@ namespace MainUI.Modules
             lst.Add("油量百分比");
             lst.Add("油耗仪_NoError");
             lst.Add("称重仪_NoError");
+            lst.Add("飞轮盘1齿数");
+            lst.Add("飞轮盘2齿数");
             return lst;
         }
 

@@ -342,6 +342,10 @@ namespace MainUI.TestScreen
                     Common.speedGrp.SetTooth2(MiddleData.instnce.SelectModelConfig.NumberofTeeth1);
                     Common.speedGrp.SetTooth3(MiddleData.instnce.SelectModelConfig.NumberofTeeth2);
                 }
+
+                // 给设备1、2发送飞轮盘1齿数、飞轮盘2齿数
+                Common.opcExChangeSendGrp.SetNumberofTeeth1 = MiddleData.instnce.SelectModelConfig.NumberofTeeth1;
+                Common.opcExChangeSendGrp.SetNumberofTeeth2 = MiddleData.instnce.SelectModelConfig.NumberofTeeth2;
             }
             catch (Exception ex)
             {

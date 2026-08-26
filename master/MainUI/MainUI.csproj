@@ -291,6 +291,7 @@
     <Compile Include="FSql\AllCollectData\StartPLCDataGrp.cs" />
     <Compile Include="FSql\AllCollectData\ThreePhaseElectricData.cs" />
     <Compile Include="FSql\AllCollectData\TRDPDataGrp.cs" />
+    <Compile Include="FSql\AllCollectData\TRDPData1Grp.cs" />
     <Compile Include="FSql\AllCollectData\WaterDataGrp.cs" />
     <Compile Include="FSql\Data\MySqlAdoDb.cs" />
     <Compile Include="FSql\FaultEventService.cs" />

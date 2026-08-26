@@ -59,7 +59,19 @@ namespace MainUI.Modules
         /// 重量
         /// </summary>
         public int RunStatusAI { get { return DataValue["重量"].ToInt(); } set { this.Write("重量", value); } }
-       
+
+
+        /// <summary>
+        /// 飞轮盘1齿数
+        /// </summary>
+        public int SetNumberofTeeth1 { get { return DataValue["飞轮盘1齿数"].ToInt(); } set { this.Write("飞轮盘1齿数", value); } }
+
+
+        /// <summary>
+        /// 飞轮盘2齿数
+        /// </summary>
+        public int SetNumberofTeeth2 { get { return DataValue["飞轮盘2齿数"].ToInt(); } set { this.Write("飞轮盘2齿数", value); } }
+
         /// <summary>
         /// 当前型号
         /// </summary>
@@ -75,6 +87,8 @@ namespace MainUI.Modules
             lst.Add("油量百分比");
             lst.Add("油耗仪_NoError");
             lst.Add("称重仪_NoError");
+            lst.Add("飞轮盘1齿数");
+            lst.Add("飞轮盘2齿数");
             return lst;
         }
 

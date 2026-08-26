@@ -84,6 +84,7 @@ namespace MainUI.TestScreen
 
             // 接收型号
             Common.opcExChangeReceiveGrp.KeyValueChangeStr += OpcExChangeReceiveGrp_KeyValueChangeStr;
+            Common.opcExChangeReceiveGrp.KeyValueChange += OpcExChangeReceiveGrp_KeyValueChangeDouble;
 
             try
             {
@@ -159,6 +160,25 @@ namespace MainUI.TestScreen
                 EventTriggerModel.RaiseOnModelNameChanged(e.Value);
             }
         }
+
+
+        /// <summary>
+        /// 接收飞轮盘齿数，设置数据到opc
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpcExChangeReceiveGrp_KeyValueChangeDouble(object sender, DoubleValueChangedEventArgs e)
+        {
+            if ((e.Key == "飞轮盘1齿数" || e.Key == "飞轮盘2齿数") && e.Value != 0)
+            {
+                // 当数据飞轮盘齿数数据传到设备1中，设置opc数据
+                Common.speedGrp.SetTooth2(e.Value.ToInt());
+
+                Common.speedGrp.SetTooth3(e.Value.ToInt());
+                
+            }
+        }
+
 
         /// <summary>
         /// 检测急停拍下

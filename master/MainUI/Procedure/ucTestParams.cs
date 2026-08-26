@@ -167,6 +167,14 @@ namespace MainUI.Procedure
 
                 paraconfig.Save();
 
+                // 在参数设置给定了且当飞轮盘1，2齿数不为0时
+                // 给设备1、2发送飞轮盘1齿数、飞轮盘2齿数
+                if (paraconfig.NumberofTeeth1 != 0 && paraconfig.NumberofTeeth2 != 0) 
+                {
+                    Common.opcExChangeSendGrp.SetNumberofTeeth1 = paraconfig.NumberofTeeth1.ToInt();
+                    Common.opcExChangeSendGrp.SetNumberofTeeth2 = paraconfig.NumberofTeeth2.ToInt();
+                }
+
                 btnSavePub_Click(null, null);
 
                 // 保存当前下拉框选中的试验类型参数
