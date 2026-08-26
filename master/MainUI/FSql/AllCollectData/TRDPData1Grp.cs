@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+ï»¿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,289 +9,289 @@ namespace MainUI.FSql.AllCollectData
 {
     public class TRDPData1Grp
     {
-        [JsonProperty("TRDP1_²ñÓÍ»ú×ªËÙ")]
+        [JsonProperty("TRDP_æŸ´æ²¹æœºè½¬é€Ÿ")]
         public double DieselEngineRPM { get; set; }
 
-        [JsonProperty("TRDP1_×ªËÙ´«¸ĞÆ÷1#")]
+        [JsonProperty("TRDP_è½¬é€Ÿä¼ æ„Ÿå™¨1#")]
         public double RotateSpeedSensor1 { get; set; }
 
-        [JsonProperty("TRDP1_×ªËÙ´«¸ĞÆ÷2#")]
+        [JsonProperty("TRDP_è½¬é€Ÿä¼ æ„Ÿå™¨2#")]
         public double RotateSpeedSensor2 { get; set; }
 
-        [JsonProperty("TRDP1_ÏàÎ»´«¸ĞÆ÷")]
+        [JsonProperty("TRDP_ç›¸ä½ä¼ æ„Ÿå™¨")]
         public double PhaseSensor { get; set; }
 
-        [JsonProperty("TRDP1_×ªËÙÉè¶¨")]
+        [JsonProperty("TRDP_è½¬é€Ÿè®¾å®š")]
         public double RotateSpeedSet { get; set; }
 
-        [JsonProperty("TRDP1_È¼ÓÍÁ¿")]
+        [JsonProperty("TRDP_ç‡ƒæ²¹é‡")]
         public double FuelQuantity { get; set; }
 
-        [JsonProperty("TRDP1_µçÔ´A")]
+        [JsonProperty("TRDP_ç”µæºA")]
         public double PowerA { get; set; }
 
-        [JsonProperty("TRDP1_µçÔ´B")]
+        [JsonProperty("TRDP_ç”µæºB")]
         public double PowerB { get; set; }
 
-        [JsonProperty("TRDP1_½ô¼±±¨¾¯")]
+        [JsonProperty("TRDP_ç´§æ€¥æŠ¥è­¦")]
         public double EmergencyAlarm { get; set; }
 
-        [JsonProperty("TRDP1_¹«¹²±¨¾¯")]
+        [JsonProperty("TRDP_å…¬å…±æŠ¥è­¦")]
         public double PublicAlarm { get; set; }
 
-        [JsonProperty("TRDP1_³ÖĞøÆÚ")]
+        [JsonProperty("TRDP_æŒç»­æœŸ")]
         public double Duration { get; set; }
 
-        [JsonProperty("TRDP1_ÌáÇ°½Ç")]
+        [JsonProperty("TRDP_æå‰è§’")]
         public double AdvanceAngle { get; set; }
 
-        [JsonProperty("TRDP1_Í¬²½×´Ì¬")]
+        [JsonProperty("TRDP_åŒæ­¥çŠ¶æ€")]
         public double SyncStatus { get; set; }
 
-        [JsonProperty("TRDP1_µçÔ´·Å´óÆ÷AÂËÖµ")]
+        [JsonProperty("TRDP_ç”µæºæ”¾å¤§å™¨Aæ»¤å€¼")]
         public double PowerAmplifierAFilteredValue { get; set; }
 
-        [JsonProperty("TRDP1_µçÔ´·Å´óÆ÷BÂËÖµ")]
+        [JsonProperty("TRDP_ç”µæºæ”¾å¤§å™¨Bæ»¤å€¼")]
         public double PowerAmplifierBFilteredValue { get; set; }
 
-        [JsonProperty("TRDP1_µçÔ´·Å´óÆ÷CÂËÖµ")]
+        [JsonProperty("TRDP_ç”µæºæ”¾å¤§å™¨Cæ»¤å€¼")]
         public double PowerAmplifierCFilteredValue { get; set; }
 
-        [JsonProperty("TRDP1_µçÔ´·Å´óÆ÷AÊµ¼ÊÖµ")]
+        [JsonProperty("TRDP_ç”µæºæ”¾å¤§å™¨Aå®é™…å€¼")]
         public double PowerAmplifierAActualValue { get; set; }
 
-        [JsonProperty("TRDP1_µçÔ´·Å´óÆ÷BÊµ¼ÊÖµ")]
+        [JsonProperty("TRDP_ç”µæºæ”¾å¤§å™¨Bå®é™…å€¼")]
         public double PowerAmplifierBActualValue { get; set; }
 
-        [JsonProperty("TRDP1_µçÔ´·Å´óÆ÷CÊµ¼ÊÖµ")]
+        [JsonProperty("TRDP_ç”µæºæ”¾å¤§å™¨Cå®é™…å€¼")]
         public double PowerAmplifierCActualValue { get; set; }
 
-        [JsonProperty("TRDP1_ECUÔËĞĞÊ±¼ä")]
+        [JsonProperty("TRDP_ECUè¿è¡Œæ—¶é—´")]
         public double ECURunTime { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ1#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ1#")]
         public double SolenoidValveFault1 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ2#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ2#")]
         public double SolenoidValveFault2 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ3#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ3#")]
         public double SolenoidValveFault3 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ4#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ4#")]
         public double SolenoidValveFault4 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ5#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ5#")]
         public double SolenoidValveFault5 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ6#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ6#")]
         public double SolenoidValveFault6 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ7#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ7#")]
         public double SolenoidValveFault7 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ8#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ8#")]
         public double SolenoidValveFault8 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ9#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ9#")]
         public double SolenoidValveFault9 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ10#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ10#")]
         public double SolenoidValveFault10 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ11#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ11#")]
         public double SolenoidValveFault11 { get; set; }
 
-        [JsonProperty("TRDP1_µç´Å·§¹ÊÕÏ12#")]
+        [JsonProperty("TRDP_ç”µç£é˜€æ•…éšœ12#")]
         public double SolenoidValveFault12 { get; set; }
 
-        [JsonProperty("TRDP1_¹©µçµçÔ´¹ÊÕÏ")]
+        [JsonProperty("TRDP_ä¾›ç”µç”µæºæ•…éšœ")]
         public double PowerSupplyFault { get; set; }
 
-        [JsonProperty("TRDP1_×ªËÙ´«¸ĞÆ÷¹ÊÕÏ1#")]
+        [JsonProperty("TRDP_è½¬é€Ÿä¼ æ„Ÿå™¨æ•…éšœ1#")]
         public double RotateSpeedSensorFault1 { get; set; }
 
-        [JsonProperty("TRDP1_×ªËÙ´«¸ĞÆ÷¹ÊÕÏ2#")]
+        [JsonProperty("TRDP_è½¬é€Ÿä¼ æ„Ÿå™¨æ•…éšœ2#")]
         public double RotateSpeedSensorFault2 { get; set; }
 
-        [JsonProperty("TRDP1_ÏàÎ»´«¸ĞÆ÷¹ÊÕÏ")]
+        [JsonProperty("TRDP_ç›¸ä½ä¼ æ„Ÿå™¨æ•…éšœ")]
         public double PhaseSensorFault { get; set; }
 
-        [JsonProperty("TRDP1_³¬ËÙ¹ÊÕÏ")]
+        [JsonProperty("TRDP_è¶…é€Ÿæ•…éšœ")]
         public double OverSpeedFault { get; set; }
 
-        [JsonProperty("TRDP1_Í¬²½ÊäÈë¹ÊÕÏ")]
+        [JsonProperty("TRDP_åŒæ­¥è¾“å…¥æ•…éšœ")]
         public double SyncInputFault { get; set; }
 
-        [JsonProperty("TRDP1_Ó²¼ş¹ÊÕÏ")]
+        [JsonProperty("TRDP_ç¡¬ä»¶æ•…éšœ")]
         public double HardwareFault { get; set; }
 
-        [JsonProperty("TRDP1_Í¬²½¹ÊÕÏ")]
+        [JsonProperty("TRDP_åŒæ­¥æ•…éšœ")]
         public double SyncFault { get; set; }
 
-        [JsonProperty("TRDP1_µçÑ¹·Å´óÆ÷¹ÊÕÏA")]
+        [JsonProperty("TRDP_ç”µå‹æ”¾å¤§å™¨æ•…éšœA")]
         public double VoltageAmplifierFaultA { get; set; }
 
-        [JsonProperty("TRDP1_µçÑ¹·Å´óÆ÷¹ÊÕÏB")]
+        [JsonProperty("TRDP_ç”µå‹æ”¾å¤§å™¨æ•…éšœB")]
         public double VoltageAmplifierFaultB { get; set; }
 
-        [JsonProperty("TRDP1_µçÑ¹·Å´óÆ÷¹ÊÕÏC")]
+        [JsonProperty("TRDP_ç”µå‹æ”¾å¤§å™¨æ•…éšœC")]
         public double VoltageAmplifierFaultC { get; set; }
 
-        [JsonProperty("TRDP1_Ç°ÔöÑ¹Æ÷½øÓÍÑ¹1")]
+        [JsonProperty("TRDP_å‰å¢å‹å™¨è¿›æ²¹å‹1")]
         public double FrontTurbochargerInletOilPressure1 { get; set; }
 
-        [JsonProperty("TRDP1_Ç°ÔöÑ¹Æ÷½øÓÍÑ¹2")]
+        [JsonProperty("TRDP_å‰å¢å‹å™¨è¿›æ²¹å‹2")]
         public double FrontTurbochargerInletOilPressure2 { get; set; }
 
-        [JsonProperty("TRDP1_ºóÔöÑ¹Æ÷½øÓÍÑ¹1")]
+        [JsonProperty("TRDP_åå¢å‹å™¨è¿›æ²¹å‹1")]
         public double RearTurbochargerInletOilPressure1 { get; set; }
 
-        [JsonProperty("TRDP1_ºóÔöÑ¹Æ÷½øÓÍÑ¹2")]
+        [JsonProperty("TRDP_åå¢å‹å™¨è¿›æ²¹å‹2")]
         public double RearTurbochargerInletOilPressure2 { get; set; }
 
-        [JsonProperty("TRDP1_Ö÷ÓÍµÀ½ø¿ÚÓÍÑ¹")]
+        [JsonProperty("TRDP_ä¸»æ²¹é“è¿›å£æ²¹å‹")]
         public double MainOilChannelInletOilPressure { get; set; }
 
-        [JsonProperty("TRDP1_Ö÷ÓÍµÀÄ©¶ËÓÍÑ¹")]
+        [JsonProperty("TRDP_ä¸»æ²¹é“æœ«ç«¯æ²¹å‹")]
         public double MainOilChannelEndOilPressure { get; set; }
 
-        [JsonProperty("TRDP1_ÖĞÀäË®±Ã³ö¿ÚÑ¹Á¦")]
+        [JsonProperty("TRDP_ä¸­å†·æ°´æ³µå‡ºå£å‹åŠ›")]
         public double CoolWaterPumpOutletPressure { get; set; }
 
-        [JsonProperty("TRDP1_¸ßÎÂË®±Ã³ö¿ÚÑ¹Á¦")]
+        [JsonProperty("TRDP_é«˜æ¸©æ°´æ³µå‡ºå£å‹åŠ›")]
         public double HighTempWaterPumpOutletPressure { get; set; }
 
-        [JsonProperty("TRDP1_ÖĞÀäºó¿ÕÆøÑ¹Á¦")]
+        [JsonProperty("TRDP_ä¸­å†·åç©ºæ°”å‹åŠ›")]
         public double IntercoolerRearAirPressure { get; set; }
 
-        [JsonProperty("TRDP1_È¼ÓÍ¾«ÂËÆ÷ºóÓÍÑ¹")]
+        [JsonProperty("TRDP_ç‡ƒæ²¹ç²¾æ»¤å™¨åæ²¹å‹")]
         public double FuelFineFilterRearOilPressure { get; set; }
 
-        [JsonProperty("TRDP1_ÇúÖáÏäÑ¹Á¦1")]
+        [JsonProperty("TRDP_æ›²è½´ç®±å‹åŠ›1")]
         public double CrankcasePressure1 { get; set; }
 
-        [JsonProperty("TRDP1_ÇúÖáÏäÑ¹Á¦2")]
+        [JsonProperty("TRDP_æ›²è½´ç®±å‹åŠ›2")]
         public double CrankcasePressure2 { get; set; }
 
-        [JsonProperty("TRDP1_Æø¸×¸Ç³öË®ÎÂ¶È")]
+        [JsonProperty("TRDP_æ°”ç¼¸ç›–å‡ºæ°´æ¸©åº¦")]
         public double CylinderHeadOutletWaterTemperature { get; set; }
 
-        [JsonProperty("TRDP1_ÖĞÀäË®½øË®ÎÂ¶È")]
+        [JsonProperty("TRDP_ä¸­å†·æ°´è¿›æ°´æ¸©åº¦")]
         public double CoolWaterInletTemperature { get; set; }
 
-        [JsonProperty("TRDP1_Ö÷ÓÍµÀ½ø¿ÚÓÍÎÂ")]
+        [JsonProperty("TRDP_ä¸»æ²¹é“è¿›å£æ²¹æ¸©")]
         public double MainOilChannelInletOilTemperature { get; set; }
 
-        [JsonProperty("TRDP1_ÖĞÀäºó¿ÕÆøÎÂ¶È")]
+        [JsonProperty("TRDP_ä¸­å†·åç©ºæ°”æ¸©åº¦")]
         public double IntercoolerRearAirTemperature { get; set; }
 
-        [JsonProperty("TRDP1_Ç°ÔöÑ¹Æ÷×ªËÙ")]
+        [JsonProperty("TRDP_å‰å¢å‹å™¨è½¬é€Ÿ")]
         public double FrontTurbochargerRPM { get; set; }
 
-        [JsonProperty("TRDP1_ºóÔöÑ¹Æ÷×ªËÙ")]
+        [JsonProperty("TRDP_åå¢å‹å™¨è½¬é€Ÿ")]
         public double AfterTurbochargerRPM { get; set; }
 
-        [JsonProperty("TRDP1_A1¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_A1ç¼¸æ’æ°”æ¸©åº¦")]
         public double A1CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_A2¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_A2ç¼¸æ’æ°”æ¸©åº¦")]
         public double A2CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_A3¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_A3ç¼¸æ’æ°”æ¸©åº¦")]
         public double A3CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_A4¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_A4ç¼¸æ’æ°”æ¸©åº¦")]
         public double A4CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_A5¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_A5ç¼¸æ’æ°”æ¸©åº¦")]
         public double A5CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_A6¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_A6ç¼¸æ’æ°”æ¸©åº¦")]
         public double A6CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_A7¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_A7ç¼¸æ’æ°”æ¸©åº¦")]
         public double A7CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_A8¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_A8ç¼¸æ’æ°”æ¸©åº¦")]
         public double A8CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_AÎĞÇ°ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_Aæ¶¡å‰æ’æ°”æ¸©åº¦")]
         public double AVortexFrontExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_B1¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_B1ç¼¸æ’æ°”æ¸©åº¦")]
         public double B1CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_B2¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_B2ç¼¸æ’æ°”æ¸©åº¦")]
         public double B2CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_B3¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_B3ç¼¸æ’æ°”æ¸©åº¦")]
         public double B3CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_B4¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_B4ç¼¸æ’æ°”æ¸©åº¦")]
         public double B4CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_B5¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_B5ç¼¸æ’æ°”æ¸©åº¦")]
         public double B5CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_B6¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_B6ç¼¸æ’æ°”æ¸©åº¦")]
         public double B6CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_B7¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_B7ç¼¸æ’æ°”æ¸©åº¦")]
         public double B7CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_B8¸×ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_B8ç¼¸æ’æ°”æ¸©åº¦")]
         public double B8CylinderExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_BÎĞÇ°ÅÅÆøÎÂ¶È")]
+        [JsonProperty("TRDP_Bæ¶¡å‰æ’æ°”æ¸©åº¦")]
         public double BVortexFrontExhaustTemperature { get; set; }
 
-        [JsonProperty("TRDP1_Ò»µµÖáÎÂ")]
+        [JsonProperty("TRDP_ä¸€æ¡£è½´æ¸©")]
         public double FirstGearShaftTemperature { get; set; }
 
-        [JsonProperty("TRDP1_¶şµµÖáÎÂ")]
+        [JsonProperty("TRDP_äºŒæ¡£è½´æ¸©")]
         public double SecondGearShaftTemperature { get; set; }
 
-        [JsonProperty("TRDP1_ÈıµµÖáÎÂ")]
+        [JsonProperty("TRDP_ä¸‰æ¡£è½´æ¸©")]
         public double ThirdGearShaftTemperature { get; set; }
 
-        [JsonProperty("TRDP1_ËÄµµÖáÎÂ")]
+        [JsonProperty("TRDP_å››æ¡£è½´æ¸©")]
         public double FourthGearShaftTemperature { get; set; }
 
-        [JsonProperty("TRDP1_ÎåµµÖáÎÂ")]
+        [JsonProperty("TRDP_äº”æ¡£è½´æ¸©")]
         public double FifthGearShaftTemperature { get; set; }
 
-        [JsonProperty("TRDP1_ÁùµµÖáÎÂ")]
+        [JsonProperty("TRDP_å…­æ¡£è½´æ¸©")]
         public double SixthGearShaftTemperature { get; set; }
 
-        [JsonProperty("TRDP1_ÆßµµÖáÎÂ")]
+        [JsonProperty("TRDP_ä¸ƒæ¡£è½´æ¸©")]
         public double SeventhGearShaftTemperature { get; set; }
 
-        [JsonProperty("TRDP1_Éè±¸ÉúÃüĞÅºÅ")]
+        [JsonProperty("TRDP_è®¾å¤‡ç”Ÿå‘½ä¿¡å·")]
         public double DeviceLifeSignal { get; set; }
 
-        [JsonProperty("TRDP1_Íø¿Ú0¹ÊÕÏ")]
+        [JsonProperty("TRDP_ç½‘å£0æ•…éšœ")]
         public double NetworkPort0Fault { get; set; }
 
-        [JsonProperty("TRDP1_´ÓÕ¾1´®¿Ú¹ÊÕÏ")]
+        [JsonProperty("TRDP_ä»ç«™1ä¸²å£æ•…éšœ")]
         public double Slave1SerialPortFault { get; set; }
 
-        [JsonProperty("TRDP1_´ÓÕ¾2´®¿Ú¹ÊÕÏ")]
+        [JsonProperty("TRDP_ä»ç«™2ä¸²å£æ•…éšœ")]
         public double Slave2SerialPortFault { get; set; }
 
-        [JsonProperty("TRDP1_´ÓÕ¾3´®¿Ú¹ÊÕÏ")]
+        [JsonProperty("TRDP_ä»ç«™3ä¸²å£æ•…éšœ")]
         public double Slave3SerialPortFault { get; set; }
 
-        [JsonProperty("TRDP1_´ÓÕ¾4´®¿Ú¹ÊÕÏ")]
+        [JsonProperty("TRDP_ä»ç«™4ä¸²å£æ•…éšœ")]
         public double Slave4SerialPortFault { get; set; }
 
-        [JsonProperty("TRDP1_´ÓÕ¾5´®¿Ú¹ÊÕÏ")]
+        [JsonProperty("TRDP_ä»ç«™5ä¸²å£æ•…éšœ")]
         public double Slave5SerialPortFault { get; set; }
 
-        [JsonProperty("TRDP1_´ÓÕ¾6´®¿Ú¹ÊÕÏ")]
+        [JsonProperty("TRDP_ä»ç«™6ä¸²å£æ•…éšœ")]
         public double Slave6SerialPortFault { get; set; }
 
-        [JsonProperty("TRDP1_´ÓÕ¾7´®¿Ú¹ÊÕÏ")]
+        [JsonProperty("TRDP_ä»ç«™7ä¸²å£æ•…éšœ")]
         public double Slave7SerialPortFault { get; set; }
     }
 }

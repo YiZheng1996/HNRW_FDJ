@@ -137,6 +137,108 @@ namespace MainUI.Report
                     _columnDefinitions.Add(new ColumnDefinition("Slave7SerialPortFault", "从站7串口故障"));
 
                 }
+                if (keyNameList.Any(key => key == "TRDPData1Grp"))
+                {
+                    _columnDefinitions.Add(new ColumnDefinition("DieselEngineRPM", "柴油机转速 rpm"));
+                    _columnDefinitions.Add(new ColumnDefinition("RotateSpeedSensor1", "转速传感器1#"));
+                    _columnDefinitions.Add(new ColumnDefinition("RotateSpeedSensor2", "转速传感器2#"));
+                    _columnDefinitions.Add(new ColumnDefinition("PhaseSensor", "相位传感器"));
+                    _columnDefinitions.Add(new ColumnDefinition("RotateSpeedSet", "转速设定"));
+                    _columnDefinitions.Add(new ColumnDefinition("FuelQuantity", "燃油量"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerA", "电源A"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerB", "电源B"));
+                    _columnDefinitions.Add(new ColumnDefinition("EmergencyAlarm", "紧急报警"));
+                    _columnDefinitions.Add(new ColumnDefinition("PublicAlarm", "公共报警"));
+                    _columnDefinitions.Add(new ColumnDefinition("Duration", "持续期"));
+                    _columnDefinitions.Add(new ColumnDefinition("AdvanceAngle", "提前角"));
+                    _columnDefinitions.Add(new ColumnDefinition("SyncStatus", "同步状态"));
+
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierAFilteredValue", "电源放大器A滤值"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierBFilteredValue", "电源放大器B滤值"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierCFilteredValue", "电源放大器C滤值"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierAActualValue", "电源放大器A实际值"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierBActualValue", "电源放大器B实际值"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerAmplifierCActualValue", "电源放大器C实际值"));
+
+                    _columnDefinitions.Add(new ColumnDefinition("ECURunTime", "ECU运行时间"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault1", "电磁阀故障1#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault2", "电磁阀故障2#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault3", "电磁阀故障3#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault4", "电磁阀故障4#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault5", "电磁阀故障5#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault6", "电磁阀故障6#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault7", "电磁阀故障7#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault8", "电磁阀故障8#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault9", "电磁阀故障9#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault10", "电磁阀故障10#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault11", "电磁阀故障11#"));
+                    _columnDefinitions.Add(new ColumnDefinition("SolenoidValveFault12", "电磁阀故障12#"));
+                    _columnDefinitions.Add(new ColumnDefinition("PowerSupplyFault", "供电电源故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("RotateSpeedSensorFault1", "转速传感器故障1#"));
+                    _columnDefinitions.Add(new ColumnDefinition("RotateSpeedSensorFault2", "转速传感器故障2#"));
+                    _columnDefinitions.Add(new ColumnDefinition("PhaseSensorFault", "相位传感器故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("OverSpeedFault", "超速故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("SyncInputFault", "同步输入故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("HardwareFault", "硬件故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("SyncFault", "同步故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("VoltageAmplifierFaultA", "电压放大器故障A"));
+                    _columnDefinitions.Add(new ColumnDefinition("VoltageAmplifierFaultB", "电压放大器故障B"));
+                    _columnDefinitions.Add(new ColumnDefinition("VoltageAmplifierFaultC", "电压放大器故障C"));
+
+                    _columnDefinitions.Add(new ColumnDefinition("FrontTurbochargerInletOilPressure1", "前增压器进油压1"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontTurbochargerInletOilPressure2", "前增压器进油压2"));
+                    _columnDefinitions.Add(new ColumnDefinition("RearTurbochargerInletOilPressure1", "后增压器进油压1"));
+                    _columnDefinitions.Add(new ColumnDefinition("RearTurbochargerInletOilPressure2", "后增压器进油压2"));
+                    _columnDefinitions.Add(new ColumnDefinition("MainOilChannelInletOilPressure", "主油道进口油压"));
+                    _columnDefinitions.Add(new ColumnDefinition("MainOilChannelEndOilPressure", "主油道末端油压"));
+                    _columnDefinitions.Add(new ColumnDefinition("CoolWaterPumpOutletPressure", "中冷水泵出口压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("HighTempWaterPumpOutletPressure", "高温水泵出口压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("IntercoolerRearAirPressure", "中冷后空气压力"));
+                    _columnDefinitions.Add(new ColumnDefinition("FuelFineFilterRearOilPressure", "燃油精滤器后油压"));
+                    _columnDefinitions.Add(new ColumnDefinition("CrankcasePressure1", "曲轴箱压力1"));
+                    _columnDefinitions.Add(new ColumnDefinition("CrankcasePressure2", "曲轴箱压力2"));
+                    _columnDefinitions.Add(new ColumnDefinition("CylinderHeadOutletWaterTemperature", "气缸盖出水温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("CoolWaterInletTemperature", "中冷水进水温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("MainOilChannelInletOilTemperature", "主油道进口油温"));
+                    _columnDefinitions.Add(new ColumnDefinition("IntercoolerRearAirTemperature", "中冷后空气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("FrontTurbochargerRPM", "前增压器转速 rpm"));
+                    _columnDefinitions.Add(new ColumnDefinition("AfterTurbochargerRPM", "后增压器转速 rpm"));
+
+                    _columnDefinitions.Add(new ColumnDefinition("A1CylinderExhaustTemperature", "A1缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("A2CylinderExhaustTemperature", "A2缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("A3CylinderExhaustTemperature", "A3缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("A4CylinderExhaustTemperature", "A4缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("A5CylinderExhaustTemperature", "A5缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("A6CylinderExhaustTemperature", "A6缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("A7CylinderExhaustTemperature", "A7缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("A8CylinderExhaustTemperature", "A8缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("AVortexFrontExhaustTemperature", "A涡前排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("B1CylinderExhaustTemperature", "B1缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("B2CylinderExhaustTemperature", "B2缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("B3CylinderExhaustTemperature", "B3缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("B4CylinderExhaustTemperature", "B4缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("B5CylinderExhaustTemperature", "B5缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("B6CylinderExhaustTemperature", "B6缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("B7CylinderExhaustTemperature", "B7缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("B8CylinderExhaustTemperature", "B8缸排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("BVortexFrontExhaustTemperature", "B涡前排气温度"));
+                    _columnDefinitions.Add(new ColumnDefinition("FirstGearShaftTemperature", "一档轴温"));
+                    _columnDefinitions.Add(new ColumnDefinition("SecondGearShaftTemperature", "二档轴温"));
+                    _columnDefinitions.Add(new ColumnDefinition("ThirdGearShaftTemperature", "三档轴温"));
+                    _columnDefinitions.Add(new ColumnDefinition("FourthGearShaftTemperature", "四档轴温"));
+                    _columnDefinitions.Add(new ColumnDefinition("FifthGearShaftTemperature", "五档轴温"));
+                    _columnDefinitions.Add(new ColumnDefinition("SixthGearShaftTemperature", "六档轴温"));
+                    _columnDefinitions.Add(new ColumnDefinition("SeventhGearShaftTemperature", "七档轴温"));
+                    _columnDefinitions.Add(new ColumnDefinition("DeviceLifeSignal", "设备生命信号"));
+                    _columnDefinitions.Add(new ColumnDefinition("NetworkPort0Fault", "网口0故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("Slave1SerialPortFault", "从站1串口故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("Slave2SerialPortFault", "从站2串口故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("Slave3SerialPortFault", "从站3串口故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("Slave4SerialPortFault", "从站4串口故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("Slave5SerialPortFault", "从站5串口故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("Slave6SerialPortFault", "从站6串口故障"));
+                    _columnDefinitions.Add(new ColumnDefinition("Slave7SerialPortFault", "从站7串口故障"));
+                }
                 if (keyNameList.Any(key => key == "AIDataGrp"))
                 {
                     _columnDefinitions.Add(new ColumnDefinition("AT", "环境温度 ℃"));
@@ -857,10 +959,19 @@ namespace MainUI.Report
                         RowDictionary[index]["BaseDataGrp"] = CloneRowEntity(BaseGrp);
                     }
 
-                    if (json.Contains("TRDP") && KeyNameList.Any(key => key == "TRDPDataGrp"))
+                    if (json.Contains("TRDP") )
                     {
-                        TRDPDataGrp TRDPGrp = root["TRDP"].ToObject<TRDPDataGrp>();
-                        RowDictionary[index]["TRDPDataGrp"] = CloneRowEntity(TRDPGrp);
+                        if(KeyNameList.Any(key => key == "TRDPDataGrp"))
+                        {
+                            TRDPDataGrp TRDPGrp = root["TRDP"].ToObject<TRDPDataGrp>();
+                            RowDictionary[index]["TRDPDataGrp"] = CloneRowEntity(TRDPGrp);
+                        }
+                        if (KeyNameList.Any(key => key == "TRDPData1Grp"))
+                        {
+                            TRDPData1Grp TRDPGrp = root["TRDP"].ToObject<TRDPData1Grp>();
+                            RowDictionary[index]["TRDPData1Grp"] = CloneRowEntity(TRDPGrp);
+                        }
+                        
                     }
 
                     if (json.Contains("AIGrp") && KeyNameList.Any(key => key == "AIDataGrp"))
@@ -1047,13 +1158,15 @@ namespace MainUI.Report
         }
 
         /// <summary>
-        /// 导出全部：总数据写入 Sheet1，启动柜数据写入 Sheet2
+        /// 导出全部：总数据写入 Sheet1，启动柜数据写入 Sheet2。
+        /// 选定路径后弹出“保存中”，后台组装并写文件，完成后可点关闭。
         /// </summary>
         public void Report_Excel_All(
             List<ColumnDefinition> columnDefinitions,
             List<TestParaAllData> allData,
             Dictionary<int, Dictionary<string, object>> rowDictionary,
-            List<StartupTestPara> startupData)
+            List<StartupTestPara> startupData,
+            IWin32Window owner = null)
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
@@ -1068,12 +1181,27 @@ namespace MainUI.Report
                     return;
                 }
 
-                var sheets = new Dictionary<string, object>
+                string fileName = saveFileDialog.FileName;
+                using (var savingDlg = new frmExportSaving(() =>
                 {
-                    [AllDataSheetName] = BuildAllDataExportRows(columnDefinitions, allData, rowDictionary),
-                    [StartupSheetName] = BuildStartupExportRows(startupData),
-                };
-                MiniExcel.SaveAs(saveFileDialog.FileName, sheets);
+                    var sheets = new Dictionary<string, object>
+                    {
+                        [AllDataSheetName] = BuildAllDataExportRows(columnDefinitions, allData, rowDictionary),
+                        [StartupSheetName] = BuildStartupExportRows(startupData),
+                    };
+                    MiniExcel.SaveAs(fileName, sheets);
+                }))
+                {
+                    Form ownerForm = owner as Form;
+                    if (ownerForm != null && !ownerForm.IsDisposed)
+                    {
+                        savingDlg.ShowDialog(ownerForm);
+                    }
+                    else
+                    {
+                        savingDlg.ShowDialog();
+                    }
+                }
             }
         }
 

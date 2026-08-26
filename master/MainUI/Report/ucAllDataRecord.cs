@@ -1,28 +1,29 @@
 ﻿using MainUI.BLL;
 using MainUI.FSql;
+using MainUI.FSql.AllCollectData;
+using MainUI.FSql.Model;
+using MainUI.Global;
+using MainUI.Modules;
+using MiniExcelLibs;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using NPOI.SS.Formula.Functions;
+using NPOI.Util.Collections;
+using Sunny.UI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MiniExcelLibs;
-using System.IO;
-using MainUI.Global;
-using MainUI.FSql.Model;
-using MainUI.FSql.AllCollectData;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Sunny.UI;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using NPOI.SS.Formula.Functions;
-using MainUI.Modules;
-using System.Collections;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace MainUI.Report
 {
@@ -300,29 +301,51 @@ namespace MainUI.Report
         /// </summary>
         private void Report_Save_All(object sender, EventArgs e)
         {
-            bool isYes = Var.MsgBoxYesNo(this, "数据量较大，请在实验完成后导出");
-            if (isYes)
+            using (var dlg = new frmMessageYesNO())
             {
-                try
+                dlg.Msg = "请确认时间和项点后导出\r\n数据量较大，请在实验完成后导出";
+                dlg.TipsFont = new Font("宋体", 18F, FontStyle.Regular); // 改这里的大小
+                dlg.ShowDialog(this);
+                if (!dlg.IsYes) return;
+                if (dlg.IsYes)
                 {
-                    Cursor = Cursors.WaitCursor;
-                    var allData = allDataRecordDB.selectData(_searchBeginTime, _searchEndTime, _searchModel, _searchNumber);
-                    var exportRowDictionary = ucAllDataRecord_Method.jsonToObject(
-                        allData,
-                        new Dictionary<int, Dictionary<string, object>>(),
-                        KeyNameList);
-                    var allStartupData = allDataRecordDB.selectStartupData(_searchBeginTime, _searchEndTime, _searchNumber);
-                    ucAllDataRecord_Method.Report_Excel_All(_columnDefinitions, allData, exportRowDictionary, allStartupData);
-                }
-                catch (Exception ex)
-                {
-                    Var.MsgBoxWarn(this, $"导出全部数据时发生错误：{ex.Message}");
-                }
-                finally
-                {
-                    Cursor = Cursors.Default;
+                    try
+                    {
+                        Cursor = Cursors.WaitCursor;
+                        var allData = allDataRecordDB.selectData(dtpStartTime.Value, dtpEndTime.Value, cboModel.Text, txtNumber.Text);
+                        //查询所有被选中的项点
+                        GetCheckBoxGroup();
+                        //为动态模块列绑定 GroupName、SourceType、PropertyInfo。
+                        if (KeyNameList != null && KeyNameList.Count != 0)
+                        {
+                            _columnDefinitions = ucAllDataRecord_Method.AddtcolumnDefinitions(KeyNameList, _columnDefinitions);
+
+                            TagModuleColumnDefinitions(KeyNameList);
+                        }
+                        var exportRowDictionary = ucAllDataRecord_Method.jsonToObject(
+                            allData,
+                            new Dictionary<int, Dictionary<string, object>>(),
+                            KeyNameList);
+                        var allStartupData = allDataRecordDB.selectStartupData(dtpStartTime.Value, dtpEndTime.Value, txtNumber.Text);
+                        Cursor = Cursors.Default;
+                        ucAllDataRecord_Method.Report_Excel_All(
+                            _columnDefinitions,
+                            allData,
+                            exportRowDictionary,
+                            allStartupData,
+                            this.FindForm());
+                    }
+                    catch (Exception ex)
+                    {
+                        Var.MsgBoxWarn(this, $"导出全部数据时发生错误：{ex.Message}");
+                    }
+                    finally
+                    {
+                        Cursor = Cursors.Default;
+                    }
                 }
             }
+            
         }
 
         /// <summary>
@@ -433,6 +456,7 @@ namespace MainUI.Report
             {
                 { "BaseDataGrp", typeof(BaseDataGrp) },
                 { "TRDPDataGrp", typeof(TRDPDataGrp) },
+                { "TRDPData1Grp", typeof(TRDPData1Grp) },
                 { "AIDataGrp", typeof(AIDataGrp) },
                 { "AODataGrp", typeof(AODataGrp) },
                 { "DIDataGrp", typeof(DIDataGrp) },
@@ -891,18 +915,6 @@ namespace MainUI.Report
             dgvStartupRecord.Rows.Clear();
         }
 
-        /// <summary>
-        /// 根据勾选模块决定是否显示启动柜 Tab
-        /// </summary>
-        private void UpdateStartupTabVisibility()
-        {
-            _isStartUp = KeyNameList.Any(key => key == "StartPLCDataGrp");
-            if (_isStartUp)
-            {
-                tabDataRecord.Visible = true;
-            }
-        }
-
         #endregion
 
         #region 公用方法
@@ -924,7 +936,6 @@ namespace MainUI.Report
                 ResetAllDataColumnDefinitions();
                 CacheSearchConditions();
                 GetCheckBoxGroup();
-                UpdateStartupTabVisibility();
 
                 SearchAllDataRecords();
                 SearchStartupRecords();
@@ -993,9 +1004,17 @@ namespace MainUI.Report
             {
                 if (ctrl is System.Windows.Forms.CheckBox cb && cb != ChoiceAll && cb.Checked)
                 {
-                    KeyNameList.Add(cb.Name);
+                    if (cb.Name == "TRDPDataGrp" && Var.SysConfig.LastModel == "12V280")
+                    {
+                        KeyNameList.Add("TRDPData1Grp");
+                    }
+                    else
+                    {
+                        KeyNameList.Add(cb.Name);
+                    }
                 }
             }
+
         }
 
         /// <summary>
