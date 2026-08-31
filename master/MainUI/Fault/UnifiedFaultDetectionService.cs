@@ -685,6 +685,10 @@ namespace MainUI.Services
                 "高温水进机流量低",
                 "中冷水出机流量低",
                 "机油进机流量低",
+                "轴温温度较高_预警",
+                "轴温温度过高_停机",
+                "定子温度较高_预警",
+                "定子温度过高_停机"
             };
 
             foreach (var faultName in calculateFaults)
@@ -1040,10 +1044,49 @@ namespace MainUI.Services
                 Isfault8 = true;
             }
             FaultStatusChange(FaultTypeEnum.calculate, Isfault8 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "机油进机流量低");
+
+
             //------------------------------------------------------------------------------------------------------------------
+            //轴温预警，停机保护
+            var ShaftTemp_N = Common.AI2Grp["测功机N相温度"];
+            var ShaftTemp_D = Common.AI2Grp["测功机D相温度"];
+            bool Isfault9 = false;
+            bool Isfault10 = false;
+            //预警
+            if (ShaftTemp_N >= 90 && ShaftTemp_N < 120 || ShaftTemp_D >= 90 && ShaftTemp_D < 120)
+            {
+                Isfault9 = true;
+            }
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault9 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "轴温温度较高_预警");
+            //停机
+            if (ShaftTemp_N >= 120 || ShaftTemp_D >= 120)
+            {
+                Isfault10 = true;
+            }
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault10 ? WarnTypeEnum.Stop : WarnTypeEnum.None, "轴温温度过高_停机");
 
 
+            //定子温度预警，停机保护
+            var StatorTemp_U = Common.AI2Grp["测功机U相温度"];
+            var StatorTemp_V = Common.AI2Grp["测功机V相温度"];
+            var StatorTemp_W = Common.AI2Grp["测功机W相温度"];
+            bool Isfault11 = false;
+            bool Isfault12 = false;
+            //预警
+            if (StatorTemp_U >= 180 && StatorTemp_U < 200 || StatorTemp_V >= 180 && StatorTemp_V < 200 || StatorTemp_W >= 180 && StatorTemp_W < 200)
+            {
+                Isfault11 = true;
+            }
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault11 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "定子温度较高_预警");
+            //停机
+            if (StatorTemp_U >= 200 || StatorTemp_V >= 200 || StatorTemp_W >= 200)
+            {
+                Isfault12 = true;
+            }
+            FaultStatusChange(FaultTypeEnum.calculate, Isfault12 ? WarnTypeEnum.Stop : WarnTypeEnum.None, "定子温度过高_停机");
 
+
+            //-----------------------------------------------------------------------------------------------------------------------------------------
             // 急停按钮：紧急停止DI为 false 表示已按下
             bool IsScramPressed = Common.DIgrp["紧急停止"] == false;
             FaultStatusChange(FaultTypeEnum.calculate, IsScramPressed ? WarnTypeEnum.Stop : WarnTypeEnum.None, "急停按钮已按下");
