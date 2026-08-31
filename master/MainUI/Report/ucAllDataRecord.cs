@@ -304,48 +304,59 @@ namespace MainUI.Report
             using (var dlg = new frmMessageYesNO())
             {
                 dlg.Msg = "请确认时间和项点后导出\r\n数据量较大，请在实验完成后导出";
-                dlg.TipsFont = new Font("宋体", 18F, FontStyle.Regular); // 改这里的大小
+                dlg.TipsFont = new Font("宋体", 18F, FontStyle.Regular);
                 dlg.ShowDialog(this);
                 if (!dlg.IsYes) return;
-                if (dlg.IsYes)
-                {
-                    try
-                    {
-                        Cursor = Cursors.WaitCursor;
-                        var allData = allDataRecordDB.selectData(dtpStartTime.Value, dtpEndTime.Value, cboModel.Text, txtNumber.Text);
-                        //查询所有被选中的项点
-                        GetCheckBoxGroup();
-                        //为动态模块列绑定 GroupName、SourceType、PropertyInfo。
-                        if (KeyNameList != null && KeyNameList.Count != 0)
-                        {
-                            _columnDefinitions = ucAllDataRecord_Method.AddtcolumnDefinitions(KeyNameList, _columnDefinitions);
 
-                            TagModuleColumnDefinitions(KeyNameList);
-                        }
-                        var exportRowDictionary = ucAllDataRecord_Method.jsonToObject(
-                            allData,
-                            new Dictionary<int, Dictionary<string, object>>(),
-                            KeyNameList);
-                        var allStartupData = allDataRecordDB.selectStartupData(dtpStartTime.Value, dtpEndTime.Value, txtNumber.Text);
-                        Cursor = Cursors.Default;
-                        ucAllDataRecord_Method.Report_Excel_All(
-                            _columnDefinitions,
-                            allData,
-                            exportRowDictionary,
-                            allStartupData,
-                            this.FindForm());
-                    }
-                    catch (Exception ex)
+                try
+                {
+                    Cursor = Cursors.WaitCursor;
+
+                    var allData = allDataRecordDB.selectData(
+                        dtpStartTime.Value, dtpEndTime.Value, cboModel.Text, txtNumber.Text);
+
+                    // 1) 只清 KeyNameList，再按勾选填充（和查询一致）
+                    KeyNameList.Clear();
+                    GetCheckBoxGroup();
+
+                    // 2) 导出用临时列定义，不碰界面的 _columnDefinitions
+                    var exportColumnDefinitions = CreateBaseColumnDefinitions();
+                    if (KeyNameList != null && KeyNameList.Count != 0)
                     {
-                        Var.MsgBoxWarn(this, $"导出全部数据时发生错误：{ex.Message}");
+                        exportColumnDefinitions = ucAllDataRecord_Method.AddtcolumnDefinitions(
+                            KeyNameList, exportColumnDefinitions);
+
+                        // 若导出着色/取值依赖 GroupName、PropertyInfo，临时列表也要打标
+                        TagModuleColumnDefinitions(exportColumnDefinitions, KeyNameList);
+                        InitializeColumnDefinitions(exportColumnDefinitions);
                     }
-                    finally
-                    {
-                        Cursor = Cursors.Default;
-                    }
+
+                    var exportRowDictionary = ucAllDataRecord_Method.jsonToObject(
+                        allData,
+                        new Dictionary<int, Dictionary<string, object>>(),
+                        KeyNameList);
+
+                    var allStartupData = allDataRecordDB.selectStartupData(
+                        dtpStartTime.Value, dtpEndTime.Value, txtNumber.Text);
+
+                    Cursor = Cursors.Default;
+
+                    ucAllDataRecord_Method.Report_Excel_All(
+                        exportColumnDefinitions,   // ← 用临时列表
+                        allData,
+                        exportRowDictionary,
+                        allStartupData,
+                        this.FindForm());
+                }
+                catch (Exception ex)
+                {
+                    Var.MsgBoxWarn(this, $"导出全部数据时发生错误：{ex.Message}");
+                }
+                finally
+                {
+                    Cursor = Cursors.Default;
                 }
             }
-            
         }
 
         /// <summary>
@@ -354,19 +365,30 @@ namespace MainUI.Report
         private void ResetAllDataColumnDefinitions()
         {
             _columnDefinitions.Clear();
-            _columnDefinitions.Add(new ColumnDefinition("Index", "序号"));
-            _columnDefinitions.Add(new ColumnDefinition("RecordName", "记录点"));
-            _columnDefinitions.Add(new ColumnDefinition("TestName", "试验类型"));
-            _columnDefinitions.Add(new ColumnDefinition("TestStage", "试验阶段"));
-            _columnDefinitions.Add(new ColumnDefinition("TestCycle", "试验周期"));
-            _columnDefinitions.Add(new ColumnDefinition("TestStep", "试验循环节点"));
-            _columnDefinitions.Add(new ColumnDefinition("DataTime", "日期"));
-            _columnDefinitions.Add(new ColumnDefinition("Time", "时间"));
-            _columnDefinitions.Add(new ColumnDefinition("HourNum", "小时数"));
-            _columnDefinitions.Add(new ColumnDefinition("RecordDataTime", "采集时间"));
-            _columnDefinitions.Add(new ColumnDefinition("DieselEngineModel", "柴油机型号"));
-            _columnDefinitions.Add(new ColumnDefinition("DieselEngineNo", "发动机编号"));
-            _columnDefinitions.Add(new ColumnDefinition("UserName", "操作人员"));
+            _columnDefinitions.AddRange(CreateBaseColumnDefinitions());
+        }
+
+        /// <summary>
+        /// 生成总数据基础列（导出/重置共用），不修改当前界面状态。
+        /// </summary>
+        private List<ColumnDefinition> CreateBaseColumnDefinitions()
+        {
+            return new List<ColumnDefinition>
+                {
+                    new ColumnDefinition("Index", "序号"),
+                    new ColumnDefinition("RecordName", "记录点"),
+                    new ColumnDefinition("TestName", "试验类型"),
+                    new ColumnDefinition("TestStage", "试验阶段"),
+                    new ColumnDefinition("TestCycle", "试验周期"),
+                    new ColumnDefinition("TestStep", "试验循环节点"),
+                    new ColumnDefinition("DataTime", "日期"),
+                    new ColumnDefinition("Time", "时间"),
+                    new ColumnDefinition("HourNum", "小时数"),
+                    new ColumnDefinition("RecordDataTime", "采集时间"),
+                    new ColumnDefinition("DieselEngineModel", "柴油机型号"),
+                    new ColumnDefinition("DieselEngineNo", "发动机编号"),
+                    new ColumnDefinition("UserName", "操作人员"),
+                };
         }
 
         /// <summary>
@@ -404,7 +426,7 @@ namespace MainUI.Report
             {
                 var dataColumn = new DataGridViewTextBoxColumn
                 {
-                    Name = column.PropertyName,
+                    Name = GetDataGridColumnName(column),
                     HeaderText = column.DisplayName,
                     SortMode = DataGridViewColumnSortMode.NotSortable,
                     AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
@@ -431,27 +453,37 @@ namespace MainUI.Report
         /// </summary>
         private void InitializeColumnDefinitions()
         {
-            foreach (var column in _columnDefinitions)
+            InitializeColumnDefinitions(_columnDefinitions);
+        }
+        private void InitializeColumnDefinitions(List<ColumnDefinition> columnDefinitions)
+        {
+            foreach (var column in columnDefinitions)
             {
                 var type = string.IsNullOrEmpty(column.GroupName)
                     ? typeof(TestParaAllData)
                     : (column.SourceType ?? typeof(TestParaAllData));
                 column.SourceType = type;
-                column.PropertyInfo = type.GetProperty(column.PropertyName, BindingFlags.Public | BindingFlags.Instance);
+                column.PropertyInfo = type.GetProperty(
+                    column.PropertyName, BindingFlags.Public | BindingFlags.Instance);
             }
         }
 
         /// <summary>
         /// 为动态模块列绑定 GroupName、SourceType、PropertyInfo。
         /// GroupName 同时用于表头分组着色（见 AssignDynamicHeaderColorTags）。
-        /// 注意：按属性名匹配模块，若多模块存在同名字段（如 FaultReset），
-        /// 会命中 moduleTypes 字典中靠前的模块，可能导致颜色与列来源不一致。
+        /// 同名属性（如 DO / 启动柜 均有 FaultReset）按列出现顺序，
+        /// 每个「模块+属性」只占用一次，避免后一列被错误绑到前一模块。
         /// </summary>
         private void TagModuleColumnDefinitions(List<string> keyNameList)
         {
+            TagModuleColumnDefinitions(_columnDefinitions, keyNameList);
+        }
+
+
+        private void TagModuleColumnDefinitions(List<ColumnDefinition> columnDefinitions, List<string> keyNameList)
+        {
             if (keyNameList == null || keyNameList.Count == 0)
                 return;
-
             var moduleTypes = new Dictionary<string, Type>
             {
                 { "BaseDataGrp", typeof(BaseDataGrp) },
@@ -475,27 +507,42 @@ namespace MainUI.Report
                 { "AirDuctData1Grp", typeof(AirDuctData1Grp) },
                 { "AirDuctData2Grp", typeof(AirDuctData2Grp) },
             };
-
-            foreach (var column in _columnDefinitions)
+            // 已占用的「模块|属性」，防止同名列全部落到字典靠前的模块
+            var claimedModuleProperties = new HashSet<string>();
+            foreach (var column in columnDefinitions) 
             {
                 if (column.PropertyName == "Index" || !string.IsNullOrEmpty(column.GroupName))
                     continue;
-
                 foreach (var module in moduleTypes)
                 {
                     if (!keyNameList.Contains(module.Key))
                         continue;
-
-                    var property = module.Value.GetProperty(column.PropertyName, BindingFlags.Public | BindingFlags.Instance);
+                    var property = module.Value.GetProperty(
+                        column.PropertyName, BindingFlags.Public | BindingFlags.Instance);
                     if (property == null)
                         continue;
-
+                    string claimKey = module.Key + "|" + column.PropertyName;
+                    if (claimedModuleProperties.Contains(claimKey))
+                        continue;
+                    claimedModuleProperties.Add(claimKey);
                     column.GroupName = module.Key;
                     column.SourceType = module.Value;
                     column.PropertyInfo = property;
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// DataGridView 列名：动态模块列带 GroupName 前缀，避免同名属性（如 FaultReset）冲突。
+        /// </summary>
+        private static string GetDataGridColumnName(ColumnDefinition column)
+        {
+            if (column == null || string.IsNullOrEmpty(column.PropertyName))
+                return "";
+            if (string.IsNullOrEmpty(column.GroupName))
+                return column.PropertyName;
+            return column.GroupName + "_" + column.PropertyName;
         }
 
         /// <summary>
@@ -515,7 +562,7 @@ namespace MainUI.Report
             {
                 var dataColumn = new DataGridViewTextBoxColumn
                 {
-                    Name = column.PropertyName,
+                    Name = GetDataGridColumnName(column),
                     HeaderText = column.DisplayName,
                     SortMode = DataGridViewColumnSortMode.NotSortable,
                     AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
@@ -1076,9 +1123,5 @@ namespace MainUI.Report
         }
 
         #endregion
-    }
-}
-
-
     }
 }

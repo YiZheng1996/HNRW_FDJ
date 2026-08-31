@@ -1028,6 +1028,9 @@
     <EmbeddedResource Include="Modules\OpcStatusGrp.resx">
       <DependentUpon>OpcStatusGrp.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\PLC2AIGrp.resx">
+      <DependentUpon>PLC2AIGrp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pipeline\ucFeulHMI.resx">
       <DependentUpon>ucFeulHMI.cs</DependentUpon>
     </EmbeddedResource>

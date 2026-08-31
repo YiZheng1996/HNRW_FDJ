@@ -685,10 +685,16 @@ namespace MainUI.Services
                 "高温水进机流量低",
                 "中冷水出机流量低",
                 "机油进机流量低",
-                "轴温温度较高_预警",
-                "轴温温度过高_停机",
-                "定子温度较高_预警",
-                "定子温度过高_停机"
+                "测功电机N端轴承温度较高_预警",
+                "测功电机D端轴承温度较高_预警",
+                "测功电机N端轴承温度过高_停机",
+                "测功电机D端轴承温度过高_停机",
+                "测功电机U相温度较高_预警",
+                "测功电机V相温度较高_预警",
+                "测功电机W相温度较高_预警",
+                "测功电机U相温度过高_停机",
+                "测功电机V相温度过高_停机",
+                "测功电机W相温度过高_停机",
             };
 
             foreach (var faultName in calculateFaults)
@@ -1047,43 +1053,85 @@ namespace MainUI.Services
 
 
             //------------------------------------------------------------------------------------------------------------------
-            //轴温预警，停机保护
-            var ShaftTemp_N = Common.AI2Grp["测功机N相温度"];
-            var ShaftTemp_D = Common.AI2Grp["测功机D相温度"];
-            bool Isfault9 = false;
-            bool Isfault10 = false;
-            //预警
-            if (ShaftTemp_N >= 90 && ShaftTemp_N < 120 || ShaftTemp_D >= 90 && ShaftTemp_D < 120)
-            {
-                Isfault9 = true;
-            }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault9 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "轴温温度较高_预警");
-            //停机
-            if (ShaftTemp_N >= 120 || ShaftTemp_D >= 120)
-            {
-                Isfault10 = true;
-            }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault10 ? WarnTypeEnum.Stop : WarnTypeEnum.None, "轴温温度过高_停机");
+            ////轴温预警，停机保护
+            //var ShaftTemp_N = Common.AI2Grp["测功机N相温度"];
+            //var ShaftTemp_D = Common.AI2Grp["测功机D相温度"];
+            //bool Isfault9_1 = false;
+            //bool Isfault9_2 = false;
+            //bool Isfault10_1 = false;
+            //bool Isfault10_2 = false;
+            ////预警
+            //if (ShaftTemp_N >= 90 && ShaftTemp_N < 120)
+            //{
+            //    Isfault9_1 = true;
+            //}
+            //FaultStatusChange(FaultTypeEnum.calculate, Isfault9_1 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "测功电机N端轴承温度较高_预警");
+
+            //if (ShaftTemp_D >= 90 && ShaftTemp_D < 120)
+            //{
+            //    Isfault9_2 = true;
+            //}
+            //FaultStatusChange(FaultTypeEnum.calculate, Isfault9_2 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "测功电机D端轴承温度较高_预警");
+            ////停机
+            //if (ShaftTemp_N >= 120 && ShaftTemp_N < 2000)
+            //{
+            //    Isfault10_1 = true;
+            //}
+            //FaultStatusChange(FaultTypeEnum.calculate, Isfault10_1 ? WarnTypeEnum.Stop : WarnTypeEnum.None, "测功电机N端轴承温度过高_停机");
+
+            //if (ShaftTemp_D >= 120 && ShaftTemp_D < 2000)
+            //{
+            //    Isfault10_2 = true;
+            //}
+            //FaultStatusChange(FaultTypeEnum.calculate, Isfault10_2 ? WarnTypeEnum.Stop : WarnTypeEnum.None, "测功电机D端轴承温度过高_停机");
 
 
-            //定子温度预警，停机保护
-            var StatorTemp_U = Common.AI2Grp["测功机U相温度"];
-            var StatorTemp_V = Common.AI2Grp["测功机V相温度"];
-            var StatorTemp_W = Common.AI2Grp["测功机W相温度"];
-            bool Isfault11 = false;
-            bool Isfault12 = false;
-            //预警
-            if (StatorTemp_U >= 180 && StatorTemp_U < 200 || StatorTemp_V >= 180 && StatorTemp_V < 200 || StatorTemp_W >= 180 && StatorTemp_W < 200)
-            {
-                Isfault11 = true;
-            }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault11 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "定子温度较高_预警");
-            //停机
-            if (StatorTemp_U >= 200 || StatorTemp_V >= 200 || StatorTemp_W >= 200)
-            {
-                Isfault12 = true;
-            }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault12 ? WarnTypeEnum.Stop : WarnTypeEnum.None, "定子温度过高_停机");
+            ////定子温度预警，停机保护
+            //var StatorTemp_U = Common.AI2Grp["测功机U相温度"];
+            //var StatorTemp_V = Common.AI2Grp["测功机V相温度"];
+            //var StatorTemp_W = Common.AI2Grp["测功机W相温度"];
+            //bool Isfault11_1 = false;
+            //bool Isfault11_2 = false;
+            //bool Isfault11_3 = false;
+            //bool Isfault12_1 = false;
+            //bool Isfault12_2 = false;
+            //bool Isfault12_3 = false;
+            ////预警
+            //if (StatorTemp_U >= 180 && StatorTemp_U < 200)
+            //{
+            //    Isfault11_1 = true;
+            //}
+            //FaultStatusChange(FaultTypeEnum.calculate, Isfault11_1 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "测功电机U相温度较高_预警");
+
+            //if ( StatorTemp_V >= 180 && StatorTemp_V < 200)
+            //{
+            //    Isfault11_2 = true;
+            //}
+            //FaultStatusChange(FaultTypeEnum.calculate, Isfault11_2 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "测功电机V相温度较高_预警");
+
+            //if (StatorTemp_W >= 180 && StatorTemp_W < 200)
+            //{
+            //    Isfault11_3 = true;
+            //}
+            //FaultStatusChange(FaultTypeEnum.calculate, Isfault11_3 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "测功电机W相温度较高_预警");
+            ////停机
+            //if (StatorTemp_U >= 200 && StatorTemp_U < 2000)
+            //{
+            //    Isfault12_1 = true;
+            //}
+            //FaultStatusChange(FaultTypeEnum.calculate, Isfault12_1 ? WarnTypeEnum.Stop : WarnTypeEnum.None, "测功电机U相温度过高_停机");
+
+            //if (StatorTemp_V >= 200 && StatorTemp_V < 2000)
+            //{
+            //    Isfault12_2 = true;
+            //}
+            //FaultStatusChange(FaultTypeEnum.calculate, Isfault12_2 ? WarnTypeEnum.Stop : WarnTypeEnum.None, "测功电机V相温度过高_停机");
+
+            //if (StatorTemp_W >= 200 && StatorTemp_W < 2000)
+            //{
+            //    Isfault12_3 = true;
+            //}
+            //FaultStatusChange(FaultTypeEnum.calculate, Isfault12_3 ? WarnTypeEnum.Stop : WarnTypeEnum.None, "测功电机W相温度过高_停机");
 
 
             //-----------------------------------------------------------------------------------------------------------------------------------------

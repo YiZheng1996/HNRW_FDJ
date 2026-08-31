@@ -27,7 +27,7 @@ namespace MainUI.Report
         /// <param name="keyNameList"></param>
         public  List<ColumnDefinition> AddtcolumnDefinitions(List<string> keyNameList, List<ColumnDefinition> _columnDefinitions)
         {
-            if (keyNameList.Count != 0 && keyNameList != null)
+            if (keyNameList != null && keyNameList.Count != 0)
             {
 
                 if (keyNameList.Any(key => key == "BaseDataGrp"))
@@ -470,7 +470,7 @@ namespace MainUI.Report
                     _columnDefinitions.Add(new ColumnDefinition("Y179ValveCtrl", "Y179阀控制"));
                     _columnDefinitions.Add(new ColumnDefinition("Y41ValveCtrl", "Y41阀控制"));
                     _columnDefinitions.Add(new ColumnDefinition("Y61ValveCtrl", "Y61阀控制"));
-                    _columnDefinitions.Add(new ColumnDefinition("FaultReset", "故障复位"));
+                    _columnDefinitions.Add(new ColumnDefinition("FaultReset", "故障复位(DO)"));
                     _columnDefinitions.Add(new ColumnDefinition("Y27ValveCtrl", "Y27阀控制"));
                     _columnDefinitions.Add(new ColumnDefinition("Y97ValveCtrl", "Y97阀控制"));
                     _columnDefinitions.Add(new ColumnDefinition("Y100ValveCtrl", "Y100阀控制"));
@@ -829,7 +829,7 @@ namespace MainUI.Report
                 }
                 if (keyNameList.Any(key => key == "StartPLCDataGrp"))
                 {
-                    _columnDefinitions.Add(new ColumnDefinition("FaultReset", "故障复位"));
+                    _columnDefinitions.Add(new ColumnDefinition("FaultReset", "故障复位(启动柜)"));
                     _columnDefinitions.Add(new ColumnDefinition("InverterRunning", "变频器运行中"));
                     _columnDefinitions.Add(new ColumnDefinition("InverterOutputDetect", "变频器输出检测"));
                     _columnDefinitions.Add(new ColumnDefinition("InverterFault", "变频器故障"));
