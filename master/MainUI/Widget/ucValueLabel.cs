@@ -59,7 +59,7 @@ namespace MainUI.Widget
         {
             if (_title == "设备生命信号" || _title == "ECU运行时间")
                 return value.ToString();
-            // 曲轴箱压力已放大100倍，界面保留两位小数
+            // 曲轴箱界面保留两位小数
             if (_title == "曲轴箱压力1" || _title == "曲轴箱压力2")
                 return value.ToString("F2");
             return value.ToString("F1");

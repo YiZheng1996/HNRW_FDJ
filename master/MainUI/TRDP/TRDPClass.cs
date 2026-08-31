@@ -423,7 +423,7 @@ namespace BogieIdling.UI.TRDP
                     // 曲轴箱压力显示放大100倍，保留两位小数
                     if (tag.DataLabel == "曲轴箱压力1" || tag.DataLabel == "曲轴箱压力2")
                     {
-                        realTimeValue = Math.Round(realTimeValue / 100m, 2);
+                        realTimeValue = Math.Round(realTimeValue, 2);
                     }
 
                     // 更新标签的实时值
