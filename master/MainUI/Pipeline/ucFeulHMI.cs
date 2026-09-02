@@ -420,21 +420,35 @@ namespace MainUI
             this.uiPipe4.Active = this.uiPcl2h.Active || this.uiPcl1h2.Active;
 
             // 燃油耗仪
-            this.uip190left.Active = this.uip190right1.Active = this.uip190right2.Active = this.uip190right3.Active = this.swp190.Switch && this.uiPipe4.Active;
+            this.uip190left.Active = this.uip190right1.Active = this.uip190right2.Active = this.uip190right3.Active = this.swp190.Switch && this.uiPipe4.Active && !swp183.Switch;
 
             // 是否存在液位(先定 100 mm = 10 cm) 时
             flowResult = this.ucPipePara4.Value > 0 && (this.ucPipePara2.Value > 0 || this.ucPipePara17.Value > 0);
             //183 部分比价复杂 检测柴油箱液位是否大于
+            //if (flowResult && !swp183.Switch)
+            //{
+            //    //为0时 正常流向
+            //    uip183down1.Active = uip183down2.Active = true;
+            //}
+            //else
+            //{
+            //    //为1 时，走燃油耗仪
+            //    uip183down1.Active = uip183down2.Active = false;
+            //}
+
+
+            //2026.9.2线接反（临时更改）
             if (flowResult && !swp183.Switch)
             {
                 //为0时 正常流向
-                uip183down1.Active = uip183down2.Active = true;
+                uip183down1.Active = uip183down2.Active = false;
             }
             else
             {
                 //为1 时，走燃油耗仪
-                uip183down1.Active = uip183down2.Active = false;
+                uip183down1.Active = uip183down2.Active = true;
             }
+
 
             //184 为燃油回流的时候流动
             this.uip184up.Active = !swp182.Switch && swp184.Switch && this.ucPipePara9.Value > 0;
@@ -506,7 +520,9 @@ namespace MainUI
 
         private void swp183_SwitchChanged(object sender, bool value)
         {
-            uip190left.Active = swp183.Switch;
+            //2026.9.2线接反（临时更改）
+            //uip190left.Active = swp183.Switch;
+
             //uiPipe9.Active = uiPipe10.Active = uiPipe15.Active = swp183.Switch;
         }
 

@@ -200,7 +200,8 @@ namespace MainUI
 
             if (dicValueLabel.ContainsKey(e.Key))
             {
-                dicValueLabel[e.Key].Value = e.Value.ToDouble();
+                // 不用 ToDouble()：其内部 Round(,1) 会把曲轴箱压力等两位小数抹成 x.x0
+                dicValueLabel[e.Key].Value = (double)e.Value;
             }
             if (dicLight.ContainsKey(e.Key))
             {

@@ -420,7 +420,7 @@ namespace BogieIdling.UI.TRDP
                         }
                     }
 
-                    // 曲轴箱压力显示放大100倍，保留两位小数
+                    // 曲轴箱压力保留两位小数
                     if (tag.DataLabel == "曲轴箱压力1" || tag.DataLabel == "曲轴箱压力2")
                     {
                         realTimeValue = Math.Round(realTimeValue, 2);
@@ -449,10 +449,10 @@ namespace BogieIdling.UI.TRDP
         {
             try
             {
-                //读取字典
+                //读取字典（直接转 double，避免 ToDouble 扩展里 Round(,1) 丢掉曲轴箱等信号的第二位小数）
                 if (trdpValue.TryGetValue(key, out var sectionDict))
                 {
-                    return sectionDict.ToDouble();
+                    return Convert.ToDouble(sectionDict);
                 }
                 return 0;
             }
@@ -471,7 +471,7 @@ namespace BogieIdling.UI.TRDP
         {
             if (trdpValue.TryGetValue(key, out var d))
             {
-                value = d.ToDouble();
+                value = Convert.ToDouble(d);
                 return true;
             }
             value = 0;

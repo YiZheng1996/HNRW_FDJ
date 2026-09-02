@@ -336,8 +336,11 @@ namespace MainUI.Report
                         new Dictionary<int, Dictionary<string, object>>(),
                         KeyNameList);
 
-                    var allStartupData = allDataRecordDB.selectStartupData(
-                        dtpStartTime.Value, dtpEndTime.Value, txtNumber.Text);
+                    // 与查询一致：仅勾选「启动柜数据」时导出启动柜 Sheet
+                    var allStartupData = GD350_1Data.Checked
+                        ? allDataRecordDB.selectStartupData(
+                            dtpStartTime.Value, dtpEndTime.Value, txtNumber.Text)
+                        : new List<StartupTestPara>();
 
                     Cursor = Cursors.Default;
 
@@ -815,13 +818,7 @@ namespace MainUI.Report
 
             if (_startupTotalCount == 0)
             {
-                ClearStartupGridViewRows();
-                lblTotalNum1.Text = "共 0 条";
-                _currentStartupPageData = new List<StartupTestPara>();
-                _hasStartupSearched = false;
-                _startupTotalPages = 0;
-                pageNO1.Text = "第0页/共0页";
-                UpdateStartupPaginationButtons();
+                ClearStartupSearchResult();
                 return;
             }
 
@@ -962,12 +959,28 @@ namespace MainUI.Report
             dgvStartupRecord.Rows.Clear();
         }
 
+        /// <summary>
+        /// 重置启动柜查询结果与分页显示（未勾选「启动柜数据」或无数据时）
+        /// </summary>
+        private void ClearStartupSearchResult()
+        {
+            ClearStartupGridViewRows();
+            _currentStartupPageData = new List<StartupTestPara>();
+            _hasStartupSearched = false;
+            _startupTotalCount = 0;
+            _startupTotalPages = 0;
+            _startupCurrentPage = 1;
+            lblTotalNum1.Text = "共 0 条";
+            pageNO1.Text = "第0页/共0页";
+            UpdateStartupPaginationButtons();
+        }
+
         #endregion
 
         #region 公用方法
 
         /// <summary>
-        /// 查询按钮：同时执行总数据查询和启动柜查询
+        /// 查询按钮：总数据始终查询；启动柜数据表仅在勾选 GD350_1Data 时查询
         /// </summary>
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -985,7 +998,16 @@ namespace MainUI.Report
                 GetCheckBoxGroup();
 
                 SearchAllDataRecords();
-                SearchStartupRecords();
+
+                _isStartUp = GD350_1Data.Checked;
+                if (_isStartUp)
+                {
+                    SearchStartupRecords();
+                }
+                else
+                {
+                    ClearStartupSearchResult();
+                }
 
                 if (!_hasSearched && !_hasStartupSearched)
                 {
