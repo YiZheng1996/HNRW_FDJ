@@ -344,7 +344,7 @@ namespace MainUI.Fault.Engine
 
         // ─────────────────────────────────────────────────────────────
         // 多传感器表决（规范 11.1 / 11.2）
-        // 剔除故障传感器后，剩余有效传感器全部满足比较条件才触发；无有效传感器不触发。
+        // 剔除故障传感器后：曲轴箱压力任一有效点满足即触发；其余规则仍须全部满足。无有效传感器不触发。
         // ─────────────────────────────────────────────────────────────
         private bool EvalVote(VoteDef vote)
         {
@@ -379,9 +379,32 @@ namespace MainUI.Fault.Engine
 
             if (validValues.Count == 0) return false; // 全故障 → 不停机（仅报警在别处处理）
 
-            for (int i = 0; i < validValues.Count; i++)
-                if (!Compare(validValues[i], vote.Op, vote.Value)) return false; // 有效传感器全部满足才触发
+            bool crankcaseOr = false;
+            for (int i = 0; i < vote.Sensors.Count; i++)
+            {
+                if (vote.Sensors[i] == "曲轴箱压力1" || vote.Sensors[i] == "曲轴箱压力2")
+                {
+                    crankcaseOr = true;
+                    break;
+                }
+            }
 
+            if (crankcaseOr)
+            {
+                // 曲轴箱：有效传感器任意一个满足即触发
+                for (int i = 0; i < validValues.Count; i++)
+                {
+                    if (Compare(validValues[i], vote.Op, vote.Value))
+                        return true;
+                }
+                return false;
+            }
+
+            for (int i = 0; i < validValues.Count; i++)
+            {
+                if (!Compare(validValues[i], vote.Op, vote.Value))
+                    return false; // 有效传感器全部满足才触发
+            }
             return true;
         }
 

@@ -29,9 +29,6 @@ namespace MainUI.TestScreen
         // 记录数据View状态类
         ManaulData manaulData = new ManaulData();
 
-        //启动柜数据存储
-        TestParaService testParaService = new TestParaService();
-
         private FrmScarmOpen _scarmForm;
         /// <summary>
         /// 工况切换前弹窗提示
@@ -345,6 +342,10 @@ namespace MainUI.TestScreen
                     Common.speedGrp.SetTooth2(MiddleData.instnce.SelectModelConfig.NumberofTeeth1);
                     Common.speedGrp.SetTooth3(MiddleData.instnce.SelectModelConfig.NumberofTeeth2);
                 }
+
+                // 给设备1、2发送飞轮盘1齿数、飞轮盘2齿数
+                Common.opcExChangeSendGrp.SetNumberofTeeth1 = MiddleData.instnce.SelectModelConfig.NumberofTeeth1;
+                Common.opcExChangeSendGrp.SetNumberofTeeth2 = MiddleData.instnce.SelectModelConfig.NumberofTeeth2;
             }
             catch (Exception ex)
             {
@@ -1294,7 +1295,7 @@ namespace MainUI.TestScreen
         }
 
         /// <summary>
-        /// 开始记录所有模块数据
+        /// 开始记录启机/甩车数据
         /// </summary>
         public void StartupRecord()
         {
@@ -1313,26 +1314,6 @@ namespace MainUI.TestScreen
                         if (MiddleData.instnce.isStartupRecording)
                         {
                             InsertStartupData();
-
-                            //采集启动柜数据
-                            //加入一条甩车还是启机的字段
-                            var allModuleData = testParaService.CollectAllModuleData();
-
-                            if (MiddleData.instnce.StartupName == "甩车"
-                                && allModuleData.TryGetValue("GD350_1", out var obj)
-                                && obj is Dictionary<string, object> gd350)
-                            {
-                                gd350["Inverter_启动类型"] = MiddleData.instnce.StartupName;
-                            }
-                            if (MiddleData.instnce.StartupName == "启机"
-                                && allModuleData.TryGetValue("GD350_1", out var obj2)
-                                && obj2 is Dictionary<string, object> gd3502)
-                            {
-                                gd3502["Inverter_启动类型"] = MiddleData.instnce.StartupName;
-                            }
-
-                            // 保存所有模块的实时数据到TestParaALL表
-                            testParaService.SaveAllModuleDataToTestParaALL(allModuleData);
                         }
                         // 如果已经松手（isRecording为false），并且记录了松手时间
                         else if (MiddleData.instnce.StartupReleaseTime.HasValue)
@@ -1346,26 +1327,6 @@ namespace MainUI.TestScreen
                             else
                             {
                                 InsertStartupData();
-
-                                //采集启动柜数据
-                                //加入一条甩车还是启机的字段
-                                var allModuleData = testParaService.CollectAllModuleData();
-
-                                if (MiddleData.instnce.StartupName == "甩车"
-                                    && allModuleData.TryGetValue("GD350_1", out var obj1)
-                                    && obj1 is Dictionary<string, object> gd350_1)
-                                {
-                                    gd350_1["Inverter_启动类型"] = MiddleData.instnce.StartupName;
-                                }
-                                if (MiddleData.instnce.StartupName == "启机"
-                                    && allModuleData.TryGetValue("GD350_1", out var obj2)
-                                    && obj2 is Dictionary<string, object> gd350_2)
-                                {
-                                    gd350_2["Inverter_启动类型"] = MiddleData.instnce.StartupName;
-                                }
-
-                                // 保存所有模块的实时数据到TestParaALL表
-                                testParaService.SaveAllModuleDataToTestParaALL(allModuleData);
                             }
                         }
 
@@ -1413,6 +1374,7 @@ namespace MainUI.TestScreen
                 double invertSpeed = Common.gd350_1.OutputSpeed;
                 double invertPower = Common.gd350_1.OutputPower;
                 int invertFaultCode = Common.gd350_1.FaultCode;
+                string engineNo = Var.SysConfig.TestNo ?? "-";
 
                 StartupTestPara startupTestPara = new StartupTestPara();
                 startupTestPara.gid = Guid.NewGuid().ToString("N"); // 生成正整数ID
@@ -1431,7 +1393,8 @@ namespace MainUI.TestScreen
                 startupTestPara.InvertCurrent = invertCurrent;
                 startupTestPara.InvertPower = invertPower;
                 startupTestPara.InvertFaultCode = invertFaultCode;
-                this.dataGridStartup.Rows.Insert(0, index, dateTimeStr, type, speed, torque, power, excitationVoltage, excitationCurrent, invertVoltage, invertCurrent, invertSpeed, invertPower, invertFaultCode);
+                startupTestPara.DieselEngineNo = engineNo;
+                this.dataGridStartup.Rows.Insert(0, index ,dateTimeStr, type, engineNo, speed, torque, power, excitationVoltage, excitationCurrent, invertVoltage, invertCurrent, invertSpeed, invertPower, invertFaultCode);
 
                 TestParaService.instnce.SaveRecordStartup(startupTestPara);
             }

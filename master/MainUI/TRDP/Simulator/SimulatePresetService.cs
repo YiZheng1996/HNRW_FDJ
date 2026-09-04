@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using MainUI.Equip;
@@ -268,22 +268,22 @@ namespace MainUI
 
                 // ── 4. AI2Grp（PLC2）缸温、水压、机油
                 double cyl = p.CylExhaust;
-                Common.AI2Grp["A1缸排气温度"] = cyl + 5;
-                Common.AI2Grp["A2缸排气温度"] = cyl + 8;
-                Common.AI2Grp["A3缸排气温度"] = cyl + 3;
-                Common.AI2Grp["A4缸排气温度"] = cyl + 6;
-                Common.AI2Grp["A5缸排气温度"] = cyl + 4;
-                Common.AI2Grp["A6缸排气温度"] = cyl + 7;
-                Common.AI2Grp["A7缸排气温度"] = cyl + 5;
-                Common.AI2Grp["A8缸排气温度"] = cyl + 3;
-                Common.AI2Grp["B1缸排气温度"] = cyl + 4;
-                Common.AI2Grp["B2缸排气温度"] = cyl + 7;
-                Common.AI2Grp["B3缸排气温度"] = cyl + 5;
-                Common.AI2Grp["B4缸排气温度"] = cyl + 3;
-                Common.AI2Grp["B5缸排气温度"] = cyl + 6;
-                Common.AI2Grp["B6缸排气温度"] = cyl + 8;
-                Common.AI2Grp["B7缸排气温度"] = cyl + 4;
-                Common.AI2Grp["B8缸排气温度"] = cyl + 2;
+                Common.AI2Grp["台位_A1缸排气温度"] = cyl + 5;
+                Common.AI2Grp["台位_A2缸排气温度"] = cyl + 8;
+                Common.AI2Grp["台位_A3缸排气温度"] = cyl + 3;
+                Common.AI2Grp["台位_A4缸排气温度"] = cyl + 6;
+                Common.AI2Grp["台位_A5缸排气温度"] = cyl + 4;
+                Common.AI2Grp["台位_A6缸排气温度"] = cyl + 7;
+                Common.AI2Grp["台位_A7缸排气温度"] = cyl + 5;
+                Common.AI2Grp["台位_A8缸排气温度"] = cyl + 3;
+                Common.AI2Grp["台位_B1缸排气温度"] = cyl + 4;
+                Common.AI2Grp["台位_B2缸排气温度"] = cyl + 7;
+                Common.AI2Grp["台位_B3缸排气温度"] = cyl + 5;
+                Common.AI2Grp["台位_B4缸排气温度"] = cyl + 3;
+                Common.AI2Grp["台位_B5缸排气温度"] = cyl + 6;
+                Common.AI2Grp["台位_B6缸排气温度"] = cyl + 8;
+                Common.AI2Grp["台位_B7缸排气温度"] = cyl + 4;
+                Common.AI2Grp["台位_B8缸排气温度"] = cyl + 2;
 
                 Common.AI2Grp["T1高温水出机温度"] = p.WaterHiOut;
                 Common.AI2Grp["T2高温水进机温度"] = p.WaterHiIn;
@@ -296,20 +296,20 @@ namespace MainUI
                 Common.AI2Grp["P3中冷水泵进口压力"] = p.OilPress * 0.28;
                 Common.AI2Grp["P5中冷水出机压力"] = p.OilPress * 0.32;
                 Common.AI2Grp["P20机油泵出口压力"] = p.OilPress;
-                Common.AI2Grp["主油道末端油压"] = p.OilPress * 0.85;
+                Common.AI2Grp["台位_主油道末端油压"] = p.OilPress * 0.85;
                 Common.AI2Grp["前中冷前空气温度"] = p.AirTempFront;
                 Common.AI2Grp["前中冷后空气温度"] = p.AirTempFront - 8;
                 Common.AI2Grp["后中冷前空气温度"] = p.AirTempAfter;
-                Common.AI2Grp["后中冷后空气温度"] = p.AirTempAfter - 8;
+                Common.AI2Grp["台位_后中冷后空气温度"] = p.AirTempAfter - 8;
                 Common.AI2Grp["前中冷前空气压力"] = 102.0;
                 Common.AI2Grp["前中冷后空气压力"] = 100.5;
                 Common.AI2Grp["后中冷前空气压力"] = 102.0;
-                Common.AI2Grp["后中冷后空气压力"] = 100.5;
+                Common.AI2Grp["台位_后中冷后空气压力"] = 100.5;
                 Common.AI2Grp["前增压器进气真空度"] = -2.5;
                 Common.AI2Grp["后增压器进气真空度"] = -2.5;
                 Common.AI2Grp["前增压器排气背压"] = 3.2;
                 Common.AI2Grp["后增压器排气背压"] = 3.2;
-                Common.AI2Grp["高温水泵出口压力"] = p.OilPress * 0.38;
+                Common.AI2Grp["台位_高温水泵出口压力"] = p.OilPress * 0.38;
 
                 // ── 5. waterGrp.NewDataValue（直接写字典）
                 Common.waterGrp.NewDataValue["高温水冷却器进口温度检测-T13"] = p.WaterHiIn;
@@ -430,10 +430,10 @@ namespace MainUI
 
             // 缸温略微波动
             string[] cyls = {
-             "A1缸排气温度","A2缸排气温度","A3缸排气温度","A4缸排气温度",
-             "A5缸排气温度","A6缸排气温度","A7缸排气温度","A8缸排气温度",
-             "B1缸排气温度","B2缸排气温度","B3缸排气温度","B4缸排气温度",
-             "B5缸排气温度","B6缸排气温度","B7缸排气温度","B8缸排气温度",
+             "台位_A1缸排气温度","台位_A2缸排气温度","台位_A3缸排气温度","台位_A4缸排气温度",
+             "台位_A5缸排气温度","台位_A6缸排气温度","台位_A7缸排气温度","台位_A8缸排气温度",
+             "台位_B1缸排气温度","台位_B2缸排气温度","台位_B3缸排气温度","台位_B4缸排气温度",
+             "台位_B5缸排气温度","台位_B6缸排气温度","台位_B7缸排气温度","台位_B8缸排气温度",
              };
             foreach (string cyl in cyls)
             {

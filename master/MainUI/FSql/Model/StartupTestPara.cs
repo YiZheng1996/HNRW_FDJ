@@ -25,6 +25,11 @@ namespace MainUI.FSql
         public int Index { get; set; }
 
         /// <summary>
+        /// 柴油机编号
+        /// </summary>
+        public string DieselEngineNo { get; set; }
+
+        /// <summary>
         /// 试验类型
         /// </summary>
         public string TestName { get; set; }

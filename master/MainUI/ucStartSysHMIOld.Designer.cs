@@ -1,4 +1,4 @@
-﻿namespace MainUI
+namespace MainUI
 {
     partial class ucStartSysHMIOld
     {
@@ -1004,7 +1004,7 @@
             this.aiNumericalDisplay22.Name = "aiNumericalDisplay22";
             this.aiNumericalDisplay22.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay22.TabIndex = 18;
-            this.aiNumericalDisplay22.Tag = "后中冷后空气压力";
+            this.aiNumericalDisplay22.Tag = "台位_后中冷后空气压力";
             this.aiNumericalDisplay22.Text = "后中冷后";
             this.aiNumericalDisplay22.Unit = RW.UnitEnum.kPa;
             this.aiNumericalDisplay22.UnitFont = new System.Drawing.Font("Times New Roman", 22.5F);
@@ -1035,7 +1035,7 @@
             this.aiNumericalDisplay26.Name = "aiNumericalDisplay26";
             this.aiNumericalDisplay26.Size = new System.Drawing.Size(115, 65);
             this.aiNumericalDisplay26.TabIndex = 29;
-            this.aiNumericalDisplay26.Tag = "中冷水泵出口压力";
+            this.aiNumericalDisplay26.Tag = "台位_中冷水泵出口压力";
             this.aiNumericalDisplay26.Text = "中冷水泵";
             this.aiNumericalDisplay26.Unit = RW.UnitEnum.kPa;
             this.aiNumericalDisplay26.UnitFont = new System.Drawing.Font("Times New Roman", 22.5F);
@@ -1053,7 +1053,7 @@
             this.aiNumericalDisplay25.Name = "aiNumericalDisplay25";
             this.aiNumericalDisplay25.Size = new System.Drawing.Size(115, 65);
             this.aiNumericalDisplay25.TabIndex = 30;
-            this.aiNumericalDisplay25.Tag = "高温水泵出口压力";
+            this.aiNumericalDisplay25.Tag = "台位_高温水泵出口压力";
             this.aiNumericalDisplay25.Text = "高温水泵";
             this.aiNumericalDisplay25.Unit = RW.UnitEnum.kPa;
             this.aiNumericalDisplay25.UnitFont = new System.Drawing.Font("Times New Roman", 22.5F);
@@ -1071,8 +1071,8 @@
             this.aiNumericalDisplay24.Name = "aiNumericalDisplay24";
             this.aiNumericalDisplay24.Size = new System.Drawing.Size(165, 65);
             this.aiNumericalDisplay24.TabIndex = 31;
-            this.aiNumericalDisplay24.Tag = "主油道末端油压";
-            this.aiNumericalDisplay24.Text = "主油道末端油压";
+            this.aiNumericalDisplay24.Tag = "台位_主油道末端油压";
+            this.aiNumericalDisplay24.Text = "台位_主油道末端油压";
             this.aiNumericalDisplay24.Unit = RW.UnitEnum.kPa;
             this.aiNumericalDisplay24.UnitFont = new System.Drawing.Font("Times New Roman", 22.5F);
             this.aiNumericalDisplay24.ValueFont = new System.Drawing.Font("微软雅黑", 23.25F);
@@ -1103,7 +1103,7 @@
             this.aiNumericalDisplay46.Name = "aiNumericalDisplay46";
             this.aiNumericalDisplay46.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay46.TabIndex = 12;
-            this.aiNumericalDisplay46.Tag = "后中冷后空气温度";
+            this.aiNumericalDisplay46.Tag = "台位_后中冷后空气温度";
             this.aiNumericalDisplay46.Text = "后中冷后";
             this.aiNumericalDisplay46.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay46.UnitFont = new System.Drawing.Font("Times New Roman", 22.5F);
@@ -1475,7 +1475,7 @@
             this.aiNumericalDisplay3.Name = "aiNumericalDisplay3";
             this.aiNumericalDisplay3.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay3.TabIndex = 583;
-            this.aiNumericalDisplay3.Tag = "A1缸排气温度";
+            this.aiNumericalDisplay3.Tag = "台位_A1缸排气温度";
             this.aiNumericalDisplay3.Text = "A1缸";
             this.aiNumericalDisplay3.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay3.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1493,7 +1493,7 @@
             this.aiNumericalDisplay14.Name = "aiNumericalDisplay14";
             this.aiNumericalDisplay14.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay14.TabIndex = 582;
-            this.aiNumericalDisplay14.Tag = "A2缸排气温度";
+            this.aiNumericalDisplay14.Tag = "台位_A2缸排气温度";
             this.aiNumericalDisplay14.Text = "A2缸";
             this.aiNumericalDisplay14.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay14.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1511,7 +1511,7 @@
             this.aiNumericalDisplay15.Name = "aiNumericalDisplay15";
             this.aiNumericalDisplay15.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay15.TabIndex = 576;
-            this.aiNumericalDisplay15.Tag = "A3缸排气温度";
+            this.aiNumericalDisplay15.Tag = "台位_A3缸排气温度";
             this.aiNumericalDisplay15.Text = "A3缸";
             this.aiNumericalDisplay15.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay15.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1529,7 +1529,7 @@
             this.aiNumericalDisplay4.Name = "aiNumericalDisplay4";
             this.aiNumericalDisplay4.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay4.TabIndex = 575;
-            this.aiNumericalDisplay4.Tag = "A4缸排气温度";
+            this.aiNumericalDisplay4.Tag = "台位_A4缸排气温度";
             this.aiNumericalDisplay4.Text = "A4缸";
             this.aiNumericalDisplay4.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay4.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1547,7 +1547,7 @@
             this.aiNumericalDisplay30.Name = "aiNumericalDisplay30";
             this.aiNumericalDisplay30.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay30.TabIndex = 11;
-            this.aiNumericalDisplay30.Tag = "A5缸排气温度";
+            this.aiNumericalDisplay30.Tag = "台位_A5缸排气温度";
             this.aiNumericalDisplay30.Text = "A5缸";
             this.aiNumericalDisplay30.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay30.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1565,7 +1565,7 @@
             this.aiNumericalDisplay31.Name = "aiNumericalDisplay31";
             this.aiNumericalDisplay31.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay31.TabIndex = 10;
-            this.aiNumericalDisplay31.Tag = "A6缸排气温度";
+            this.aiNumericalDisplay31.Tag = "台位_A6缸排气温度";
             this.aiNumericalDisplay31.Text = "A6缸";
             this.aiNumericalDisplay31.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay31.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1583,7 +1583,7 @@
             this.aiNumericalDisplay17.Name = "aiNumericalDisplay17";
             this.aiNumericalDisplay17.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay17.TabIndex = 26;
-            this.aiNumericalDisplay17.Tag = "B8缸排气温度";
+            this.aiNumericalDisplay17.Tag = "台位_B8缸排气温度";
             this.aiNumericalDisplay17.Text = "B8缸";
             this.aiNumericalDisplay17.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay17.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1601,7 +1601,7 @@
             this.aiNumericalDisplay33.Name = "aiNumericalDisplay33";
             this.aiNumericalDisplay33.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay33.TabIndex = 3;
-            this.aiNumericalDisplay33.Tag = "A8缸排气温度";
+            this.aiNumericalDisplay33.Tag = "台位_A8缸排气温度";
             this.aiNumericalDisplay33.Text = "A8缸";
             this.aiNumericalDisplay33.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay33.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1619,7 +1619,7 @@
             this.aiNumericalDisplay32.Name = "aiNumericalDisplay32";
             this.aiNumericalDisplay32.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay32.TabIndex = 4;
-            this.aiNumericalDisplay32.Tag = "A7缸排气温度";
+            this.aiNumericalDisplay32.Tag = "台位_A7缸排气温度";
             this.aiNumericalDisplay32.Text = "A7缸";
             this.aiNumericalDisplay32.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay32.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1637,7 +1637,7 @@
             this.aiNumericalDisplay16.Name = "aiNumericalDisplay16";
             this.aiNumericalDisplay16.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay16.TabIndex = 27;
-            this.aiNumericalDisplay16.Tag = "B7缸排气温度";
+            this.aiNumericalDisplay16.Tag = "台位_B7缸排气温度";
             this.aiNumericalDisplay16.Text = "B7缸";
             this.aiNumericalDisplay16.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay16.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1655,7 +1655,7 @@
             this.aiNumericalDisplay34.Name = "aiNumericalDisplay34";
             this.aiNumericalDisplay34.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay34.TabIndex = 22;
-            this.aiNumericalDisplay34.Tag = "B1缸排气温度";
+            this.aiNumericalDisplay34.Tag = "台位_B1缸排气温度";
             this.aiNumericalDisplay34.Text = "B1缸";
             this.aiNumericalDisplay34.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay34.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1673,7 +1673,7 @@
             this.aiNumericalDisplay37.Name = "aiNumericalDisplay37";
             this.aiNumericalDisplay37.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay37.TabIndex = 14;
-            this.aiNumericalDisplay37.Tag = "B4缸排气温度";
+            this.aiNumericalDisplay37.Tag = "台位_B4缸排气温度";
             this.aiNumericalDisplay37.Text = "B4缸";
             this.aiNumericalDisplay37.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay37.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1691,7 +1691,7 @@
             this.aiNumericalDisplay35.Name = "aiNumericalDisplay35";
             this.aiNumericalDisplay35.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay35.TabIndex = 21;
-            this.aiNumericalDisplay35.Tag = "B2缸排气温度";
+            this.aiNumericalDisplay35.Tag = "台位_B2缸排气温度";
             this.aiNumericalDisplay35.Text = "B2缸";
             this.aiNumericalDisplay35.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay35.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1709,7 +1709,7 @@
             this.aiNumericalDisplay2.Name = "aiNumericalDisplay2";
             this.aiNumericalDisplay2.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay2.TabIndex = 33;
-            this.aiNumericalDisplay2.Tag = "B6缸排气温度";
+            this.aiNumericalDisplay2.Tag = "台位_B6缸排气温度";
             this.aiNumericalDisplay2.Text = "B6缸";
             this.aiNumericalDisplay2.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay2.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1727,7 +1727,7 @@
             this.aiNumericalDisplay36.Name = "aiNumericalDisplay36";
             this.aiNumericalDisplay36.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay36.TabIndex = 15;
-            this.aiNumericalDisplay36.Tag = "B3缸排气温度";
+            this.aiNumericalDisplay36.Tag = "台位_B3缸排气温度";
             this.aiNumericalDisplay36.Text = "B3缸";
             this.aiNumericalDisplay36.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay36.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);
@@ -1745,7 +1745,7 @@
             this.aiNumericalDisplay1.Name = "aiNumericalDisplay1";
             this.aiNumericalDisplay1.Size = new System.Drawing.Size(125, 65);
             this.aiNumericalDisplay1.TabIndex = 34;
-            this.aiNumericalDisplay1.Tag = "B5缸排气温度";
+            this.aiNumericalDisplay1.Tag = "台位_B5缸排气温度";
             this.aiNumericalDisplay1.Text = "B5缸";
             this.aiNumericalDisplay1.Unit = RW.UnitEnum.celsius;
             this.aiNumericalDisplay1.UnitFont = new System.Drawing.Font("Times New Roman", 23.25F);

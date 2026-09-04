@@ -1,4 +1,4 @@
-﻿namespace MainUI
+namespace MainUI
 {
     partial class frmHardWare
     {
@@ -1102,242 +1102,242 @@
             // 
             // ucCalibration56
             // 
-            this.ucCalibration56.CustomName = "B8缸排气温度";
+            this.ucCalibration56.CustomName = "台位_B8缸排气温度";
             this.ucCalibration56.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration56.GainValue = 0D;
             this.ucCalibration56.Index = 6;
-            this.ucCalibration56.Key = "B8缸排气温度";
+            this.ucCalibration56.Key = "台位_B8缸排气温度";
             this.ucCalibration56.Location = new System.Drawing.Point(41, 1648);
             this.ucCalibration56.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration56.Name = "ucCalibration56";
             this.ucCalibration56.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration56.TabIndex = 45;
-            this.ucCalibration56.Text = "B8缸排气温度(℃)";
+            this.ucCalibration56.Text = "台位_B8缸排气温度(℃)";
             this.ucCalibration56.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration55
             // 
-            this.ucCalibration55.CustomName = "B7缸排气温度";
+            this.ucCalibration55.CustomName = "台位_B7缸排气温度";
             this.ucCalibration55.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration55.GainValue = 0D;
             this.ucCalibration55.Index = 6;
-            this.ucCalibration55.Key = "B7缸排气温度";
+            this.ucCalibration55.Key = "台位_B7缸排气温度";
             this.ucCalibration55.Location = new System.Drawing.Point(41, 1601);
             this.ucCalibration55.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration55.Name = "ucCalibration55";
             this.ucCalibration55.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration55.TabIndex = 44;
-            this.ucCalibration55.Text = "B7缸排气温度(℃)";
+            this.ucCalibration55.Text = "台位_B7缸排气温度(℃)";
             this.ucCalibration55.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration54
             // 
-            this.ucCalibration54.CustomName = "B6缸排气温度";
+            this.ucCalibration54.CustomName = "台位_B6缸排气温度";
             this.ucCalibration54.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration54.GainValue = 0D;
             this.ucCalibration54.Index = 6;
-            this.ucCalibration54.Key = "B6缸排气温度";
+            this.ucCalibration54.Key = "台位_B6缸排气温度";
             this.ucCalibration54.Location = new System.Drawing.Point(41, 1554);
             this.ucCalibration54.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration54.Name = "ucCalibration54";
             this.ucCalibration54.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration54.TabIndex = 43;
-            this.ucCalibration54.Text = "B6缸排气温度(℃)";
+            this.ucCalibration54.Text = "台位_B6缸排气温度(℃)";
             this.ucCalibration54.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration53
             // 
-            this.ucCalibration53.CustomName = "B5缸排气温度";
+            this.ucCalibration53.CustomName = "台位_B5缸排气温度";
             this.ucCalibration53.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration53.GainValue = 0D;
             this.ucCalibration53.Index = 6;
-            this.ucCalibration53.Key = "B5缸排气温度";
+            this.ucCalibration53.Key = "台位_B5缸排气温度";
             this.ucCalibration53.Location = new System.Drawing.Point(41, 1507);
             this.ucCalibration53.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration53.Name = "ucCalibration53";
             this.ucCalibration53.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration53.TabIndex = 42;
-            this.ucCalibration53.Text = "B5缸排气温度(℃)";
+            this.ucCalibration53.Text = "台位_B5缸排气温度(℃)";
             this.ucCalibration53.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration52
             // 
-            this.ucCalibration52.CustomName = "B4缸排气温度";
+            this.ucCalibration52.CustomName = "台位_B4缸排气温度";
             this.ucCalibration52.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration52.GainValue = 0D;
             this.ucCalibration52.Index = 6;
-            this.ucCalibration52.Key = "B4缸排气温度";
+            this.ucCalibration52.Key = "台位_B4缸排气温度";
             this.ucCalibration52.Location = new System.Drawing.Point(41, 1460);
             this.ucCalibration52.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration52.Name = "ucCalibration52";
             this.ucCalibration52.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration52.TabIndex = 41;
-            this.ucCalibration52.Text = "B4缸排气温度(℃)";
+            this.ucCalibration52.Text = "台位_B4缸排气温度(℃)";
             this.ucCalibration52.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration51
             // 
-            this.ucCalibration51.CustomName = "B3缸排气温度";
+            this.ucCalibration51.CustomName = "台位_B3缸排气温度";
             this.ucCalibration51.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration51.GainValue = 0D;
             this.ucCalibration51.Index = 6;
-            this.ucCalibration51.Key = "B3缸排气温度";
+            this.ucCalibration51.Key = "台位_B3缸排气温度";
             this.ucCalibration51.Location = new System.Drawing.Point(41, 1413);
             this.ucCalibration51.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration51.Name = "ucCalibration51";
             this.ucCalibration51.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration51.TabIndex = 40;
-            this.ucCalibration51.Text = "B3缸排气温度(℃)";
+            this.ucCalibration51.Text = "台位_B3缸排气温度(℃)";
             this.ucCalibration51.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration50
             // 
-            this.ucCalibration50.CustomName = "B2缸排气温度";
+            this.ucCalibration50.CustomName = "台位_B2缸排气温度";
             this.ucCalibration50.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration50.GainValue = 0D;
             this.ucCalibration50.Index = 6;
-            this.ucCalibration50.Key = "B2缸排气温度";
+            this.ucCalibration50.Key = "台位_B2缸排气温度";
             this.ucCalibration50.Location = new System.Drawing.Point(41, 1366);
             this.ucCalibration50.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration50.Name = "ucCalibration50";
             this.ucCalibration50.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration50.TabIndex = 39;
-            this.ucCalibration50.Text = "B2缸排气温度(℃)";
+            this.ucCalibration50.Text = "台位_B2缸排气温度(℃)";
             this.ucCalibration50.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration49
             // 
-            this.ucCalibration49.CustomName = "B1缸排气温度";
+            this.ucCalibration49.CustomName = "台位_B1缸排气温度";
             this.ucCalibration49.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration49.GainValue = 0D;
             this.ucCalibration49.Index = 6;
-            this.ucCalibration49.Key = "B1缸排气温度";
+            this.ucCalibration49.Key = "台位_B1缸排气温度";
             this.ucCalibration49.Location = new System.Drawing.Point(41, 1319);
             this.ucCalibration49.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration49.Name = "ucCalibration49";
             this.ucCalibration49.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration49.TabIndex = 38;
-            this.ucCalibration49.Text = "B1缸排气温度(℃)";
+            this.ucCalibration49.Text = "台位_B1缸排气温度(℃)";
             this.ucCalibration49.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration48
             // 
-            this.ucCalibration48.CustomName = "A8缸排气温度";
+            this.ucCalibration48.CustomName = "台位_A8缸排气温度";
             this.ucCalibration48.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration48.GainValue = 0D;
             this.ucCalibration48.Index = 6;
-            this.ucCalibration48.Key = "A8缸排气温度";
+            this.ucCalibration48.Key = "台位_A8缸排气温度";
             this.ucCalibration48.Location = new System.Drawing.Point(41, 1272);
             this.ucCalibration48.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration48.Name = "ucCalibration48";
             this.ucCalibration48.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration48.TabIndex = 37;
-            this.ucCalibration48.Text = "A8缸排气温度(℃)";
+            this.ucCalibration48.Text = "台位_A8缸排气温度(℃)";
             this.ucCalibration48.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration47
             // 
-            this.ucCalibration47.CustomName = "A7缸排气温度";
+            this.ucCalibration47.CustomName = "台位_A7缸排气温度";
             this.ucCalibration47.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration47.GainValue = 0D;
             this.ucCalibration47.Index = 6;
-            this.ucCalibration47.Key = "A7缸排气温度";
+            this.ucCalibration47.Key = "台位_A7缸排气温度";
             this.ucCalibration47.Location = new System.Drawing.Point(41, 1225);
             this.ucCalibration47.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration47.Name = "ucCalibration47";
             this.ucCalibration47.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration47.TabIndex = 36;
-            this.ucCalibration47.Text = "A7缸排气温度(℃)";
+            this.ucCalibration47.Text = "台位_A7缸排气温度(℃)";
             this.ucCalibration47.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration46
             // 
-            this.ucCalibration46.CustomName = "A6缸排气温度";
+            this.ucCalibration46.CustomName = "台位_A6缸排气温度";
             this.ucCalibration46.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration46.GainValue = 0D;
             this.ucCalibration46.Index = 6;
-            this.ucCalibration46.Key = "A6缸排气温度";
+            this.ucCalibration46.Key = "台位_A6缸排气温度";
             this.ucCalibration46.Location = new System.Drawing.Point(41, 1178);
             this.ucCalibration46.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration46.Name = "ucCalibration46";
             this.ucCalibration46.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration46.TabIndex = 35;
-            this.ucCalibration46.Text = "A6缸排气温度(℃)";
+            this.ucCalibration46.Text = "台位_A6缸排气温度(℃)";
             this.ucCalibration46.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration45
             // 
-            this.ucCalibration45.CustomName = "A5缸排气温度";
+            this.ucCalibration45.CustomName = "台位_A5缸排气温度";
             this.ucCalibration45.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration45.GainValue = 0D;
             this.ucCalibration45.Index = 6;
-            this.ucCalibration45.Key = "A5缸排气温度";
+            this.ucCalibration45.Key = "台位_A5缸排气温度";
             this.ucCalibration45.Location = new System.Drawing.Point(41, 1131);
             this.ucCalibration45.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration45.Name = "ucCalibration45";
             this.ucCalibration45.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration45.TabIndex = 34;
-            this.ucCalibration45.Text = "A5缸排气温度(℃)";
+            this.ucCalibration45.Text = "台位_A5缸排气温度(℃)";
             this.ucCalibration45.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration44
             // 
-            this.ucCalibration44.CustomName = "A4缸排气温度";
+            this.ucCalibration44.CustomName = "台位_A4缸排气温度";
             this.ucCalibration44.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration44.GainValue = 0D;
             this.ucCalibration44.Index = 6;
-            this.ucCalibration44.Key = "A4缸排气温度";
+            this.ucCalibration44.Key = "台位_A4缸排气温度";
             this.ucCalibration44.Location = new System.Drawing.Point(41, 1084);
             this.ucCalibration44.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration44.Name = "ucCalibration44";
             this.ucCalibration44.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration44.TabIndex = 33;
-            this.ucCalibration44.Text = "A4缸排气温度(℃)";
+            this.ucCalibration44.Text = "台位_A4缸排气温度(℃)";
             this.ucCalibration44.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration43
             // 
-            this.ucCalibration43.CustomName = "A3缸排气温度";
+            this.ucCalibration43.CustomName = "台位_A3缸排气温度";
             this.ucCalibration43.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration43.GainValue = 0D;
             this.ucCalibration43.Index = 6;
-            this.ucCalibration43.Key = "A3缸排气温度";
+            this.ucCalibration43.Key = "台位_A3缸排气温度";
             this.ucCalibration43.Location = new System.Drawing.Point(41, 1037);
             this.ucCalibration43.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration43.Name = "ucCalibration43";
             this.ucCalibration43.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration43.TabIndex = 32;
-            this.ucCalibration43.Text = "A3缸排气温度(℃)";
+            this.ucCalibration43.Text = "台位_A3缸排气温度(℃)";
             this.ucCalibration43.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration42
             // 
-            this.ucCalibration42.CustomName = "A2缸排气温度";
+            this.ucCalibration42.CustomName = "台位_A2缸排气温度";
             this.ucCalibration42.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration42.GainValue = 0D;
             this.ucCalibration42.Index = 6;
-            this.ucCalibration42.Key = "A2缸排气温度";
+            this.ucCalibration42.Key = "台位_A2缸排气温度";
             this.ucCalibration42.Location = new System.Drawing.Point(41, 990);
             this.ucCalibration42.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration42.Name = "ucCalibration42";
             this.ucCalibration42.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration42.TabIndex = 31;
-            this.ucCalibration42.Text = "A2缸排气温度(℃)";
+            this.ucCalibration42.Text = "台位_A2缸排气温度(℃)";
             this.ucCalibration42.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration41
             // 
-            this.ucCalibration41.CustomName = "A1缸排气温度";
+            this.ucCalibration41.CustomName = "台位_A1缸排气温度";
             this.ucCalibration41.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration41.GainValue = 0D;
             this.ucCalibration41.Index = 6;
-            this.ucCalibration41.Key = "A1缸排气温度";
+            this.ucCalibration41.Key = "台位_A1缸排气温度";
             this.ucCalibration41.Location = new System.Drawing.Point(41, 943);
             this.ucCalibration41.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration41.Name = "ucCalibration41";
             this.ucCalibration41.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration41.TabIndex = 30;
-            this.ucCalibration41.Text = "A1缸排气温度(℃)";
+            this.ucCalibration41.Text = "台位_A1缸排气温度(℃)";
             this.ucCalibration41.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration38
@@ -1446,17 +1446,17 @@
             // 
             // ucCalibration25
             // 
-            this.ucCalibration25.CustomName = "后中冷后空气温度";
+            this.ucCalibration25.CustomName = "台位_后中冷后空气温度";
             this.ucCalibration25.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration25.GainValue = 0D;
             this.ucCalibration25.Index = 1;
-            this.ucCalibration25.Key = "后中冷后空气温度";
+            this.ucCalibration25.Key = "台位_后中冷后空气温度";
             this.ucCalibration25.Location = new System.Drawing.Point(20, 52);
             this.ucCalibration25.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration25.Name = "ucCalibration25";
             this.ucCalibration25.Size = new System.Drawing.Size(694, 37);
             this.ucCalibration25.TabIndex = 10;
-            this.ucCalibration25.Text = "后中冷后空气温度(℃)";
+            this.ucCalibration25.Text = "台位_后中冷后空气温度(℃)";
             this.ucCalibration25.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration31
@@ -1978,47 +1978,47 @@
             // 
             // ucCalibration89
             // 
-            this.ucCalibration89.CustomName = "后中冷后空气压力";
+            this.ucCalibration89.CustomName = "台位_后中冷后空气压力";
             this.ucCalibration89.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration89.GainValue = 0D;
             this.ucCalibration89.Index = 1;
-            this.ucCalibration89.Key = "后中冷后空气压力";
+            this.ucCalibration89.Key = "台位_后中冷后空气压力";
             this.ucCalibration89.Location = new System.Drawing.Point(53, 52);
             this.ucCalibration89.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration89.Name = "ucCalibration89";
             this.ucCalibration89.Size = new System.Drawing.Size(694, 37);
             this.ucCalibration89.TabIndex = 10;
-            this.ucCalibration89.Text = "后中冷后空气压力(kPa)";
+            this.ucCalibration89.Text = "台位_后中冷后空气压力(kPa)";
             this.ucCalibration89.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration90
             // 
-            this.ucCalibration90.CustomName = "中冷水泵出口压力";
+            this.ucCalibration90.CustomName = "台位_中冷水泵出口压力";
             this.ucCalibration90.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration90.GainValue = 0D;
             this.ucCalibration90.Index = 6;
-            this.ucCalibration90.Key = "中冷水泵出口压力";
+            this.ucCalibration90.Key = "台位_中冷水泵出口压力";
             this.ucCalibration90.Location = new System.Drawing.Point(74, 522);
             this.ucCalibration90.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration90.Name = "ucCalibration90";
             this.ucCalibration90.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration90.TabIndex = 20;
-            this.ucCalibration90.Text = "中冷水泵出口压力(kPa)";
+            this.ucCalibration90.Text = "台位_中冷水泵出口压力(kPa)";
             this.ucCalibration90.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration91
             // 
-            this.ucCalibration91.CustomName = "主油道末端油压";
+            this.ucCalibration91.CustomName = "台位_主油道末端油压";
             this.ucCalibration91.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration91.GainValue = 0D;
             this.ucCalibration91.Index = 2;
-            this.ucCalibration91.Key = "主油道末端油压";
+            this.ucCalibration91.Key = "台位_主油道末端油压";
             this.ucCalibration91.Location = new System.Drawing.Point(74, 99);
             this.ucCalibration91.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration91.Name = "ucCalibration91";
             this.ucCalibration91.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration91.TabIndex = 15;
-            this.ucCalibration91.Text = "主油道末端油压(kPa)";
+            this.ucCalibration91.Text = "台位_主油道末端油压(kPa)";
             this.ucCalibration91.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration92
@@ -2098,17 +2098,17 @@
             // 
             // ucCalibration97
             // 
-            this.ucCalibration97.CustomName = "高温水泵出口压力";
+            this.ucCalibration97.CustomName = "台位_高温水泵出口压力";
             this.ucCalibration97.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.ucCalibration97.GainValue = 0D;
             this.ucCalibration97.Index = 5;
-            this.ucCalibration97.Key = "高温水泵出口压力";
+            this.ucCalibration97.Key = "台位_高温水泵出口压力";
             this.ucCalibration97.Location = new System.Drawing.Point(74, 240);
             this.ucCalibration97.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucCalibration97.Name = "ucCalibration97";
             this.ucCalibration97.Size = new System.Drawing.Size(673, 37);
             this.ucCalibration97.TabIndex = 12;
-            this.ucCalibration97.Text = "高温水泵出口压力(kPa)";
+            this.ucCalibration97.Text = "台位_高温水泵出口压力(kPa)";
             this.ucCalibration97.Submited += new System.EventHandler<MainUI.Procedure.SubmitArgs>(this.ucCalibration_2_Submited);
             // 
             // ucCalibration98

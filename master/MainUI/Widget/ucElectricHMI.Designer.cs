@@ -1,4 +1,4 @@
-﻿
+
 namespace MainUI
 {
     partial class ucElectricHMI
@@ -674,7 +674,7 @@ namespace MainUI
             this.aiNumericalDisplay65.Name = "aiNumericalDisplay65";
             this.aiNumericalDisplay65.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay65.TabIndex = 11;
-            this.aiNumericalDisplay65.Text = "A1缸排气温度(℃)";
+            this.aiNumericalDisplay65.Text = "台位_A1缸排气温度(℃)";
             this.aiNumericalDisplay65.UnitFont = new System.Drawing.Font("Times New Roman", 22.5F);
             this.aiNumericalDisplay65.ValueFont = new System.Drawing.Font("Times New Roman", 22.5F, System.Drawing.FontStyle.Bold);
             this.aiNumericalDisplay65.ValueFontSize = 20;
@@ -688,7 +688,7 @@ namespace MainUI
             this.aiNumericalDisplay66.Name = "aiNumericalDisplay66";
             this.aiNumericalDisplay66.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay66.TabIndex = 3;
-            this.aiNumericalDisplay66.Text = "A4缸排气温度(℃)";
+            this.aiNumericalDisplay66.Text = "台位_A4缸排气温度(℃)";
             this.aiNumericalDisplay66.ValueFontSize = 20;
             // 
             // aiNumericalDisplay67
@@ -700,7 +700,7 @@ namespace MainUI
             this.aiNumericalDisplay67.Name = "aiNumericalDisplay67";
             this.aiNumericalDisplay67.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay67.TabIndex = 10;
-            this.aiNumericalDisplay67.Text = "A2缸排气温度(℃)";
+            this.aiNumericalDisplay67.Text = "台位_A2缸排气温度(℃)";
             this.aiNumericalDisplay67.ValueFontSize = 20;
             // 
             // aiNumericalDisplay68
@@ -712,7 +712,7 @@ namespace MainUI
             this.aiNumericalDisplay68.Name = "aiNumericalDisplay68";
             this.aiNumericalDisplay68.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay68.TabIndex = 4;
-            this.aiNumericalDisplay68.Text = "A3缸排气温度(℃)";
+            this.aiNumericalDisplay68.Text = "台位_A3缸排气温度(℃)";
             this.aiNumericalDisplay68.ValueFontSize = 20;
             // 
             // aiNumericalDisplay69
@@ -829,7 +829,7 @@ namespace MainUI
             this.aiNumericalDisplay76.Name = "aiNumericalDisplay76";
             this.aiNumericalDisplay76.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay76.TabIndex = 3;
-            this.aiNumericalDisplay76.Text = "A4缸排气温度(℃)";
+            this.aiNumericalDisplay76.Text = "台位_A4缸排气温度(℃)";
             this.aiNumericalDisplay76.ValueFontSize = 20;
             // 
             // aiNumericalDisplay77
@@ -841,7 +841,7 @@ namespace MainUI
             this.aiNumericalDisplay77.Name = "aiNumericalDisplay77";
             this.aiNumericalDisplay77.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay77.TabIndex = 4;
-            this.aiNumericalDisplay77.Text = "A3缸排气温度(℃)";
+            this.aiNumericalDisplay77.Text = "台位_A3缸排气温度(℃)";
             this.aiNumericalDisplay77.ValueFontSize = 20;
             // 
             // aiNumericalDisplay78
@@ -913,7 +913,7 @@ namespace MainUI
             this.aiNumericalDisplay83.Name = "aiNumericalDisplay83";
             this.aiNumericalDisplay83.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay83.TabIndex = 10;
-            this.aiNumericalDisplay83.Text = "A2缸排气温度(℃)";
+            this.aiNumericalDisplay83.Text = "台位_A2缸排气温度(℃)";
             this.aiNumericalDisplay83.ValueFontSize = 20;
             // 
             // aiNumericalDisplay84
@@ -925,7 +925,7 @@ namespace MainUI
             this.aiNumericalDisplay84.Name = "aiNumericalDisplay84";
             this.aiNumericalDisplay84.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay84.TabIndex = 11;
-            this.aiNumericalDisplay84.Text = "A1缸排气温度(℃)";
+            this.aiNumericalDisplay84.Text = "台位_A1缸排气温度(℃)";
             this.aiNumericalDisplay84.ValueFontSize = 20;
             // 
             // tabPage7
@@ -958,7 +958,7 @@ namespace MainUI
             this.aiNumericalDisplay85.Name = "aiNumericalDisplay85";
             this.aiNumericalDisplay85.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay85.TabIndex = 12;
-            this.aiNumericalDisplay85.Text = "后中冷后空气温度(℃)";
+            this.aiNumericalDisplay85.Text = "台位_后中冷后空气温度(℃)";
             this.aiNumericalDisplay85.ValueFontSize = 20;
             // 
             // aiNumericalDisplay86
@@ -994,7 +994,7 @@ namespace MainUI
             this.aiNumericalDisplay88.Name = "aiNumericalDisplay88";
             this.aiNumericalDisplay88.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay88.TabIndex = 14;
-            this.aiNumericalDisplay88.Text = "B4缸排气温度(℃)";
+            this.aiNumericalDisplay88.Text = "台位_B4缸排气温度(℃)";
             this.aiNumericalDisplay88.ValueFontSize = 20;
             // 
             // aiNumericalDisplay89
@@ -1006,7 +1006,7 @@ namespace MainUI
             this.aiNumericalDisplay89.Name = "aiNumericalDisplay89";
             this.aiNumericalDisplay89.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay89.TabIndex = 15;
-            this.aiNumericalDisplay89.Text = "B3缸排气温度(℃)";
+            this.aiNumericalDisplay89.Text = "台位_B3缸排气温度(℃)";
             this.aiNumericalDisplay89.ValueFontSize = 20;
             // 
             // aiNumericalDisplay90
@@ -1042,7 +1042,7 @@ namespace MainUI
             this.aiNumericalDisplay92.Name = "aiNumericalDisplay92";
             this.aiNumericalDisplay92.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay92.TabIndex = 18;
-            this.aiNumericalDisplay92.Text = "后中冷后空气压力(Kpa)";
+            this.aiNumericalDisplay92.Text = "台位_后中冷后空气压力(Kpa)";
             this.aiNumericalDisplay92.ValueFontSize = 20;
             // 
             // aiNumericalDisplay93
@@ -1078,7 +1078,7 @@ namespace MainUI
             this.aiNumericalDisplay95.Name = "aiNumericalDisplay95";
             this.aiNumericalDisplay95.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay95.TabIndex = 21;
-            this.aiNumericalDisplay95.Text = "B2缸排气温度(℃)";
+            this.aiNumericalDisplay95.Text = "台位_B2缸排气温度(℃)";
             this.aiNumericalDisplay95.ValueFontSize = 20;
             // 
             // aiNumericalDisplay96
@@ -1090,7 +1090,7 @@ namespace MainUI
             this.aiNumericalDisplay96.Name = "aiNumericalDisplay96";
             this.aiNumericalDisplay96.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay96.TabIndex = 22;
-            this.aiNumericalDisplay96.Text = "B1缸排气温度(℃)";
+            this.aiNumericalDisplay96.Text = "台位_B1缸排气温度(℃)";
             this.aiNumericalDisplay96.ValueFontSize = 20;
             // 
             // tabPage8
@@ -1198,7 +1198,7 @@ namespace MainUI
             this.aiNumericalDisplay103.Name = "aiNumericalDisplay103";
             this.aiNumericalDisplay103.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay103.TabIndex = 26;
-            this.aiNumericalDisplay103.Text = "B8缸排气温度(℃)";
+            this.aiNumericalDisplay103.Text = "台位_B8缸排气温度(℃)";
             this.aiNumericalDisplay103.ValueFontSize = 20;
             // 
             // aiNumericalDisplay104
@@ -1210,7 +1210,7 @@ namespace MainUI
             this.aiNumericalDisplay104.Name = "aiNumericalDisplay104";
             this.aiNumericalDisplay104.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay104.TabIndex = 27;
-            this.aiNumericalDisplay104.Text = "B7缸排气温度(℃)";
+            this.aiNumericalDisplay104.Text = "台位_B7缸排气温度(℃)";
             this.aiNumericalDisplay104.ValueFontSize = 20;
             // 
             // aiNumericalDisplay105
@@ -1234,7 +1234,7 @@ namespace MainUI
             this.aiNumericalDisplay106.Name = "aiNumericalDisplay106";
             this.aiNumericalDisplay106.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay106.TabIndex = 29;
-            this.aiNumericalDisplay106.Text = "中冷水泵出口压力(Kpa)";
+            this.aiNumericalDisplay106.Text = "台位_中冷水泵出口压力(Kpa)";
             this.aiNumericalDisplay106.ValueFontSize = 20;
             // 
             // aiNumericalDisplay107
@@ -1246,7 +1246,7 @@ namespace MainUI
             this.aiNumericalDisplay107.Name = "aiNumericalDisplay107";
             this.aiNumericalDisplay107.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay107.TabIndex = 30;
-            this.aiNumericalDisplay107.Text = "高温水泵出口压力(Kpa)";
+            this.aiNumericalDisplay107.Text = "台位_高温水泵出口压力(Kpa)";
             this.aiNumericalDisplay107.ValueFontSize = 20;
             // 
             // aiNumericalDisplay108
@@ -1258,7 +1258,7 @@ namespace MainUI
             this.aiNumericalDisplay108.Name = "aiNumericalDisplay108";
             this.aiNumericalDisplay108.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay108.TabIndex = 31;
-            this.aiNumericalDisplay108.Text = "主油道末端油压(Kpa)";
+            this.aiNumericalDisplay108.Text = "台位_主油道末端油压(Kpa)";
             this.aiNumericalDisplay108.ValueFontSize = 20;
             // 
             // aiNumericalDisplay109
@@ -1282,7 +1282,7 @@ namespace MainUI
             this.aiNumericalDisplay110.Name = "aiNumericalDisplay110";
             this.aiNumericalDisplay110.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay110.TabIndex = 33;
-            this.aiNumericalDisplay110.Text = "B6缸排气温度(℃)";
+            this.aiNumericalDisplay110.Text = "台位_B6缸排气温度(℃)";
             this.aiNumericalDisplay110.ValueFontSize = 20;
             // 
             // aiNumericalDisplay111
@@ -1294,7 +1294,7 @@ namespace MainUI
             this.aiNumericalDisplay111.Name = "aiNumericalDisplay111";
             this.aiNumericalDisplay111.Size = new System.Drawing.Size(300, 65);
             this.aiNumericalDisplay111.TabIndex = 34;
-            this.aiNumericalDisplay111.Text = "B5缸排气温度(℃)";
+            this.aiNumericalDisplay111.Text = "台位_B5缸排气温度(℃)";
             this.aiNumericalDisplay111.ValueFontSize = 20;
             // 
             // panel1

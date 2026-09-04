@@ -1,4 +1,4 @@
-﻿namespace MainUI
+namespace MainUI
 {
     partial class frmAllData
     {
@@ -218,8 +218,8 @@
             this.ucNum32.Name = "ucNum32";
             this.ucNum32.Size = new System.Drawing.Size(300, 100);
             this.ucNum32.TabIndex = 426;
-            this.ucNum32.Tag = "B4缸排气温度";
-            this.ucNum32.Title = "B4缸排气温度(℃)";
+            this.ucNum32.Tag = "台位_B4缸排气温度";
+            this.ucNum32.Title = "台位_B4缸排气温度(℃)";
             this.ucNum32.Value = 1D;
             // 
             // ucNum36
@@ -231,8 +231,8 @@
             this.ucNum36.Name = "ucNum36";
             this.ucNum36.Size = new System.Drawing.Size(300, 100);
             this.ucNum36.TabIndex = 425;
-            this.ucNum36.Tag = "A6缸排气温度";
-            this.ucNum36.Title = "A6缸排气温度(℃)";
+            this.ucNum36.Tag = "台位_A6缸排气温度";
+            this.ucNum36.Title = "台位_A6缸排气温度(℃)";
             this.ucNum36.Value = 1D;
             // 
             // ucNum37
@@ -257,8 +257,8 @@
             this.ucNum38.Name = "ucNum38";
             this.ucNum38.Size = new System.Drawing.Size(300, 100);
             this.ucNum38.TabIndex = 423;
-            this.ucNum38.Tag = "B8缸排气温度";
-            this.ucNum38.Title = "B8缸排气温度(℃)";
+            this.ucNum38.Tag = "台位_B8缸排气温度";
+            this.ucNum38.Title = "台位_B8缸排气温度(℃)";
             this.ucNum38.Value = 1D;
             // 
             // ucNum39
@@ -270,8 +270,8 @@
             this.ucNum39.Name = "ucNum39";
             this.ucNum39.Size = new System.Drawing.Size(300, 100);
             this.ucNum39.TabIndex = 422;
-            this.ucNum39.Tag = "B7缸排气温度";
-            this.ucNum39.Title = "B7缸排气温度(℃)";
+            this.ucNum39.Tag = "台位_B7缸排气温度";
+            this.ucNum39.Title = "台位_B7缸排气温度(℃)";
             this.ucNum39.Value = 1D;
             // 
             // ucNum53
@@ -296,8 +296,8 @@
             this.ucNum40.Name = "ucNum40";
             this.ucNum40.Size = new System.Drawing.Size(300, 100);
             this.ucNum40.TabIndex = 421;
-            this.ucNum40.Tag = "B6缸排气温度";
-            this.ucNum40.Title = "B6缸排气温度(℃)";
+            this.ucNum40.Tag = "台位_B6缸排气温度";
+            this.ucNum40.Title = "台位_B6缸排气温度(℃)";
             this.ucNum40.Value = 1D;
             // 
             // ucNum52
@@ -322,8 +322,8 @@
             this.ucNum41.Name = "ucNum41";
             this.ucNum41.Size = new System.Drawing.Size(300, 100);
             this.ucNum41.TabIndex = 420;
-            this.ucNum41.Tag = "B5缸排气温度";
-            this.ucNum41.Title = "B5缸排气温度(℃)";
+            this.ucNum41.Tag = "台位_B5缸排气温度";
+            this.ucNum41.Title = "台位_B5缸排气温度(℃)";
             this.ucNum41.Value = 1D;
             // 
             // ucNum42
@@ -335,8 +335,8 @@
             this.ucNum42.Name = "ucNum42";
             this.ucNum42.Size = new System.Drawing.Size(300, 100);
             this.ucNum42.TabIndex = 419;
-            this.ucNum42.Tag = "B3缸排气温度";
-            this.ucNum42.Title = "B3缸排气温度(℃)";
+            this.ucNum42.Tag = "台位_B3缸排气温度";
+            this.ucNum42.Title = "台位_B3缸排气温度(℃)";
             this.ucNum42.Value = 1D;
             // 
             // ucNum43
@@ -348,8 +348,8 @@
             this.ucNum43.Name = "ucNum43";
             this.ucNum43.Size = new System.Drawing.Size(300, 100);
             this.ucNum43.TabIndex = 418;
-            this.ucNum43.Tag = "B2缸排气温度";
-            this.ucNum43.Title = "B2缸排气温度(℃)";
+            this.ucNum43.Tag = "台位_B2缸排气温度";
+            this.ucNum43.Title = "台位_B2缸排气温度(℃)";
             this.ucNum43.Value = 1D;
             // 
             // ucNum44
@@ -361,8 +361,8 @@
             this.ucNum44.Name = "ucNum44";
             this.ucNum44.Size = new System.Drawing.Size(300, 100);
             this.ucNum44.TabIndex = 417;
-            this.ucNum44.Tag = "B1缸排气温度";
-            this.ucNum44.Title = "B1缸排气温度(℃)";
+            this.ucNum44.Tag = "台位_B1缸排气温度";
+            this.ucNum44.Title = "台位_B1缸排气温度(℃)";
             this.ucNum44.Value = 1D;
             // 
             // ucNum45
@@ -374,8 +374,8 @@
             this.ucNum45.Name = "ucNum45";
             this.ucNum45.Size = new System.Drawing.Size(300, 100);
             this.ucNum45.TabIndex = 416;
-            this.ucNum45.Tag = "A8缸排气温度";
-            this.ucNum45.Title = "A8缸排气温度(℃)";
+            this.ucNum45.Tag = "台位_A8缸排气温度";
+            this.ucNum45.Title = "台位_A8缸排气温度(℃)";
             this.ucNum45.Value = 1D;
             // 
             // ucNum46
@@ -387,8 +387,8 @@
             this.ucNum46.Name = "ucNum46";
             this.ucNum46.Size = new System.Drawing.Size(300, 100);
             this.ucNum46.TabIndex = 415;
-            this.ucNum46.Tag = "A7缸排气温度";
-            this.ucNum46.Title = "A7缸排气温度(℃)";
+            this.ucNum46.Tag = "台位_A7缸排气温度";
+            this.ucNum46.Title = "台位_A7缸排气温度(℃)";
             this.ucNum46.Value = 1D;
             // 
             // ucNum47
@@ -400,8 +400,8 @@
             this.ucNum47.Name = "ucNum47";
             this.ucNum47.Size = new System.Drawing.Size(300, 100);
             this.ucNum47.TabIndex = 414;
-            this.ucNum47.Tag = "A5缸排气温度";
-            this.ucNum47.Title = "A5缸排气温度(℃)";
+            this.ucNum47.Tag = "台位_A5缸排气温度";
+            this.ucNum47.Title = "台位_A5缸排气温度(℃)";
             this.ucNum47.Value = 1D;
             // 
             // ucNum48
@@ -413,8 +413,8 @@
             this.ucNum48.Name = "ucNum48";
             this.ucNum48.Size = new System.Drawing.Size(300, 100);
             this.ucNum48.TabIndex = 413;
-            this.ucNum48.Tag = "A4缸排气温度";
-            this.ucNum48.Title = "A4缸排气温度(℃)";
+            this.ucNum48.Tag = "台位_A4缸排气温度";
+            this.ucNum48.Title = "台位_A4缸排气温度(℃)";
             this.ucNum48.Value = 1D;
             // 
             // ucNum49
@@ -426,8 +426,8 @@
             this.ucNum49.Name = "ucNum49";
             this.ucNum49.Size = new System.Drawing.Size(300, 100);
             this.ucNum49.TabIndex = 412;
-            this.ucNum49.Tag = "A3缸排气温度";
-            this.ucNum49.Title = "A3缸排气温度(℃)";
+            this.ucNum49.Tag = "台位_A3缸排气温度";
+            this.ucNum49.Title = "台位_A3缸排气温度(℃)";
             this.ucNum49.Value = 1D;
             // 
             // ucNum50
@@ -439,8 +439,8 @@
             this.ucNum50.Name = "ucNum50";
             this.ucNum50.Size = new System.Drawing.Size(300, 100);
             this.ucNum50.TabIndex = 411;
-            this.ucNum50.Tag = "A2缸排气温度";
-            this.ucNum50.Title = "A2缸排气温度(℃)";
+            this.ucNum50.Tag = "台位_A2缸排气温度";
+            this.ucNum50.Title = "台位_A2缸排气温度(℃)";
             this.ucNum50.Value = 1D;
             // 
             // ucNum51
@@ -452,8 +452,8 @@
             this.ucNum51.Name = "ucNum51";
             this.ucNum51.Size = new System.Drawing.Size(300, 100);
             this.ucNum51.TabIndex = 410;
-            this.ucNum51.Tag = "A1缸排气温度";
-            this.ucNum51.Title = "A1缸排气温度(℃)";
+            this.ucNum51.Tag = "台位_A1缸排气温度";
+            this.ucNum51.Title = "台位_A1缸排气温度(℃)";
             this.ucNum51.Value = 1D;
             // 
             // tabPage2
@@ -500,8 +500,8 @@
             this.ucNum33.Name = "ucNum33";
             this.ucNum33.Size = new System.Drawing.Size(300, 100);
             this.ucNum33.TabIndex = 410;
-            this.ucNum33.Tag = "后中冷后空气温度";
-            this.ucNum33.Title = "后中冷后空气温度(℃)";
+            this.ucNum33.Tag = "台位_后中冷后空气温度";
+            this.ucNum33.Title = "台位_后中冷后空气温度(℃)";
             this.ucNum33.Value = 1D;
             // 
             // ucNum34
@@ -880,8 +880,8 @@
             this.ucNum57.Name = "ucNum57";
             this.ucNum57.Size = new System.Drawing.Size(300, 100);
             this.ucNum57.TabIndex = 432;
-            this.ucNum57.Tag = "中冷水泵出口压力";
-            this.ucNum57.Title = "中冷水泵出口压力(Kpa)";
+            this.ucNum57.Tag = "台位_中冷水泵出口压力";
+            this.ucNum57.Title = "台位_中冷水泵出口压力(Kpa)";
             this.ucNum57.Value = 1D;
             // 
             // ucNum58
@@ -971,8 +971,8 @@
             this.ucNum63.Name = "ucNum63";
             this.ucNum63.Size = new System.Drawing.Size(300, 100);
             this.ucNum63.TabIndex = 426;
-            this.ucNum63.Tag = "后中冷后空气压力";
-            this.ucNum63.Title = "后中冷后空气压力(Kpa)";
+            this.ucNum63.Tag = "台位_后中冷后空气压力";
+            this.ucNum63.Title = "台位_后中冷后空气压力(Kpa)";
             this.ucNum63.Value = 1D;
             // 
             // ucNum64
@@ -1075,8 +1075,8 @@
             this.ucNum71.Name = "ucNum71";
             this.ucNum71.Size = new System.Drawing.Size(300, 100);
             this.ucNum71.TabIndex = 418;
-            this.ucNum71.Tag = "高温水泵出口压力";
-            this.ucNum71.Title = "高温水泵出口压力(Kpa)";
+            this.ucNum71.Tag = "台位_高温水泵出口压力";
+            this.ucNum71.Title = "台位_高温水泵出口压力(Kpa)";
             this.ucNum71.Value = 1D;
             // 
             // ucNum72
@@ -1114,8 +1114,8 @@
             this.ucNum74.Name = "ucNum74";
             this.ucNum74.Size = new System.Drawing.Size(300, 100);
             this.ucNum74.TabIndex = 415;
-            this.ucNum74.Tag = "主油道末端油压";
-            this.ucNum74.Title = "主油道末端油压(Kpa)";
+            this.ucNum74.Tag = "台位_主油道末端油压";
+            this.ucNum74.Title = "台位_主油道末端油压(Kpa)";
             this.ucNum74.Value = 1D;
             // 
             // ucNum75

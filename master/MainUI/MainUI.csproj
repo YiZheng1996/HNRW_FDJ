@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -290,6 +290,7 @@
     <Compile Include="FSql\AllCollectData\SpeedDataGrp.cs" />
     <Compile Include="FSql\AllCollectData\StartPLCDataGrp.cs" />
     <Compile Include="FSql\AllCollectData\ThreePhaseElectricData.cs" />
+    <Compile Include="FSql\AllCollectData\TRDPData1Grp.cs" />
     <Compile Include="FSql\AllCollectData\TRDPDataGrp.cs" />
     <Compile Include="FSql\AllCollectData\WaterDataGrp.cs" />
     <Compile Include="FSql\Data\MySqlAdoDb.cs" />
@@ -688,6 +689,12 @@
     <Compile Include="MsgBox\frmMessageWarning.Designer.cs">
       <DependentUpon>frmMessageWarning.cs</DependentUpon>
     </Compile>
+    <Compile Include="MsgBox\frmExportSaving.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MsgBox\frmExportSaving.Designer.cs">
+      <DependentUpon>frmExportSaving.cs</DependentUpon>
+    </Compile>
     <Compile Include="MsgBox\frmMessageYesNO.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1020,6 +1027,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\OpcStatusGrp.resx">
       <DependentUpon>OpcStatusGrp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\PLC2AIGrp.resx">
+      <DependentUpon>PLC2AIGrp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pipeline\ucFeulHMI.resx">
       <DependentUpon>ucFeulHMI.cs</DependentUpon>

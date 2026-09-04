@@ -1005,9 +1005,9 @@ namespace MainUI
             this.swp183.CanClick = true;
             this.swp183.ClickSwitch = false;
             this.swp183.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.swp183.FalseImage = global::MainUI.Properties.Resources.三通2_noback;
+            this.swp183.FalseImage = global::MainUI.Properties.Resources.三通1_noback1;
             this.swp183.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.swp183.Image = global::MainUI.Properties.Resources.三通2_noback;
+            this.swp183.Image = global::MainUI.Properties.Resources.三通1_noback1;
             this.swp183.Index = 13;
             this.swp183.Location = new System.Drawing.Point(474, 276);
             this.swp183.Name = "swp183";
@@ -1020,7 +1020,7 @@ namespace MainUI
             this.swp183.Text = "183";
             this.swp183.TextBackColor = System.Drawing.Color.Transparent;
             this.swp183.TextLayout = RW.UI.Controls.TextLayout.Bottom;
-            this.swp183.TrueImage = global::MainUI.Properties.Resources.三通1_noback;
+            this.swp183.TrueImage = global::MainUI.Properties.Resources.三通2_noback1;
             this.swp183.SwitchChanged += new RW.SwitchHandler(this.swp183_SwitchChanged);
             this.swp183.Click += new System.EventHandler(this.swp_Valve_Click);
             // 
@@ -2288,16 +2288,16 @@ namespace MainUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.swp33);
-            this.Controls.Add(this.swp27);
-            this.Controls.Add(this.swp183);
-            this.Controls.Add(this.swp61);
-            this.Controls.Add(this.swp164);
-            this.Controls.Add(this.swp179);
-            this.Controls.Add(this.swp184);
-            this.Controls.Add(this.swp190);
-            this.Controls.Add(this.swp182);
             this.Controls.Add(this.swp181);
+            this.Controls.Add(this.swp182);
+            this.Controls.Add(this.swp190);
+            this.Controls.Add(this.swp184);
+            this.Controls.Add(this.swp179);
+            this.Controls.Add(this.swp164);
+            this.Controls.Add(this.swp61);
+            this.Controls.Add(this.swp183);
+            this.Controls.Add(this.swp27);
+            this.Controls.Add(this.swp33);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.flowDiff2);
             this.Controls.Add(this.lblOilCoast2);

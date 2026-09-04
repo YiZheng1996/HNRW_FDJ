@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +16,47 @@ namespace MainUI.Modules
     public class PLC2AIGrp : BaseSensorGroup
     {
         ConcurrentDictionary<string, double> DataValue = new ConcurrentDictionary<string, double>() { };
+
+        /// <summary>
+        /// OPC 短名 → 软件侧键名（加台位_前缀，OPC 点位本身不改名）
+        /// </summary>
+        private static readonly Dictionary<string, string> OpcShortToSoftKey = new Dictionary<string, string>
+        {
+            { "A1缸排气温度", "台位_A1缸排气温度" },
+            { "A2缸排气温度", "台位_A2缸排气温度" },
+            { "A3缸排气温度", "台位_A3缸排气温度" },
+            { "A4缸排气温度", "台位_A4缸排气温度" },
+            { "A5缸排气温度", "台位_A5缸排气温度" },
+            { "A6缸排气温度", "台位_A6缸排气温度" },
+            { "A7缸排气温度", "台位_A7缸排气温度" },
+            { "A8缸排气温度", "台位_A8缸排气温度" },
+            { "B1缸排气温度", "台位_B1缸排气温度" },
+            { "B2缸排气温度", "台位_B2缸排气温度" },
+            { "B3缸排气温度", "台位_B3缸排气温度" },
+            { "B4缸排气温度", "台位_B4缸排气温度" },
+            { "B5缸排气温度", "台位_B5缸排气温度" },
+            { "B6缸排气温度", "台位_B6缸排气温度" },
+            { "B7缸排气温度", "台位_B7缸排气温度" },
+            { "B8缸排气温度", "台位_B8缸排气温度" },
+            { "主油道末端油压", "台位_主油道末端油压" },
+            { "高温水泵出口压力", "台位_高温水泵出口压力" },
+            { "中冷水泵出口压力", "台位_中冷水泵出口压力" },
+            { "后中冷后空气压力", "台位_后中冷后空气压力" },
+            { "后中冷后空气温度", "台位_后中冷后空气温度" },
+        };
+
+        private static readonly Dictionary<string, string> SoftKeyToOpcShort =
+            OpcShortToSoftKey.ToDictionary(kv => kv.Value, kv => kv.Key);
+
+        private static string ToSoftKey(string opcShortName)
+        {
+            return OpcShortToSoftKey.TryGetValue(opcShortName, out var soft) ? soft : opcShortName;
+        }
+
+        private static string ToOpcShortName(string softKey)
+        {
+            return SoftKeyToOpcShort.TryGetValue(softKey, out var opc) ? opc : softKey;
+        }
 
         public PLC2AIGrp()
         {
@@ -44,7 +85,8 @@ namespace MainUI.Modules
             set
             {
                 // 写入 OPC → KEPServer 回显 → 触发 KeyValueChange（与 AIGrp 模式一致）
-                this.Write("AI." + key, value);
+                // 软件侧台位_键名映射回 OPC 原名后再写
+                this.Write("AI." + ToOpcShortName(key), value);
             }
         }
 
@@ -72,6 +114,7 @@ namespace MainUI.Modules
 
         public override void Init()
         {
+            // OPC 点位保持原名；缸排气温度在内存/业务侧映射为台位_前缀
             string[] items = new string[] {
                 "AI.A1缸排气温度",
                 "AI.A2缸排气温度",
@@ -145,12 +188,12 @@ namespace MainUI.Modules
                 "AI.励磁电流检测",
                 "AI.励磁电压检测",
             };
-            // 先赋一个默认值
+            // 先赋一个默认值（缸温存为台位_软件键）
             foreach (var item in items)
             {
                 string pattern1 = @"[^.]+$";
                 Match match1 = Regex.Match(item, pattern1);
-                string key = match1.Value;
+                string key = ToSoftKey(match1.Value);
                 DataValue.AddOrUpdate(key, 0, (k, oldValue) => 0);
             }
 
@@ -183,8 +226,8 @@ namespace MainUI.Modules
                     {
                         // 触发值改变事件
                         double disPlayValue = Math.Round(value, 1);
-                        // 触发值改变事件
-                        string key = match1.Value;
+                        // OPC 原名映射为软件侧键（缸温带台位_）
+                        string key = ToSoftKey(match1.Value);
                         DataValue.AddOrUpdate(key, disPlayValue, (k, oldValue) => disPlayValue);
 
                         // 事件触发
