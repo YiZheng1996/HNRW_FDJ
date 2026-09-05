@@ -1,6 +1,7 @@
-﻿using MainUI.Config;
+using MainUI.Config;
 using MainUI.FSql;
 using MainUI.Global;
+using MainUI.Helper;
 using MainUI.Modules;
 using MainUI.Widget;
 using RW;
@@ -790,6 +791,9 @@ namespace MainUI.TestScreen
         /// <param name="e"></param>
         private void Screen3Timer_Tick(object sender, EventArgs e)
         {
+            // 金威士称重油耗：每秒计时，供正式燃油消耗率使用
+            JwsFuelWeighHelper.TickOnce();
+
             // 上限/下限位
             this.uiLightUP.State = Common.DIgrp["水阻升降上极限检测"] ? UILightState.On : UILightState.Off;
             this.uiLightDown.State = Common.DIgrp["水阻升降下极限检测"] ? UILightState.On : UILightState.Off;

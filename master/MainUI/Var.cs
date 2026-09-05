@@ -1,4 +1,4 @@
-﻿using BogieIdling.UI.Model;
+using BogieIdling.UI.Model;
 using BogieIdling.UI.TRDP;
 using MainUI.BLL;
 using MainUI.Config;
@@ -99,6 +99,11 @@ namespace MainUI
         /// </summary>
         public static OPCDriver opcAirDuctModbus = new OPCDriver();
 
+        /// <summary>
+        /// 3102Q称重（励磁信息.Value1，Modbus TCP）
+        /// </summary>
+        public static OPCDriver opcWeight3102Q = new OPCDriver();
+
 
         public static string rootRptSave = Application.StartupPath + "\\save";  //报表保存路径
 
@@ -188,6 +193,8 @@ namespace MainUI
             opcExChangeReceive.Prefix = "控制台位通讯.设备1.ExChangeData.";
             opcAirDuctModbus.ServerName = kepServerName;
             opcAirDuctModbus.Prefix = "风道加热器PLC.S7200.";
+            opcWeight3102Q.ServerName = kepServerName;
+            opcWeight3102Q.Prefix = "励磁信息.Value1.";
             //opcDianliu.ServerName = kepServerName;
             //opcDianliu.Prefix = "DianLiu.";
         }
@@ -213,6 +220,7 @@ namespace MainUI
             opcPipelineFaultGroup.Connect();
             opcExChangeGroup.Connect();
             opcExcitationModbus.Connect();
+            opcWeight3102Q.Connect();
             opcExChangeSend.Connect(); // 连接模块 2选1
             opcExChangeReceive.Connect(); //接收模块 2选1
         }
@@ -238,6 +246,7 @@ namespace MainUI
             opcPipelineFaultGroup.Close();
             opcExChangeGroup.Close();
             opcExcitationModbus.Close();
+            opcWeight3102Q.Close();
             opcExChangeSend.Close();
             opcExChangeReceive.Close();
             opcAirDuctModbus.Close();
@@ -485,6 +494,13 @@ namespace MainUI
 
                         Common.excitationGrp.Init();
                     });
+
+                    _loading.AddInitInvoke("称重仪3102Q", () =>
+                    {
+                        opcWeight3102Q.Connect();
+                        Common.weight3102QGrp.Init();
+                    });
+
 
                     _loading.AddInitInvoke("电参数仪器", () =>
                     {

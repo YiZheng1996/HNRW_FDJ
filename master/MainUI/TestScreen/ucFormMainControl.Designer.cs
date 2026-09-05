@@ -96,6 +96,20 @@ namespace MainUI.TestScreen
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridStartup = new System.Windows.Forms.DataGridView();
+            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnClearDataGridView = new RW.UI.Controls.RButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -131,20 +145,6 @@ namespace MainUI.TestScreen
             this.ucParamTorque = new MainUI.Widget.ucParamKeyUI();
             this.ucParamPower = new MainUI.Widget.ucParamKeyUI();
             this.ucParamSpeed = new MainUI.Widget.ucParamKeyUI();
-            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox12.SuspendLayout();
             this.grpFJKZ.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1095,6 +1095,115 @@ namespace MainUI.TestScreen
             this.dataGridStartup.Size = new System.Drawing.Size(1841, 433);
             this.dataGridStartup.TabIndex = 671;
             // 
+            // Index
+            // 
+            this.Index.DataPropertyName = "Index";
+            this.Index.FillWeight = 40F;
+            this.Index.HeaderText = "序号";
+            this.Index.Name = "Index";
+            this.Index.ReadOnly = true;
+            this.Index.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn26
+            // 
+            this.dataGridViewTextBoxColumn26.FillWeight = 130F;
+            this.dataGridViewTextBoxColumn26.HeaderText = "记录时间";
+            this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
+            this.dataGridViewTextBoxColumn26.ReadOnly = true;
+            this.dataGridViewTextBoxColumn26.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column8
+            // 
+            this.Column8.FillWeight = 60F;
+            this.Column8.HeaderText = "类型";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "柴油机编号";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            this.Column12.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column12.Visible = false;
+            // 
+            // Column1
+            // 
+            this.Column1.FillWeight = 110F;
+            this.Column1.HeaderText = "发动机转速(rpm)";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column2
+            // 
+            this.Column2.FillWeight = 110F;
+            this.Column2.HeaderText = "发动机扭矩(N·m)";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column2.Visible = false;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "发动机功率(kW)";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column3.Visible = false;
+            // 
+            // Column9
+            // 
+            this.Column9.FillWeight = 90F;
+            this.Column9.HeaderText = "励磁电压(V)";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column10
+            // 
+            this.Column10.FillWeight = 90F;
+            this.Column10.HeaderText = "励磁电流(A)";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "变频器电压(V)";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "变频器电流(A)";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column5
+            // 
+            this.Column5.FillWeight = 110F;
+            this.Column5.HeaderText = "变频器转速(rpm)";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "变频器功率(kW)";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "变频器故障代码";
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            // 
             // btnClearDataGridView
             // 
             this.btnClearDataGridView.BackColor = System.Drawing.Color.Silver;
@@ -1675,115 +1784,6 @@ namespace MainUI.TestScreen
             this.ucParamSpeed.TitleHeight = 35;
             this.ucParamSpeed.Unit = "";
             // 
-            // Index
-            // 
-            this.Index.DataPropertyName = "Index";
-            this.Index.FillWeight = 40F;
-            this.Index.HeaderText = "序号";
-            this.Index.Name = "Index";
-            this.Index.ReadOnly = true;
-            this.Index.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // dataGridViewTextBoxColumn26
-            // 
-            this.dataGridViewTextBoxColumn26.FillWeight = 130F;
-            this.dataGridViewTextBoxColumn26.HeaderText = "记录时间";
-            this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
-            this.dataGridViewTextBoxColumn26.ReadOnly = true;
-            this.dataGridViewTextBoxColumn26.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column8
-            // 
-            this.Column8.FillWeight = 60F;
-            this.Column8.HeaderText = "类型";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "柴油机编号";
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            this.Column12.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column12.Visible = false;
-            // 
-            // Column1
-            // 
-            this.Column1.FillWeight = 110F;
-            this.Column1.HeaderText = "发动机转速(rpm)";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column2
-            // 
-            this.Column2.FillWeight = 110F;
-            this.Column2.HeaderText = "发动机扭矩(N·m)";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column2.Visible = false;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "发动机功率(kW)";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column3.Visible = false;
-            // 
-            // Column9
-            // 
-            this.Column9.FillWeight = 90F;
-            this.Column9.HeaderText = "励磁电压(V)";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column10
-            // 
-            this.Column10.FillWeight = 90F;
-            this.Column10.HeaderText = "励磁电流(A)";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "变频器电压(V)";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "变频器电流(A)";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column5
-            // 
-            this.Column5.FillWeight = 110F;
-            this.Column5.HeaderText = "变频器转速(rpm)";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "变频器功率(kW)";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "变频器故障代码";
-            this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
-            // 
             // ucFormMainControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
@@ -1804,7 +1804,7 @@ namespace MainUI.TestScreen
             this.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Name = "ucFormMainControl";
-            this.Size = new System.Drawing.Size(1828, 871);
+            this.Size = new System.Drawing.Size(1828, 1006);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             this.grpFJKZ.ResumeLayout(false);

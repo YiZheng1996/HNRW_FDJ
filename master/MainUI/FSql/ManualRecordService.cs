@@ -1,5 +1,6 @@
 using MainUI.Global;
 using MainUI.FSql.Model;
+using MainUI.Helper;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -257,21 +258,38 @@ namespace MainUI.FSql
         }
 
         /// <summary>
-        /// 燃油消耗率 g/kWh。优先用进/回油流量传感器差值(质量流量法)；
-        /// 传感器差值为0(未接入/无读数)时，退回油耗仪(ET4500)读数。
+        /// 正式燃油消耗率 g/kWh。
+        /// 油耗 = 流量差 - 重量（单位已是 kg/h）；
+        /// 油耗率 = 油耗 * 1000 / 功率。
+        /// 缺称重时只用流量差；都没有再退回油耗仪(ET4500)。
+        /// 重量 kg/h 由 JwsFuelWeighHelper 每秒计时、60s 奇偶拍得到。
         /// </summary>
         private static double CalcFuelRate()
         {
             double power = MiddleData.instnce.EnginePower;
             if (power == 0) return 0;
 
-            // 方式一：传感器差值法（进油流量 - 回油流量）
-            double massFlow = SafeGet(() => Common.AIgrp["燃油进油流量测量-L30"] - Common.AIgrp["燃油回油流量测量-L31"]);
-            if (massFlow != 0)
-                return Math.Round(massFlow * 1000 / power, 1);
+            // 流量差：进油流量 - 回油流量（kg/h）
+            double flowDiff = SafeGet(() =>
+                Common.AIgrp["燃油进油流量测量-L30"] - Common.AIgrp["燃油回油流量测量-L31"]);
+            // 重量：称重仪 60s 奇偶拍得到的 kg/h（无有效值则为 0）
+            double weight = JwsFuelWeighHelper.HasValidVariation
+                ? JwsFuelWeighHelper.WeightVariationKgH : 0;
 
-            // 方式二：传感器没值，退回油耗仪
-            return Math.Round(SafeGet(() => Equip.ET4500.Instance.fuelConsumption) * 1000 / power, 1);
+            // 油耗 = 流量差 - 重量（kg/h）；缺一侧则用有值的一侧
+            double fuelConsume;
+            if (flowDiff != 0 && weight != 0)
+                fuelConsume = flowDiff - weight;
+            else if (flowDiff != 0)
+                fuelConsume = flowDiff;
+            else if (weight != 0)
+                fuelConsume = weight;
+            else
+                // 都没有时退回油耗仪（仪表已是 kg/h，直接 *1000/功率）
+                return Math.Round(SafeGet(() => Equip.ET4500.Instance.fuelConsumption) * 1000 / power, 1);
+
+            // 油耗率 = 油耗 * 1000 / 功率
+            return Math.Round(fuelConsume * 1000.0 / power, 1);
         }
 
         private static double SafeGet(Func<double> func)

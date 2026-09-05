@@ -116,7 +116,7 @@ namespace MainUI.FSql
 
                             long endTime = stopwatch.ElapsedMilliseconds;
                             long elapsed = endTime - startTime;
-                            long sleepTime = Second * 10000 - elapsed - 1;
+                            long sleepTime = Second * 1000 - elapsed - 1;
 
                             // 10秒备份记录一条
                             if (sleepTime > 0)

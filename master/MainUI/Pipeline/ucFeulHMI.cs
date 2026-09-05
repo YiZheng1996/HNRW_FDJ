@@ -1,5 +1,6 @@
 ﻿using MainUI.Equip;
 using MainUI.Global;
+using MainUI.Helper;
 using MainUI.Modules;
 using MainUI.Widget;
 using RW;
@@ -492,17 +493,41 @@ namespace MainUI
             this.ucPipePara13.Value = ET4500.Instance.fuelConsumption;
             this.flowDiff2.Text = ET4500.Instance.fuelConsumption.ToString("f1");
 
-            // 计算差值
-            var MassFlowCC = this.ucPipePara14.Value - this.ucPipePara9.Value;
+            // 油耗 = 流量差 - 重量（kg/h）；油耗率 = 油耗 * 1000 / 功率（与 CalcFuelRate 一致）
+            // flowDiffVal：流量差 = 进油流量 - 回油流量（kg/h）
+            double flowDiffVal = this.ucPipePara14.Value - this.ucPipePara9.Value;
+            // weight：重量 = 称重仪 60s 奇偶拍 kg/h（无有效值则为 0）
+            double weight = JwsFuelWeighHelper.HasValidVariation
+                ? JwsFuelWeighHelper.WeightVariationKgH : 0;
 
-            // 油耗仪燃油流量计油耗
-            flowDiff.Text = Math.Round(MassFlowCC, 1).ToString();
+            // fuelConsume：油耗 = 流量差 - 重量（kg/h）；
+            double fuelConsume;
+            if (flowDiffVal != 0 && weight != 0)
+                fuelConsume = flowDiffVal - weight;
+            else if (flowDiffVal != 0)
+                fuelConsume = flowDiffVal;
+            else
+                fuelConsume = weight;
+
+            // flowDiff 控件：显示油耗 kg/h
+            this.flowDiff.Text = Math.Round(fuelConsume, 1).ToString();
 
             //因为重量断开连接之后，值无穷大，所以当发动机功率为零的时候换电功率计算
             // 油耗仪 * 1000 / 功率
             this.lblOilCoast2.Text = Math.Round(ET4500.Instance.fuelConsumption * 1000 / MiddleData.instnce.EnginePower, 1).ToString();
 
-            this.lblOilCoast.Text = Math.Round(MassFlowCC * 1000 / MiddleData.instnce.EnginePower, 1).ToString("f1");
+            // power：发动机功率 kW；油耗率 = 油耗 * 1000 / 功率
+            double power = MiddleData.instnce.EnginePower;
+            if (power == 0)
+            {
+                this.lblOilCoast.Text = "0.0";
+            }
+            else
+            {
+                // fuelRate：油耗率 g/kWh
+                double fuelRate = fuelConsume * 1000.0 / power;
+                this.lblOilCoast.Text = Math.Round(fuelRate, 1).ToString("f1");
+            }
 
         }
 

@@ -1,4 +1,4 @@
-﻿using MainUI.Modules;
+using MainUI.Modules;
 using MainUI.Model;
 using MainUI.Equip;
 using System.Threading;
@@ -99,6 +99,11 @@ namespace MainUI
         public static ExcitationGrp excitationGrp = new ExcitationGrp();
 
         /// <summary>
+        /// 3102Q称重（励磁信息.Value1）
+        /// </summary>
+        public static Weight3102QGrp weight3102QGrp = new Weight3102QGrp();
+
+        /// <summary>
         /// 加载所有模块（只加载一次）
         /// </summary>
         public static void InitModule()
@@ -117,6 +122,7 @@ namespace MainUI
             speedGrp.Fresh();
             gd350_1.Fresh();
             excitationGrp.Fresh();
+            weight3102QGrp.Fresh();
             opcExChangeReceiveGrp.Fresh();
             AirDuctGrp.Fresh();
         }
