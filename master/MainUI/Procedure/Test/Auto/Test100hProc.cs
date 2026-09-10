@@ -85,7 +85,7 @@ namespace MainUI.Procedure.Test.Performance
                 TVar.TSecond = 0;
 
                 hmi.ResetStandardOverlay();   // 让首个循环必定重画
-                hmi.ClearStandardCycle();     // 清掉预览残留
+                hmi.ClearStandardCycle();     // 清掉预览残留(曲线图)
                 TestStatus(true);
                 TxtTips($"{CurrentTestType}测试开始");
 
@@ -130,12 +130,14 @@ namespace MainUI.Procedure.Test.Performance
 
                             // 总试验步骤
                             currentAllData = durStepConfig.testBasePara;
+                            //阶段名
                             phaseStr = stepList360[MiddleData.instnce.CurrentStatusData.Sore - 1].PhaseName;
+                            //天数
                             dayStr = stepList360[MiddleData.instnce.CurrentStatusData.Sore - 1].DayNum;
 
                             if (currentAllData != null && currentAllData.Count > 0)
                             {
-                                // 试验阶段
+                                // 试验阶段（代码步数和总实验步骤的index做比较，获取循环代码表中的列）
                                 currentStep = currentAllData.FirstOrDefault(d => d.Index == MiddleData.instnce.CurrentStatusData.PhaseIndex);
                                 if (currentStep != null)
                                 {

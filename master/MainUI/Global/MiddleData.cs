@@ -187,7 +187,9 @@ namespace MainUI.Global
                 //当发动机扭矩为0时，使用电功率
                 if (EngineTorque < 1)
                 {
-                    return Common.threePhaseElectric.DataValue["有功功率"];
+                    double electricPower = 0;
+                    Common.threePhaseElectric.DataValue.TryGetValue("有功功率", out electricPower);
+                    return electricPower;
                 }
 
                 return Math.Round((EngineSpeed * EngineTorque) / 9550.0, 1);

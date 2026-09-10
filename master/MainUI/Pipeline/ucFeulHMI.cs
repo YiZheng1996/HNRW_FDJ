@@ -1,4 +1,4 @@
-﻿using MainUI.Equip;
+using MainUI.Equip;
 using MainUI.Global;
 using MainUI.Helper;
 using MainUI.Modules;

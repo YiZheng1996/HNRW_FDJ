@@ -288,6 +288,86 @@ namespace MainUI.HMI_Auto
         }
 
         /// <summary>
+        /// 将指定面板的指定行标为已完成（灰色）
+        /// </summary>
+        public void MarkRowGray(int stepIndex, int rowIndex)
+        {
+            if (stepIndex >= 0 && stepIndex < StepItems.Count)
+                StepItems[stepIndex].MarkRowGray(rowIndex);
+        }
+
+        /// <summary>
+        /// 按循环代码/阶段名将指定行标灰（Title 以 nodeName 开头且后接空格）
+        /// </summary>
+        public void MarkRowGrayByName(string nodeName, int rowIndex)
+        {
+            int idx = FindStepIndexByName(nodeName);
+            if (idx >= 0)
+                MarkRowGray(idx, rowIndex);
+        }
+
+        /// <summary>
+        /// 指定面板整表恢复白色
+        /// </summary>
+        public void ResetPanelRowsToWhite(int stepIndex)
+        {
+            if (stepIndex >= 0 && stepIndex < StepItems.Count)
+                StepItems[stepIndex].ResetAllRowsWhite();
+        }
+
+        /// <summary>
+        /// 所有工况面板整表恢复白色（重新开始试验时用）
+        /// </summary>
+        public void ResetAllPanelsRowsToWhite()
+        {
+            foreach (var stepItem in StepItems)
+                stepItem.ResetAllRowsWhite();
+        }
+
+        /// <summary>
+        /// 按循环代码/阶段名整表恢复白色
+        /// </summary>
+        public void ResetPanelRowsToWhiteByName(string nodeName)
+        {
+            int idx = FindStepIndexByName(nodeName);
+            if (idx >= 0)
+                ResetPanelRowsToWhite(idx);
+        }
+
+        /// <summary>
+        /// 匹配 InitItem 标题："{SectionName}  总步数:n"（避免 A 误匹配 A1）
+        /// </summary>
+        private int FindStepIndexByName(string nodeName)
+        {
+            if (string.IsNullOrWhiteSpace(nodeName) || nodeName == "-")
+                return -1;
+
+            for (int i = 0; i < StepItems.Count; i++)
+            {
+                string title = StepItems[i].Title ?? "";
+                if (!title.StartsWith(nodeName, StringComparison.OrdinalIgnoreCase))
+                    continue;
+                if (title.Length == nodeName.Length)
+                    return i;
+                char next = title[nodeName.Length];
+                if (next == ' ' || next == '\t')
+                    return i;
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// 清除所有步骤的黄色高亮（灰色完成行保留）
+        /// </summary>
+        public void ClearAllHighlights()
+        {
+            foreach (var stepItem in StepItems)
+            {
+                stepItem.ClearHighlight();
+            }
+        }
+
+        /// <summary>
         /// 高亮当前选中步骤的指定行
         /// </summary>
         /// <param name="rowIndex">行索引（从0开始）</param>
@@ -297,17 +377,6 @@ namespace MainUI.HMI_Auto
             if (currentStepIndex >= 0)
             {
                 HighlightStepRow(currentStepIndex, rowIndex);
-            }
-        }
-
-        /// <summary>
-        /// 清除所有步骤的高亮
-        /// </summary>
-        public void ClearAllHighlights()
-        {
-            foreach (var stepItem in StepItems)
-            {
-                stepItem.ClearHighlight();
             }
         }
 

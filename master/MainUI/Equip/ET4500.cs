@@ -268,10 +268,10 @@ namespace MainUI.Equip
                 // 交换后顺序：data[3], data[2], data[5], data[4]
                 byte[] fuelConsumptionBytes = new byte[4]
                 {
-                    data[3],  // 第4字节 -> 第1字节（高字节）
-                    data[2],  // 第3字节 -> 第2字节
-                    data[5],  // 第6字节 -> 第3字节
-                    data[4]   // 第5字节 -> 第4字节（低字节）
+                    data[2],  // 第3字节（高字节）
+                    data[3],  // 第4字节
+                    data[4],  // 第5字节 
+                    data[5]   // 第6字节（低字节）
                 };
 
                 // 转换为单精度浮点数

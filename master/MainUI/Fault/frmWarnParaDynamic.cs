@@ -250,8 +250,17 @@ namespace MainUI.Fault
                 tagLine.Controls.Add(Tag("双传感器表决", Color.FromArgb(186, 117, 23)));
                 b.Controls.Add(tagLine);
 
-                string unit = UnitOf(vote["Sensors"]?.FirstOrDefault()?.ToString());
-                b.Controls.Add(TermLine("任一/两路 " + OpSym((string)vote["Op"]), vote, "Value", ResolveRange((string)vote["Sensors"]?.FirstOrDefault()), unit));
+                string name = vote["Sensors"]?.FirstOrDefault()?.ToString();
+                string unit = UnitOf(name);
+                if (name == "曲轴箱压力1")
+                {
+                    b.Controls.Add(TermLine("两路 " + OpSym((string)vote["Op"]), vote, "Value", ResolveRange((string)vote["Sensors"]?.FirstOrDefault()), unit));
+                }
+                else 
+                { 
+                    b.Controls.Add(TermLine("任一/两路 " + OpSym((string)vote["Op"]), vote, "Value", ResolveRange((string)vote["Sensors"]?.FirstOrDefault()), unit));
+                }
+                
                 if (vote["ValidLow"] != null)
                     b.Controls.Add(TermLine("屏蔽阈值 ＜", vote, "ValidLow", ResolveRange((string)vote["Sensors"]?.FirstOrDefault()), unit));
                 if (vote["Duration"] != null && (double)vote["Duration"] > 0)

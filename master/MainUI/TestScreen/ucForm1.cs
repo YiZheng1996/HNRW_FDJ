@@ -417,17 +417,9 @@ namespace MainUI.TestScreen
 
             // 优先使用扭矩/转速计算功率；无效时回退到机组测量值有功功率
             double enginePower = MiddleData.instnce.EnginePower;
-            if (enginePower > 0)
-            {
-                this.ucParamPower.GaugeValue = enginePower;
-            }
-            else
-            {
-                // 有功功率存在 DataValue["有功功率"]，Power 属性未赋值，不能用
-                double electricPower = 0;
-                Common.threePhaseElectric.DataValue.TryGetValue("有功功率", out electricPower);
-                this.ucParamPower.GaugeValue = electricPower;
-            }
+
+            this.ucParamPower.GaugeValue = enginePower;
+
 
             this.ucParamTorque.GaugeValue = MiddleData.instnce.EngineTorque;
         }

@@ -152,6 +152,16 @@ namespace MainUI
         int PreviousSelectRow { get; set; }
 
         /// <summary>
+        /// 360h实验中，上一步试验工况选中的表
+        /// </summary>
+        private string PreviousNodeName = "";
+
+        /// <summary>
+        /// 360h实验中，上一步试验工况选中的行
+        /// </summary>
+        private int PreviousPhaseIndex = 0;
+
+        /// <summary>
         /// 曲线记录字典
         /// </summary> 
         public ConcurrentDictionary<string, WaveReocrd> waveReocrd = new ConcurrentDictionary<string, WaveReocrd>() { };
@@ -550,15 +560,16 @@ namespace MainUI
         /// <summary>
         /// 刷新步骤表
         /// </summary>
-        /// <summary>
-        /// 刷新步骤表
-        /// </summary>
         public void FreshStepView()
         {
             // 清空表
             this.dgvAuto.Rows.Clear();
             this.dgvGK.Rows.Clear();
             DurStepConfigDic.Clear();
+            PreviousSelectRow = 0;
+            PreviousPhaseIndex = 0;
+            PreviousNodeName = "";
+            this.ucStepStatus1.ResetAllPanelsRowsToWhite();
 
             MiddleData.instnce.CurrentStatusData = new CurrentStatusConfig(Common.mTestViewModel.ModelName, MiddleData.instnce.testDataView.TestName);
 
@@ -605,7 +616,7 @@ namespace MainUI
         }
 
         /// <summary>
-        /// 刷新最后一次试验的状态
+        /// 按当前试验步骤刷新自动界面：步骤/阶段/工况显示、左侧步骤表高亮、右侧工况表高亮。
         /// </summary>
         public void UpdateLastStepData()
         {
@@ -614,6 +625,9 @@ namespace MainUI
                 this.Invoke(new Action(UpdateLastStepData));
                 return;
             }
+
+            // 收尾上一步（lbl/Previous* 仍是旧步，CurrentStatusData 已是新步）
+            ApplyCompletedStepColors();
 
             // 为界面更新数据
             this.lblStepReal.Text = MiddleData.instnce.CurrentStatusData.Sore.ToString(); // 步骤号
@@ -637,18 +651,11 @@ namespace MainUI
             // 更新时间显示
             UpdateTimeView();
 
-            // 取消之前的高亮（恢复默认颜色）
-            if (PreviousSelectRow - 1 >= 0 && PreviousSelectRow - 1 < this.dgvAuto.Rows.Count)
-            {
-                this.dgvAuto.Rows[PreviousSelectRow - 1].DefaultCellStyle.BackColor = Color.White;
-            }
-
-            // 设置新的高亮行，但不设置当前单元格（避免影响编辑）
+            // 左侧步骤表：当前步黄色（已完成步保持灰色）
             if (MiddleData.instnce.CurrentStatusData.Sore - 1 >= 0 && MiddleData.instnce.CurrentStatusData.Sore - 1 < this.dgvAuto.Rows.Count)
             {
                 this.dgvAuto.Rows[MiddleData.instnce.CurrentStatusData.Sore - 1].DefaultCellStyle.BackColor = Color.Yellow;
 
-                // 只滚动到可见区域，不设置当前单元格
                 if (this.dgvAuto.FirstDisplayedScrollingRowIndex < 0 ||
                     MiddleData.instnce.CurrentStatusData.Sore - 1 < this.dgvAuto.FirstDisplayedScrollingRowIndex ||
                     MiddleData.instnce.CurrentStatusData.Sore - 1 >= this.dgvAuto.FirstDisplayedScrollingRowIndex + this.dgvAuto.DisplayedRowCount(false))
@@ -658,25 +665,101 @@ namespace MainUI
                 }
             }
 
-            PreviousSelectRow = MiddleData.instnce.CurrentStatusData.Sore;
-
-            //// 高亮主流程表格
-            //if (PreviousSelectRow - 1 >= 0)
-            //{
-            //    this.GridViewStepAll.Rows[PreviousSelectRow - 1].DefaultCellStyle.BackColor = Color.White;
-            //    this.GridViewStepAll.Rows[PreviousSelectRow - 1].DefaultCellStyle.SelectionBackColor = SystemColors.Highlight;
-            //}
-
-            //this.GridViewStepAll.ClearSelection();
-            //this.GridViewStepAll.Rows[MiddleData.instnce.CurrentStatusData.Sore - 1].Selected = true;
-            //this.GridViewStepAll.Rows[MiddleData.instnce.CurrentStatusData.Sore - 1].DefaultCellStyle.BackColor = Color.Yellow;
-            //this.GridViewStepAll.FirstDisplayedScrollingRowIndex = MiddleData.instnce.CurrentStatusData.Sore - 1;
-
-            // 设置工况表高亮
-            this.ucStepStatus1.ClearAllHighlights();
-            this.ucStepStatus1.HighlightStepRow(MiddleData.instnce.CurrentStatusData.Sore - 1, MiddleData.instnce.CurrentStatusData.PhaseIndex - 1);
+            // 右侧工况表高亮新步
+            int stepPanelIndex = ResolveStepPanelIndex(
+                MiddleData.instnce.CurrentStatusData.NodeName,
+                MiddleData.instnce.CurrentStatusData.Sore);
+            int rowIndex = MiddleData.instnce.CurrentStatusData.PhaseIndex - 1;
+            if (stepPanelIndex >= 0)
+                this.ucStepStatus1.HighlightStepRow(stepPanelIndex, rowIndex);
 
             PreviousSelectRow = MiddleData.instnce.CurrentStatusData.Sore;
+            PreviousPhaseIndex = MiddleData.instnce.CurrentStatusData.PhaseIndex;
+            PreviousNodeName = MiddleData.instnce.CurrentStatusData.NodeName ?? "";
+        }
+
+        /// <summary>
+        /// 上一步完成着色：同循环旧行改灰；换循环则旧表整表白。左右表都处理。
+        /// </summary>
+        private void ApplyCompletedStepColors()
+        {
+            try
+            {
+                int oldSore = PreviousSelectRow;
+                int oldPhase = PreviousPhaseIndex;
+                string oldNode = PreviousNodeName ?? "";
+
+                bool hasOld = oldSore > 0
+                    && oldPhase > 0
+                    && !string.IsNullOrWhiteSpace(oldNode)
+                    && oldNode != "-";
+                if (!hasOld)
+                    return;
+
+                string newNode = MiddleData.instnce.CurrentStatusData.NodeName ?? "";
+                bool cycleChanged = !string.Equals(oldNode, newNode, StringComparison.OrdinalIgnoreCase);
+
+                // 左表：完成的主步骤行改灰
+                int leftRow = oldSore - 1;
+                if (leftRow >= 0 && leftRow < this.dgvAuto.Rows.Count)
+                {
+                    var c = this.dgvAuto.Rows[leftRow].DefaultCellStyle.BackColor;
+                    if (c.ToArgb() == Color.Yellow.ToArgb() || c.ToArgb() == Color.White.ToArgb() || c.IsEmpty)
+                        this.dgvAuto.Rows[leftRow].DefaultCellStyle.BackColor = Color.LightGray;
+                }
+
+                // 右表：360h/100h 都用面板索引（与高亮同一套定位，避免按 Title 找不到）
+                int oldPanel = ResolveStepPanelIndex(oldNode, oldSore);
+                if (oldPanel >= 0)
+                {
+                    if (cycleChanged)
+                        this.ucStepStatus1.ResetPanelRowsToWhite(oldPanel);
+                    else
+                        this.ucStepStatus1.MarkRowGray(oldPanel, oldPhase - 1);
+                }
+            }
+            catch (Exception ex)
+            {
+                try { Var.LogInfo("ApplyCompletedStepColors: " + ex.Message); } catch { }
+            }
+        }
+
+        /// <summary>
+        /// 右侧工况面板索引：360h 按循环代码；100h 按主步骤号
+        /// </summary>
+        private int ResolveStepPanelIndex(string nodeName, int sore)
+        {
+            if (!this.btnXN.Switch)
+            {
+                string node = nodeName ?? "";
+                int stepPanelIndex = DurStepConfigDic.FindIndex(d =>
+                    string.Equals(d.GetSectionName(), node, StringComparison.OrdinalIgnoreCase));
+                if (stepPanelIndex < 0 && Var.SysConfig?.TestStep360 != null)
+                {
+                    stepPanelIndex = Var.SysConfig.TestStep360.FindIndex(s =>
+                        string.Equals(s, node, StringComparison.OrdinalIgnoreCase));
+                }
+                return stepPanelIndex;
+            }
+            return sore - 1;
+        }
+
+        /// <summary>
+        /// 重新开始/重载流程时：左右表行色全部恢复白色，并清空上一步记忆
+        /// </summary>
+        private void ResetAllStepRowColors()
+        {
+            PreviousSelectRow = 0;
+            PreviousPhaseIndex = 0;
+            PreviousNodeName = "";
+
+            for (int i = 0; i < this.dgvAuto.Rows.Count; i++)
+            {
+                this.dgvAuto.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                this.dgvAuto.Rows[i].DefaultCellStyle.SelectionBackColor = SystemColors.Highlight;
+            }
+
+            this.ucStepStatus1.ResetAllPanelsRowsToWhite();
         }
 
         // 自动试验线程
@@ -745,6 +828,9 @@ namespace MainUI
 
             // 刷新一次参数
             MiddleData.instnce.CurrentStatusData = new CurrentStatusConfig(Common.mTestViewModel.ModelName, MiddleData.instnce.testDataView.TestName);
+
+            // 重新开始：清掉上次试验的灰色/高亮痕迹，再刷当前步
+            ResetAllStepRowColors();
 
             // 更改页面状态
             UpdateLastStepData();
@@ -1030,6 +1116,10 @@ namespace MainUI
                 dicBase["自动试验"].IsTesting = false;
                 this.lblStatus.Text = "试验终止";
                 this.btnPause.Text = "暂停";
+
+                // 结束试验后清掉灰/黄痕迹，避免下次开始前界面仍残留
+                ResetAllStepRowColors();
+                UpdateLastStepData();
 
                 // 记录最终采集统计
                 TestLog.UpdateTestPara($"{DateTime.Now}：试验终止，总共采集{MiddleData.instnce.testDataView.TotalCollectCount}次数据");
@@ -2250,6 +2340,8 @@ namespace MainUI
         /// 叠加模式：试验中切到某循环代码时调用。仅在代码变化时重画（自带去重）。
         /// 以切码瞬间 cycleStart 为锚点提前铺整段，并锁定整段窗口不滚动。
         /// 可在试验线程直接调用（内部自动切回UI线程）。
+        /// ###循环代码名称
+        /// ###现在的时间
         /// </summary>
         public void OverlayStandardCycle(string cycleCode, DateTime cycleStart)
         {
@@ -2292,6 +2384,7 @@ namespace MainUI
 
         /// <summary>
         /// 把当前实时数据快照到历史存档
+        /// ##循环代码名称
         /// </summary>
         /// <param name="cycleCode"></param>
         private void ArchiveCurrentSegment(string cycleCode)

@@ -73,7 +73,8 @@ namespace MainUI.HMI_Auto
         /// </summary>
         public void InitItem(string SectionName, List<TestBasePara> testBasePara)
         {
-            this.lblTitle.Text = $"{SectionName}  总步数:{testBasePara.Count}";
+            // 必须走 Title 属性，FindStepIndexByName 依赖 _title
+            this.Title = $"{SectionName}  总步数:{testBasePara.Count}";
 
             this.dataGridLoopCode.Rows.Clear();
             foreach (var item in testBasePara)
@@ -93,34 +94,60 @@ namespace MainUI.HMI_Auto
         {
             if (dataGridLoopCode.Rows.Count > 0 && rowIndex >= 0 && rowIndex < dataGridLoopCode.Rows.Count)
             {
-                // 先清除之前的高亮
+                // 只清掉上一处黄色高亮，已完成的灰色行保留
                 ClearHighlight();
 
-                // 设置新的高亮
                 _highlightedRowIndex = rowIndex;
-                //this.dataGridLoopCode.Rows[rowIndex].Selected = true;
                 this.dataGridLoopCode.Rows[rowIndex].DefaultCellStyle.BackColor = Color.Yellow;
-                //dataGridLoopCode.Rows[rowIndex].DefaultCellStyle.SelectionBackColor = Color.Orange;
 
-                // 自动滚动到高亮行
                 this.dataGridLoopCode.FirstDisplayedScrollingRowIndex = rowIndex;
-                //dataGridLoopCode.CurrentCell = dataGridLoopCode.Cells[rowIndex]; 选中行
             }
         }
 
         /// <summary>
-        /// 清除高亮
+        /// 将指定行标为已完成（灰色）；若该行正是黄高亮则取消黄高亮索引
+        /// </summary>
+        public void MarkRowGray(int rowIndex)
+        {
+            if (rowIndex < 0 || rowIndex >= dataGridLoopCode.Rows.Count) return;
+
+            this.dataGridLoopCode.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightGray;
+            if (_highlightedRowIndex == rowIndex)
+                _highlightedRowIndex = -1;
+            this.dataGridLoopCode.ClearSelection();
+        }
+
+        /// <summary>
+        /// 整表恢复白色（切换循环代码离开本表时用）
+        /// </summary>
+        public void ResetAllRowsWhite()
+        {
+            for (int i = 0; i < dataGridLoopCode.Rows.Count; i++)
+            {
+                this.dataGridLoopCode.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                this.dataGridLoopCode.Rows[i].DefaultCellStyle.SelectionBackColor = SystemColors.Highlight;
+            }
+            this.dataGridLoopCode.ClearSelection();
+            _highlightedRowIndex = -1;
+        }
+
+        /// <summary>
+        /// 清除黄色高亮；已是灰色的完成行不改回白色
         /// </summary>
         public void ClearHighlight()
         {
             if (_highlightedRowIndex >= 0 && _highlightedRowIndex < dataGridLoopCode.Rows.Count)
             {
-                this.dataGridLoopCode.Rows[_highlightedRowIndex].DefaultCellStyle.BackColor = Color.White;
-                this.dataGridLoopCode.Rows[_highlightedRowIndex].DefaultCellStyle.SelectionBackColor = SystemColors.Highlight;
+                var row = this.dataGridLoopCode.Rows[_highlightedRowIndex];
+                // 仅清除黄色；灰色表示已完成，保留
+                if (row.DefaultCellStyle.BackColor.ToArgb() == Color.Yellow.ToArgb())
+                {
+                    row.DefaultCellStyle.BackColor = Color.White;
+                    row.DefaultCellStyle.SelectionBackColor = SystemColors.Highlight;
+                }
             }
 
             this.dataGridLoopCode.ClearSelection();
-
             _highlightedRowIndex = -1;
         }
 

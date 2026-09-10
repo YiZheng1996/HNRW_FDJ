@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using MainUI.Config.Modules;
 using MainUI.Equip;
@@ -83,6 +84,11 @@ namespace MainUI
         private Button _trdpBtnLifeAuto;
         private System.Windows.Forms.Timer _trdpUiTimer;
         private bool _trdpLifeAuto = true;
+        private Action<string, TRDPSimulatorService.LogLevel> _trdpOnLog;
+        private int _trdpLogLineCount;
+        private int _trdpLogInvokePending;
+        private const int TrdpLogMaxLines = 300;
+        private const int TrdpLogMaxPending = 30;
 
         // ════════════════════════════════════════════════════════════════════
         // 全局刷新定时器（串口状态）
@@ -146,6 +152,11 @@ namespace MainUI
                 _refreshTimer.Stop();
                 _trdpUiTimer?.Stop();
                 EventTriggerModel.OnModelNameChanged -= OnTrdpModelNameChanged;
+                if (_trdpOnLog != null)
+                {
+                    TRDPSimulatorService.Instance.OnLog -= _trdpOnLog;
+                    _trdpOnLog = null;
+                }
             };
         }
 
@@ -793,7 +804,9 @@ namespace MainUI
                 BackColor = Color.FromArgb(30, 30, 35),
                 ForeColor = Color.FromArgb(200, 200, 200),
                 BorderStyle = BorderStyle.None,
-                ScrollBars = RichTextBoxScrollBars.Vertical
+                ScrollBars = RichTextBoxScrollBars.Vertical,
+                DetectUrls = false,
+                HideSelection = true
             };
 
             var lblLogHdr = new Label
@@ -814,7 +827,10 @@ namespace MainUI
                 ForeColor = Color.Gray,
                 Font = new Font("微软雅黑", 8f)
             };
-            btnClrLog.Click += delegate (object s, EventArgs e) { _trdpRtbLog.Clear(); };
+            btnClrLog.Click += delegate (object s, EventArgs e)
+            {
+                TrdpClearLogBox();
+            };
 
             pnlLog.Controls.Add(_trdpRtbLog);
             pnlLog.Controls.Add(lblLogHdr);
@@ -899,11 +915,29 @@ namespace MainUI
                 _trdpLblLifeVal.Text = string.Format("生命信号值：{0}", svc.LifeCounter);
             };
 
-            // ── 绑定日志回调 ─────────────────────────────────────────────────
-            TRDPSimulatorService.Instance.OnLog += delegate (string msg, TRDPSimulatorService.LogLevel level) {
+            // ── 绑定日志回调（BeginInvoke + 丢弃积压，避免 360h 长时运行把 UI 队列打满）──
+            _trdpOnLog = delegate (string msg, TRDPSimulatorService.LogLevel level)
+            {
                 if (IsDisposed || !IsHandleCreated) return;
-                try { Invoke(new Action(delegate { TrdpAppendLog(msg, level); })); } catch { }
+                if (Interlocked.Increment(ref _trdpLogInvokePending) > TrdpLogMaxPending)
+                {
+                    Interlocked.Decrement(ref _trdpLogInvokePending);
+                    return;
+                }
+                try
+                {
+                    BeginInvoke(new Action(delegate
+                    {
+                        try { TrdpAppendLog(msg, level); }
+                        finally { Interlocked.Decrement(ref _trdpLogInvokePending); }
+                    }));
+                }
+                catch
+                {
+                    Interlocked.Decrement(ref _trdpLogInvokePending);
+                }
             };
+            TRDPSimulatorService.Instance.OnLog += _trdpOnLog;
 
             // ── 初次构建动态 Tab ─────────────────────────────────────────────
             TrdpRebuildDynamicTabs();
@@ -1276,27 +1310,51 @@ namespace MainUI
 
         // ── TRDP 日志 ────────────────────────────────────────────────────────
 
+        private void TrdpClearLogBox()
+        {
+            if (_trdpRtbLog == null || _trdpRtbLog.IsDisposed) return;
+            _trdpRtbLog.Clear();
+            _trdpRtbLog.ClearUndo();
+            _trdpLogLineCount = 0;
+        }
+
         private void TrdpAppendLog(string msg, TRDPSimulatorService.LogLevel level)
         {
             if (_trdpRtbLog == null || _trdpRtbLog.IsDisposed) return;
-            Color col = level == TRDPSimulatorService.LogLevel.OK
-                ? Color.FromArgb(80, 200, 120)
-                : level == TRDPSimulatorService.LogLevel.Fault
-                    ? Color.FromArgb(255, 100, 100)
-                    : level == TRDPSimulatorService.LogLevel.Warn
-                        ? Color.FromArgb(255, 210, 80)
-                        : Color.FromArgb(180, 180, 180);
-
-            string line = string.Format("[{0}] {1}\n", DateTime.Now.ToString("HH:mm:ss"), msg);
-            _trdpRtbLog.SelectionStart = _trdpRtbLog.TextLength;
-            _trdpRtbLog.SelectionLength = 0;
-            _trdpRtbLog.SelectionColor = col;
-            _trdpRtbLog.AppendText(line);
-            _trdpRtbLog.ScrollToCaret();
-            if (_trdpRtbLog.Lines.Length > 500)
+            try
             {
-                _trdpRtbLog.Select(0, _trdpRtbLog.GetFirstCharIndexFromLine(100));
-                _trdpRtbLog.SelectedText = "";
+                // 先整框清空再写，避免 SelectedText 裁剪导致 RTF/撤销缓冲膨胀后 ScrollToCaret OOM
+                if (_trdpLogLineCount >= TrdpLogMaxLines)
+                {
+                    TrdpClearLogBox();
+                    _trdpRtbLog.SelectionColor = Color.FromArgb(180, 180, 180);
+                    _trdpRtbLog.AppendText("[日志已截断，仅保留最新内容]\n");
+                    _trdpLogLineCount = 1;
+                    _trdpRtbLog.ClearUndo();
+                }
+
+                Color col = level == TRDPSimulatorService.LogLevel.OK
+                    ? Color.FromArgb(80, 200, 120)
+                    : level == TRDPSimulatorService.LogLevel.Fault
+                        ? Color.FromArgb(255, 100, 100)
+                        : level == TRDPSimulatorService.LogLevel.Warn
+                            ? Color.FromArgb(255, 210, 80)
+                            : Color.FromArgb(180, 180, 180);
+
+                string line = string.Format("[{0}] {1}\n", DateTime.Now.ToString("HH:mm:ss"), msg);
+                _trdpRtbLog.SelectionLength = 0;
+                _trdpRtbLog.SelectionColor = col;
+                _trdpRtbLog.AppendText(line);
+                _trdpLogLineCount++;
+                _trdpRtbLog.ClearUndo();
+            }
+            catch (OutOfMemoryException)
+            {
+                try { TrdpClearLogBox(); } catch { }
+            }
+            catch
+            {
+                try { TrdpClearLogBox(); } catch { }
             }
         }
 
