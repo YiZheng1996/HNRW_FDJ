@@ -974,53 +974,69 @@ namespace MainUI.Services
             //    }
             //};
 
-            // 逻辑计算部分
+            // 逻辑计算部分（各组独立检测，避免前一段异常把厂房气压等后续判据跳过）
 
-            // 燃油
-            var ryjfront1 = Common.fuelGrp["精滤器1前压力检测-P34"];
-            var ryjdown1 = Common.fuelGrp["精滤器1后压力检测-P35"];
-            bool Isfault1 = false;
-            if (Math.Abs(ryjfront1 - ryjdown1) > PressureDiff)
+            try
             {
-                Isfault1 = true;
-            }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault1 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "【燃油】精滤器1前后压差过大");
+                // 燃油
+                var ryjfront1 = Common.fuelGrp["精滤器1前压力检测-P34"];
+                var ryjdown1 = Common.fuelGrp["精滤器1后压力检测-P35"];
+                bool Isfault1 = false;
+                if (Math.Abs(ryjfront1 - ryjdown1) > PressureDiff)
+                {
+                    Isfault1 = true;
+                }
+                FaultStatusChange(FaultTypeEnum.calculate, Isfault1 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "【燃油】精滤器1前后压差过大");
 
-            var ryjfront2 = Common.fuelGrp["精滤器2前压力检测-P36"];
-            var ryjdown2 = Common.fuelGrp["精滤器2后压力检测-P37"];
-            bool Isfault2 = false;
-            if (Math.Abs(ryjfront2 - ryjdown2) > PressureDiff)
-            {
-                Isfault2 = true;
-            }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault2 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "【燃油】精滤器2前后压差过大");
+                var ryjfront2 = Common.fuelGrp["精滤器2前压力检测-P36"];
+                var ryjdown2 = Common.fuelGrp["精滤器2后压力检测-P37"];
+                bool Isfault2 = false;
+                if (Math.Abs(ryjfront2 - ryjdown2) > PressureDiff)
+                {
+                    Isfault2 = true;
+                }
+                FaultStatusChange(FaultTypeEnum.calculate, Isfault2 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "【燃油】精滤器2前后压差过大");
 
-            var rycfront1 = Common.fuelGrp["粗滤器1前压力检测-P30"];
-            var rycdown1 = Common.fuelGrp["粗滤器1后压力检测-P31"];
-            bool Isfault3 = false;
-            if (Math.Abs(rycfront1 - rycdown1) > PressureDiff)
-            {
-                Isfault3 = true;
-            }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault3 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "【燃油】粗滤器1前后压差过大");
+                var rycfront1 = Common.fuelGrp["粗滤器1前压力检测-P30"];
+                var rycdown1 = Common.fuelGrp["粗滤器1后压力检测-P31"];
+                bool Isfault3 = false;
+                if (Math.Abs(rycfront1 - rycdown1) > PressureDiff)
+                {
+                    Isfault3 = true;
+                }
+                FaultStatusChange(FaultTypeEnum.calculate, Isfault3 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "【燃油】粗滤器1前后压差过大");
 
-            var rycfront2 = Common.fuelGrp["粗滤器2前压力检测-P32"];
-            var rycdown2 = Common.fuelGrp["粗滤器2后压力检测-P33"];
-            bool Isfault4 = false;
-            if (Math.Abs(rycfront2 - rycdown2) > PressureDiff)
-            {
-                Isfault4 = true;
+                var rycfront2 = Common.fuelGrp["粗滤器2前压力检测-P32"];
+                var rycdown2 = Common.fuelGrp["粗滤器2后压力检测-P33"];
+                bool Isfault4 = false;
+                if (Math.Abs(rycfront2 - rycdown2) > PressureDiff)
+                {
+                    Isfault4 = true;
+                }
+                FaultStatusChange(FaultTypeEnum.calculate, Isfault4 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "【燃油】粗滤器2前后压差过大");
             }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault4 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "【燃油】粗滤器2前后压差过大");
+            catch (Exception ex)
+            {
+                Var.LogInfo("燃油滤器压差检测异常: " + ex.Message);
+            }
 
-            var pressure1 = Common.AIgrp["厂房进气压力检测1"];
-            var pressure2 = Common.AIgrp["厂房进气压力检测2"];
-            bool Isfault5 = false;
-            if (pressure1 < 400 || pressure2 < 400)
+            try
             {
-                Isfault5 = true;
+                double pressure1 = 0;
+                double pressure2 = 0;
+                var ai = Common.AIgrp != null ? Common.AIgrp.AIListData : null;
+                if (ai != null)
+                {
+                    ai.TryGetValue("厂房进气压力检测1", out pressure1);
+                    ai.TryGetValue("厂房进气压力检测2", out pressure2);
+                }
+                bool Isfault5 = pressure1 < 400 || pressure2 < 400;
+                FaultStatusChange(FaultTypeEnum.calculate, Isfault5 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "厂房总气压不足");
             }
-            FaultStatusChange(FaultTypeEnum.calculate, Isfault5 ? WarnTypeEnum.Alarm : WarnTypeEnum.None, "厂房总气压不足");
+            catch (Exception ex)
+            {
+                Var.LogInfo("厂房总气压检测异常: " + ex.Message);
+            }
 
 
 
@@ -1719,8 +1735,9 @@ namespace MainUI.Services
                 else
                     _ecmFaultConditions = CreateECMFaultConditions(); // 重新初始化ECM故障条件
 
-                // 判据键变了，重建状态字典（原代码这里没调，280必须加）
-                InitializeAllFaults();
+                // 判据键变了，只重建 ECM 状态。通讯/OPC/内部检测（如厂房总气压不足）必须保留，
+                // 否则会丢掉界面 BindControl，试验台报警灯不再刷新。
+                RebuildEcmFaultStates();
             }
             catch (Exception ex)
             {
@@ -1755,6 +1772,14 @@ namespace MainUI.Services
             _ecmFaultConditions = _ecmEngine.BuildConditions();
 
             // 仅重建 ECM 这一组的状态，其它类型(通讯/OPC/计算)不动
+            RebuildEcmFaultStates();
+        }
+
+        /// <summary>
+        /// 仅替换 ECM 故障状态；通讯/OPC/内部检测状态保持不变。
+        /// </summary>
+        private void RebuildEcmFaultStates()
+        {
             if (_faultGroups.TryGetValue(FaultTypeEnum.ecm, out var oldEcm) && oldEcm != null)
             {
                 foreach (var name in oldEcm)
@@ -1764,15 +1789,18 @@ namespace MainUI.Services
                 }
             }
             var ecmFaults = new List<string>();
-            foreach (var faultId in _ecmFaultConditions.Keys)
+            if (_ecmFaultConditions != null)
             {
-                _faultStates[faultId] = new FaultState()
+                foreach (var faultId in _ecmFaultConditions.Keys)
                 {
-                    Name = faultId,
-                    Desc = faultId,
-                    FaultType = FaultTypeEnum.ecm
-                };
-                ecmFaults.Add(faultId);
+                    _faultStates[faultId] = new FaultState()
+                    {
+                        Name = faultId,
+                        Desc = faultId,
+                        FaultType = FaultTypeEnum.ecm
+                    };
+                    ecmFaults.Add(faultId);
+                }
             }
             _faultGroups[FaultTypeEnum.ecm] = ecmFaults;
         }

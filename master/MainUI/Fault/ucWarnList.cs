@@ -949,10 +949,37 @@ namespace MainUI.Widget
         private void RefreshAfterModelChanged()
         {
             RebuildDynamicEcmWarns();
+            RebindTestBedFaultControls();
 
             // 让报警墙立刻反映新型号的当前故障态（新型号刚初始化通常全为正常）。
             // FaultCheckResend 只对当前活跃故障重发 FaultDetected，幂等、无副作用。
             try { Var.FaultService?.FaultCheckResend(); } catch { }
+        }
+
+        /// <summary>
+        /// 型号切换后把试验台内部检测标签重新挂到故障状态上，避免厂房气压等报警不再显示。
+        /// </summary>
+        private void RebindTestBedFaultControls()
+        {
+            if (Var.FaultService == null) return;
+            var items = Var.FaultService.GetAllFault();
+            foreach (var item1 in items)
+            {
+                if (item1.Key == FaultTypeEnum.ecm) continue;
+                foreach (var state in item1.Value)
+                {
+                    if (state == null || state.BindControl != null) continue;
+                    foreach (Control c in this.flowLayoutPanel2.Controls)
+                    {
+                        var lbl = c as Label;
+                        if (lbl != null && (lbl.Tag as string) == state.Name)
+                        {
+                            state.BindControl = lbl;
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>

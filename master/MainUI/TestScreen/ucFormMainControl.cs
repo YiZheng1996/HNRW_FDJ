@@ -191,6 +191,8 @@ namespace MainUI.TestScreen
                 LoadParaConfig(Var.SysConfig.LastModel);
                 // 加载配方
                 LoadPubConfig();
+                // 根据型号加载TRDP配置
+                LoadTRDPConfig();
                 EventTriggerModel.RaiseOnModelNameChanged(Var.SysConfig.LastModel);
 
                 // 从登录时填写的发动机编号回填出厂号字段

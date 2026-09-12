@@ -1,4 +1,4 @@
-﻿using MainUI.Config;
+using MainUI.Config;
 using MainUI.Config.Test;
 using MainUI.FSql;
 using MainUI.Global;
@@ -712,7 +712,7 @@ namespace MainUI
                 int oldPanel = ResolveStepPanelIndex(oldNode, oldSore);
                 if (oldPanel >= 0)
                 {
-                    if (cycleChanged)
+                    if (cycleChanged || MiddleData.instnce.CurrentStatusData.PhaseIndex == 1)
                         this.ucStepStatus1.ResetPanelRowsToWhite(oldPanel);
                     else
                         this.ucStepStatus1.MarkRowGray(oldPanel, oldPhase - 1);
